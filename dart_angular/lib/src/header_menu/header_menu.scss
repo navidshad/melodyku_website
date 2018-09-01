@@ -1,0 +1,17 @@
+@import 'package:angular_components/app_layout/mixins';
+@import '../styles/colors';
+@import '../styles/buttons';
+
+:host {
+    /* This is equivalent of the 'body' selector of a page. */
+}
+
+.material-header {
+    background: $menu-color;
+}
+
+.material-header-title[dir="rtl"]{
+    float: right;
+    right: 80px;
+    left: auto;
+}
