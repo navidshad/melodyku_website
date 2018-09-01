@@ -1,0 +1,14 @@
+@import 'colors';
+
+material-drawer[persistent], .drawer-list{
+    background-color: $menu-color;
+}
+
+.material-icon-size{
+    font-size: 50px;
+}
+
+.custom-width {
+    @include mat-drawer-width(10%);
+    @include mat-temporary-drawer-width(10%);
+}

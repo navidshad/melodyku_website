@@ -1,0 +1,31 @@
+@import 'colors';
+
+@mixin border-radius($rad) {
+    -webkit-border-radius: $rad;
+    -moz-border-radius: $rad;
+    -ms-border-radius: $rad;
+    border-radius: $rad;
+}
+
+.button {
+    color: $white-color;
+    background: $lightblue-color;
+}
+
+.button-small {
+    @extend .button;
+    @include border-radius(10px);
+    font-size: 14px;
+}
+
+.button-mediom {
+    @extend .button;
+    @include border-radius(30px);
+    font-size: 24px;
+}
+
+.button-big {
+    @extend .button;
+    @include border-radius(50px);
+    font-size: 34px;
+}
