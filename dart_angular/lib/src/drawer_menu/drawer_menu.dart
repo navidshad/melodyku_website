@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -16,6 +17,7 @@ import 'menu_items.dart';
 
   directives: const [
     coreDirectives,
+    routerDirectives,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,

@@ -10,7 +10,8 @@ environment:
 dependencies:
   angular: ^5.0.0-beta
   angular_components: ^0.9.0-beta
-  bootstrap_sass: any
+  bootstrap_sass: 
+  angular_router: 
 
 dev_dependencies:
   angular_test: ^2.0.0-beta

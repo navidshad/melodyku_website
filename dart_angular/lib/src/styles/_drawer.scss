@@ -5,6 +5,7 @@
 material-drawer[persistent] {
     background-color: $menu-color;
     position: fixed;
+    box-shadow: -4px 0 20px 5px #101321;
 }
 
 .custom-width {
