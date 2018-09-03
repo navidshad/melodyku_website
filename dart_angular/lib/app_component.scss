@@ -1,8 +1,14 @@
 @import 'package:angular_components/app_layout/mixins';
-@import 'src/styles/drawer';
+
 @import 'src/styles/colors';
 @import 'src/styles/buttons';
+@import 'src/styles/drawer';
+
 
 :host {
     /* This is equivalent of the 'body' selector of a page. */
+}
+
+.content-body {
+    color: white;
 }

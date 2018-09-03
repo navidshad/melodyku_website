@@ -14,12 +14,11 @@ import 'package:angular_components/material_icon/material_icon.dart';
   directives: [
     MaterialButtonComponent,
     MaterialIconComponent,
-    MaterialIconComponent,
   ],
   )
 class HeaderMenu 
 {
-  String title = 'ملودیکو';
+  String title = 'رسانه موسیقی ملودیکو';
   String register = 'ثبت نام';
   String login = 'ورود';
 

@@ -1,14 +1,12 @@
+@import 'package:angular_components/app_layout/mixins';
+
 @import 'colors';
 
-material-drawer[persistent], .drawer-list{
+material-drawer[persistent] {
     background-color: $menu-color;
-}
-
-.material-icon-size{
-    font-size: 50px;
+    position: fixed;
 }
 
 .custom-width {
-    @include mat-drawer-width(10%);
-    @include mat-temporary-drawer-width(10%);
+    @include mat-drawer-width(100px);
 }
