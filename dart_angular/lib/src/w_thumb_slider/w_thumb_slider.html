@@ -1,0 +1,21 @@
+<div class="container" >
+    <div class="prev"><div class="navigator"></div></div>
+    <div class="next"><div class="navigator"></div></div>
+    <div class="slider">
+        <div>{{title}}</div>
+        <div class='thumbs'>
+            <div *ngFor="let item of items" class="item">
+                <div class="cover" [style.width.px]="item.width" [style.height.px]="item.height">
+                    <img [attr.src]="item.thumbnail" [attr.width]="item.width">
+                    <div class="overlay" [style.width.px]="item.width" [style.height.px]="item.height">
+                        <img class="play" src="/assets/imgs/icons/play.png">
+                    </div>
+                </div>
+                <div class="info">
+                    <span class="title">{{item.title}}</span><br>
+                    <span class="subtitle" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

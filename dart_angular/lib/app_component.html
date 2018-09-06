@@ -5,6 +5,8 @@
 
 <div class="material-content">
     <header-menu [menuDrawer]="drawer"></header-menu>
-    <router-outlet [routes]="Routes.all" ></router-outlet>
+    <div class="content-body">
+      <router-outlet [routes]="Routes.all" ></router-outlet>
+    </div>
 </div>
 
