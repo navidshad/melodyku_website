@@ -11,13 +11,21 @@ import 'slider_item.dart';
     ],
   directives: [coreDirectives],
 )
-class ThumbSlider {
+class ThumbSlider 
+{
   String title = 'تازه ها';
   int height = 200;
-  
+  int boxSize = 128;
+  int move = 0;
+
   ThumbSlider();
 
   List<SliderItem> items = mockSliderItems;
+
+  void next() => move += boxSize;
+  void prev() => move -= boxSize;
+
+  String moveSlider() => "translateX(${move}px)";
 }
 
 int tWidth = 128;
