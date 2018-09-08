@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Material+Icons);
+@import Url(/assets/css/fontface_fa.css);
 
 body {
   background: #15182b;
@@ -8,5 +9,5 @@ body {
 }
 
 * {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: iransansz, Roboto, Helvetica, Arial, sans-serif;
 }

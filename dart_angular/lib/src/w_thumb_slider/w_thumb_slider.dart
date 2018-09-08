@@ -9,7 +9,9 @@ import 'slider_item.dart';
     'w_thumb_slider.scss.css',
     'slider_item.scss.css'
     ],
-  directives: [coreDirectives],
+  directives: [
+    coreDirectives,
+    ],
 )
 class ThumbSlider 
 {
