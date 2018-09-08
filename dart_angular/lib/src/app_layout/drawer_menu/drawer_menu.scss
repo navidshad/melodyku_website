@@ -1,8 +1,8 @@
 @import 'package:angular_components/material_icon/mixins';
 @import 'package:angular_components/material_list/mixins';
 
-@import '../styles/colors';
-@import '../styles/effects';
+@import '../../styles/colors';
+@import '../../styles/effects';
 
 .drawer-list{
     @include material-item-background($menu-color);

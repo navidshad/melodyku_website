@@ -3,8 +3,7 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'src/header_menu/header_menu.dart';
-import 'src/drawer_menu/drawer_menu.dart';
+import 'src/app_layout/app_layout.dart';
 import 'src/routting/routes.dart';
 
 @Component(

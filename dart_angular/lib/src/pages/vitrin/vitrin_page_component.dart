@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import '../w_thumb_slider/w_thumb_slider.dart';
+import '../../widgets/w_thumb_slider/w_thumb_slider.dart';
 
 @Component(
   selector: 'page',
