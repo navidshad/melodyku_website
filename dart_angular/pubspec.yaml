@@ -12,6 +12,7 @@ dependencies:
   angular_components: ^0.9.0-beta
   bootstrap_sass: 
   angular_router: 
+  http : ^0.11.3+17
 
 dev_dependencies:
   angular_test: ^2.0.0-beta

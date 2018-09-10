@@ -1,0 +1,29 @@
+<div class='container'>
+
+    <div>{{title}}</div>
+    <div class="grid">
+
+        <div *ngFor="let item of items; let i=index" dir="rtl">
+            
+            <div class="card">
+
+                <div class="number">{{i}}</div>
+                <div class="cover"></div>
+    
+                <div class="titles">
+                    <h3>{{item.title}}</h3>
+                    <h4 *ngIf="item.subtitle != null">{{item.subtitle}}</h4>
+                </div>
+    
+                <div class="length"></div>
+
+                <div class="more"></div>
+
+            </div>
+
+            <div class="bottom-line"></div>
+
+        </div>
+
+    </div>
+</div>

@@ -6,6 +6,8 @@ import 'package:angular_router/angular_router.dart';
 import 'src/app_layout/app_layout.dart';
 import 'src/routting/routes.dart';
 
+import 'src/services/content_service.dart';
+
 @Component(
   selector: 'my-app',
   styleUrls: [
@@ -21,6 +23,7 @@ import 'src/routting/routes.dart';
     DrawerMenu,
     HeaderMenu,
   ],
+  providers: [ ClassProvider(ContentService) ],
   exports: [RoutePaths, Routes]
 )
 class AppComponent 

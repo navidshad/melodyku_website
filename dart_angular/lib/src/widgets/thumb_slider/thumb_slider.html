@@ -1,17 +1,16 @@
+<div>{{title}}</div>
 <div class="container" >
     <div class="prev"><div class="navigator" (click)="prev()"></div></div>
     <div class="next"><div class="navigator" (click)="next()"></div></div>
     <div class="slider">
 
-        <div>{{title}}</div>
-
         <div class='thumbs' [style.transform]="moveSlider()">
 
             <div *ngFor="let item of items" class="item">
 
-                <div class="cover" [style.width.px]="item.width" [style.height.px]="item.height">
-                    <img [attr.src]="item.thumbnail" [attr.width]="item.width">
-                    <div class="overlay" [style.width.px]="item.width" [style.height.px]="item.height">
+                <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
+                    <img [attr.src]="item.thumbnail" [attr.width]="boxSize">
+                    <div class="overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
                         <img class="play" src="/assets/imgs/icons/play.png">
                     </div>
                 </div>

@@ -1,0 +1,34 @@
+.container {
+    margin-top: 20px;
+}
+
+$columnWidth : 300px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($columnWidth, 1fr));
+    grid-auto-rows: repeat(auto);
+    grid-column-gap: 30px;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card div {
+    flex-grow: 1;
+}
+
+.number {
+	font-family: IRANSans;
+	font-style: normal;
+    font-weight: bold;
+    font-size: 60px;
+}
+
+.bottom-line {
+    background: linear-gradient(to left, #ffffff2c, #ffffff00);
+    height: 1px;
+    width: 100%;
+}
