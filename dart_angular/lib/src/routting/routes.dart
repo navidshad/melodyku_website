@@ -18,7 +18,14 @@ class Routes
     component: artists_page_template.ArtistsPageComponentNgFactory,
   );
 
+  // redirect to home
+  static final rToHome = RouteDefinition.redirect(
+    path: '',
+    redirectTo: RoutePaths.vitrin.toUrl()
+  );
+
   static final all = <RouteDefinition>[
+    rToHome,
     vitrin,
     artists,
   ];

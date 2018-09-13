@@ -3,6 +3,7 @@ import 'package:angular/angular.dart';
 
 import '../widgets.dart';
 import '../../services/content_service.dart';
+import '../../utility/math.dart';
 
 @Component(
   selector:'thumb-list',
@@ -12,8 +13,12 @@ import '../../services/content_service.dart';
 )
 class ThumbList implements OnInit 
 {
-  String title = 'ترانه های برتر';
+  int boxSize = 60;
+  int count = 15;
 
+  @Input()
+  String title;
+  
   @Input()
   bool numerical;
 
@@ -31,13 +36,19 @@ class ThumbList implements OnInit
       final List medias = await _contentService.getMedias();
       items = [];
 
-      for (var i = 0; i < medias.length; i++) {
+      for (var i = 0; i < count; i++) {
         var media = medias[i];
+        var tempNum = i+1;
+        String number = (tempNum < 10) ? '0' + tempNum.toString() : tempNum.toString();
+        
         ThumbListItem item = ThumbListItem(
           media['title'], 
           subtitle: media['albumartist'],
           thumbnail: Uri(path: media['cover']),
+          number: number,
+          length: randomRange(120, 560)
           );
+
         items.add(item);
       }
 

@@ -7,17 +7,33 @@
             
             <div class="card">
 
-                <div class="number">{{i}}</div>
-                <div class="cover"></div>
-    
-                <div class="titles">
-                    <h3>{{item.title}}</h3>
-                    <h4 *ngIf="item.subtitle != null">{{item.subtitle}}</h4>
+                <div *ngIf="numerical" class="number">{{item.number}}</div>
+
+                <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
+                    <a href="#">
+                        <img [attr.src]="item.thumbnail" [attr.width]="boxSize">
+                        <div class="overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
+                            <img class="play" src="/assets/imgs/icons/play.png">
+                        </div>
+                    </a>
                 </div>
     
-                <div class="length"></div>
+                <div class="titles">
+                    <p>
+                        <span class="title">{{item.title}}</span><br>
+                        <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
+                    </p>
+                </div>
+    
+                <div class="length">
+                    <span>{{item.getDuration()}}</span>
+                </div>
 
-                <div class="more"></div>
+                <div class="more">
+                    <a href="#">
+                        <img class="play" src="/assets/imgs/icons/more.png">
+                    </a>
+                </div>
 
             </div>
 
