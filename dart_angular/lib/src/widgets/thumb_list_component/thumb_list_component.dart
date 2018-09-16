@@ -7,14 +7,14 @@ import '../../utility/math.dart';
 
 @Component(
   selector:'thumb-list',
-  templateUrl: 'thumb_list.html',
-  styleUrls: ['thumb_list.scss.css'],
+  templateUrl: 'thumb_list_component.html',
+  styleUrls: ['thumb_list_component.scss.css'],
   directives: [ 
     coreDirectives,
     ListCardComponent,
     ]
 )
-class ThumbList implements OnInit 
+class ThumbListComponent implements OnInit 
 {
   int boxSize = 60;
   int count = 15;
@@ -28,7 +28,7 @@ class ThumbList implements OnInit
   final ContentService _contentService;
   List<ListItem> items;
 
-  ThumbList(this._contentService);
+  ThumbListComponent(this._contentService);
   void ngOnInit() => _getItems();
 
   Future<void> _getItems() async 

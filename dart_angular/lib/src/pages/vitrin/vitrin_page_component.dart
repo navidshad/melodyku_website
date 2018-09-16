@@ -8,9 +8,9 @@ import '../../widgets/widgets.dart';
     'vitrin_page_component.scss.css',
   ],
   directives: [
-    ThumbSlider,
-    ThumbList,
-    Grid,
+    ThumbSliderComponent,
+    ThumbListComponent,
+    GridComponent,
   ],
   )
 class VitrinPageComponent 

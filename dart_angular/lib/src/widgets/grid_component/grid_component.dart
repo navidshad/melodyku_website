@@ -6,14 +6,14 @@ import '../widgets.dart';
 
 @Component(
   selector: 'grid',
-  templateUrl: 'grid.html',
-  styleUrls: [ 'grid.scss.css' ],
+  templateUrl: 'grid_component.html',
+  styleUrls: [ 'grid_component.scss.css' ],
   directives: [
     coreDirectives,
-    GridCard,
+    GridCardComponent,
     ],
 )
-class Grid implements OnInit
+class GridComponent implements OnInit
 {
   @Input()
   String title;
@@ -24,7 +24,7 @@ class Grid implements OnInit
   ContentService _contentService;
   List<Card> items;
   
-  Grid(this._contentService);
+  GridComponent(this._contentService);
   void ngOnInit() => _getItems();
 
   Future<void> _getItems() async

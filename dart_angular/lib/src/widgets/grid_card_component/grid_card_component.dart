@@ -3,11 +3,11 @@ import '../class/card.dart';
 
 @Component(
   selector: 'grid-card',
-  templateUrl: 'grid_card.html',
-  styleUrls: ['grid_card.scss.css'],
+  templateUrl: 'grid_card_component.html',
+  styleUrls: ['grid_card_component.scss.css'],
   directives: [coreDirectives],
 )
-class GridCard 
+class GridCardComponent
 {
   @Input()
   Card card;
