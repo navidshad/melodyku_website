@@ -1,0 +1,100 @@
+@import '../../styles/effects';
+@import '../../styles/colors';
+
+.card-container{
+    height: 100px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-areas: "n c t t t t t l m";
+    grid-column-gap: 30px;
+    align-items: center;
+
+    .number {
+        @include unselectable;
+        font-family: IRANSans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 60px;
+        color: $boldNumber;
+
+        grid-area: n;
+        position: relative;
+        top: 4px;
+    }
+
+    .titles {
+        @include unselectable;
+        grid-area: t;
+        .title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .sub{
+            font-size: 12px;
+        }
+    }
+    
+    .length{
+        @include unselectable;
+        grid-area: l;
+    }
+    
+    .more {
+        grid-area: m;
+        img{
+            filter: brightness(30%);
+            -webkit-filter: brightness(30%);
+        }
+    }
+}
+
+.card:hover {
+    img {
+        filter: grayscale(100%) grayscale(200%);
+        -webkit-filter: grayscale(100%) grayscale(200%);
+    }
+    .overlay{
+        opacity: 100;
+    }
+    .number{
+        color: #ffffff;
+    }
+    .title {
+        color: $lightblue-color;
+    }
+    .more img {
+        filter: opacity(100%);
+        -webkit-filter: opacity(100%);
+    }
+}
+
+$coversize: 60px;
+.cover {
+    border-radius: 5px;
+    overflow: hidden;
+    width: $coversize;
+    height: $coversize;
+
+    .overlay {
+        @include overlay_card;
+        background: $hoverGradient;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box {
+        widows: 100%;
+        height: 100%;
+    }
+}
+
+.bottom-line {
+    background: linear-gradient(to left, #ffffff2c, #ffffff00);
+    height: 1px;
+    width: 100%;
+}

@@ -1,0 +1,35 @@
+<div class="card-container">
+    <div class="card">
+
+        <div *ngIf="numerical" class="number">{{item.number}}</div>
+    
+        <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
+            <a href="#">
+                <img class="box" [attr.src]="item.thumbnail">
+                <div class="box overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
+                    <img class="play" src="/assets/imgs/icons/play.png">
+                </div>
+            </a>
+        </div>
+    
+        <div class="titles">
+            <p>
+                <span class="title">{{item.title}}</span><br>
+                <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
+            </p>
+        </div>
+    
+        <div class="length">
+            <span>{{item.getDuration()}}</span>
+        </div>
+    
+        <div class="more">
+            <a href="#">
+                <img class="play" src="/assets/imgs/icons/more.png">
+            </a>
+        </div>
+    
+    </div>
+    
+    <div class="bottom-line"></div>
+</div>

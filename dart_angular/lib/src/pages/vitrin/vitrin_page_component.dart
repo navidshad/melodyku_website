@@ -10,6 +10,7 @@ import '../../widgets/widgets.dart';
   directives: [
     ThumbSlider,
     ThumbList,
+    Grid,
   ],
   )
 class VitrinPageComponent 

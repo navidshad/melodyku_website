@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="cover box">
+        <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
+        <div class="overlay box">
+            <a href="#">
+                <img class="play" src="/assets/imgs/icons/play.png">
+            </a>
+        </div>
+    </div>
+    
+    <div class="info">
+        <span class="title">{{card.title}}</span><br>
+        <span class="subtitle" *ngIf="card.subtitle != null">{{card.subtitle}}</span>
+    </div>
+</div>

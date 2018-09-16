@@ -3,43 +3,11 @@
     <div>{{title}}</div>
     <div class="grid">
 
-        <div *ngFor="let item of items; let i=index" dir="rtl">
-            
-            <div class="card">
-
-                <div *ngIf="numerical" class="number">{{item.number}}</div>
-
-                <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
-                    <a href="#">
-                        <img [attr.src]="item.thumbnail" [attr.width]="boxSize">
-                        <div class="overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
-                            <img class="play" src="/assets/imgs/icons/play.png">
-                        </div>
-                    </a>
-                </div>
-    
-                <div class="titles">
-                    <p>
-                        <span class="title">{{item.title}}</span><br>
-                        <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
-                    </p>
-                </div>
-    
-                <div class="length">
-                    <span>{{item.getDuration()}}</span>
-                </div>
-
-                <div class="more">
-                    <a href="#">
-                        <img class="play" src="/assets/imgs/icons/more.png">
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="bottom-line"></div>
-
-        </div>
+        <list-card  *ngFor="let item of items; let i=index" dir="rtl"
+            [item]='item' 
+            [numerical]='numerical' 
+            [boxSize]='boxSize'>
+        </list-card>
 
     </div>
 </div>

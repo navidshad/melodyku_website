@@ -7,11 +7,11 @@ import '../../services/content_service.dart';
 @Component(
   selector: 'thumb-slider',
   templateUrl: 'thumb_slider.html',
-  styleUrls: [
-    'thumb_slider.scss.css',
-    'slider_item.scss.css'
-  ],
-  directives: [ coreDirectives ],
+  styleUrls: [ 'thumb_slider.scss.css' ],
+  directives: [ 
+    coreDirectives,
+    GridCard,
+   ],
 )
 class ThumbSlider implements OnInit
 {
@@ -21,7 +21,7 @@ class ThumbSlider implements OnInit
   int move = 0;
 
   final ContentService _contentService;
-  List<SliderCard> items;
+  List<Card> items;
 
   ThumbSlider(this._contentService);
   void ngOnInit() => _getItems();
@@ -40,7 +40,7 @@ class ThumbSlider implements OnInit
 
       for (var i = 0; i < artists.length; i++) {
         var singer = artists[i];
-        SliderCard item = SliderCard(singer['name'], thumbnail: Uri(path: singer['cover']));
+        Card item = Card(singer['name'], thumbnail: Uri(path: singer['cover']));
         items.add(item);
       }
 

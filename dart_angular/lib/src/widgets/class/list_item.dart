@@ -1,4 +1,4 @@
-class ThumbListItem {
+class ListItem {
     String title;
     String subtitle;
     
@@ -8,7 +8,7 @@ class ThumbListItem {
     Uri titleLink;
     Uri thumbnail;
 
-    ThumbListItem(this.title, {this.subtitle,  this.length, this.number, this.titleLink, this.thumbnail});
+    ListItem(this.title, {this.subtitle,  this.length, this.number, this.titleLink, this.thumbnail});
 
     String getDuration()
     {

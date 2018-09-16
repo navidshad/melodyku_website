@@ -9,7 +9,10 @@ import '../../utility/math.dart';
   selector:'thumb-list',
   templateUrl: 'thumb_list.html',
   styleUrls: ['thumb_list.scss.css'],
-  directives: [ coreDirectives ]
+  directives: [ 
+    coreDirectives,
+    ListCardComponent,
+    ]
 )
 class ThumbList implements OnInit 
 {
@@ -23,7 +26,7 @@ class ThumbList implements OnInit
   bool numerical;
 
   final ContentService _contentService;
-  List<ThumbListItem> items;
+  List<ListItem> items;
 
   ThumbList(this._contentService);
   void ngOnInit() => _getItems();
@@ -41,7 +44,7 @@ class ThumbList implements OnInit
         var tempNum = i+1;
         String number = (tempNum < 10) ? '0' + tempNum.toString() : tempNum.toString();
         
-        ThumbListItem item = ThumbListItem(
+        ListItem item = ListItem(
           media['title'], 
           subtitle: media['albumartist'],
           thumbnail: Uri(path: media['cover']),

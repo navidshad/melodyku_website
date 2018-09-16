@@ -6,21 +6,9 @@
 
         <div class='thumbs' [style.transform]="moveSlider()">
 
-            <div *ngFor="let item of items" class="item">
-
-                <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
-                    <div><img [attr.src]="item.thumbnail" [attr.width]="boxSize"></div>
-                    <div class="overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
-                        <img class="play" src="/assets/imgs/icons/play.png">
-                    </div>
-                </div>
-
-                <div class="info">
-                    <span class="title">{{item.title}}</span><br>
-                    <span class="subtitle" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
-                </div>
-
-            </div>
+            <grid-card *ngFor="let item of items" 
+                [card]="item">
+            </grid-card>
 
         </div>
     </div>

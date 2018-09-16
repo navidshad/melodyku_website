@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+@import '../../styles/effects';
+
+.card {
+    margin: 10px;
+    @include unselectable;
+}
+
+.cover {
+    border-radius: 5px;
+    overflow: hidden;
+
+    .overlay {
+        @include overlay_card;
+        background: $hoverGradient;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .overlay:hover{
+        opacity: 100;
+    }
+}
+
+.info {
+    margin-top: 5px;
+}
+
+$boxsize: 200px;
+.box {
+    width: $boxsize;
+    height: $boxsize;
+}

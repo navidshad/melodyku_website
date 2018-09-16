@@ -1,0 +1,8 @@
+$boxsize: 200px;
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, $boxsize);
+	justify-content: space-between;
+    grid-column-gap: 10px;
+    grid-row-gap: 25px;
+}
