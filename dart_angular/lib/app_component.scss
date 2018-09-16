@@ -12,3 +12,10 @@
 .content-body {
     padding: 5px 80px 0px 80px;
 }
+
+@media all and (max-width: 880px)
+{
+    .content-body {
+        padding: 5px 20px 0px 20px;
+    }
+}

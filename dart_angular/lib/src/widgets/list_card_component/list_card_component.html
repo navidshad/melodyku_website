@@ -1,5 +1,5 @@
 <div class="card-container">
-    <div class="card">
+    <div class="card" [class.not-numerical]="!numerical">
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
     

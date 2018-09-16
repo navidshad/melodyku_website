@@ -6,3 +6,10 @@ $boxsize: 200px;
     grid-column-gap: 10px;
     grid-row-gap: 25px;
 }
+
+@media all and (max-width: 755px)
+{
+    .grid{
+		justify-content: center;
+	}
+}
