@@ -3,11 +3,11 @@
     <div>{{title}}</div>
     <div class="grid">
 
-        <list-card  *ngFor="let item of items; let i=index" dir="rtl"
+        <card-wide  *ngFor="let item of items; let i=index" dir="rtl"
             [item]='item' 
             [numerical]='numerical' 
             [boxSize]='boxSize'>
-        </list-card>
+        </card-wide>
 
     </div>
 </div>

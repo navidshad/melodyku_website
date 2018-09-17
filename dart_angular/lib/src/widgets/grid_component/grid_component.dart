@@ -5,12 +5,12 @@ import '../../services/content_service.dart';
 import '../widgets.dart';
 
 @Component(
-  selector: 'grid',
+  selector: 'grid-rect',
   templateUrl: 'grid_component.html',
   styleUrls: [ 'grid_component.scss.css' ],
   directives: [
     coreDirectives,
-    GridCardComponent,
+    CardRectComponent,
     ],
 )
 class GridComponent implements OnInit

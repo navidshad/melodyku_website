@@ -8,8 +8,8 @@ import '../../widgets/widgets.dart';
     'vitrin_page_component.scss.css',
   ],
   directives: [
-    ThumbSliderComponent,
-    ThumbListComponent,
+    SliderRectComponent,
+    ListWideComponent,
     GridComponent,
   ],
   )

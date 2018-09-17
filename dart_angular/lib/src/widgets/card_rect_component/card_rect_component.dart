@@ -2,12 +2,12 @@ import 'package:angular/angular.dart';
 import '../class/card.dart';
 
 @Component(
-  selector: 'grid-card',
-  templateUrl: 'grid_card_component.html',
-  styleUrls: ['grid_card_component.scss.css'],
+  selector: 'card-rect',
+  templateUrl: 'card_rect_component.html',
+  styleUrls: ['card_rect_component.scss.css'],
   directives: [coreDirectives],
 )
-class GridCardComponent
+class CardRectComponent
 {
   @Input()
   Card card;

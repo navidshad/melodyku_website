@@ -6,15 +6,15 @@ import '../../services/content_service.dart';
 import '../../utility/math.dart';
 
 @Component(
-  selector:'thumb-list',
-  templateUrl: 'thumb_list_component.html',
-  styleUrls: ['thumb_list_component.scss.css'],
+  selector:'list-wide',
+  templateUrl: 'list_wide_component.html',
+  styleUrls: ['list_wide_component.scss.css'],
   directives: [ 
     coreDirectives,
-    ListCardComponent,
+    CardWideComponent,
     ]
 )
-class ThumbListComponent implements OnInit 
+class ListWideComponent implements OnInit 
 {
   int boxSize = 60;
   int count = 15;
@@ -28,7 +28,7 @@ class ThumbListComponent implements OnInit
   final ContentService _contentService;
   List<ListItem> items;
 
-  ThumbListComponent(this._contentService);
+  ListWideComponent(this._contentService);
   void ngOnInit() => _getItems();
 
   Future<void> _getItems() async 

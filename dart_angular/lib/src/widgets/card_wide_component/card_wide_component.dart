@@ -3,12 +3,12 @@ import 'package:angular/angular.dart';
 import '../class/list_item.dart';
 
 @Component(
-  selector: 'list-card',
-  templateUrl: 'list_card_component.html',
-  styleUrls: ['list_card_component.scss.css'],
+  selector: 'card-wide',
+  templateUrl: 'card_wide_component.html',
+  styleUrls: ['card_wide_component.scss.css'],
   directives: [coreDirectives]
 )
-class ListCardComponent 
+class CardWideComponent 
 {
   @Input()
   ListItem item;

@@ -5,15 +5,15 @@ import '../widgets.dart';
 import '../../services/content_service.dart';
 
 @Component(
-  selector: 'thumb-slider',
-  templateUrl: 'thumb_slider_component.html',
-  styleUrls: [ 'thumb_slider_component.scss.css' ],
+  selector: 'slider-rect',
+  templateUrl: 'slider_rect_component.html',
+  styleUrls: [ 'slider_rect_component.scss.css' ],
   directives: [ 
     coreDirectives,
-    GridCardComponent,
+    CardRectComponent,
    ],
 )
-class ThumbSliderComponent implements OnInit
+class SliderRectComponent implements OnInit
 {
   String title = 'تازه ها';
   int height = 250;
@@ -23,7 +23,7 @@ class ThumbSliderComponent implements OnInit
   final ContentService _contentService;
   List<Card> items;
 
-  ThumbSliderComponent(this._contentService);
+  SliderRectComponent(this._contentService);
   void ngOnInit() => _getItems();
 
   void next() => move += boxSize;
