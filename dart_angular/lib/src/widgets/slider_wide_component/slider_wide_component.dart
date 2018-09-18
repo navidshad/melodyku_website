@@ -5,17 +5,17 @@ import '../widgets.dart';
 import '../../services/content_service.dart';
 
 @Component(
-  selector: 'slider-rect',
-  templateUrl: 'slider_rect_component.html',
-  styleUrls: [ 'slider_rect_component.scss.css' ],
-  directives: [ 
+  selector: 'slider-wide',
+  templateUrl: 'slider_wide_component.html',
+  styleUrls: ['slider_wide_component.scss'],
+  directives: [
     coreDirectives,
-    CardRectComponent,
-   ],
+    CardWideComponent
+  ]
 )
-class SliderRectComponent implements OnInit
+class sliderWideComponent implements OnInit
 {
-  String title = 'تازه ها';
+  String title = '';
   int height = 250;
   int itemSize = 200;
   int move = 0;
@@ -23,7 +23,7 @@ class SliderRectComponent implements OnInit
   final ContentService _contentService;
   List<Card> items;
 
-  SliderRectComponent(this._contentService);
+  sliderWideComponent(this._contentService);
   void ngOnInit() => _getItems();
 
   void next() => move += itemSize;
