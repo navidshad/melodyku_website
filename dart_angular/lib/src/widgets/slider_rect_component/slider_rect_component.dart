@@ -1,8 +1,7 @@
 import 'package:angular/angular.dart';
-import 'dart:async';
 
 import '../widgets.dart';
-import '../../services/content_service.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -13,39 +12,19 @@ import '../../services/content_service.dart';
     CardRectComponent,
    ],
 )
-class SliderRectComponent implements OnInit
+class SliderRectComponent
 {
-  String title = 'تازه ها';
   int height = 250;
   int itemSize = 200;
   int move = 0;
+  
+  @Input()
+  String title;
 
-  final ContentService _contentService;
+  @Input()
   List<Card> items;
-
-  SliderRectComponent(this._contentService);
-  void ngOnInit() => _getItems();
 
   void next() => move += itemSize;
   void prev() => move -= itemSize;
   String moveSlider() => "translateX(${move}px)";
-
-  Future<void> _getItems() async 
-  {
-    print('ThumbSlider: getting items');
-    try {
-
-      final List artists = await _contentService.getArtists();
-      items = [];
-
-      for (var i = 0; i < artists.length; i++) {
-        var singer = artists[i];
-        Card item = Card(singer['name'], thumbnail: Uri(path: singer['cover']));
-        items.add(item);
-      }
-
-    } catch (e) {
-      print(e);
-    }
-  }
 }

@@ -1,7 +1,3 @@
-// classes
-export 'class/card.dart';
-export 'class/list_item.dart';
-
 // widgets components
 export 'card_rect_component/card_rect_component.dart';
 export 'card_wide_component/card_wide_component.dart';

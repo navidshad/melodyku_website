@@ -18,3 +18,27 @@ String getSongDuration(int length)
 
   return duration;
 }
+
+String getDigitStyle(int number, int totalZero)
+{
+  String digit = number.toString();
+
+  int length = number.toString().length;
+  if(length <= totalZero ){
+    int totalInjectedZero = totalZero - length;
+    digit = injectZero(totalInjectedZero, number);
+  }
+
+  return digit;
+}
+
+String injectZero(int total, int number)
+{
+  String digit = '';
+  for (var i = 0; i < total; i++) {
+    digit += '0';
+  }
+
+  digit += number.toString();
+  return digit;
+}

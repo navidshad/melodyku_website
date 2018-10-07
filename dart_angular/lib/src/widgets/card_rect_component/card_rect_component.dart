@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import '../class/card.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector: 'card-rect',

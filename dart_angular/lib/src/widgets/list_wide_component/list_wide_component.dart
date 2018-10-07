@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:angular/angular.dart';
 
 import '../widgets.dart';
-import '../../services/content_service.dart';
-import '../../utility/math.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector:'list-wide',
@@ -14,9 +12,9 @@ import '../../utility/math.dart';
     CardWideComponent,
     ]
 )
-class ListWideComponent implements OnInit 
+class ListWideComponent
 {
-  int boxSize = 60;
+  int boxSize = 50;
   int count = 15;
 
   @Input()
@@ -25,38 +23,6 @@ class ListWideComponent implements OnInit
   @Input()
   bool numerical;
 
-  final ContentService _contentService;
+  @Input()
   List<ListItem> items;
-
-  ListWideComponent(this._contentService);
-  void ngOnInit() => _getItems();
-
-  Future<void> _getItems() async 
-  {
-    print('ThumbList: getting items');
-    try {
-
-      final List medias = await _contentService.getMedias();
-      items = [];
-
-      for (var i = 0; i < count; i++) {
-        var media = medias[i];
-        var tempNum = i+1;
-        String number = (tempNum < 10) ? '0' + tempNum.toString() : tempNum.toString();
-        
-        ListItem item = ListItem(
-          media['title'], 
-          subtitle: media['albumartist'],
-          thumbnail: Uri(path: media['cover']),
-          number: number,
-          length: randomRange(120, 560)
-          );
-
-        items.add(item);
-      }
-
-    } catch (e) {
-      print(e);
-    }
-  }
 }

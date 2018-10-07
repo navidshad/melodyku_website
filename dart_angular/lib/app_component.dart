@@ -6,7 +6,7 @@ import 'package:angular_router/angular_router.dart';
 import 'src/app_layout/app_layout.dart';
 import 'src/routting/routes.dart';
 
-import 'src/services/content_service.dart';
+import 'src/services/services.dart';
 
 @Component(
   selector: 'my-app',
@@ -22,8 +22,9 @@ import 'src/services/content_service.dart';
     DeferredContentDirective,
     DrawerMenu,
     HeaderMenu,
+    FooterComponent
   ],
-  providers: [ ClassProvider(ContentService) ],
+  providers: [ ClassProvider(ContentProvider) ],
   exports: [RoutePaths, Routes]
 )
 class AppComponent 

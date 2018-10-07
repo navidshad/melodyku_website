@@ -8,12 +8,11 @@
     justify-content: space-around;
 }
 
-$columnGap: 20px;
+$columnGap: 10px;
 .card {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-areas: "n c t t t t t l m";
-    //grid-column-gap: 30px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas: "n c t t t l m";
     align-items: center;
 
     .number {
@@ -21,7 +20,7 @@ $columnGap: 20px;
         font-family: IRANSans;
         font-style: normal;
         font-weight: bold;
-        font-size: 60px;
+        font-size: 45px;
         color: $boldNumber;
 
         grid-area: n;
@@ -35,8 +34,8 @@ $columnGap: 20px;
     .cover {
         border-radius: 5px;
         overflow: hidden;
-        width: $coversize;
-        height: $coversize;
+        //width: $coversize;
+        //height: $coversize;
 
         .box {
             width: 100%;

@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
 
-import '../class/list_item.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector: 'card-wide',

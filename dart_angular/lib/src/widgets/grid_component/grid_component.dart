@@ -1,8 +1,7 @@
-import 'dart:async';
 import 'package:angular/angular.dart';
 
-import '../../services/content_service.dart';
 import '../widgets.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector: 'grid-rect',
@@ -13,7 +12,7 @@ import '../widgets.dart';
     CardRectComponent,
     ],
 )
-class GridComponent implements OnInit
+class GridComponent
 {
   @Input()
   String title;
@@ -21,32 +20,6 @@ class GridComponent implements OnInit
   @Input()
   bool masonry;
 
-  ContentService _contentService;
+  @Input()
   List<Card> items;
-  
-  GridComponent(this._contentService);
-  void ngOnInit() => _getItems();
-
-  Future<void> _getItems() async
-  {
-    print('Grid: getting items');
-    try {
-
-      final List resultList = await _contentService.getArtists();
-      items = [];
-
-      for (var i = 0; i < resultList.length; i++) 
-      {
-        var singer = resultList[i];
-        Card item = Card(
-          singer['name'], 
-          thumbnail: Uri(path: singer['cover'])
-          );
-        items.add(item);
-      }
-
-    } catch (e) {
-      print(e);
-    }
-  }
 }

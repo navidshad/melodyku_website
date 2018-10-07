@@ -1,5 +1,10 @@
-<h1>ویترین</h1>
-<slider-rect></slider-rect>
-<list-wide [title]="'15 ترانه برتر'" [numerical]="true"></list-wide>
-<list-wide [title]="'آلبوم های ویژه'" [numerical]="false"></list-wide>
-<grid-rect [title]="'آلبوم های شاخص'"></grid-rect>
+<slider-rect    [title]="'برترین ها'" 
+                [items]="card_top10_month"></slider-rect>
+
+<list-wide  [title]="'پیشنهاد های امروز'" 
+            [numerical]="true"
+            [items]="listItems_top15_day">
+        </list-wide>
+
+<slider-rect    [title]="'برای شما'" 
+                [items]="card_for_you"></slider-rect>

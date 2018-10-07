@@ -11,3 +11,15 @@ body {
 * {
   font-family: IRANSans, Roboto, Helvetica, Arial, sans-serif;
 }
+
+.widget-container {
+  margin: 40px 0px;
+}
+
+.title {
+  color: #3bc8e6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: IRANSans,"Segoe UI",Arial,sans-serif;
+}
