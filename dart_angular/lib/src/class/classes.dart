@@ -18,3 +18,4 @@ export 'widgets/list_item.dart';
 // utilities
 export './utility/math.dart';
 export '../services/content_provider/mock_Json.dart';
+export './utility/modal_detail.dart';

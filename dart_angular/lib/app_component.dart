@@ -24,7 +24,10 @@ import 'src/services/services.dart';
     HeaderMenu,
     FooterComponent
   ],
-  providers: [ ClassProvider(ContentProvider) ],
+  providers: [ 
+    ClassProvider(ContentProvider),
+    ClassProvider(ModalService)
+    ],
   exports: [RoutePaths, Routes]
 )
 class AppComponent 
