@@ -4,6 +4,7 @@ import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'src/app_layout/app_layout.dart';
+import 'src/widgets/widgets.dart';
 import 'src/routting/routes.dart';
 
 import 'src/services/services.dart';
@@ -22,7 +23,8 @@ import 'src/services/services.dart';
     DeferredContentDirective,
     DrawerMenu,
     HeaderMenu,
-    FooterComponent
+    FooterComponent,
+    PlayerBareComponent,
   ],
   providers: [ 
     ClassProvider(ContentProvider),

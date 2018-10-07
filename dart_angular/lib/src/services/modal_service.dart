@@ -4,7 +4,7 @@ import '../class/classes.dart';
 class ModalService 
 {
   Stream<ModalDetail> modalStream;
-  StreamController _modalStreamController;
+  StreamController<ModalDetail> _modalStreamController;
 
   ModalService()
   {

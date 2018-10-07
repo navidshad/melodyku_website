@@ -1,0 +1,115 @@
+@import '../../styles/colors';
+
+$playerHeight: 85px;
+.fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.background {
+    @extend .fixed;
+    height: $playerHeight;
+    width: 100%;
+    overflow: hidden;
+    background-color: $back-color;
+    opacity: 0.95;
+    padding: 0px 30px;
+
+    div{
+        background-image: url('/assets/imgs/playerbar_back.jpg');
+        filter: blur(30px);
+        height: 100%;
+    }
+}
+
+.bar {
+    @extend .fixed;
+    height: $playerHeight;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    flex-flow: row-reverse;
+}
+
+$tempBorder: 0px solid white;
+.media-detail {
+    background-color: $lightblue-color;
+    border-radius: 0px 10px 10px 0px;
+    flex-basis: 300px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.play-btns {
+    border: $tempBorder;
+    text-align: center;
+
+    flex-basis: 300px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.option-btns {
+    border: $tempBorder;
+    text-align: center;
+
+    flex-basis: 200px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.queue {
+    border: $tempBorder;
+    text-align: center;
+
+    flex-basis: 300px;
+    flex-grow: 1;
+    flex-shrink: 2;
+}
+
+.time-line {
+    @extend .fixed;
+    height: 3px;
+    width: 100%;
+    background-color: #001014;
+    transform: translateY(-85px);
+    display: flex;
+    justify-content: flex-end;
+
+    .duration {
+        width: 50%;
+        background-color: $lightblue-color;
+        height: 100%;
+        box-shadow: 0px 0px 2px black;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* start of medium tablet styles */
+    .queue {
+        display: none;
+    }
+
+    .background, .bar {
+        height: 60px;
+    }
+
+    .time-line {
+        transform: translateY(-60px);
+    }
+}
+
+@media screen and (max-width: 479px) {
+    /* start of phone styles */
+    .option-btns {
+        display: none;
+    }
+
+    .media-detail {
+        flex-basis: 120px;
+    }
+}
