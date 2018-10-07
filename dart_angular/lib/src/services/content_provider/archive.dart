@@ -11,7 +11,7 @@ class Archive {
 
   // methods
   // singer -----------------------------------------------
-  Future<Result_SingerList> singer_getList(int page, [int total]) async
+  Future<Result_Singer> singer_getList(int page, [int total]) async
   {
     int totalItems = 15;
     if(total != null) totalItems = total;
@@ -24,7 +24,7 @@ class Archive {
       final response = await _http.get(url);
       final result = _extractData(response);
 
-      Result_SingerList singerList = Result_SingerList.fromjson(
+      Result_Singer singerList = Result_Singer.fromjson(
         result['pages'], result['current'], result['items']);
 
       return singerList;
@@ -55,7 +55,7 @@ class Archive {
   }
 
   // album ------------------------------------------------
-  Future<Result_AlbumList> album_getList(String name) async
+  Future<Result_Album> album_getList(String name) async
   {
     String url = '${link_archive}/album/all';
     dynamic form = {'singername': name};
@@ -65,7 +65,7 @@ class Archive {
       final response = await _http.post(url, body: form);
       final result = _extractData(response);
       
-      Result_AlbumList albumList = Result_AlbumList.fromjson(1, 1, result['albums']);
+      Result_Album albumList = Result_Album.fromjson(1, 1, result['albums']);
       return albumList;
     } 
     catch (e) {
@@ -112,7 +112,7 @@ class Archive {
   }
 
   // media ------------------------------------------------
-  Future<Result_MediaList> media_getList(String name, int page, [int total]) async
+  Future<Result_Media> media_getList(String name, int page, [int total]) async
   {
     int totalItems = 15;
     if(total != null) totalItems = total;
@@ -125,7 +125,7 @@ class Archive {
       final response = await _http.post(url, body: form);
       final result = _extractData(response);
       
-      Result_MediaList mediaList = Result_MediaList.fromjson(
+      Result_Media mediaList = Result_Media.fromjson(
         result['pages'], result['current'], result['list']);
 
       return mediaList;
@@ -175,7 +175,7 @@ class Archive {
   }
 
   // playlist ---------------------------------------------
-  Future<Result_PlaylistList> playlist_getList() async
+  Future<Result_Playlist> playlist_getList() async
   {
     String url = '${link_archive}/playlist/all';
     print('playlist_getList(), url: $url');
@@ -184,7 +184,7 @@ class Archive {
       final response = await _http.get(url);
       final result = _extractData(response);
       
-      Result_PlaylistList albumList = Result_PlaylistList.fromjson(1, 1, result['lists']);
+      Result_Playlist albumList = Result_Playlist.fromjson(1, 1, result['lists']);
       return albumList;
     } 
     catch (e) {

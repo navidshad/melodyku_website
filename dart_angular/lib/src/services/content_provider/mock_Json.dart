@@ -1,3 +1,5 @@
+import '../../class/classes.dart';
+
 List<String> imgs = [
   'assets/imgs/512/sample (1).jpg',
   'assets/imgs/512/sample (2).jpg',
@@ -12,6 +14,16 @@ List<String> imgs = [
   'assets/imgs/512/sample (12).jpg',
   'assets/imgs/512/sample (13).jpg',
 ];
+
+List<String> getRandomCovers(int total)
+{
+  List<String> items = [];
+  for (var i = 0; i < total; i++) {
+    String cover = imgs[randomRange(1, imgs.length)];
+    items.add(cover);
+  }
+  return items;
+}
 
 List<Map<String, String>> artists_fa = 
 [

@@ -4,8 +4,17 @@ export 'archive/singer.dart';
 export 'archive/album.dart';
 export 'archive/media.dart';
 export 'archive/playlist.dart';
-export 'archive/result_list.dart';
+export 'result_list/result_list.dart';
+export './archive/archive_types.dart';
+export './archive/archive_item.dart';
+
+// result list
+export './result_list/result_list.dart';
 
 // widgets
 export 'widgets/card.dart';
 export 'widgets/list_item.dart';
+
+// utilities
+export './utility/math.dart';
+export '../services/content_provider/mock_Json.dart';

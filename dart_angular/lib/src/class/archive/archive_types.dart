@@ -1,0 +1,1 @@
+enum ArchiveTypes {media, album, singer, playlist}

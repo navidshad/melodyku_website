@@ -1,6 +1,7 @@
-import 'media.dart';
+import '../classes.dart';
 
-class Playlist {
+
+class Playlist extends ArchiveItem {
   String title;
   List<Media> list;
 
@@ -18,11 +19,11 @@ class Playlist {
       print(e);
     }
   }
-}
 
-class PlayListItem {
-  String title;
-  String singer;
+  // abstract methods
+  List<Card> getCardList([int total]) =>
+    ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
 
-  PlayListItem(this.title, this.singer);
+  List<ListItem> getItemList([int total]) =>
+    ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
 }
