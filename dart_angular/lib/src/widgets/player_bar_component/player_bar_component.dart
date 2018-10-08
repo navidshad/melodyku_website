@@ -14,6 +14,8 @@ class PlayerBareComponent implements OnInit
   ModalType type = ModalType.player;
   bool visible = true;
 
+  Media current;
+
   PlayerBareComponent(this._modalService);
   void ngOnInit() => addListeners();
 
@@ -22,7 +24,9 @@ class PlayerBareComponent implements OnInit
     _modalService.modalStream.listen((ModalDetail detail)
     {
       if(detail.type != type) return;
+
       visible = detail.visible;
+      current = Media.fromjson(detail.object);
     });
   }
 }

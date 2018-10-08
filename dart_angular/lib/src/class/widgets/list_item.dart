@@ -1,4 +1,6 @@
-class ListItem {
+import 'origin.dart';
+
+class ListItem extends Origin {
     String title;
     String subtitle;
     

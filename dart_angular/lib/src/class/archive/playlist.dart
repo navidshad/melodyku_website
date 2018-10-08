@@ -1,7 +1,7 @@
 import '../classes.dart';
 
 
-class Playlist extends ArchiveItem {
+class Playlist {
   String title;
   List<Media> list;
 
@@ -20,7 +20,7 @@ class Playlist extends ArchiveItem {
     }
   }
 
-  // abstract methods
+  // methods
   List<Card> getCardList([int total]) =>
     ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
 

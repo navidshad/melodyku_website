@@ -41,6 +41,18 @@ class Media {
       print('convert Media from json ${json.encode(detail)}');
       print(e);
     }
+  }
 
+  dynamic toDynamic()
+  {
+    return {
+      'title'       : title,
+      'albumartist' : singer,
+      'album'       : album,
+      'year'        : year,
+      'genre'       : genre,
+      'lyric'       : lyric,
+      'duration'    : duration,
+    };
   }
 }

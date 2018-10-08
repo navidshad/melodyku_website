@@ -1,4 +1,7 @@
-class Card {
+import 'origin.dart';
+
+class Card extends Origin 
+{
   String title;
   String subtitle;
   
