@@ -1,4 +1,4 @@
-import 'origin.dart';
+import '../classes.dart';
 
 class Card extends Origin 
 {
@@ -8,5 +8,13 @@ class Card extends Origin
   Uri titleLink;
   Uri thumbnail;
 
-  Card(this.title, {this.subtitle, this.titleLink, this.thumbnail});
+  Card(this.title, 
+    { 
+      this.subtitle, 
+      this.titleLink, 
+      this.thumbnail , 
+      ArchiveTypes type, 
+      dynamic origin
+    }) 
+      : super(type, origin);
 }

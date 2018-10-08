@@ -1,10 +1,8 @@
 <div class="card">
-    <div class="cover box">
+    <div class="cover box" (click)="play()">
         <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
         <div class="overlay box">
-            <a href="#">
-                <img class="play" src="/assets/imgs/icons/play.png">
-            </a>
+            <img class="play" src="/assets/imgs/icons/play.png">
         </div>
     </div>
     

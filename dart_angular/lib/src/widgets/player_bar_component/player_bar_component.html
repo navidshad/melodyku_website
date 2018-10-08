@@ -6,7 +6,15 @@
 
     <div class="bar">
         <div class="media-detail">
-
+            <div class="current" *ngIf="current != null">
+                <div class="cover">
+                    <img src="{{current.thumbnail}}" alt="">
+                </div>
+                <div class="title">
+                    <h4>{{current.title}}</h4>
+                    <h5>{{current.singer}}</h5>
+                </div>
+            </div>
         </div>
         <div class="play-btns"></div>
         <div class="option-btns"></div>

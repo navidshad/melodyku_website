@@ -14,6 +14,7 @@ export './result_list/result_list.dart';
 // widgets
 export 'widgets/card.dart';
 export 'widgets/list_item.dart';
+export 'widgets/origin.dart';
 
 // utilities
 export './utility/math.dart';

@@ -11,7 +11,6 @@ import '../../class/classes.dart';
 class PlayerBareComponent implements OnInit
 {
   ModalService _modalService;
-  ModalType type = ModalType.player;
   bool visible = true;
 
   Media current;
@@ -21,12 +20,15 @@ class PlayerBareComponent implements OnInit
 
   void addListeners()
   {
-    _modalService.modalStream.listen((ModalDetail detail)
+    _modalService.modalPlayerStream.listen((ModalPlayerDetail detail)
     {
-      if(detail.type != type) return;
-
       visible = detail.visible;
-      current = Media.fromjson(detail.object);
+      print('type : ${detail.type} | object: ${detail.object}');
+      
+      if(detail.type == ArchiveTypes.media) {
+        print('playing media');
+        current = Media.fromjson(detail.object);
+      }
     });
   }
 }

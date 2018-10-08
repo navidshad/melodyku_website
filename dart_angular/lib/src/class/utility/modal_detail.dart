@@ -1,7 +1,11 @@
+import '../classes.dart';
+
 enum ModalType {player}
 
-class ModalDetail {
+class ModalPlayerDetail {
   bool visible;
-  ModalType type;
+  ArchiveTypes type;
   dynamic object;
+
+  ModalPlayerDetail(this.visible, this.type, this.object);
 }

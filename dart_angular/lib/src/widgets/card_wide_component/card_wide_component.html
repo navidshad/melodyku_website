@@ -3,13 +3,12 @@
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-        <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize">
-            <a href="#">
-                <img class="box" [attr.src]="item.thumbnail">
-                <div class="box overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
-                    <img class="play" src="/assets/imgs/icons/play.png">
-                </div>
-            </a>
+        <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize"
+            (click)="play()">
+            <img class="box" [attr.src]="item.thumbnail">
+            <div class="box overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
+                <img class="play" src="/assets/imgs/icons/play.png">
+            </div>
         </div>
     
         <div class="titles">
@@ -20,7 +19,7 @@
         </div>
     
         <div class="length">
-            <span>{{item.getDuration()}}</span>
+            <span>{{item.duration}}</span>
         </div>
     
         <div class="more">

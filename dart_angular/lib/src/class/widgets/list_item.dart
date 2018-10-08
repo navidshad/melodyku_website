@@ -1,31 +1,24 @@
-import 'origin.dart';
+import '../classes.dart';
 
 class ListItem extends Origin {
     String title;
     String subtitle;
     
-    int length;
+    String duration;
     String number;
 
     Uri titleLink;
     Uri thumbnail;
 
-    ListItem(this.title, {this.subtitle, this.length, 
-      this.number, this.titleLink, this.thumbnail});
-
-    String getDuration()
+    ListItem(this.title, 
     {
-      int tempLength = 0;
-      if(length != null) tempLength = length;
-
-      int hours   = (tempLength / 3600).floor();
-      int minutes = (tempLength % 3600 / 60).floor();
-      int seconds = (tempLength % 3600 % 60).floor();
-
-      String duration ='';
-      if(hours > 0) duration += '$hours:';
-      duration += '$minutes:$seconds';
-
-      return duration;
-    }
+      this.subtitle, 
+      this.duration, 
+      this.number, 
+      this.titleLink, 
+      this.thumbnail,
+      ArchiveTypes type, 
+      dynamic origin
+    }) 
+      : super(type, origin);
 }

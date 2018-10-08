@@ -6,6 +6,7 @@ class Media {
   String album;
   List<String> genre;
   String lyric;
+  String thumbnail;
 
   int year;
   int duration;
@@ -17,8 +18,9 @@ class Media {
     this.year, 
     this.genre,
     this.lyric,
-    this.duration
-    });
+    this.duration,
+    this.thumbnail,
+  });
 
   factory Media.fromjson(dynamic detail)
   {
@@ -33,8 +35,10 @@ class Media {
       lyric: (detail['lyric'] != null) ? detail['lyric'] : '',
       year: (detail['year']   != null) ? detail['year'] : null,
       duration: (detail['duration']   != null) ? detail['duration'] : 0,
+      thumbnail: (detail['thumbnail']   != null) ? detail['thumbnail'] : '',
     );
 
+    if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
     return mFromJson;
 
     } catch (e) {
@@ -53,6 +57,23 @@ class Media {
       'genre'       : genre,
       'lyric'       : lyric,
       'duration'    : duration,
+      'thumbnail'   : thumbnail,
     };
+  }
+
+  String getDuration()
+  {
+    int length = 0;
+    if(duration != null) length = duration;
+
+    int hours = (length / 3600).floor();
+    int minutes = (length % 3600 / 60).floor();
+    int seconds =(length % 3600 % 60).floor();
+
+    String durationStr = '';
+    if(hours > 0) durationStr += '$hours : ';
+    durationStr += '$minutes : $seconds';
+
+    return durationStr;
   }
 }

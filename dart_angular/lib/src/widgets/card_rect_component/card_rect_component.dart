@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import '../../class/classes.dart';
+import '../../services/modal_service.dart';
 
 @Component(
   selector: 'card-rect',
@@ -9,6 +10,15 @@ import '../../class/classes.dart';
 )
 class CardRectComponent
 {
+  ModalService _modalService;
+
   @Input()
   Card card;
+
+  CardRectComponent(this._modalService);
+
+  void play()
+  {
+    _modalService.play(ModalPlayerDetail(true, card.type, card.origin));
+  }
 }

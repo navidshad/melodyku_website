@@ -32,16 +32,20 @@ $playerHeight: 85px;
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;
-    flex-flow: row-reverse;
+    //flex-flow: row-reverse;
 }
 
 $tempBorder: 0px solid white;
 .media-detail {
     background-color: $lightblue-color;
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 10px 0px 0px 10px;
     flex-basis: 300px;
     flex-grow: 1;
     flex-shrink: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .play-btns {
@@ -88,6 +92,48 @@ $tempBorder: 0px solid white;
     }
 }
 
+.current {
+    padding-right: 10px;
+
+    display: flex;
+    flex-direction: row;
+    //flex-flow: row-reverse;
+
+    $coversize: 70px;
+    .cover {
+        width: $coversize;
+        height: $coversize;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: darken($lightblue-color, 20%);
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .title{
+        margin: 0px 10px;
+        white-space: nowrap;
+        color: $white-color;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .title h4{
+        font-size: 16px;
+        margin: 0px;
+    }
+
+    .title h5{
+        font-size: 16px;
+        margin: 0px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     /* start of medium tablet styles */
     .queue {
@@ -101,6 +147,22 @@ $tempBorder: 0px solid white;
     .time-line {
         transform: translateY(-60px);
     }
+
+    .current{
+        $coversize: 45px;
+        .cover {
+            width: $coversize;
+            height: $coversize;
+        }
+
+        .title h4{
+            font-size: 12px;
+        }
+    
+        .title h5{
+            font-size: 10px;
+        }
+    }
 }
 
 @media screen and (max-width: 479px) {
@@ -111,5 +173,13 @@ $tempBorder: 0px solid white;
 
     .media-detail {
         flex-basis: 120px;
+    }
+
+    .current{
+        padding: 0px 5px;
+
+        .title{
+            margin: 0px 5px;
+        }
     }
 }

@@ -3,15 +3,15 @@ import '../class/classes.dart';
 
 class ModalService 
 {
-  Stream<ModalDetail> modalStream;
-  StreamController<ModalDetail> _modalStreamController;
+  Stream<ModalPlayerDetail> modalPlayerStream;
+  StreamController<ModalPlayerDetail> _modalPlayerStreamController;
 
   ModalService()
   {
-    _modalStreamController = StreamController();
-    modalStream = _modalStreamController.stream;
+    _modalPlayerStreamController = StreamController();
+    modalPlayerStream = _modalPlayerStreamController.stream;
   }
 
-  void switchModal(ModalDetail detail) =>
-    _modalStreamController.add(detail);
+  void play(ModalPlayerDetail detail) =>
+    _modalPlayerStreamController.add(detail);
 }
