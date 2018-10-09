@@ -1,10 +1,25 @@
 @import '../../styles/colors';
+@import '../../styles/buttons';
+
+$btn_sl: 20px;
+$btn_md: 32px;
+$btn_bg: 45px;
 
 $playerHeight: 85px;
 .fixed {
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        margin: 0px 5px;
+    }
 }
 
 .background {
@@ -50,39 +65,74 @@ $tempBorder: 0px solid white;
 
 .play-btns {
     border: $tempBorder;
-    text-align: center;
+
+    flex-basis: 150px;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    @extend .flex-row;
+
+    img {
+        height: $btn_sl;
+    }
+
+    .play {
+        height: $btn_md;
+    }
+
+    .pre {
+        transform: rotate(180deg);
+    }
+}
+
+.time-line {
+    border: $tempBorder;
 
     flex-basis: 300px;
     flex-grow: 1;
     flex-shrink: 1;
+
+    .time-current{
+        float: left;
+        font-size: 10px;
+    }
+
+    .time-total {
+        float: right;
+        font-size: 10px;
+    }
 }
 
 .option-btns {
     border: $tempBorder;
-    text-align: center;
 
-    flex-basis: 200px;
+    flex-basis: 150px;
     flex-grow: 1;
     flex-shrink: 1;
+
+    @extend .flex-row;
+    img {
+        height: $btn-sl;
+    }
 }
 
 .queue {
     border: $tempBorder;
-    text-align: center;
 
-    flex-basis: 300px;
+    flex-basis: 200px;
     flex-grow: 1;
     flex-shrink: 2;
+
+    @extend .flex-row;
 }
 
-.time-line {
+.time-line-small {
     @extend .fixed;
+    display: none;
     height: 3px;
     width: 100%;
     background-color: #001014;
     transform: translateY(-85px);
-    display: flex;
-    justify-content: flex-end;
 
     .duration {
         width: 50%;
@@ -134,6 +184,32 @@ $tempBorder: 0px solid white;
     }
 }
 
+.slider-sl {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 100%; /* Specific width is required for Firefox. */
+    background: transparent; /* Otherwise white in Chrome */
+    height: 0px;
+    margin-top: 41px;
+}
+  
+.slider-sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+  
+.slider-sl:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+  
+.slider-sl::-ms-track {
+    //width: 100%;
+    cursor: pointer;
+
+    /* Hides the slider so custom styles can be added */
+    background: blue; 
+    //border-color: transparent;
+    //color: transparent;
+}
+
 @media screen and (max-width: 767px) {
     /* start of medium tablet styles */
     .queue {
@@ -145,6 +221,12 @@ $tempBorder: 0px solid white;
     }
 
     .time-line {
+        display: none;
+    }
+
+    .time-line-small {
+        display: flex;
+        justify-content: flex-end;
         transform: translateY(-60px);
     }
 
