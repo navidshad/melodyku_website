@@ -24,9 +24,14 @@
         </div>
 
         <div class="time-line">
-            <input class="slider-sl" type="range">
+            <material-slider class="slider-length"
+            [(value)]="value"
+            [min]="0.0"
+            [step]="1.0"
+            [max]="60.0"></material-slider>
+
             <div class="">
-                <span class="time-current">0</span>
+                <span class="time-current">{{value}}</span>
                 <span class="time-total">5:63</span>
             </div>
         </div>
@@ -36,12 +41,16 @@
             <img src="/assets/svg/icon_shuffle.svg" alt="">
         </div>
         <div class="queue">
-            <button class="button-small">لیست پخش</button>
+            <button class="btn-sl">لیست پخش</button>
         </div>
     </div>
 
     <div class="time-line-small">
-        <div class="duration"></div>
+        <material-slider class="slider-length"
+        [(value)]="value"
+        [min]="0.0"
+        [step]="1.0"
+        [max]="60.0"></material-slider>
     </div>
 
 </div>

@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
-import 'package:angular_components/app_layout/material_persistent_drawer.dart';
-import 'package:angular_components/content/deferred_content.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'src/app_layout/app_layout.dart';
@@ -16,6 +15,7 @@ import 'src/services/services.dart';
     'app_component.scss.css'
   ],
   templateUrl: 'app_component.html',
+  encapsulation: ViewEncapsulation.None,
 
   directives: [
     routerDirectives,
@@ -26,7 +26,8 @@ import 'src/services/services.dart';
     FooterComponent,
     PlayerBareComponent,
   ],
-  providers: [ 
+  providers: const [ 
+    materialProviders,
     ClassProvider(ContentProvider),
     ClassProvider(ModalService)
     ],

@@ -13,19 +13,19 @@
     border: none;
 }
 
-.button-small {
+.btn-sl {
     @extend .button;
     @include border-radius(10px);
     font-size: 14px;
 }
 
-.button-mediom {
+.btn-md {
     @extend .button;
     @include border-radius(30px);
     font-size: 24px;
 }
 
-.button-big {
+.btn-bg {
     @extend .button;
     @include border-radius(50px);
     font-size: 34px;

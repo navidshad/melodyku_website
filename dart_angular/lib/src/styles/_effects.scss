@@ -17,3 +17,15 @@
     transition: 0.5s ease;
     opacity: 0;
 }
+
+.unselectable {
+    @include unselectable();
+}
+
+.hoverShadow {
+    @include hoverShadow()
+}
+
+.overlay_card {
+    @include overlay_card();
+}
