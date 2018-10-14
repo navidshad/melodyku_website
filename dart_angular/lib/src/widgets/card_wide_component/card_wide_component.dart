@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 
 import '../../class/classes.dart';
-import '../../services/modal_service.dart';
+import '../../services/services.dart';
 
 @Component(
   selector: 'card-wide',
@@ -11,7 +11,7 @@ import '../../services/modal_service.dart';
 )
 class CardWideComponent 
 {
-  ModalService _modalService;
+  PlayerService _playerService;
 
   @Input()
   ListItem item;
@@ -22,10 +22,7 @@ class CardWideComponent
   @Input()
   int boxSize;
 
-  CardWideComponent(this._modalService);
+  CardWideComponent(this._playerService);
 
-  void play()
-  {
-    _modalService.play(ModalPlayerDetail(true, item.type, item.origin));
-  }
+  void play() => _playerService.play(ModalPlayerDetail(true, item.type, item.origin));
 }

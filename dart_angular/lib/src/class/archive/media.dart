@@ -25,9 +25,9 @@ class Media {
   factory Media.fromjson(dynamic detail)
   {
     List<String> genre_list = (detail['genre'] as List).map((gn) => gn.toString()).toList();
-    
+    Media mFromJson;
     try {
-      Media mFromJson = Media(
+      mFromJson = Media(
       title: (detail['title'] != null) ? detail['title'] : '',
       singer: (detail['albumartist'] != null) ? detail['albumartist'] : '',
       album: (detail['album'] != null) ? detail['album'] : '',
@@ -39,12 +39,13 @@ class Media {
     );
 
     if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
-    return mFromJson;
 
     } catch (e) {
       print('convert Media from json ${json.encode(detail)}');
       print(e);
     }
+
+    return mFromJson;
   }
 
   dynamic toDynamic()
@@ -61,10 +62,11 @@ class Media {
     };
   }
 
-  String getDuration()
+  String getDuration([num customLength])
   {
     int length = 0;
-    if(duration != null) length = duration;
+    if(customLength != null && !customLength.isNaN) length = customLength.toInt();
+    else if(duration != null) length = duration;
 
     int hours = (length / 3600).floor();
     int minutes = (length % 3600 / 60).floor();

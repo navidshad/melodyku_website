@@ -10,15 +10,17 @@ class Playlist {
 
   factory Playlist.fromjson(dynamic detail)
   {
+    Playlist playlist;
     try {
       List<Media> items = (detail['list'] as List)
       .map((item) => Media.fromjson(item) ).toList();
-      return Playlist( title: detail['name'], thumbnail: detail['thumbnail'], list: items );
+      playlist = Playlist( title: detail['name'], thumbnail: detail['thumbnail'], list: items );
     } 
     catch (e) {
       print('convert playlist from json');
       print(e);
     }
+    return playlist;
   }
 
   dynamic toDynamic()

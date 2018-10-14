@@ -8,8 +8,9 @@ class Album {
 
   factory Album.fromjson(dynamic detail)
   {
+    Album album;
     try {
-      return Album(
+      album = Album(
         name: (detail['name']) ? detail['name'] : '',
         singer: (detail['singer']) ? detail['singer'] : '',
         description: (detail['description']) ? detail['description'] : '',
@@ -20,6 +21,8 @@ class Album {
       print('convert album from json $detail');
       print(e);
     }
+
+    return album;
   }
 
   dynamic toDynamic()

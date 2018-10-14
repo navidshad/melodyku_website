@@ -7,8 +7,9 @@ class Singer {
 
   factory Singer.fromjson(dynamic detail)
   {
+    Singer singer;
     try {
-      return Singer(
+      singer =  Singer(
         name: (detail['name']) ? detail['name'] : '',
         description: (detail['description']) ? detail['description'] : '',
         thumbnail: (detail['thumbnail']) ? detail['thumbnail'] : '',
@@ -18,6 +19,7 @@ class Singer {
       print('convert singer from json $detail');
       print(e);
     }
+    return singer;
   }
 
   dynamic toDynamic()

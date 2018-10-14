@@ -24,15 +24,16 @@
         </div>
 
         <div class="time-line">
-            <material-slider class="slider-length"
-            [(value)]="value"
+            <material-slider class="slider-length" 
+            *ngIf="player.audio != null"
+            [(value)]="player.currentTime"
             [min]="0.0"
             [step]="1.0"
-            [max]="60.0"></material-slider>
+            [max]="player.getDuration"></material-slider>
 
             <div class="">
-                <span class="time-current">{{value}}</span>
-                <span class="time-total">5:63</span>
+                <span class="time-current">{{player.getCurrentTimeStr}}</span>
+                <span class="time-total">{{player.getDurationStr}}</span>
             </div>
         </div>
 
@@ -46,11 +47,14 @@
     </div>
 
     <div class="time-line-small">
-        <material-slider class="slider-length"
-        [(value)]="value"
+        <material-slider class="slider-length" 
+        *ngIf="player.audio != null"
+        [(value)]="player.currentTime"
         [min]="0.0"
         [step]="1.0"
-        [max]="60.0"></material-slider>
+        [max]="player.getDuration"></material-slider>
     </div>
 
 </div>
+
+<audio audioSource (audioElement)="getAudioSource($event)"></audio>

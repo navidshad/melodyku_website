@@ -7,6 +7,7 @@ import 'src/widgets/widgets.dart';
 import 'src/routting/routes.dart';
 
 import 'src/services/services.dart';
+import 'src/class/widgets/player.dart';
 
 @Component(
   selector: 'my-app',
@@ -29,7 +30,8 @@ import 'src/services/services.dart';
   providers: const [ 
     materialProviders,
     ClassProvider(ContentProvider),
-    ClassProvider(ModalService)
+    ClassProvider(PlayerService),
+    ClassProvider(Player),
     ],
   exports: [RoutePaths, Routes]
 )
