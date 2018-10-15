@@ -23,15 +23,6 @@ class Player
     audio = AudioElement();
   }
 
-  void setCurrent(Media media)
-  {
-    current = media;
-
-    audio.currentTime = 0;
-    audio.src = '/assets/track.mp3';
-    audio.play();
-  }
-
   double currentTime = 0.0;
   set(double timeValue) => currentTime = num.parse(timeValue.toString());
   double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
@@ -45,4 +36,18 @@ class Player
   void onSliderValueChange() {
     if(seeking) audio.currentTime = currentTime;
   }
+
+  // media contoller methods
+  void setCurrent(Media media)
+  {
+    current = media;
+
+    audio.currentTime = 0;
+    audio.src = '/assets/track.mp3';
+    audio.play();
+  }
+
+  void play() => audio.play();
+  void pause() => audio.pause();
+  void loop(key) => audio.loop = key;
 }
