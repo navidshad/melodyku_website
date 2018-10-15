@@ -32,26 +32,9 @@ class Player
     audio.play();
   }
 
-  String get getDurationStr
-  {
-    String duration = '0:00';
-    num audioDuration = (audio != null) ? audio.duration : 0.0;
-    if(current != null) duration = current.getDuration(audioDuration);
-    return duration;
-  }
-
-  String get getCurrentTimeStr
-  {
-    String getCurrentTime = '0:00';
-    num audioCurrentTime = (audio != null) ? audio.currentTime : 0.0;
-    if(current != null) getCurrentTime = current.getDuration(audio.currentTime);
-    return getCurrentTime;
-  }
-
-  double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
-  
   double currentTime = 0.0;
   set(double timeValue) => currentTime = num.parse(timeValue.toString());
+  double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
 
   // events
   void onSeekingSlider() => seeking = true;

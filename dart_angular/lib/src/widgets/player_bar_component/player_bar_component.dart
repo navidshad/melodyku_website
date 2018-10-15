@@ -5,6 +5,7 @@ import 'package:angular_components/material_slider/material_slider.dart';
 import '../../services/services.dart';
 import '../../class/classes.dart';
 import '../../directives/directives.dart';
+import '../../pips/pips.dart';
 
 @Component(
   selector: 'player-bar',
@@ -13,6 +14,7 @@ import '../../directives/directives.dart';
     MaterialSliderComponent,
     AudioSourceDirective,
   ],
+  pipes: [DurationToString],
   templateUrl: 'player_bar_component.html',
   styleUrls: ['player_bar_component.scss.css'],
 )

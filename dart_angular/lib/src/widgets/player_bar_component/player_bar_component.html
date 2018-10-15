@@ -35,8 +35,8 @@
             [max]="player.getDuration"></material-slider>
 
             <div class="">
-                <span class="time-current">{{player.getCurrentTimeStr}}</span>
-                <span class="time-total">{{player.getDurationStr}}</span>
+                <span class="time-current">{{player.currentTime | durationStr}}</span>
+                <span class="time-total">{{player.getDuration | durationStr}}</span>
             </div>
         </div>
 
