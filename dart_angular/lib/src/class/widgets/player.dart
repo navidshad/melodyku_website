@@ -6,16 +6,15 @@ class Player
 {
   ContentProvider _contentProvider;
   Media current;
+  bool seeking = false;
 
   AudioElement _audio;
   AudioElement get audio => _audio ;
   void set audio(AudioElement a)
   {
     _audio = a;
-    _audio.onTimeUpdate.listen((e) 
-    {
-      print('onTimeUpdate');
-      currentTime = audio.currentTime.toInt().toDouble();
+    _audio.onTimeUpdate.listen((e) {
+      if(!seeking) currentTime = audio.currentTime.toInt().toDouble();
     });
   }
 
@@ -52,6 +51,15 @@ class Player
   double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
   
   double currentTime = 0.0;
-  set(double timeValue) => 
-    audio.currentTime = num.parse(timeValue.toString());
+  set(double timeValue) => currentTime = num.parse(timeValue.toString());
+
+  // events
+  void onSeekingSlider() => seeking = true;
+  void onSeekingSliderDone() {
+    seeking = false;
+    audio.currentTime = currentTime;
+  }
+  void onSliderValueChange() {
+    if(seeking) audio.currentTime = currentTime;
+  }
 }

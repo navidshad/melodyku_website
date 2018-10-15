@@ -18,12 +18,9 @@ import '../../directives/directives.dart';
 )
 class PlayerBareComponent implements OnInit
 {
+  bool visible = true;
   PlayerService _playerService;
   Player player;
-
-  bool visible = true;
-
-  double value = 60.0;
 
   PlayerBareComponent(this._playerService, this.player);
   void ngOnInit() => addListeners();
