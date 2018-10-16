@@ -18,9 +18,9 @@
         </div>
 
         <div class="play-btns">
-            <img class="next" src="/assets/svg/icon_next.svg" alt="">
-            <img class="play" src="/assets/svg/icon_play.svg" alt="">
-            <img class="pre" src="/assets/svg/icon_next.svg" alt="">
+            <img class="next" extractor (onExtract)="getElement($event)" id="next">
+            <img class="play" extractor (onExtract)="getElement($event)" id="play">
+            <img class="pre" extractor (onExtract)="getElement($event)" id="previous">
         </div>
 
         <div class="time-line">
@@ -41,8 +41,8 @@
         </div>
 
         <div class="option-btns">
-            <img src="/assets/svg/icon_repeat.svg" alt="">
-            <img src="/assets/svg/icon_shuffle.svg" alt="">
+            <img extractor (onExtract)="getElement($event)" id="repeat">
+            <img extractor (onExtract)="getElement($event)" id="shuffle">
         </div>
         <div class="queue">
             <button class="btn-sl">لیست پخش</button>
@@ -63,4 +63,4 @@
 
 </div>
 
-<audio audioSource (audioElement)="getAudioSource($event)"></audio>
+<audio extractor (onExtract)="getElement($event)" id="audio"></audio>

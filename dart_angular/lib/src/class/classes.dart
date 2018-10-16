@@ -1,3 +1,4 @@
+export 'types.dart';
 
 // archive
 export 'archive/singer.dart';
@@ -5,7 +6,6 @@ export 'archive/album.dart';
 export 'archive/media.dart';
 export 'archive/playlist.dart';
 export 'result_list/result_list.dart';
-export './archive/archive_types.dart';
 export './archive/archive_item.dart';
 
 // result list
@@ -16,6 +16,7 @@ export 'widgets/card.dart';
 export 'widgets/list_item.dart';
 export 'widgets/origin.dart';
 export 'widgets/player.dart';
+export 'widgets/imag_button.dart';
 
 // utilities
 export './utility/math.dart';
