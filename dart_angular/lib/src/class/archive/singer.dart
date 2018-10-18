@@ -1,15 +1,17 @@
 class Singer {
+  String id;
   String name;
   String description;
   String thumbnail;
 
-  Singer({this.name, this.description, this.thumbnail});
+  Singer({this.id, this.name, this.description, this.thumbnail});
 
   factory Singer.fromjson(dynamic detail)
   {
     Singer singer;
     try {
       singer =  Singer(
+        id: (detail['_id'] != null) ? detail['_id'] : '',
         name: (detail['name']) ? detail['name'] : '',
         description: (detail['description']) ? detail['description'] : '',
         thumbnail: (detail['thumbnail']) ? detail['thumbnail'] : '',

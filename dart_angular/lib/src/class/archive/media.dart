@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Media {
+  String id;
   String title;
   String singer;
   String album;
@@ -12,6 +13,7 @@ class Media {
   int duration;
 
   Media({
+    this.id,
     this.title, 
     this.singer, 
     this.album, 
@@ -28,6 +30,7 @@ class Media {
     Media mFromJson;
     try {
       mFromJson = Media(
+      id: (detail['_id'] != null) ? detail['_id'] : '',
       title: (detail['title'] != null) ? detail['title'] : '',
       singer: (detail['albumartist'] != null) ? detail['albumartist'] : '',
       album: (detail['album'] != null) ? detail['album'] : '',
@@ -51,6 +54,7 @@ class Media {
   dynamic toDynamic()
   {
     return {
+      '_id'         : id,
       'title'       : title,
       'albumartist' : singer,
       'album'       : album,

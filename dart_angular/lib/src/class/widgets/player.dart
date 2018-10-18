@@ -27,7 +27,7 @@ class Player
     audio = AudioElement();
   }
 
-  // events
+  // events -------------------------------------
     addListeners()
   {
     // update slider
@@ -48,7 +48,7 @@ class Player
     if(seeking) audio.currentTime = currentTime;
   }
 
-  // play methods
+  // play methods -------------------------------
   void play() 
   {
     if(audio.paused) {
@@ -61,14 +61,25 @@ class Player
     }
   }
 
-  void playTrack(Media track)
+  void playTrack(Media track) async
   {
+    //puase player 
+    audio.pause();
+    playBtn.clicked(false);
+
     current = track;
     audio.currentTime = 0;
-    audio.src = '/assets/track.mp3';
+
+    // get stream link
+    String streamLink = await _contentProvider.archive.getStreamLink(track.id);
+    audio.src = streamLink;
+
     play();
   }
 
+  // playlisy method ----------------------------
+  void add(Media track) => list.add(track);
+  void remove(String id) => list.removeWhere((item) => (item.id == id) ? true : false);
 
   void next() => {};
   void previous() => {};

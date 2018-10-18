@@ -2,11 +2,12 @@ import '../classes.dart';
 
 
 class Playlist {
+  String id;
   String title;
   List<Media> list;
   String thumbnail;
 
-  Playlist({this.title, this.list, this.thumbnail});
+  Playlist({this.id, this.title, this.list, this.thumbnail});
 
   factory Playlist.fromjson(dynamic detail)
   {
@@ -14,7 +15,7 @@ class Playlist {
     try {
       List<Media> items = (detail['list'] as List)
       .map((item) => Media.fromjson(item) ).toList();
-      playlist = Playlist( title: detail['name'], thumbnail: detail['thumbnail'], list: items );
+      playlist = Playlist( id: detail['_id'], title: detail['name'], thumbnail: detail['thumbnail'], list: items );
     } 
     catch (e) {
       print('convert playlist from json');

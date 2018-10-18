@@ -231,6 +231,14 @@ class Archive {
     }
   }
 
+  // stream link
+  Future<String> getStreamLink(id)
+  {
+    print('id $id');
+    String url = '${link_archive}/static/96/$id';
+    print('getStreamLink(), url: $url');
+    return Future.delayed(Duration(milliseconds: 100), () => url);
+  }
   // other methods ----------------------------------------
   dynamic _extractData(Response resp) {
     dynamic body = json.decode(resp.body);
