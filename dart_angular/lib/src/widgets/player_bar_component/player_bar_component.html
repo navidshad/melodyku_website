@@ -6,7 +6,10 @@
         <div class="queue-list">
 
             <div *ngFor="let item of player.list" [class]="isitCurrectPlaying(item.id)">
-                <card-wide  dir="rtl" [item]='item' [numerical]='false'></card-wide>
+                <card-wide  dir="rtl" 
+                [item]='item' 
+                [numerical]='false'
+                [duration]='false'></card-wide>
             </div>
 
         </div>

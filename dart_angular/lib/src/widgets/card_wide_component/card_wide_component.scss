@@ -60,9 +60,11 @@ $columnGap: 10px;
         .title {
             font-size: 14px;
             font-weight: bold;
+            color: $white-color;
         }
         .sub{
             font-size: 12px;
+            color: $white-color;
         }
     }
     
@@ -94,8 +96,10 @@ $columnGap: 10px;
     .number{
         color: #ffffff;
     }
-    .title {
-        color: $lightblue-color;
+    .titles {
+        .title {
+            color: $lightblue-color;
+        }
     }
     .more img {
         filter: opacity(100%);

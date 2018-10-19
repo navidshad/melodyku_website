@@ -20,6 +20,9 @@ class CardWideComponent
   @Input()
   bool numerical;
 
+  @Input()
+  bool duration;
+
   CardWideComponent(this._playerService);
 
   void play() => _playerService.play(ModalPlayerDetail(true, item.type, item.origin));
