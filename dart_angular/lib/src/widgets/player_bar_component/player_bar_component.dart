@@ -4,6 +4,7 @@ import 'package:angular_components/material_slider/material_slider.dart';
 
 import '../../services/services.dart';
 import '../../class/classes.dart';
+import '../widgets.dart';
 import '../../directives/directives.dart';
 import '../../pips/pips.dart';
 
@@ -13,6 +14,7 @@ import '../../pips/pips.dart';
     coreDirectives,
     MaterialSliderComponent,
     ElementExtractorDirective,
+    CardWideComponent
   ],
   pipes: [DurationToString],
   templateUrl: 'player_bar_component.html',
@@ -20,7 +22,8 @@ import '../../pips/pips.dart';
 )
 class PlayerBareComponent implements OnInit
 {
-  bool visible = true;
+  bool isVisible = true;
+  bool isQueueVisible = false;
   PlayerService _playerService;
   Player player;
 
@@ -30,14 +33,18 @@ class PlayerBareComponent implements OnInit
   ImageButton repeatBtn;
   ImageButton shuffleBtn;
 
+  // calculated variables
+  Media get current => player.current;
+
   PlayerBareComponent(this._playerService, this.player);
   void ngOnInit() => addListeners();
 
+  // methods
   void addListeners()
   {
     _playerService.modalStream.listen((ModalPlayerDetail detail)
     {
-      visible = detail.visible;
+      isVisible = detail.visible;
       print('type : ${detail.type} | object: ${detail.object}');
       
       if(detail.type == ArchiveTypes.media) 
@@ -104,7 +111,15 @@ class PlayerBareComponent implements OnInit
     }
   }
 
-  // calculated variables
-  Media get current => player.current;
+  // queue metods
+  void SwitchQueue() => isQueueVisible = !isQueueVisible;
+
+  String getQueueClass() => 
+    (isQueueVisible) ? 'queue-container queue-swipdown' : 'queue-container queue-swipup';
+
+  List<ListItem> get queueList => 
+    ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);
+
+  String isitCurrectPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
 }
 

@@ -14,7 +14,6 @@ import '../../class/classes.dart';
 )
 class ListWideComponent
 {
-  int boxSize = 50;
   int count = 15;
 
   @Input()

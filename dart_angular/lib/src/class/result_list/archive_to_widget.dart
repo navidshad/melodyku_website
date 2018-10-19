@@ -21,6 +21,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.title, 
+                  id: item.id,
                   subtitle: item.singer,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.media,
@@ -33,6 +34,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.name, 
+                  id: item.id,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.album,
                   origin: item.toDynamic()
@@ -44,6 +46,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.name, 
+                  id: item.id,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.singer,
                   origin: item.toDynamic()
@@ -55,6 +58,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.title, 
+                  id: item.id,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.playlist,
                   origin: item.toDynamic()
@@ -87,6 +91,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.title, 
+                  id: item.id,
                   subtitle: item.singer,
                   duration: item.getDuration(),
                   number: itemNumber,
@@ -101,6 +106,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.name, 
+                  id: item.id,
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.album,
@@ -113,6 +119,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.name, 
+                  id: item.id,
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.singer,
@@ -125,6 +132,7 @@ class ArchiveToWidget
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.title,
+                  id: item.id,
                   duration: item.getDuration(),
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),
@@ -138,4 +146,17 @@ class ArchiveToWidget
     return tempList;
   }
 
+  static ListItem toListItem(Media media)
+  {
+    media.thumbnail = getRandomCovers(1)[0];
+    return ListItem( 
+            media.title, 
+            id: media.id,
+            subtitle: media.singer,
+            duration: media.getDuration(),
+            thumbnail: Uri(path: media.thumbnail),
+            type: ArchiveTypes.media,
+            origin: media.toDynamic()
+            );
+  }
 }

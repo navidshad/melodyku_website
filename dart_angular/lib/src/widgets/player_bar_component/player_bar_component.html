@@ -1,4 +1,16 @@
-<div class="container" *ngIf="visible">
+<div class="container" *ngIf="isVisible">
+
+    <div [class]="getQueueClass()">
+        <h4>لیست پخش</h4>
+
+        <div class="queue-list">
+
+            <div *ngFor="let item of player.list" [class]="isitCurrectPlaying(item.id)">
+                <card-wide  dir="rtl" [item]='item' [numerical]='false'></card-wide>
+            </div>
+
+        </div>
+    </div>
 
     <div class="background">
         <div>bar</div>
@@ -45,7 +57,7 @@
             <img extractor (onExtract)="getElement($event)" id="shuffle">
         </div>
         <div class="queue">
-            <button class="btn-sl">لیست پخش</button>
+            <button class="btn-sl" (click)="SwitchQueue()">لیست پخش</button>
         </div>
     </div>
 

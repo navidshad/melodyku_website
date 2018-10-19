@@ -1,6 +1,8 @@
 import '../classes.dart';
 
-class ListItem extends Origin {
+class ListItem extends Origin 
+{
+    String id;
     String title;
     String subtitle;
     
@@ -12,6 +14,7 @@ class ListItem extends Origin {
 
     ListItem(this.title, 
     {
+      this.id,
       this.subtitle, 
       this.duration, 
       this.number, 

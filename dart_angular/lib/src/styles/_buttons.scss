@@ -11,6 +11,12 @@
     color: $white-color;
     background: $lightblue-color;
     border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: darken($lightblue-color, 10);
 }
 
 .btn-sl {

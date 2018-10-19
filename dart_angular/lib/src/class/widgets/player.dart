@@ -6,13 +6,13 @@ class Player
 {
   // variables
   ContentProvider _contentProvider;
+  List<ListItem> list = [];
   Media current;
-  List<Media> list = [];
   bool seeking = false;
   ImageButton playBtn;
 
   AudioElement _audio;
-  AudioElement get audio => _audio ;
+  AudioElement get audio => _audio;
   void set audio(AudioElement a){
     _audio = a;
     addListeners();
@@ -28,7 +28,7 @@ class Player
   }
 
   // events -------------------------------------
-    addListeners()
+  addListeners()
   {
     // update slider
     _audio.onTimeUpdate.listen((e) {
@@ -63,6 +63,9 @@ class Player
 
   void playTrack(Media track) async
   {
+    //add to Queue
+    add(track);
+
     //puase player 
     audio.pause();
     playBtn.clicked(false);
@@ -78,8 +81,13 @@ class Player
   }
 
   // playlisy method ----------------------------
-  void add(Media track) => list.add(track);
-  void remove(String id) => list.removeWhere((item) => (item.id == id) ? true : false);
+  void add(Media track) 
+  {
+    bool isAdded = false;
+    list.forEach((item) { if(track.id == item.id) isAdded = true; });
+    if(!isAdded) list.add(ArchiveToWidget.toListItem(track));
+  }
+  void remove(String id) => list.removeWhere((item) => (item.origin['_id'] == id) ? true : false);
 
   void next() => {};
   void previous() => {};

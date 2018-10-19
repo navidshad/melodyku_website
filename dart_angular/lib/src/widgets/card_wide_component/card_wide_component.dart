@@ -12,15 +12,13 @@ import '../../services/services.dart';
 class CardWideComponent 
 {
   PlayerService _playerService;
+  int boxSize = 50;
 
   @Input()
   ListItem item;
 
   @Input()
   bool numerical;
-
-  @Input()
-  int boxSize;
 
   CardWideComponent(this._playerService);
 
