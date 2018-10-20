@@ -3,10 +3,10 @@
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-        <div class="cover" [style.width.px]="boxSize" [style.height.px]="boxSize"
+        <div class="cover"
             (click)="play()">
             <img class="box" [attr.src]="item.thumbnail">
-            <div class="box overlay" [style.width.px]="boxSize" [style.height.px]="boxSize">
+            <div class="box overlay">
                 <img class="play" src="/assets/imgs/icons/play.png">
             </div>
         </div>

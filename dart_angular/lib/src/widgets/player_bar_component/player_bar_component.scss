@@ -214,10 +214,10 @@ $tempBorder: 0px solid white;
     height: 88%;
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 
     display: flex;
     flex-direction: column;
-    
 }
 
 .queue-list > div {
@@ -236,9 +236,8 @@ $tempBorder: 0px solid white;
 }
 
 .queue-list > div:hover {
-
     .close {
-        flex-basis: 40px;
+        //flex-basis: 40px;
         margin: 10px;
         transform: translateX(0px);
     }
