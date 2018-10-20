@@ -6,11 +6,17 @@
         <div class="queue-list">
 
             <div *ngFor="let item of player.list" [class]="isitCurrectPlaying(item.id)">
+
                 <card-wide  dir="rtl" 
-                [item]='item' 
-                [numerical]='false'
-                [duration]='false'></card-wide>
-            </div>
+                    [item]='item' 
+                    [numerical]='false'
+                    [duration]='false'>
+                </card-wide>
+
+                <button class="btn-sl close" (click)="player.remove(item.id)">
+                    <img src="/assets/svg/icon_close.svg" width="10" height="10">
+                </button>
+            </div>  
 
         </div>
     </div>

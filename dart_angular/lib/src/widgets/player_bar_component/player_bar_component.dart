@@ -115,7 +115,7 @@ class PlayerBareComponent implements OnInit
   void SwitchQueue() => isQueueVisible = !isQueueVisible;
 
   String getQueueClass() => 
-    (isQueueVisible) ? 'queue-container queue-swipdown' : 'queue-container queue-swipup';
+    (isQueueVisible) ? 'queue-container queue-swipup' : 'queue-container queue-swipdown';
 
   List<ListItem> get queueList => 
     ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);

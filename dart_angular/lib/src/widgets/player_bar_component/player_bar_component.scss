@@ -102,6 +102,7 @@ $tempBorder: 0px solid white;
     flex-basis: 300px;
     flex-grow: 1;
     flex-shrink: 1;
+    padding-top: 27px;
 
     .time-current{
         float: left;
@@ -220,11 +221,31 @@ $tempBorder: 0px solid white;
 }
 
 .queue-list > div {
-    padding: 0px 5px;
+    padding: 0px 10px;
+    display: flex;
+
+    .close {
+        width: 30px;
+        border-radius: 100%;
+        height: 25px;
+        flex-basis: 0px;
+        transition: all 0.2s ease;
+        align-self: center;
+        transform: translateX(-50px);
+    }
+}
+
+.queue-list > div:hover {
+
+    .close {
+        flex-basis: 40px;
+        margin: 10px;
+        transform: translateX(0px);
+    }
 }
 
 .queue-current {
-    background-color: $lightblue-color;
+    background-color: $back-color;
 }
 
 // media queries --------------------------------
