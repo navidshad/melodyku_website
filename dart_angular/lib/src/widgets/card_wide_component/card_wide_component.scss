@@ -150,6 +150,9 @@ $coversize: 50px;
 
 @media screen and (max-width: 479px) {
     /* start of phone styles */
+    :host {
+        padding: 0px 5px;
+    }
     .card-container {
         padding: 0px 15px;
     }
