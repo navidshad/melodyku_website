@@ -1,7 +1,9 @@
 import 'package:angular/angular.dart';
+import 'dart:html';
 
 import '../widgets.dart';
 import '../../class/classes.dart';
+import '../../directives/directives.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -10,13 +12,14 @@ import '../../class/classes.dart';
   directives: [ 
     coreDirectives,
     CardRectComponent,
+    ElementExtractorDirective
    ],
 )
 class SliderRectComponent
 {
+  Element slider;
   int height = 250;
-  int itemSize = 200;
-  int move = 0;
+  int itemSize = 210;
   
   @Input()
   String title;
@@ -24,7 +27,19 @@ class SliderRectComponent
   @Input()
   List<Card> items;
 
-  void next() => move += itemSize;
-  void prev() => move -= itemSize;
-  String moveSlider() => "translateX(${move}px)";
+  void next() 
+  {
+    //move += itemSize;
+    int currentPos = slider.scrollLeft;
+    slider.scroll(currentPos - itemSize, 0);
+  }
+
+  void prev() 
+  {
+    //move -= itemSize;
+    int currentPos = slider.scrollLeft;
+    slider.scroll(currentPos + itemSize, 0);
+  }
+
+  void getSliderElement(Element el) => slider = el;
 }

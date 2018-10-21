@@ -2,43 +2,47 @@
 
 $itemMargin: 10px;
 
-.container {
-    display: flex;
-    align-items: center;
-    //border: 1px solid yellow;
-}
-.prev {
-    margin-left: auto;
-    order: 1;
-}
-.next {
-    margin-right: auto;
-    order: 3;
-}
-.slider {
-    order: 2;
-    overflow: hidden;
-}
 .thumbs {
     display: flex;
     transition: transform 0.5s ease;
+    overflow: hidden;
+    //transition: all 0.2s ease;
+    scroll-behavior: smooth;
 }
 
-.navigator {
+.item {
+    margin-left: $itemMargin;
+}
+
+// navigator
+.navigate-btn {
     width: 10px;
     height: 20px;
     background: url('/assets/imgs/icons/arrow_left.png');
     background-repeat: no-repeat;
 }
-.navigator:hover{
+.navigate-btn:hover{
     @include hoverShadow;
 }
 
-.prev div {
-    transform: rotateY(180deg);
+.navigator {
+    position: relative;
+    top: -160px;
 }
 
-.item {
-    margin: $itemMargin;
+.prev {
+    @extend .navigate-btn;
+    transform: rotateY(180deg);
+    //float: right;
+    left: 20px;
+    position: relative;
+}
+.next {
+    @extend .navigate-btn;
+    float: left;
+    position: relative;
+    left: -20px;
+    right: auto;
+    top: -20px;
 }
 

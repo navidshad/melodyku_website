@@ -1,17 +1,15 @@
 <div class="widget-container">
     <h3 class="title">{{title}}</h3>
-    <div class="container" >
-        <div class="prev"><div class="navigator" (click)="prev()"></div></div>
-        <div class="next"><div class="navigator" (click)="next()"></div></div>
-        <div class="slider">
-    
-            <div class='thumbs' [style.transform]="moveSlider()">
-    
-                <card-rect *ngFor="let item of items" 
-                    [card]="item">
-                </card-rect>
-    
-            </div>
-        </div>
+
+    <div class='thumbs' id="thumbs" 
+    extractor (onExtract)="getSliderElement($event)">
+        <card-rect class="item" *ngFor="let item of items" 
+            [card]="item">
+        </card-rect>
+    </div>
+
+    <div class="navigator">
+        <div class="prev" (click)="prev()"></div>
+        <div class="next" (click)="next()"></div>
     </div>
 </div>
