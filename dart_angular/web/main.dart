@@ -4,10 +4,13 @@ import 'package:http/http.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:dart_angular/app_component.template.dart' as ng;
 
+import 'package:dart_angular/src/services/app_shell_service.dart';
+
 import 'main.template.dart' as self;
 
 @GenerateInjector([
   routerProvidersHash, // You can use routerProviders in production
+  ClassProvider(AppShellService),
   ClassProvider(Client, useClass: BrowserClient)
 ])
 final InjectorFactory injector = self.injector$Injector;

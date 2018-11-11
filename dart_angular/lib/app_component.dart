@@ -19,16 +19,16 @@ import 'src/class/widgets/player.dart';
 
   directives: [
     routerDirectives,
-    DrawerMenu,
+    //DrawerMenu,
     HeaderMenu,
     FooterComponent,
     PlayerBareComponent,
   ],
   providers: const [ 
-    materialProviders,
-    ClassProvider(AppShellService),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
+    // player needs material-provider for seeker bar
+    materialProviders,
     ClassProvider(Player),
     ],
   exports: [RoutePaths, Routes]
