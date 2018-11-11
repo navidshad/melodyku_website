@@ -42,7 +42,7 @@ class PlayerBareComponent implements OnInit
   // methods
   void addListeners()
   {
-    _playerService.modalStream.listen((ModalPlayerDetail detail)
+    _playerService.modalStream.listen((StreamDetail_Player detail)
     {
       isVisible = detail.visible;
       print('type : ${detail.type} | object: ${detail.object}');

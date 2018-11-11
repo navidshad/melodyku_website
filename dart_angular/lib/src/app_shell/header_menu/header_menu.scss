@@ -1,4 +1,4 @@
-@import 'package:angular_components/app_layout/mixins';
+//
 @import '../../styles/colors';
 @import '../../styles/buttons';
 
@@ -8,10 +8,18 @@
 
 .material-header {
     background: $menu-color;
+    display: flex;
 }
 
 .material-header-title[dir="rtl"]{
     float: right;
     right: 80px;
     left: auto;
+}
+
+.menu-btn {
+    img {
+        width: 32px;
+        height: 32px;
+    }
 }

@@ -19,6 +19,6 @@ class CardRectComponent
 
   void play()
   {
-    _playerService.play(ModalPlayerDetail(true, card.type, card.origin));
+    _playerService.play(StreamDetail_Player(true, card.type, card.origin));
   }
 }

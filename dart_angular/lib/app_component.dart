@@ -2,7 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'src/app_layout/app_layout.dart';
+import 'src/app_shell/app_shell.dart';
 import 'src/widgets/widgets.dart';
 import 'src/routting/routes.dart';
 
@@ -12,7 +12,6 @@ import 'src/class/widgets/player.dart';
 @Component(
   selector: 'my-app',
   styleUrls: [
-    'package:angular_components/app_layout/layout.scss.css',
     'app_component.scss.css'
   ],
   templateUrl: 'app_component.html',
@@ -20,8 +19,6 @@ import 'src/class/widgets/player.dart';
 
   directives: [
     routerDirectives,
-    MaterialPersistentDrawerDirective,
-    DeferredContentDirective,
     DrawerMenu,
     HeaderMenu,
     FooterComponent,
@@ -29,6 +26,7 @@ import 'src/class/widgets/player.dart';
   ],
   providers: const [ 
     materialProviders,
+    ClassProvider(AppShellService),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(Player),

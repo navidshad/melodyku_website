@@ -1,11 +1,11 @@
-@import 'package:angular_components/material_icon/mixins';
-@import 'package:angular_components/material_list/mixins';
+//@import 'package:angular_components/material_icon/mixins';
+//@import 'package:angular_components/material_list/mixins';
 
 @import '../../styles/colors';
 @import '../../styles/effects';
 
 .drawer-list{
-    @include material-item-background($menu-color);
+    //@include material-item-background($menu-color);
     text-align: center;
     //padding-top: 2rem;
 }
@@ -22,7 +22,7 @@
     .d-menu-item
     {
         .custom-size-icon{
-            @include material-icon-size(30px);
+            //@include material-icon-size(30px);
             @include unselectable;
             padding-top: 15px;
             padding-bottom: 15px;

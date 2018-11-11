@@ -4,7 +4,7 @@
     <list default="true" id="428417f5-2453-4e5b-9cf7-6a1ebee5e5a9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/lib/app_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_component.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app_component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/app_layout/header_menu/header_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app_layout/header_menu/header_menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/app_shell/header_menu/header_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app_shell/header_menu/header_menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/styles/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/styles/_buttons.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/styles/_effects.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/styles/_effects.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" afterDir="false" />

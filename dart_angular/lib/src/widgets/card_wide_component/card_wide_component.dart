@@ -25,5 +25,5 @@ class CardWideComponent
 
   CardWideComponent(this._playerService);
 
-  void play() => _playerService.play(ModalPlayerDetail(true, item.type, item.origin));
+  void play() => _playerService.play(StreamDetail_Player(true, item.type, item.origin));
 }

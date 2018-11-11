@@ -1,4 +1,4 @@
-@import 'package:angular_components/app_layout/mixins';
+//
 
 @import 'colors';
 
@@ -9,5 +9,5 @@ material-drawer[persistent] {
 }
 
 .custom-width {
-    @include mat-drawer-width(80px);
+    //@include mat-drawer-width(80px);
 }

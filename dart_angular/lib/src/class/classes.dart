@@ -21,4 +21,4 @@ export 'widgets/imag_button.dart';
 // utilities
 export './utility/math.dart';
 export '../services/content_provider/mock_Json.dart';
-export './utility/modal_detail.dart';
+export './utility/stream_detail.dart';

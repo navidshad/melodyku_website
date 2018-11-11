@@ -3,8 +3,8 @@ import '../class/classes.dart';
 
 class PlayerService 
 {
-  Stream<ModalPlayerDetail> modalStream;
-  StreamController<ModalPlayerDetail> _modalStreamController;
+  Stream<StreamDetail_Player> modalStream;
+  StreamController<StreamDetail_Player> _modalStreamController;
 
   PlayerService()
   {
@@ -12,6 +12,6 @@ class PlayerService
     modalStream = _modalStreamController.stream;
   }
 
-  void play(ModalPlayerDetail detail) =>
+  void play(StreamDetail_Player detail) =>
     _modalStreamController.add(detail);
 }
