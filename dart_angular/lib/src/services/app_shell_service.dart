@@ -11,7 +11,8 @@ class AppShellService {
     displayableElementStream = _displayableElementStreamController.stream;
   }
 
-  void display(StreamDetail_Common event) =>
+  void show(StreamDetail_Common event) {
     _displayableElementStreamController.add(event);
+  }
 
 }

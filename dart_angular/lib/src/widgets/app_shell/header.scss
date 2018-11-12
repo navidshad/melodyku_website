@@ -1,0 +1,24 @@
+@import '../../styles/colors';
+
+.bar {
+    background: $menu-color;
+    height: 50px;
+    padding: 0px 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+.material-header-title[dir="rtl"]{
+    float: right;
+    right: 80px;
+    left: auto;
+}
+
+.menu-btn {
+    cursor: pointer;
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}

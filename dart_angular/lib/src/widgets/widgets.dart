@@ -1,3 +1,6 @@
+// app shell
+export 'app_shell/app_shell_component.dart';
+
 // widgets components
 export 'card_rect_component/card_rect_component.dart';
 export 'card_wide_component/card_wide_component.dart';

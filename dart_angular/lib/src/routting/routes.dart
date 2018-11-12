@@ -5,6 +5,7 @@ import '../pages/vitrin/vitrin_page_component.template.dart' as vitrin_page_temp
 import '../pages/artists/artists_page_component.template.dart' as artists_page_template;
 
 export 'route_paths.dart';
+export 'menu_items.dart';
 
 class Routes
 {

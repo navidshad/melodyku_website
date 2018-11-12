@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'menu_items.dart';
+import '../../routting/menu_items.dart';
 
 @Component(
   selector: 'drawer-menu',
@@ -17,5 +17,5 @@ import 'menu_items.dart';
 )
 class DrawerMenu 
 {
-  List<Item> list = items;
+  List<DrawerItem> list = menuItems;
 }
