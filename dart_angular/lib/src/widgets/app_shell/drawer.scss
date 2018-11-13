@@ -2,20 +2,31 @@
 @import '../../styles/effects';
 
 $menu_width : 80px;
-.drawer-list{
+.drawer{
     //@include material-item-background($menu-color);
     text-align: center;
     padding-top: 2rem;
+    background-color: $menu-color;
     
     height: 100%; /* 100% Full-height */
     width: $menu_width; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 0; /* Stay on top */
+    z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     right: -100px;
-    background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.drawer-plane{
+    height: 100%; /* 100% Full-height */
+    width: 100%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    background-color: #111; /* Black*/
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */  
+    display: none;
 }
 
 .logo {

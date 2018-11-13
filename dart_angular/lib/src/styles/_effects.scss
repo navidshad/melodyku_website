@@ -29,3 +29,7 @@
 .overlay_card {
     @include overlay_card();
 }
+
+.rotate-half{
+    transform: rotate(180deg);
+}

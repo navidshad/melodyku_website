@@ -1,8 +1,10 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'dart:html';
+
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
+import '../../class/classes.dart';
 
 @Component(
   selector: 'app-shell',
@@ -23,24 +25,21 @@ class AppShellComponent
 {
   List<DrawerItem> drawerItems = menuItems;
   bool isDrawerOpen = false;
-  Element drawer;
+  Drawer drawerMenu;
+  Drawer drawerProfile;
   Element mainContent;
 
-  void switchMenu()
+  void getElement(Element shell)
   {
-    String right = isDrawerOpen ? '-100px' : '0px';
-    String margin = isDrawerOpen ? '0px' : '80px';
+    mainContent = shell.querySelector('#mainContent');
+    Element drawerPlane = shell.querySelector('.drawer-plane');
 
-    drawer.style.right = right;
-    mainContent.style.marginRight = margin;
-    
-    isDrawerOpen = !isDrawerOpen;
+    Element drawerMenuEl = shell.querySelector('.drawer');
+    drawerMenu = Drawer(100, '100px', 'right', drawerMenuEl, mainContent);
   }
 
-  void getElement(Element el)
+  void closeDrawers()
   {
-    String type = el.attributes['id'];
-    if(type == 'mainContent') mainContent = el;
-    else if (type == 'drawer') drawer = el;
+    drawerMenu.doOpenClose(null, null);
   }
 }

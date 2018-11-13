@@ -17,6 +17,7 @@ export 'widgets/list_item.dart';
 export 'widgets/origin.dart';
 export 'widgets/player.dart';
 export 'widgets/imag_button.dart';
+export 'widgets/drawer.dart';
 
 // utilities
 export './utility/math.dart';

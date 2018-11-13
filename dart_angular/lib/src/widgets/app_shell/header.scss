@@ -17,8 +17,24 @@
 
 .menu-btn {
     cursor: pointer;
+    transition: 0.5s;
     img {
         width: 32px;
         height: 32px;
+    }
+}
+
+.nopush {
+    display: none;
+}
+
+@media only screen and (max-width: 479px) 
+{
+    .nopush {
+        display: block;
+    }
+
+    .push{
+        display: none;
     }
 }

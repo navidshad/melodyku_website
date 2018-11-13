@@ -1,20 +1,7 @@
-//
-
 @import 'src/styles/buttons';
-@import 'src/styles/drawer';
 
 
 :host {
     /* This is equivalent of the 'body' selector of a page. */
 }
 
-.content-body {
-    padding: 5px 80px 0px 80px;
-}
-
-@media all and (max-width: 880px)
-{
-    .content-body {
-        padding: 5px 20px 0px 20px;
-    }
-}
