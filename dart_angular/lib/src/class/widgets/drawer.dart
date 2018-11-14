@@ -19,6 +19,7 @@ class Drawer {
      this.el_btn_pushing, this.el_btn_noPushing, this.el_plane})
   {
     setupStyle();
+    setupButtons();
   }
 
   void setupStyle()
@@ -36,6 +37,12 @@ class Drawer {
     String moveOut = '-${width}px';
     if(direction == 'left') el_drawer.style.left = moveOut;
     else el_drawer.style.right = moveOut;
+  }
+
+  void setupButtons()
+  {
+    if(el_btn_noPushing != null) el_btn_noPushing.onClick.listen((e) => doOpenClose());
+    if(el_btn_pushing != null) el_btn_pushing.onClick.listen((e) => doOpenCloseWithPushing());
   }
 
   void doOpenClose()
@@ -85,7 +92,6 @@ class Drawer {
   }
 
   
-
   void _changeStyleForOpenClose(String drawer, String main)
   {
     print('_changeStyleForOpenClose $direction');
