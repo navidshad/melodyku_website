@@ -27,19 +27,33 @@ class AppShellComponent
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
-  Element mainContent;
 
   void getElement(Element shell)
   {
-    mainContent = shell.querySelector('#mainContent');
-    Element drawerPlane = shell.querySelector('.drawer-plane');
+    Element mainContent = shell.querySelector('#mainContent');
+    Element planeEl = shell.querySelector('.drawer-plane');
 
-    Element drawerMenuEl = shell.querySelector('.drawer');
-    drawerMenu = Drawer(100, '100px', 'right', drawerMenuEl, mainContent);
+    // main menu
+    Element drawerMenuEl = shell.querySelector('#drawerMainMenu');
+    Element drawerMenuBtnNoPushEl = shell.querySelector('.nopush');
+    Element drawerMenuBtnPushEl = shell.querySelector('.push');
+
+    drawerMenu = Drawer(drawerMenuEl, mainContent, el_plane: planeEl,
+      el_btn_noPushing: drawerMenuBtnNoPushEl, el_btn_pushing: drawerMenuBtnPushEl,
+      width: 80, mainMargine: '80px', direction: 'right', planeOpacity: '0.8');
+
+    // profile
+    Element drawerProfileEl = shell.querySelector('#drawerProfile');
+    Element drawerProfileBtnNoPush = shell.querySelector('.profile-btn');
+
+    drawerProfile = Drawer(drawerProfileEl, mainContent, el_plane: planeEl,
+      el_btn_noPushing: drawerProfileBtnNoPush,
+      width: 250, mainMargine: '250px', direction: 'left', planeOpacity: '0.5');
   }
 
   void closeDrawers()
   {
-    drawerMenu.doOpenClose(null, null);
+    drawerMenu.close();
+    drawerProfile.close();
   }
 }

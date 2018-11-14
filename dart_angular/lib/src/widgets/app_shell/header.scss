@@ -7,9 +7,12 @@
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.material-header-title[dir="rtl"]{
+
+
+.title[dir="rtl"]{
     float: right;
     right: 80px;
     left: auto;

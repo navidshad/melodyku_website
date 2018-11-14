@@ -1,64 +1,94 @@
 import 'dart:html';
 
 class Drawer {
-  int width;
-  String mainMargine;
-  String direction;
+  int width = 100;
+  String mainMargine = "80px";
+  String direction = "right";
+  String planeOpacity = "0.8";
   Element el_drawer;
   Element el_main;
   Element el_plane;
-  Element el_btn;
+  Element el_btn_pushing;
+  Element el_btn_noPushing;
 
   bool isDrawerOpen = false;
-  bool pushing;
+  bool pushing = false;
 
-  Drawer(this.width, this.mainMargine, this.direction, 
-    this.el_drawer, this. el_main);
-
-  void doOpenClose(Element btn, Element plane)
+  Drawer(this.el_drawer, this. el_main, 
+    {this.width, this.mainMargine, this.direction, this.planeOpacity,
+     this.el_btn_pushing, this.el_btn_noPushing, this.el_plane})
   {
-    pushing = false;
-    el_drawer.style.zIndex = "2";
-    if(btn != null) el_btn = btn;
-    if(btn != null) el_plane = plane;
-
-    // switcher
-    if(isDrawerOpen) _close();
-    else _open();
-    
-    isDrawerOpen = !isDrawerOpen;
+    setupStyle();
   }
 
-  void doOpenCloseWithPushing(Element btn)
+  void setupStyle()
   {
+    print('setupStyle');
+    el_drawer.style.height    = "100%";
+    el_drawer.style.width     = "${width}px";
+    el_drawer.style.position  = "fixed";
+    el_drawer.style.zIndex    = "1";
+    el_drawer.style.top       = "0";
+    el_drawer.style.overflowX = "hidden";
+    el_drawer.style.transition = "0.5s";
+
+    //direction
+    String moveOut = '-${width}px';
+    if(direction == 'left') el_drawer.style.left = moveOut;
+    else el_drawer.style.right = moveOut;
+  }
+
+  void doOpenClose()
+  {
+    print('doOpenClose');
+    pushing = false;
+    el_drawer.style.zIndex = "2";
+
+    // switcher
+    if(isDrawerOpen) close();
+    else _open();
+  }
+
+  void doOpenCloseWithPushing()
+  {
+    print('doOpenCloseWithPushing');
     pushing = true;
     el_drawer.style.zIndex = "0";
-    el_plane = null;
-    if(btn != null) el_btn = btn;
 
-    if(isDrawerOpen) _close();
+    if(isDrawerOpen) close();
     else _open();
-
-    isDrawerOpen = !isDrawerOpen;
   }
 
   void _open()
   {
+    //print('open');
     blockScreen(true);
-    el_btn.classes.add('rotate-half');
     _changeStyleForOpenClose('0px', mainMargine);
+
+    if(el_btn_pushing != null) el_btn_pushing.classes.add('rotate-half');
+    if(el_btn_noPushing != null) el_btn_noPushing.classes.add('rotate-half');
+
+    isDrawerOpen = true;
   }
 
-  void _close()
+  void close()
   {
+    //print('close');
     blockScreen(false);
-    el_btn.classes.remove('rotate-half');
+
+    if(el_btn_pushing != null) el_btn_pushing.classes.remove('rotate-half');
+    if(el_btn_noPushing != null) el_btn_noPushing.classes.remove('rotate-half');
+
     String move = '-${width}px';
     _changeStyleForOpenClose(move, '0px');
+    isDrawerOpen = false;
   }
+
+  
 
   void _changeStyleForOpenClose(String drawer, String main)
   {
+    print('_changeStyleForOpenClose $direction');
     switch(direction)
     {
       case 'right':
@@ -77,12 +107,12 @@ class Drawer {
 
   void blockScreen(key)
   {
-    if(el_plane == null) return;
+    if(pushing) return;
 
     if(key)
     {
       el_plane.style.display= "block";
-      el_plane.style.opacity= "0.8";
+      el_plane.style.opacity= planeOpacity;
     }
     else {
       el_plane.style.opacity= "0";

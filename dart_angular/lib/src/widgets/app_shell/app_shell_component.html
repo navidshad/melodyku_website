@@ -7,28 +7,39 @@
     <div class="main-content" id="mainContent">
 
         <!-- header -->
-        <header class="w3-bar bar" dir="rtl">
-            <div class="menu-btn push unselectable" #mBtnPush
-            (click)="drawerMenu.doOpenCloseWithPushing(mBtnPush)">
-                <img src="/assets/svg/icon_menu.svg">
+        <header class="bar" dir="rtl">
+
+            <div class="main-menu">
+                <div class="menu-btn push unselectable" 
+                (click)="drawerMenu.doOpenCloseWithPushing()">
+                    <img src="/assets/svg/icon_menu.svg">
+                </div>
+                <div class="menu-btn nopush unselectable" 
+                (click)="drawerMenu.doOpenClose()">
+                    <img src="/assets/svg/icon_menu.svg">
+                </div>
             </div>
-            <div class="menu-btn nopush unselectable" #mBtnnoPush
-            (click)="drawerMenu.doOpenClose(mBtnnoPush, plane)">
-                <img src="/assets/svg/icon_menu.svg">
+
+            <div class="profile">
+                <div class="menu-btn unselectable profile-btn" 
+                (click)="drawerProfile.doOpenClose()">
+                    <img src="/assets/svg/icon_menu.svg">
+                </div>
             </div>
+
         </header>
         
         <!-- page -->
         <div class="content-body">
-        <router-outlet [routes]="Routes.all" ></router-outlet>
+            <router-outlet [routes]="Routes.all" ></router-outlet>
         </div>
 
         <footer></footer>
     </div>
     <!-- end mainContent -->
 
-    <!-- drawer_menu -->
-    <div class="drawer">
+    <!-- drawer_main menu -->
+    <div class="drawer" id="drawerMainMenu">
         <div>
             <a href="#">
             <img src="assets/imgs/logo.png" class="logo">
@@ -46,6 +57,11 @@
         </li>
         </ul>
     </div>
-    <!-- end drawer_menu -->
+    <!-- end drawer_main menu -->
+
+    <!-- drawer profile menu -->
+    <div class="drawer" id="drawerProfile">
+
+    </div>
 </div>
 
