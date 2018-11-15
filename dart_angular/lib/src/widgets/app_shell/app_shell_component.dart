@@ -4,8 +4,12 @@ import 'dart:html';
 
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
+import '../../widgets/login_form_component/login_form_component.dart';
 import '../../class/classes.dart';
 import '../../services/user_service.dart';
+import '../../services/message_service.dart';
+import '../../class/utility/stream_detail.dart';
+
 
 @Component(
   selector: 'app-shell',
@@ -14,6 +18,7 @@ import '../../services/user_service.dart';
     coreDirectives, 
     routerDirectives,
     ElementExtractorDirective,
+    LoginFormComponent,
   ],
   styleUrls: [
     'app_shell_component.scss.css',
@@ -25,17 +30,22 @@ import '../../services/user_service.dart';
 class AppShellComponent
 {
   UserService _userService;
+  MessageService messageService;
   List<DrawerItem> drawerItems = menuItems;
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
 
-  AppShellComponent(this._userService);
+  AppShellComponent(this._userService, this.messageService);
 
 
   // user ---------------------------------------
   bool get isLogedIn => _userService.isLogedIn;
   User get user => _userService.user;
+
+  // register form ------------------------------
+  void openlogin() => messageService.send(MessageDetail(true, StreamType.login));
+
 
   // drawers ------------------------------------
   void getElement(Element shell)

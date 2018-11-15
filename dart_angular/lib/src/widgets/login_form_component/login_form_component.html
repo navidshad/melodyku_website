@@ -1,0 +1,12 @@
+<div class="login-modal" *ngIf="isVisible">
+    <div class="card">
+        <form id="login-from">
+            <label >ایمیل</label>
+            <input type="text">
+            <label >رمز عبور</label>
+            <input type="password">
+        </form>
+        <form id="register-from"></form>
+        <button class="btn-md" (click)="close">close</button>
+    </div>
+</div>

@@ -22,8 +22,8 @@
                 <div *ngIf="isLogedIn" class="menu-btn unselectable profile-btn">
                     <img src="/assets/svg/icon_user_m.svg">
                 </div>
-
-                <button *ngIf="!isLogedIn" class="btn-sl">ورود / ثبت نام</button>
+                
+                <button *ngIf="!isLogedIn" class="btn-sl" (click)="openlogin()">ورود / ثبت نام</button>
             </div>
 
         </header>
@@ -59,8 +59,9 @@
     <!-- end drawer_main menu -->
 
     <!-- drawer profile menu -->
-    <div class="drawer" id="drawerProfile">
-
-    </div>
+    <div class="drawer" id="drawerProfile"></div>
 </div>
+
+<!-- login form -->
+<login-form *ngIf="!isLogedIn"></login-form>
 

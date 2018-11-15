@@ -1,11 +1,12 @@
 import '../classes.dart';
+export '../types.dart';
 
-class StreamDetail_Common {
+class MessageDetail {
   bool visible;
   StreamType type;
-  //dynamic detail;
+  dynamic detail;
   
-  StreamDetail_Common(this.visible, [this.type]);
+  MessageDetail(this.visible, [this.type, this.detail]);
 }
 
 class StreamDetail_Player {

@@ -1,5 +1,6 @@
 // app shell
 export 'app_shell/app_shell_component.dart';
+export 'login_form_component/login_form_component.dart';
 
 // widgets components
 export 'card_rect_component/card_rect_component.dart';
