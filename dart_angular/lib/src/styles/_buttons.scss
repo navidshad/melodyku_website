@@ -22,17 +22,20 @@
 .btn-sl {
     @extend .button;
     @include border-radius(10px);
-    font-size: 14px;
+    font-size: 12px;
+    padding: 5px 20px;
 }
 
 .btn-md {
     @extend .button;
     @include border-radius(30px);
     font-size: 24px;
+    padding: 5px 20px;
 }
 
 .btn-bg {
     @extend .button;
     @include border-radius(50px);
     font-size: 34px;
+    padding: 5px 20px;
 }

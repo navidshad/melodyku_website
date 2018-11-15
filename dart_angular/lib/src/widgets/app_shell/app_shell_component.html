@@ -19,9 +19,11 @@
             </div>
 
             <div class="profile">
-                <div class="menu-btn unselectable profile-btn">
+                <div *ngIf="isLogedIn" class="menu-btn unselectable profile-btn">
                     <img src="/assets/svg/icon_user_m.svg">
                 </div>
+
+                <button *ngIf="!isLogedIn" class="btn-sl">ورود / ثبت نام</button>
             </div>
 
         </header>

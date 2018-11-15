@@ -5,6 +5,7 @@ import 'dart:html';
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../class/classes.dart';
+import '../../services/user_service.dart';
 
 @Component(
   selector: 'app-shell',
@@ -23,11 +24,20 @@ import '../../class/classes.dart';
 )
 class AppShellComponent
 {
+  UserService _userService;
   List<DrawerItem> drawerItems = menuItems;
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
 
+  AppShellComponent(this._userService);
+
+
+  // user ---------------------------------------
+  bool get isLogedIn => _userService.isLogedIn;
+  User get user => _userService.user;
+
+  // drawers ------------------------------------
   void getElement(Element shell)
   {
     Element mainContent = shell.querySelector('#mainContent');
