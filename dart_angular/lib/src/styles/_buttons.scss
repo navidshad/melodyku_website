@@ -21,21 +21,30 @@
 
 .btn-sl {
     @extend .button;
-    @include border-radius(10px);
+    @include border-radius(20px);
     font-size: 12px;
-    padding: 5px 20px;
+    padding: 5px 50px;
 }
 
 .btn-md {
     @extend .button;
-    @include border-radius(30px);
+    @include border-radius(20px);
     font-size: 24px;
-    padding: 5px 20px;
+    padding: 5px 50px;
 }
 
 .btn-bg {
     @extend .button;
-    @include border-radius(50px);
+    @include border-radius(20px);
     font-size: 34px;
-    padding: 5px 20px;
+    padding: 5px 50px;
+}
+
+.btn-close{
+    @extend .button;
+    border-radius: 100%;
+    width: 20px;
+    img {
+        width: 100%;
+    }
 }

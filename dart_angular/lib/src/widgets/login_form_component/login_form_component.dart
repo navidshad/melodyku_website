@@ -14,6 +14,11 @@ class LoginFormComponent
   UserService _userService;
   MessageService _messageService;
   bool isVisible = false;
+  String activeForm = 'login';
+  
+  String fullname;
+  String email;
+  String password;
 
   LoginFormComponent(this._userService, this._messageService)
   {
@@ -29,5 +34,24 @@ class LoginFormComponent
     isVisible = message.visible;
   }
 
- 
+  void switchForm()
+  {
+    if(activeForm == 'login') activeForm = 'register';
+    else activeForm = 'login';
+  }
+
+  void login()
+  {
+    _userService.login(email, password);
+  }
+
+  void register()
+  {
+    dynamic detail = {
+      'fullname': fullname,
+      'email': email,
+      'password': password
+    };
+    _userService.register(detail);
+  }
 }

@@ -12,7 +12,7 @@ class UserService
 
   UserService(this._http);
 
-  void login()
+  void login(String email, String password)
   {
 
   }
@@ -22,7 +22,7 @@ class UserService
     
   }
 
-  void register()
+  void register(dynamic detail)
   {
 
   }

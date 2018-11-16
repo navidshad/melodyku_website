@@ -1,12 +1,101 @@
 <div class="login-modal" *ngIf="isVisible">
-    <div class="card">
-        <form id="login-from">
-            <label >ایمیل</label>
-            <input type="text">
-            <label >رمز عبور</label>
-            <input type="password">
-        </form>
-        <form id="register-from"></form>
-        <button class="btn-md" (click)="close">close</button>
+    <div class="card text-center text-normal">
+
+        <div class="w3-row">
+            <!-- logo -->
+            <div class="w3-container w3-half">
+                <img class="logo w3-image" src="/assets/imgs/logo.png">
+            </div>
+
+            <!-- forms -->
+            <div class="w3-container w3-half">
+
+                <!-- login -->
+                <div *ngIf="activeForm == 'login'">
+                    <h5>ورود به حساب کاربری</h5>
+                    <form id="login-from">
+
+                        <!-- email -->
+                        <div class="w3-row w3-section group">
+                            <div class="w3-col" style="width:50px">
+                                <img src="/assets/svg/icon_email.svg" alt="">
+                            </div>
+                            <div class="w3-rest w3-mobile">
+                                <input class="w3-input w3-round" name="email" type="text" placeholder="email">
+                            </div>
+                        </div>
+            
+                        <!-- password -->
+                        <div class="w3-row w3-section group">
+                            <div class="w3-col" style="width:50px">
+                                <img src="/assets/svg/icon_lock.svg" alt="">
+                            </div>
+                            <div class="w3-rest w3-mobile">
+                                <input class="w3-input w3-round" name="password" type="password" placeholder="password">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="">
+                        <button class="btn-sl border-white w3-mobile" (click)="login()">ورود</button>
+                        <p>
+                            <b class="pointer">رمز خود را فراموش کرده اید؟</b><br>
+                            <span>قبلا حساب نساخته اید؟</span>
+                            <ins class="pointer" (click)="switchForm()"> ثبت نام</ins>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- register -->
+                <div *ngIf="activeForm == 'register'">
+                    <h5>ساخت حساب کاربری</h5>
+                    <form id="register-from">
+                        <!-- fullname -->
+                        <div class="w3-row w3-section group">
+                                <div class="w3-col" style="width:50px">
+                                    <img src="/assets/svg/icon_avatar.svg" alt="">
+                                </div>
+                                <div class="w3-rest w3-mobile">
+                                    <input class="w3-input w3-round" name="fullname" type="text" placeholder="full name">
+                                </div>
+                            </div>
+
+                        <!-- email -->
+                        <div class="w3-row w3-section group">
+                            <div class="w3-col" style="width:50px">
+                                <img src="/assets/svg/icon_email.svg" alt="">
+                            </div>
+                            <div class="w3-rest w3-mobile">
+                                <input class="w3-input w3-round" name="email" type="text" placeholder="email">
+                            </div>
+                        </div>
+            
+                        <!-- password -->
+                        <div class="w3-row w3-section group">
+                            <div class="w3-col" style="width:50px">
+                                <img src="/assets/svg/icon_lock.svg" alt="">
+                            </div>
+                            <div class="w3-rest w3-mobile">
+                                <input class="w3-input w3-round" name="password" type="password" placeholder="password">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="">
+                        <button class="btn-sl border-white w3-mobile" (click)="register()">ثبت نام</button>
+                        <p>
+                            <span>قبلا حساب ساخته اید؟</span>
+                            <ins class="pointer" (click)="switchForm()"> ورود</ins>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end forms -->
+        </div>
+
+        <!-- close -->
+        <div class="btn-close" (click)="close">
+            <img src="/assets/svg/icon_close.svg">
+        </div>
     </div>
 </div>
