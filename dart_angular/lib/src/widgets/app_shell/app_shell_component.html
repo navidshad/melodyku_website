@@ -1,4 +1,4 @@
-<div extractor (onExtract)="getElement($event)" id="shell">
+<div  #shell>
 
     <!-- drawer background -->
     <div class="drawer-plane" #plane (click)="closeDrawers()"></div>
@@ -19,7 +19,8 @@
             </div>
 
             <div class="profile">
-                <div *ngIf="isLogedIn" class="menu-btn unselectable profile-btn">
+                <div *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)"
+                class="menu-btn unselectable profile-btn">
                     <img src="/assets/svg/icon_user_m.svg">
                 </div>
                 
@@ -38,7 +39,8 @@
     <!-- end mainContent -->
 
     <!-- drawer_main menu -->
-    <div class="drawer" id="drawerMainMenu">
+    <div extractor (onExtract)="setupMenuDrawer(shell)"
+        class="drawer" id="drawerMainMenu">
         <div>
             <a href="#">
             <img src="assets/imgs/logo_small.png" class="logo">
@@ -59,7 +61,17 @@
     <!-- end drawer_main menu -->
 
     <!-- drawer profile menu -->
-    <div class="drawer" id="drawerProfile"></div>
+    <div *ngIf="isLogedIn" 
+        class="drawer" id="drawerProfile">
+
+        <div *ngIf="user != null" class="info text-center">
+            <div class="avatar">
+
+            </div>
+            {{user.fullname}}
+        </div>
+
+    </div>
 </div>
 
 <!-- login form -->

@@ -24,6 +24,7 @@ import '../../class/utility/stream_detail.dart';
     'app_shell_component.scss.css',
     'drawer.scss.css',
     'header.scss.css',
+    'profile.scss.css',
   ],
   exports: [RoutePaths, Routes]
 )
@@ -48,7 +49,7 @@ class AppShellComponent
 
 
   // drawers ------------------------------------
-  void getElement(Element shell)
+  void setupMenuDrawer(Element shell)
   {
     Element mainContent = shell.querySelector('#mainContent');
     Element planeEl = shell.querySelector('.drawer-plane');
@@ -61,6 +62,12 @@ class AppShellComponent
     drawerMenu = Drawer(drawerMenuEl, mainContent, el_plane: planeEl,
       el_btn_noPushing: drawerMenuBtnNoPushEl, el_btn_pushing: drawerMenuBtnPushEl,
       width: 80, mainMargine: '80px', direction: 'right', planeOpacity: '0.8');
+  }
+
+  void setupProfileDrawer(Element shell)
+  {
+    Element mainContent = shell.querySelector('#mainContent');
+    Element planeEl = shell.querySelector('.drawer-plane');
 
     // profile
     Element drawerProfileEl = shell.querySelector('#drawerProfile');

@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 import '../../class/classes.dart';
-import './urls.dart';
+import '../urls.dart';
 
 class Archive {
   Client _http;

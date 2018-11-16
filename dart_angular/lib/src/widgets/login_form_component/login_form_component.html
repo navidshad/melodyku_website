@@ -1,7 +1,9 @@
-<div class="login-modal" *ngIf="isVisible">
+<div class="login-modal" *ngIf="isVisible" 
+    extractor (onExtract)="getElement($event)">
+
     <div class="card text-center text-normal">
 
-        <div class="w3-row">
+        <div class="w3-row" id="cardContent">
             <!-- logo -->
             <div class="w3-container w3-half">
                 <img class="logo w3-image" src="/assets/imgs/logo.png">
@@ -21,7 +23,8 @@
                                 <img src="/assets/svg/icon_email.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input class="w3-input w3-round" name="email" type="text" placeholder="email">
+                                <input [(ngModel)]="email" 
+                                    class="w3-input w3-round" name="email" type="text" placeholder="email">
                             </div>
                         </div>
             
@@ -31,7 +34,8 @@
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input class="w3-input w3-round" name="password" type="password" placeholder="password">
+                                <input [(ngModel)]="password"
+                                    class="w3-input w3-round" name="password" type="password" placeholder="password">
                             </div>
                         </div>
                     </form>
@@ -56,7 +60,8 @@
                                     <img src="/assets/svg/icon_avatar.svg" alt="">
                                 </div>
                                 <div class="w3-rest w3-mobile">
-                                    <input class="w3-input w3-round" name="fullname" type="text" placeholder="full name">
+                                    <input [(ngModel)]="fullname"
+                                        class="w3-input w3-round" name="fullname" type="text" placeholder="full name">
                                 </div>
                             </div>
 
@@ -66,7 +71,8 @@
                                 <img src="/assets/svg/icon_email.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input class="w3-input w3-round" name="email" type="text" placeholder="email">
+                                <input [(ngModel)]="email"
+                                    class="w3-input w3-round" name="email" type="text" placeholder="email">
                             </div>
                         </div>
             
@@ -76,7 +82,8 @@
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input class="w3-input w3-round" name="password" type="password" placeholder="password">
+                                <input [(ngModel)]="password"
+                                    class="w3-input w3-round" name="password" type="password" placeholder="password">
                             </div>
                         </div>
                     </form>
