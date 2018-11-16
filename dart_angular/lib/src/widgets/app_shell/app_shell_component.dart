@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'dart:html';
+import 'dart:async';
 
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
@@ -44,6 +45,13 @@ class AppShellComponent
   bool get isLogedIn => _userService.isLogedIn;
   User get user => _userService.user;
 
+  void logout() async 
+  {
+    await closeDrawers();
+    _userService.logout();
+    drawerProfile = null;
+  }
+
   // register form ------------------------------
   void openlogin() => messageService.send(MessageDetail(true, StreamType.login));
 
@@ -78,9 +86,10 @@ class AppShellComponent
       width: 250, mainMargine: '250px', direction: 'left', planeOpacity: '0.5');
   }
 
-  void closeDrawers()
+  Future<void> closeDrawers() async
   {
     drawerMenu.close();
     drawerProfile.close();
+    await Future.delayed(Duration(milliseconds: 500));
   }
 }

@@ -32,7 +32,7 @@ class LoginFormComponent
 
   LoginFormComponent(this._userService, this._messageService)
   {
-    _messageService.addListener(resiveOpenMessage);
+    _messageService.addListener('loginform', resiveOpenMessage);
   }
 
   void getElement(Element el) => _formElement = el;
