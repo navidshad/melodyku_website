@@ -1,9 +1,8 @@
-<div class="login-modal" *ngIf="isVisible" 
-    extractor (onExtract)="getElement($event)">
+<div class="modal-base" extractor (onExtract)="getElement($event)">
 
-    <div class="card text-center text-normal">
+    <div class="modal-card text-center text-normal">
 
-        <div class="w3-row" id="cardContent">
+        <div class="w3-row modal-content">
             <!-- logo -->
             <div class="w3-container w3-half">
                 <img class="logo w3-image" src="/assets/imgs/logo.png">
@@ -101,7 +100,7 @@
         </div>
 
         <!-- close -->
-        <div class="btn-close" (click)="close">
+        <div class="btn-close" (click)="modal.close()">
             <img src="/assets/svg/icon_close.svg">
         </div>
     </div>

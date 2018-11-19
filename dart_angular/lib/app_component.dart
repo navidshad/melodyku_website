@@ -3,9 +3,6 @@ import 'package:angular_components/angular_components.dart';
 
 import 'src/widgets/widgets.dart';
 import 'src/services/services.dart';
-import 'src/class/widgets/player.dart';
-import 'src/services/user_service.dart';
-import 'src/services/message_service.dart';
 
 @Component(
   selector: 'my-app',
@@ -20,10 +17,12 @@ import 'src/services/message_service.dart';
     PlayerBareComponent,
   ],
   providers: const [ 
+    ClassProvider(LanguageService),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(UserService),
     ClassProvider(MessageService),
+    ClassProvider(ModalService),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),

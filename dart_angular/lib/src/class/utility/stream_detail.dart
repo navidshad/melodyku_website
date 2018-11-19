@@ -3,10 +3,10 @@ export '../types.dart';
 
 class MessageDetail {
   bool visible;
-  StreamType type;
+  MessageType type;
   dynamic detail;
   
-  MessageDetail(this.visible, [this.type, this.detail]);
+  MessageDetail({this.visible, this.type, this.detail});
 }
 
 class StreamDetail_Player {

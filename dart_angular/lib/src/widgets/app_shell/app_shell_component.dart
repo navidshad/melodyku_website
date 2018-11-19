@@ -10,6 +10,7 @@ import '../../class/classes.dart';
 import '../../services/user_service.dart';
 import '../../services/message_service.dart';
 import '../../class/utility/stream_detail.dart';
+import '../../services/language_service.dart';
 
 
 @Component(
@@ -31,6 +32,7 @@ import '../../class/utility/stream_detail.dart';
 )
 class AppShellComponent
 {
+  LanguageService lang;
   UserService _userService;
   MessageService messageService;
   List<DrawerItem> drawerItems = menuItems;
@@ -38,7 +40,7 @@ class AppShellComponent
   Drawer drawerMenu;
   Drawer drawerProfile;
 
-  AppShellComponent(this._userService, this.messageService);
+  AppShellComponent(this._userService, this.messageService, this.lang);
 
 
   // user ---------------------------------------
@@ -53,7 +55,8 @@ class AppShellComponent
   }
 
   // register form ------------------------------
-  void openlogin() => messageService.send(MessageDetail(true, StreamType.login));
+  void openlogin() => 
+    messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
 
 
   // drawers ------------------------------------
@@ -89,7 +92,7 @@ class AppShellComponent
   Future<void> closeDrawers() async
   {
     drawerMenu.close();
-    drawerProfile.close();
+    if(drawerProfile != null) drawerProfile.close();
     await Future.delayed(Duration(milliseconds: 500));
   }
 }

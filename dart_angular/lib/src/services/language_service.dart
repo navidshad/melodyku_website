@@ -4,12 +4,33 @@ import './language/language_strings.dart';
 class LanguageService 
 {
   int _current;
-  List<Language> languageList;
+  List<Language> _languageList;
 
   LanguageService() {
+    _languageList = List<Language>();
     prepareLanguages();
   }
 
+  // base methods ===============================
+  List<dynamic> getLanguageList() =>
+    _languageList.map((f) => f.getDetail());
+
+  void switchTo(int index) => 
+    _current = index;
+
+  String getStr(String name) => 
+    _languageList[_current].getStr(name);
+
+  String getDirection() => 
+    _languageList[_current].direction.toString();
+
+  String getFlag() => 
+    _languageList[_current].flag;
+
+  String getName() =>
+    _languageList[_current].name;
+
+  // prepration =================================
   void prepareLanguages()
   {
     // loop per language
@@ -23,10 +44,11 @@ class LanguageService
 
       // create lang
       Language language = Language(ld['name'], ld['flag'], ld['direction'], strings);
-      languageList.add(language);
+      _languageList.add(language);
 
       // get current
-      if(ld['default']) _current = languageList.length-1;
+      if(ld ['default'] != null && ld['default']) 
+        _current = _languageList.length-1;
     }
   }
 

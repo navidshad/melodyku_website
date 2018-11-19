@@ -1,5 +1,7 @@
 import 'dart:async';
-import '../class/classes.dart';
+import '../class/utility/stream_detail.dart';
+
+export '../class/widgets/player.dart';
 
 class PlayerService 
 {

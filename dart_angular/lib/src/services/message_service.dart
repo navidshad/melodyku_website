@@ -6,18 +6,24 @@ export '../class/utility/stream_detail.dart';
 class MessageService 
 {
   StreamController<MessageDetail> _messageController;
+  Stream<MessageDetail> _broadCast;
   List<dynamic> listeners = [];
 
   MessageService()
   {
     _messageController = StreamController<MessageDetail>();
+    _broadCast = _messageController.stream.asBroadcastStream();
   }
 
-  void send(MessageDetail message) =>
+  void send(MessageDetail message) 
+  {
+    print('send message to: ${message.type}, ${message.visible}, ${message.detail}');
     _messageController.add(message);
+  }
 
   void addListener(String name, fn) 
   {
+    print('addListener $name');
     // check if added already
     bool isAdded = false;
     for (var i = 0; i < listeners.length; i++)
@@ -40,13 +46,19 @@ class MessageService
     
     // add listeners
     for (var i = 0; i < listeners.length; i++) 
-      _messageController.stream.listen(listeners[i]['fn']);
+      _broadCast.listen(listeners[i]['fn']);
   }
 
   void _addNewListener(String name, fn)
   {
-    dynamic listener = { 'name': name, 'fn': fn };
-    listeners.add(listener);
-    _messageController.stream.listen(fn);
+    try {
+
+      dynamic listener = { 'name': name, 'fn': fn };
+      listeners.add(listener);
+      _broadCast.listen(fn);
+
+    } catch (e) {
+      print('$name, $e');
+    }
   }
 }

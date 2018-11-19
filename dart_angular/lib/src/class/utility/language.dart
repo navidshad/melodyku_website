@@ -22,4 +22,10 @@ class Language
 
     return string;
   }
+
+  dynamic getDetail()
+  {
+    dynamic detail = { 'name': name, 'flag': flag };
+    return detail;
+  }
 }
