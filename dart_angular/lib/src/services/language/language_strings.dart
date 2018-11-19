@@ -20,9 +20,11 @@ dynamic languageStrings = [
   
   /* Titles
     ========================
+    - common
     - login form
     - main menu drawer
     - profile drawer
+    - language form
     ======================== 
   */
 
@@ -32,6 +34,15 @@ dynamic languageStrings = [
   //   'fa'  : '',
   // },
   
+  // ========================
+  // common
+  // ========================
+  {
+    'name': 'apply',
+    'en'  : 'Apply',
+    'fa'  : 'اعمال کردن',
+  },
+
   // ========================
   // login form
   // ========================
@@ -142,5 +153,14 @@ dynamic languageStrings = [
     'name': 'downloads',
     'en'  : 'Downloads',
     'fa'  : 'دانلود شده ها',
+  },
+
+  // ========================
+  // language form
+  // ========================
+  {
+    'name': 'selectLanguage',
+    'en'  : 'Language Selection',
+    'fa'  : 'انتخاب زبان',
   },
 ];

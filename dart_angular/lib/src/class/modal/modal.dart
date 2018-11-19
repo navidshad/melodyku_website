@@ -8,6 +8,7 @@ class Modal
   Modal(this.base)
   {
     close();
+    addCloseButton();
   }
 
   void show()
@@ -32,5 +33,17 @@ class Modal
 
     if(key) cardContent.style.opacity = '0';
     else cardContent.style.opacity = '1';
+  }
+
+  void addCloseButton()
+  {
+    DivElement  div = DivElement();
+    div.classes.add('btn-close');
+    div.onClick.listen((e) => close());
+
+    ImageElement img = ImageElement(src: '/assets/svg/icon_close.svg');
+    div.append(img);
+
+    base.querySelector('.modal-card').append(div);
   }
 }

@@ -9,7 +9,6 @@
 
 .button {
     color: $white-color;
-    background: $lightblue-color;
     border: none;
     outline: none;
     cursor: pointer;
@@ -22,6 +21,7 @@
 .btn-sl {
     @extend .button;
     @include border-radius(20px);
+    background: $lightblue-color;
     font-size: 12px;
     padding: 5px 50px;
 }
@@ -29,6 +29,7 @@
 .btn-md {
     @extend .button;
     @include border-radius(20px);
+    background: $lightblue-color;
     font-size: 24px;
     padding: 5px 50px;
 }
@@ -36,6 +37,7 @@
 .btn-bg {
     @extend .button;
     @include border-radius(20px);
+    background: $lightblue-color;
     font-size: 34px;
     padding: 5px 50px;
 }
@@ -44,6 +46,8 @@
     @extend .button;
     border-radius: 100%;
     width: 20px;
+    height: 20px;
+    margin: 10px 0px;
     img {
         width: 100%;
     }

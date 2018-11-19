@@ -41,22 +41,27 @@
     <!-- drawer_main menu -->
     <div extractor (onExtract)="setupMenuDrawer(shell)"
         class="drawer" id="drawerMainMenu">
+
         <div>
             <a href="#">
             <img src="assets/imgs/logo_small.png" class="logo">
             </a>
         </div>
+
         <ul class="menu-group">
-        <li *ngFor="let item of drawerItems"
-        class="d-menu-item"
-        [routerLinkActive]="'active'">
-            <a href="#" 
-                [routerLink]="item.url">
-                <img src="{{item.img_ref}}" alt="" class="custom-size-icon">
-            </a>
-            <div class="item-divider"></div>
-        </li>
+            <li *ngFor="let item of drawerItems"
+            class="d-menu-item"
+            [routerLinkActive]="'active'">
+                <a href="#" 
+                    [routerLink]="item.url">
+                    <img src="{{item.img_ref}}" alt="" class="custom-size-icon">
+                </a>
+                <div class="item-divider"></div>
+            </li>
         </ul>
+
+        <translate-btn></translate-btn>
+
     </div>
     <!-- end drawer_main menu -->
 

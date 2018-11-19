@@ -1,0 +1,19 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+//low margine
+.flex-item-l {
+    margin: 0px 10px;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}

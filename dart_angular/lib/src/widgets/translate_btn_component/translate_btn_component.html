@@ -1,0 +1,23 @@
+<div class="translate-btn button" (click)="modal.show()">
+    <img src="/assets/svg/icon_translate.svg"><br>
+    <span>language</span>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getModal">
+    <div class="modal-card">
+        <div class="modal-content flex-column">
+
+            <div>
+                <h3>{{lang.getStr('selectLanguage')}}</h3>
+            </div>
+
+            <div class="lang-list">
+                <div *ngFor="let lang of lang.languageList; let i=index"
+                    [class.active]="isCurrentLanguage(i)" (click)="switchTo(i)">
+                    <label>{{lang['name']}}</label>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>

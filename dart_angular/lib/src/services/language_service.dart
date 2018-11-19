@@ -12,8 +12,15 @@ class LanguageService
   }
 
   // base methods ===============================
-  List<dynamic> getLanguageList() =>
-    _languageList.map((f) => f.getDetail());
+  List<dynamic> get languageList
+  {
+    List langs = List();
+    _languageList.forEach((Language lang) 
+      => langs.add(lang.getDetail()));
+    return langs;
+  }
+
+  int get current => _current;
 
   void switchTo(int index) => 
     _current = index;
@@ -47,7 +54,7 @@ class LanguageService
       _languageList.add(language);
 
       // get current
-      if(ld ['default'] != null && ld['default']) 
+      if(ld['default'] != null && ld['default']) 
         _current = _languageList.length-1;
     }
   }

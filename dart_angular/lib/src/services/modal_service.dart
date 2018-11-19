@@ -1,6 +1,8 @@
 import '../class/modal/modal.dart';
 import '../services/message_service.dart';
 
+export '../class/modal/modal.dart';
+
 class ModalService 
 {
   MessageService _messageService;

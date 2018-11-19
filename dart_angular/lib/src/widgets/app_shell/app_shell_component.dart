@@ -11,6 +11,7 @@ import '../../services/user_service.dart';
 import '../../services/message_service.dart';
 import '../../class/utility/stream_detail.dart';
 import '../../services/language_service.dart';
+import '../../widgets/translate_btn_component/translate_btn_component.dart';
 
 
 @Component(
@@ -21,6 +22,7 @@ import '../../services/language_service.dart';
     routerDirectives,
     ElementExtractorDirective,
     LoginFormComponent,
+    TranslateBtnComponent,
   ],
   styleUrls: [
     'app_shell_component.scss.css',
