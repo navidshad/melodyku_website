@@ -24,6 +24,8 @@ class UserService
       final response = await _http.post(link_auth_login, body: form);
       final result = _extractData(response);
 
+      print('login result: $result');
+
       if(result['status'] == 'success') {
         isLogedIn = true;
         _token = result['token'];
@@ -57,7 +59,6 @@ class UserService
       print('error for login()');
       _handleError(e);
     }
-
   }
 
   void logout()
@@ -67,9 +68,61 @@ class UserService
     isLogedIn = false;
   }
 
-  void register(dynamic detail)
+  Future<bool> register(dynamic detail) async
   {
+    try {
+      // get & set permissions
+      dynamic userPermission = await _getPermission('user');
+      detail['permission'] = userPermission['_id'];
 
+      // register
+      final response = await _http.post(link_auth_register, body: detail);
+      final result = _extractData(response);
+
+      print('register result: $result');
+
+      if(result['status'] == 'success') {
+        isLogedIn = true;
+        _token = result['token'];
+      }
+    } 
+    catch (e) {
+      print('error for login()');
+      _handleError(e);
+    }
+
+    await verifyUser();
+    return isLogedIn;
+  }
+
+  Future<dynamic> _getPermissions() async 
+  {
+    dynamic permissions = [];
+
+    try {
+      final response = await _http.get(link_auth_permission);
+      final result = _extractData(response);
+
+      if(result['status'] == 'success')
+        permissions = result['permissions'];
+    } 
+    catch (e) {
+      print('error for _getPermissions()');
+      _handleError(e);
+    }
+
+    return permissions;
+  }
+
+  Future<dynamic> _getPermission(name) async
+  {
+    dynamic permissions = await _getPermissions();
+    dynamic permission = {};
+    
+    for (var item in permissions) 
+      if(item['name'] == name) permission = item;
+
+    return permission;
   }
 
   // other methods ----------------------------------------

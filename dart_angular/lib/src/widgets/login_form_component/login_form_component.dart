@@ -58,13 +58,17 @@ class LoginFormComponent
     else modal.doWaiting(false);
   }
 
-  void register()
+  void register() async
   {
     dynamic detail = {
       'fullname': fullname,
       'email': email,
       'password': password
     };
-    _userService.register(detail);
+    
+    bool registeredAndLogedin = await _userService.register(detail);
+
+    if(registeredAndLogedin) modal.close();
+    else modal.doWaiting(false);
   }
 }

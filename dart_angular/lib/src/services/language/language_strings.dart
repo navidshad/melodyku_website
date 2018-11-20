@@ -92,7 +92,7 @@ dynamic languageStrings = [
     'fa'  : 'ساخت حساب کاربری',
   },
   {
-    'name': 'fullame',
+    'name': 'fullName',
     'en'  : 'Full name',
     'fa'  : 'نام کامل',
   },
