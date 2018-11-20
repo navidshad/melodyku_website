@@ -13,7 +13,7 @@
 
                 <!-- login -->
                 <div *ngIf="activeForm == 'login'">
-                    <h5>ورود به حساب کاربری</h5>
+                    <h5>{{lang.getStr('loginToAccount')}}</h5>
                     <form id="login-from">
 
                         <!-- email -->
@@ -23,7 +23,7 @@
                             </div>
                             <div class="w3-rest w3-mobile">
                                 <input [(ngModel)]="email" 
-                                    class="w3-input w3-round" name="email" type="text" placeholder="email">
+                                    class="w3-input w3-round" name="email" type="text" placeholder="{{lang.getStr('email')}}">
                             </div>
                         </div>
             
@@ -34,24 +34,24 @@
                             </div>
                             <div class="w3-rest w3-mobile">
                                 <input [(ngModel)]="password"
-                                    class="w3-input w3-round" name="password" type="password" placeholder="password">
+                                    class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}">
                             </div>
                         </div>
                     </form>
 
                     <div class="">
-                        <button class="btn-sl border-white w3-mobile" (click)="login()">ورود</button>
+                        <button class="btn-sl border-white w3-mobile" (click)="login()">{{lang.getStr('login')}}</button>
                         <p>
-                            <b class="pointer">رمز خود را فراموش کرده اید؟</b><br>
-                            <span>قبلا حساب نساخته اید؟</span>
-                            <ins class="pointer" (click)="switchForm()"> ثبت نام</ins>
+                            <b class="pointer">{{lang.getStr('forgotPassword')}}</b><br>
+                            <span>{{lang.getStr('dontHaveAccount')}}</span>
+                            <ins class="pointer" (click)="switchForm()">{{lang.getStr('register')}}</ins>
                         </p>
                     </div>
                 </div>
 
                 <!-- register -->
                 <div *ngIf="activeForm == 'register'">
-                    <h5>ساخت حساب کاربری</h5>
+                    <h5>{{lang.getStr('createAccount')}}</h5>
                     <form id="register-from">
                         <!-- fullname -->
                         <div class="w3-row w3-section group">
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="w3-rest w3-mobile">
                                     <input [(ngModel)]="fullname"
-                                        class="w3-input w3-round" name="fullname" type="text" placeholder="full name">
+                                        class="w3-input w3-round" name="fullname" type="text" placeholder="{{lang.getStr('full name')}}">
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@
                             </div>
                             <div class="w3-rest w3-mobile">
                                 <input [(ngModel)]="email"
-                                    class="w3-input w3-round" name="email" type="text" placeholder="email">
+                                    class="w3-input w3-round" name="email" type="text" placeholder="{{lang.getStr('email')}}">
                             </div>
                         </div>
             
@@ -82,16 +82,16 @@
                             </div>
                             <div class="w3-rest w3-mobile">
                                 <input [(ngModel)]="password"
-                                    class="w3-input w3-round" name="password" type="password" placeholder="password">
+                                    class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}}">
                             </div>
                         </div>
                     </form>
 
                     <div class="">
-                        <button class="btn-sl border-white w3-mobile" (click)="register()">ثبت نام</button>
+                        <button class="btn-sl border-white w3-mobile" (click)="register()">{{lang.getStr('register')}}</button>
                         <p>
-                            <span>قبلا حساب ساخته اید؟</span>
-                            <ins class="pointer" (click)="switchForm()"> ورود</ins>
+                            <span>{{lang.getStr('alreadyHaveAccount')}}</span>
+                            <ins class="pointer" (click)="switchForm()">{{lang.getStr('loginHere')}}</ins>
                         </p>
                     </div>
                 </div>

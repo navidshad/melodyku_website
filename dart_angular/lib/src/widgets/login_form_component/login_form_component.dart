@@ -3,6 +3,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
 import '../../services/user_service.dart';
 import '../../services/modal_service.dart';
+import '../../services/language_service.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../class/modal/modal.dart';
 
@@ -18,6 +19,7 @@ import '../../class/modal/modal.dart';
 )
 class LoginFormComponent
 {
+  LanguageService lang;
   UserService _userService;
   ModalService _modalService;
   Modal modal;
@@ -30,7 +32,7 @@ class LoginFormComponent
   String password = '';
 
   // constructor --------------------------------
-  LoginFormComponent(this._userService, this._modalService);
+  LoginFormComponent(this.lang, this._userService, this._modalService);
 
   // get and register modal to modal Manager
   void getElement(Element el) 
