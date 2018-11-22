@@ -31,7 +31,7 @@
         
         <!-- page -->
         <div class="content-body">
-            <router-outlet [routes]="Routes.all" ></router-outlet>
+            <router-outlet [routes]="pageRoutes.getAll()" ></router-outlet>
         </div>
 
         <footer></footer>
@@ -49,12 +49,12 @@
         </div>
 
         <ul class="menu-group">
-            <li *ngFor="let item of drawerItems"
+            <li *ngFor="let item of pageRoutes.getMainMenuItems()"
             class="d-menu-item"
             [routerLinkActive]="'active'">
                 <a href="#" 
                     [routerLink]="item.url">
-                    <img src="{{item.img_ref}}" alt="" class="custom-size-icon">
+                    <img src="{{item.img_ref}}" alt="" class="drawer-icon">
                 </a>
                 <div class="item-divider"></div>
             </li>
@@ -76,8 +76,21 @@
             {{user.fullname}}
         </div>
 
+        <ul class="menu-group">
+            <li *ngFor="let item of pageRoutes.getProfileMenuItems()"
+            class="d-menu-item"
+            [routerLinkActive]="'active'">
+                <a href="#" 
+                    [routerLink]="item.url">
+                    <img src="{{item.img_ref}}" alt="" class="drawer-icon">
+                </a>
+                <span class="drawer-title">{{item.title}}</span>
+                <div class="item-divider"></div>
+            </li>
+        </ul>
+
         <div>
-            <button (click)="logout()">خروج</button>
+            <button class="btn-sl" (click)="logout()">{{lang.getStr('logout')}}</button>
         </div>
 
     </div>

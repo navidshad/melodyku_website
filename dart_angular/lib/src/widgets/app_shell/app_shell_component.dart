@@ -30,19 +30,18 @@ import '../../widgets/translate_btn_component/translate_btn_component.dart';
     'header.scss.css',
     'profile.scss.css',
   ],
-  exports: [RoutePaths, Routes]
 )
 class AppShellComponent
 {
   LanguageService lang;
+  PageRoutes pageRoutes;
   UserService _userService;
   MessageService messageService;
-  List<DrawerItem> drawerItems = menuItems;
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
 
-  AppShellComponent(this._userService, this.messageService, this.lang);
+  AppShellComponent(this._userService, this.messageService, this.lang, this.pageRoutes);
 
 
   // user ---------------------------------------

@@ -35,23 +35,12 @@
 
 .menu-group
 {
-    display: inline;
+    list-style: none;
+    padding: 0;
 
     .d-menu-item
     {
-        .custom-size-icon{
-            //@include material-icon-size(30px);
-            @include unselectable;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            width: 22px;
-        }
 
-        .item-divider {
-            background: $menu-divider;
-            height: 2px;
-            margin: 0px 30px 0px 30px;
-        }
     }
 
     .d-menu-item:hover
@@ -65,5 +54,23 @@
     .d-menu-item.active
     {
         background: $lightblue-color;
+    }
+
+    .drawer-icon{
+        //@include material-icon-size(30px);
+        @include unselectable;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        width: 22px;
+    }
+
+    .drawer-title{
+        margin: 0px 5px;
+    }
+
+    .item-divider {
+        background: $menu-divider;
+        height: 2px;
+        margin: 0px 30px 0px 30px;
     }
 }

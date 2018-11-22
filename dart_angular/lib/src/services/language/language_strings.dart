@@ -21,6 +21,7 @@ dynamic languageStrings = [
   /* Titles
     ========================
     - common
+    - pages
     - login form
     - main menu drawer
     - profile drawer
@@ -41,6 +42,40 @@ dynamic languageStrings = [
     'name': 'apply',
     'en'  : 'Apply',
     'fa'  : 'اعمال کردن',
+  },
+  {
+    'name': 'logout',
+    'en'  : 'Logout',
+    'fa'  : 'خروج',
+  },
+
+  // ========================
+  // pages
+  // ========================
+  {
+    'name': 'vitrin',
+    'en'  : 'Vitrin',
+    'fa'  : 'ویترین',
+  },
+  {
+    'name': 'albums',
+    'en'  : 'Albums',
+    'fa'  : 'آلبوم ها',
+  },
+  {
+    'name': 'artists',
+    'en'  : 'Artists',
+    'fa'  : 'هنرمندان',
+  },
+  {
+    'name': 'genres',
+    'en'  : 'Genres',
+    'fa'  : 'ژانر ها',
+  },
+  {
+    'name': 'topTracks',
+    'en'  : 'Top Tracks',
+    'fa'  : 'بهترین ها',
   },
 
   // ========================
@@ -145,8 +180,8 @@ dynamic languageStrings = [
     'fa'  : 'لایک شده ها',
   },
   {
-    'name': 'histoy',
-    'en'  : 'Hystory',
+    'name': 'history',
+    'en'  : 'History',
     'fa'  : 'شنیده شده ها',
   },
   {

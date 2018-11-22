@@ -3,6 +3,7 @@ import 'package:angular_components/angular_components.dart';
 
 import 'src/widgets/widgets.dart';
 import 'src/services/services.dart';
+import 'src/routting/routes.dart';
 
 @Component(
   selector: 'my-app',
@@ -17,12 +18,12 @@ import 'src/services/services.dart';
     PlayerBareComponent,
   ],
   providers: const [ 
-    ClassProvider(LanguageService),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(UserService),
     ClassProvider(MessageService),
     ClassProvider(ModalService),
+    ClassProvider(PageRoutes),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),
