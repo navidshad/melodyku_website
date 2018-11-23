@@ -40,7 +40,9 @@
 
     .d-menu-item
     {
-
+        a {
+            text-decoration: none;
+        }
     }
 
     .d-menu-item:hover

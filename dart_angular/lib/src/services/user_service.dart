@@ -6,6 +6,7 @@ import './urls.dart';
 
 
 export '../class/user/user.dart';
+export '../class/types.dart';
 
 class UserService 
 {

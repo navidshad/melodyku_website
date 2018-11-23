@@ -4,9 +4,24 @@ import '../services/language_service.dart';
 import '../services/user_service.dart';
 import '../class/page/page_definition.dart';
 import '../class/types.dart';
-import '../pages/vitrin/vitrin_page_component.template.dart' as vitrin_page_template;
-import '../pages/artists/artists_page_component.template.dart' as artists_page_template;
 import '../class/widgets/menu_item.dart';
+
+// pages
+import '../pages/m_albums/albums_page.template.dart' as albums_page_template;
+import '../pages/m_artists/artists_page.template.dart' as artists_page_template;
+import '../pages/m_genres/genres_page.template.dart' as genres_page_template;
+import '../pages/m_top_tracks/top_tracks_page.template.dart' as top_tracks_page_template;
+import '../pages/m_vitrin/vitrin_page.template.dart' as vitrin_page_template;
+
+import '../pages/p_advanced_settings/advanced_settings_page.template.dart' as advanced_settings_template;
+import '../pages/p_archive_artistList/archive_artistList_page.template.dart' as archive_artistList_template;
+import '../pages/p_archive_categories/archive_categories_page.template.dart' as archive_categories_template;
+import '../pages/p_archive_convert/archive_convert_page.template.dart' as archive_convert_template;
+import '../pages/p_archive_upload/archive_upload_page.template.dart' as archive_upload_template;
+import '../pages/p_downloads/downloads_page.template.dart' as downloads_template;
+import '../pages/p_favorites/favorites_page.template.dart' as favorites_template;
+import '../pages/p_history/history_page.template.dart' as history_template;
+import '../pages/p_users/users_page.template.dart' as users_template;
 
 class PageRoutes
 {
@@ -33,7 +48,7 @@ class PageRoutes
         permissionType: PermissionType.freemium_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'vitrin'),
-                          component: vitrin_page_template.VitrinPageComponentNgFactory,
+                          component: vitrin_page_template.VitrinPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/home.png',
       ),
@@ -42,7 +57,10 @@ class PageRoutes
         title         : 'albums',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'albums'),
+                          component: albums_page_template.AlbumsPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/albums.png',
       ),
 
@@ -52,7 +70,7 @@ class PageRoutes
         permissionType: PermissionType.freemium_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'artists'),
-                          component: artists_page_template.ArtistsPageComponentNgFactory,
+                          component: artists_page_template.ArtistsPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/artists.png', 
       ),
@@ -61,7 +79,10 @@ class PageRoutes
         title         : 'genres',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'genres'),
+                          component: genres_page_template.GenresPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/genres.png',
       ),
 
@@ -69,7 +90,10 @@ class PageRoutes
         title         : 'topTracks',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'top-tracks'),
+                          component: top_tracks_page_template.TopTracksPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/top_tracks.png',
       ),
 
@@ -79,7 +103,10 @@ class PageRoutes
         title         : 'favorites',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'favorites'),
+                          component: favorites_template.FavoritesPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/favorites.png',
       ),
 
@@ -87,7 +114,10 @@ class PageRoutes
         title         : 'history',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'history'),
+                          component: history_template.HistoryPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/history.png',
       ),
 
@@ -95,7 +125,10 @@ class PageRoutes
         title         : 'downloads',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'downloads'),
+                          component: downloads_template.DownloadsPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/downloads.png',
       ),
 
@@ -104,7 +137,10 @@ class PageRoutes
         title         : 'archive_artistList',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.archive_manager,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'archive-artistList'),
+                          component: archive_artistList_template.ArchiveArtistListPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
@@ -112,7 +148,10 @@ class PageRoutes
         title         : 'archive_upload',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.archive_manager,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'archive-upload'),
+                          component: archive_upload_template.ArchiveUploadPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
@@ -120,7 +159,10 @@ class PageRoutes
         title         : 'archive_convert',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.quality_management,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'archive-convert'),
+                          component: archive_convert_template.ArchiveConvertPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
@@ -129,7 +171,10 @@ class PageRoutes
         title         : 'archive_categories',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.categorizing,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'archive-categories'),
+                          component: archive_categories_template.ArchiveCategoriesPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
@@ -138,15 +183,21 @@ class PageRoutes
         title         : 'users',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.user_manager,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'users'),
+                          component: users_template.UsersPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
-      'advancedSettings' : PageDefinition( _lang,
-        title         : 'advancedSettings',
+      'advanced_settings' : PageDefinition( _lang,
+        title         : 'advanced_settings',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.advanced_settings,
-        route         : null,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'advanced-settings'),
+                          component: advanced_settings_template.AdvancedSettingsPageNgFactory,
+                        ),
         iconImgRef    : 'assets/imgs/icons/',
       ),
     };

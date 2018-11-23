@@ -18,6 +18,10 @@
                 </div>
             </div>
 
+            <div class="titlebar">
+                <h3>{{titleBar}}</h3>
+            </div>
+
             <div class="profile">
                 <div *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)"
                 class="menu-btn unselectable profile-btn">
@@ -80,11 +84,10 @@
             <li *ngFor="let item of pageRoutes.getProfileMenuItems()"
             class="d-menu-item"
             [routerLinkActive]="'active'">
-                <a href="#" 
-                    [routerLink]="item.url">
+                <a [routerLink]="item.url">
                     <img src="{{item.img_ref}}" alt="" class="drawer-icon">
+                    <span class="drawer-title">{{item.title}}</span>
                 </a>
-                <span class="drawer-title">{{item.title}}</span>
                 <div class="item-divider"></div>
             </li>
         </ul>

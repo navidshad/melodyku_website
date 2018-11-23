@@ -2,6 +2,7 @@ import 'dart:async';
 import '../class/utility/stream_detail.dart';
 
 export '../class/utility/stream_detail.dart';
+export '../class/types.dart';
 
 class MessageService 
 {

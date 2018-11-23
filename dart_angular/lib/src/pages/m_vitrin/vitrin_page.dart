@@ -2,28 +2,39 @@ import 'package:angular/angular.dart';
 import '../../widgets/widgets.dart';
 import '../../services/services.dart';
 import '../../class/classes.dart';
+import '../../class/page/page.dart';
 
 @Component(
   selector: 'page',
-  templateUrl: 'vitrin_page_component.html',
-  styleUrls: [ 'vitrin_page_component.scss.css' ],
+  templateUrl: 'vitrin_page.html',
+  styleUrls: [ 'vitrin_page.scss.css' ],
   directives: [
     SliderRectComponent,
     ListWideComponent,
     GridComponent,
   ],
   )
-class VitrinPageComponent implements OnInit
+class VitrinPage implements OnInit
 {
+  Page _page;
+  LanguageService lang;
+  UserService _userservice;
+  MessageService _messageService;
   ContentProvider _contentProvider;
   List<Card> card_top10_month;
   List<Card> card_for_you;
   List<ListItem> listItems_top15_day;
-  VitrinPageComponent(this._contentProvider);
+  
 
-  void ngOnInit() => getItems();
+// constructor ==================================
+VitrinPage(this._contentProvider, this._messageService, this._userservice)
+{
+  _page = Page(_userservice, _messageService, null, false, 'vitrin');
+}
 
- void getItems() async 
+// OnInit -
+void ngOnInit() => getItems();
+void getItems() async 
  {
     // get 
     String p_month_name = '🎧 برترین های ماه ⭐️';

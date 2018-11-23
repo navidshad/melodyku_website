@@ -6,13 +6,13 @@ dynamic language_detail_List = [
     'code'      :'en',
     'direction' :Direction.ltr,
     'flag'      :'',
-    'default'   :true,
   },
   {
     'name'      :'فارسی',
     'code'      :'fa',
     'direction' :Direction.rtl,
     'flag'      :'',
+    'default'   :true,
   },
 ];
 
@@ -73,7 +73,7 @@ dynamic languageStrings = [
     'fa'  : 'ژانر ها',
   },
   {
-    'name': 'topTracks',
+    'name': 'top_tracks',
     'en'  : 'Top Tracks',
     'fa'  : 'بهترین ها',
   },
@@ -222,7 +222,7 @@ dynamic languageStrings = [
     'fa'  : 'مدیریت کاربران',
   },
   {
-    'name': 'advancedSettings',
+    'name': 'advanced_settings',
     'en'  : 'Advanced Settings',
     'fa'  : 'تنظیمات پیشرفته',
   },

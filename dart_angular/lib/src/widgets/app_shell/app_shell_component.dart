@@ -36,15 +36,30 @@ class AppShellComponent
   LanguageService lang;
   PageRoutes pageRoutes;
   UserService _userService;
-  MessageService messageService;
+  MessageService _messageService;
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
 
-  AppShellComponent(this._userService, this.messageService, this.lang, this.pageRoutes);
+  String _titleBar;
+  get titleBar => lang.getStr(_titleBar);
 
+  // constructor ================================
+  AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
+  {
+    _messageService.addListener('appShell', resiveMessage);
+  } 
 
-  // user ---------------------------------------
+  void resiveMessage(MessageDetail message)
+  {
+    if(message.type != MessageType.appshell) return;
+
+    // check to get new title
+    if(message.detail['title'] != null) 
+      _titleBar = message.detail['title'];
+  }
+
+  // user =======================================
   bool get isLogedIn => _userService.isLogedIn;
   User get user => _userService.user;
 
@@ -57,10 +72,10 @@ class AppShellComponent
 
   // register form ------------------------------
   void openlogin() => 
-    messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
+    _messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
 
 
-  // drawers ------------------------------------
+  // drawers ====================================
   void setupMenuDrawer(Element shell)
   {
     Element mainContent = shell.querySelector('#mainContent');
