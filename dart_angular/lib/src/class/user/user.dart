@@ -13,14 +13,18 @@ class User
 
   factory User.fromJson(dynamic detail)
   {
+    User user;
     try {
-
+      print(detail);
       String fullname = detail['fullname'];
       String email = detail['email'];
-      return User(fullname, email);
-
+      user = User(fullname, email);
+      user.permission = Permission.fromJson(detail['permission']);
+      
     } catch (e) {
       throw e;
     }
+
+    return user;
   }
 }

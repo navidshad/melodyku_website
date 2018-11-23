@@ -174,6 +174,7 @@ dynamic languageStrings = [
   // ========================
   // profile drawer
   // ========================
+  // user
   {
     'name': 'favorites',
     'en'  : 'Favorites',
@@ -188,6 +189,42 @@ dynamic languageStrings = [
     'name': 'downloads',
     'en'  : 'Downloads',
     'fa'  : 'دانلود شده ها',
+  },
+
+  // archive sergeant
+  {
+    'name': 'archive_artistList',
+    'en'  : 'Artists Manager',
+    'fa'  : 'مدیریت هنرمندان',
+  },
+  {
+    'name': 'archive_upload',
+    'en'  : 'Upload',
+    'fa'  : 'آپلود',
+  },
+  {
+    'name': 'archive_convert',
+    'en'  : 'Convert System',
+    'fa'  : 'مبدل صوتی',
+  },
+
+  // category sergeant
+  {
+    'name': 'archive_categories',
+    'en'  : 'Category Manager',
+    'fa'  : 'مدیریت دسته بندی ها',
+  },
+
+  // administrator
+  {
+    'name': 'users',
+    'en'  : 'User Manager',
+    'fa'  : 'مدیریت کاربران',
+  },
+  {
+    'name': 'advancedSettings',
+    'en'  : 'Advanced Settings',
+    'fa'  : 'تنظیمات پیشرفته',
   },
 
   // ========================

@@ -26,10 +26,9 @@ class UserService
 
       print('login result: $result');
 
-      if(result['status'] == 'success') {
-        isLogedIn = true;
+      if(result['status'] == 'success')
         _token = result['token'];
-      }
+
     } 
     catch (e) {
       print('error for login()');
