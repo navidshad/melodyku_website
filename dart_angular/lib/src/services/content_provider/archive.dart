@@ -21,7 +21,8 @@ class Archive {
     print('singer_getList(), url: $url');
 
     try {
-      final response = await _http.get(url);
+      final response = await _get(url);
+      
       final result = _extractData(response);
 
       Result_Singer singerList = Result_Singer.fromjson(
@@ -42,7 +43,7 @@ class Archive {
     print('singer_get(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
       
       Singer singer = Singer.fromjson(result);
@@ -62,7 +63,7 @@ class Archive {
     print('album_getList(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
       
       Result_Album albumList = Result_Album.fromjson(1, 1, result['albums']);
@@ -80,7 +81,7 @@ class Archive {
     print('album_getById(), url: $url');
 
     try {
-      final response = await _http.get(url);
+      final response = await _get(url);
       final result = _extractData(response);
       
       Album album = Album.fromjson(result['album']);
@@ -99,7 +100,7 @@ class Archive {
     print('album_get(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
       
       Album album = Album.fromjson(result['album']);
@@ -122,7 +123,7 @@ class Archive {
     print('media_getList(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
       
       Result_Media mediaList = Result_Media.fromjson(
@@ -143,7 +144,7 @@ class Archive {
     print('media_get(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
 
       Media media = Media.fromjson(result['media']);
@@ -162,7 +163,7 @@ class Archive {
     print('media_getById(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
 
       Media media = Media.fromjson(result['media']);
@@ -181,7 +182,7 @@ class Archive {
     print('playlist_getList(), url: $url');
 
     try {
-      final response = await _http.get(url);
+      final response = await _get(url);
       final result = _extractData(response);
       
       Result_Playlist albumList = Result_Playlist.fromjson(1, 1, result['lists']);
@@ -200,7 +201,7 @@ class Archive {
     print('playlist_get(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
 
       Playlist playlist = Playlist.fromjson(result['playlist']);
@@ -219,7 +220,7 @@ class Archive {
     print('playlist_getById(), url: $url');
 
     try {
-      final response = await _http.post(url, body: form);
+      final response = await _post(url, body: form);
       final result = _extractData(response);
 
       Playlist playlist = Playlist.fromjson(result['playlist']);
@@ -239,7 +240,54 @@ class Archive {
     print('getStreamLink(), url: $url');
     return Future.delayed(Duration(milliseconds: 100), () => url);
   }
+
+
   // other methods ----------------------------------------
+  Future<Response> _post(url, {body}) async
+  {
+    dynamic form = body != null ? body : {};
+    Response response;
+
+    try {
+      response = await _http.post(url, body: form);
+    } 
+    catch (e) {
+      print('error for playlist_getById()');
+      throw _handleError(e);
+    }
+
+    //_printRequestStatus(response, sentBody: body);
+    return response;
+  }
+
+  Future<Response> _get(url) async
+  {
+    Response response;
+
+    try {
+      response = await _http.get(url);
+    } 
+    catch (e) {
+      print('error for playlist_getById()');
+      throw _handleError(e);
+    }
+
+    //_printRequestStatus(response);
+    return response;
+  }
+
+  _printRequestStatus(Response response, {sentBody})
+  {
+    String url = response.request.url.toString();
+    String method = response.request.method;
+    String status = response.statusCode.toString();
+    String body = response.body;
+    
+    print('Response Log ---------------');
+    print('status: $status \nmethod: $method, sentBody: $sentBody, \nUrl: $url \nbody: $body');
+    print('----------------------------');
+  }
+
   dynamic _extractData(Response resp) {
     dynamic body = json.decode(resp.body);
     //print('body $body');

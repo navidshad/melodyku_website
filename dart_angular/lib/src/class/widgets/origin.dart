@@ -1,6 +1,7 @@
 import '../../class/classes.dart';
 
-class Origin {
+class Origin 
+{
   ArchiveTypes type;
   dynamic origin;
 
