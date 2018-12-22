@@ -3,6 +3,8 @@ enum ArchiveTypes {media, album, singer, playlist}
 enum MessageType {player, login, log, modal, appshell}
 enum Direction {ltr, rtl}
 
+enum ItemMenuAction {like, share}
+
 enum MenuPosition {mainMenuDrawer, profileDrawer}
 enum PermissionType{
   freemium_access,

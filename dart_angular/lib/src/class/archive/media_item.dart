@@ -1,19 +1,21 @@
 import '../types.dart';
 
-class MediaItem
+abstract class MediaItem
 {
   final dynamic id;
   final ArchiveTypes type;
 
   MediaItem(this.id, this.type);
 
-  Future<bool> like()
-  {
+  Future<bool> like() {}
 
-  }
+  Future<bool> getLikeStatus() {}
 
-  Future<bool> likeStatus()
-  {
+  Future<bool> getPlayStatus() {}
 
-  }
+  void play() {}
+
+  T getAsWidget<T>() {}
+
+  List<T> getChildsAsWidgets<T>() {}
 }

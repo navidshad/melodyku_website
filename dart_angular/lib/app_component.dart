@@ -17,10 +17,10 @@ import 'src/routting/routes.dart';
     AppShellComponent,
     PlayerBareComponent,
   ],
-  providers: const [ 
+  providers: const [
+    ClassProvider(UserService),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
-    ClassProvider(UserService),
     ClassProvider(MessageService),
     ClassProvider(ModalService),
     ClassProvider(PageRoutes),
