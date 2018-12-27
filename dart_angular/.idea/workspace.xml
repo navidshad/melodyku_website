@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="428417f5-2453-4e5b-9cf7-6a1ebee5e5a9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_component.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/class/archive/album.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/album.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/archive/media.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/media.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/class/archive/media_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/media_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/archive/playlist.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/playlist.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/archive/singer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/singer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/types.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/types.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/user/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/user/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/pages/m_vitrin/vitrin_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/m_vitrin/vitrin_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/services/content_provider/archive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/services/content_provider/archive.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/services/content_provider/content_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/services/content_provider/content_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/services/user_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/services/user_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/services/language/language_strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/services/language/language_strings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/styles/_effects.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/styles/_effects.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_wide_component/card_wide_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_wide_component/card_wide_component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -62,25 +59,28 @@
     <session id="607695751">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.52" value="1" />
           <entry key="project.open.time.53" value="1" />
           <entry key="project.open.time.57" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.66" value="1" />
+          <entry key="project.open.time.71" value="1" />
+          <entry key="project.open.time.72" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="38" />
+          <entry key="dart" value="39" />
           <entry key="html" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="38" />
+          <entry key="Dart" value="39" />
           <entry key="HTML" value="1" />
         </counts>
       </usages-collector>
@@ -98,11 +98,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/widgets/item_menu_component/ItemMenuComponent.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="560">
+              <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -110,10 +110,19 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/src/class/archive/album.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2288">
+              <caret line="150" column="3" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/directives/ElementExtractorDirective.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
+            <state relative-caret-position="128">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -141,7 +150,6 @@
         <option value="$PROJECT_DIR$/lib/src/class/archive/media_item.dart" />
         <option value="$PROJECT_DIR$/lib/src/class/archive/playlist.dart" />
         <option value="$PROJECT_DIR$/lib/src/class/archive/singer.dart" />
-        <option value="$PROJECT_DIR$/lib/src/class/archive/album.dart" />
         <option value="$PROJECT_DIR$/lib/src/pages/m_vitrin/vitrin_page.dart" />
         <option value="$PROJECT_DIR$/lib/src/class/archive/media.dart" />
         <option value="$PROJECT_DIR$/lib/app_component.dart" />
@@ -152,6 +160,7 @@
         <option value="$PROJECT_DIR$/lib/src/class/user/user.dart" />
         <option value="$PROJECT_DIR$/lib/src/class/types.dart" />
         <option value="$PROJECT_DIR$/lib/src/widgets/item_menu_component/ItemMenuComponent.dart" />
+        <option value="$PROJECT_DIR$/lib/src/class/archive/album.dart" />
       </list>
     </option>
   </component>
@@ -161,7 +170,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1057" />
     <option name="height" value="996" />
   </component>
@@ -173,7 +182,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,6 +206,14 @@
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="class" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="class" type="462c0819:PsiDirectoryNode" />
+              <item name="archive" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
@@ -230,6 +246,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -291,16 +308,19 @@
       <workItem from="1545379185776" duration="5722000" />
       <workItem from="1545391716113" duration="9859000" />
       <workItem from="1545465181445" duration="2261000" />
+      <workItem from="1545559300821" duration="172000" />
+      <workItem from="1545738452970" duration="760000" />
+      <workItem from="1545844334923" duration="46000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27306000" />
+    <option name="totallyTimeSpent" value="28284000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1057" height="996" extended-state="0" />
+    <frame x="-4" y="-4" width="1288" height="1004" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23466407" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19157393" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -365,13 +385,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="583">
           <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/class/archive/album.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="65" column="17" lean-forward="true" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -452,13 +465,7 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/widgets/grid_component/grid_component.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/class/types.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -467,9 +474,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/widgets/item_menu_component/ItemMenuComponent.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/directives/ElementExtractorDirective.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
+        <state relative-caret-position="128">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
@@ -477,13 +494,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/widgets/item_menu_component/ItemMenuComponent.dart">
+    <entry file="file://$PROJECT_DIR$/lib/src/class/archive/album.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2288">
+          <caret line="150" column="3" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="3" />
         </state>
       </provider>
     </entry>

@@ -8,13 +8,14 @@ import '../widgets.dart';
 import '../../directives/directives.dart';
 import '../../pips/pips.dart';
 
+
 @Component(
   selector: 'player-bar',
   directives: [
     coreDirectives,
     MaterialSliderComponent,
     ElementExtractorDirective,
-    CardWideComponent
+    CardWideComponent,
   ],
   pipes: [DurationToString],
   templateUrl: 'player_bar_component.html',
@@ -35,6 +36,7 @@ class PlayerBareComponent implements OnInit
 
   // calculated variables
   Media get current => player.current;
+  
 
   PlayerBareComponent(this._playerService, this.player);
   void ngOnInit() => addListeners();

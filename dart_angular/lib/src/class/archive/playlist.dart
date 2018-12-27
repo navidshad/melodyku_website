@@ -9,6 +9,7 @@ class Playlist implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
+  bool isLiked;
 
   String title;
   List<Media> list;
@@ -76,7 +77,7 @@ class Playlist implements MediaItem
             id: id,
             thumbnail: thumbnail,
             type: ArchiveTypes.playlist,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
 
@@ -88,7 +89,7 @@ class Playlist implements MediaItem
             number: digititemNumber,
             thumbnail: thumbnail,
             type: ArchiveTypes.playlist,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
     }
@@ -99,6 +100,7 @@ class Playlist implements MediaItem
   @override
   List<T> getChildsAsWidgets<T>({int total = 1})
   {
+    print('getChildsAsWidgets ${list.length.toString()} ${T}');
     List<T> items = [];
 
     for(int i=0; i < total; i++)
@@ -110,24 +112,26 @@ class Playlist implements MediaItem
       switch(T)
       {
         case Card:
-          T card = Card( item.title,
+        print('child is card');
+          T card = Card<Media>( item.title,
               id: item.id,
               thumbnail: Uri(path: item.thumbnail),
               type: ArchiveTypes.media,
-              origin: item.toDynamic()
+              origin: item
           ) as T;
 
           items.add(card);
           break;
 
         case ListItem:
-          T listITem = ListItem(item.title,
+          print('child is listItem');
+          T listITem = ListItem<Media>(item.title,
               id: item.id,
               duration: item.getDuration(),
               number: itemNumber,
               thumbnail: Uri(path: item.thumbnail),
               type: ArchiveTypes.media,
-              origin: item.toDynamic()
+              origin: item
           ) as T;
 
           items.add(listITem);

@@ -66,7 +66,7 @@ class Album implements MediaItem
           id: id,
           thumbnail: thumbnail,
           type: ArchiveTypes.album,
-          origin: toDynamic()
+          origin: this
         ) as T;
         break;
 
@@ -78,7 +78,7 @@ class Album implements MediaItem
           number: digititemNumber,
           thumbnail: thumbnail,
           type: ArchiveTypes.album,
-          origin: toDynamic()
+          origin: this
         ) as T;
         break;
     }
@@ -104,7 +104,7 @@ class Album implements MediaItem
               id: item.id,
               thumbnail: Uri(path: item.thumbnail),
               type: ArchiveTypes.media,
-              origin: item.toDynamic()
+              origin: item
           ) as T;
 
           items.add(card);
@@ -117,7 +117,7 @@ class Album implements MediaItem
               number: itemNumber,
               thumbnail: Uri(path: item.thumbnail),
               type: ArchiveTypes.media,
-              origin: item.toDynamic()
+              origin: item
           ) as T;
 
           items.add(listITem);
@@ -149,4 +149,7 @@ class Album implements MediaItem
     // TODO: implement getPlayStatus
     return null;
   }
+
+  @override
+  bool isLiked;
 }

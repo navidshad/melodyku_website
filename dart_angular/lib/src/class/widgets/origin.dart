@@ -1,9 +1,8 @@
 import '../../class/classes.dart';
+import '../../class/archive/media_item.dart';
 
-class Origin 
+class Origin<T extends MediaItem>
 {
-  ArchiveTypes type;
-  dynamic origin;
-
-  Origin(this.type, this.origin);
+  T item;
+  Origin(this.item);
 }

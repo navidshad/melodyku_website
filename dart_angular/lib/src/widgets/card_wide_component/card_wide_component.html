@@ -3,8 +3,7 @@
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-        <div class="cover"
-            (click)="play()">
+        <div class="cover" (click)="play()">
             <img class="box" [attr.src]="item.thumbnail">
             <div class="box overlay">
                 <img class="play" src="/assets/imgs/icons/play.png">
@@ -23,9 +22,11 @@
         </div>
     
         <div class="more">
-            <a href="#">
+            <like class='like-btn'
+                *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
+            <!-- <a href="#">
                 <img class="play" src="/assets/imgs/icons/more.png">
-            </a>
+            </a> -->
         </div>
     
     </div>

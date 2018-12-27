@@ -235,4 +235,18 @@ dynamic languageStrings = [
     'en'  : 'Language Selection',
     'fa'  : 'انتخاب زبان',
   },
+
+  // ========================
+  // Menu-Items
+  // ========================
+  {
+    'name': 'addToFavourites',
+    'en'  : 'Add To Favourites',
+    'fa'  : 'افزودن به علاقمندی ها',
+  },
+  {
+    'name': 'share',
+    'en'  : 'Share',
+    'fa'  : 'اشتراک گذاری',
+  },
 ];

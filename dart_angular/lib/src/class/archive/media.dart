@@ -12,6 +12,7 @@ class Media implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
+  bool isLiked = false;
 
   String title;
   String singer;
@@ -107,7 +108,7 @@ class Media implements MediaItem
             id: id,
             thumbnail: Uri(path: thumbnail),
             type: ArchiveTypes.media,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
 
@@ -119,7 +120,7 @@ class Media implements MediaItem
             number: digititemNumber,
             thumbnail: Uri(path: thumbnail),
             type: ArchiveTypes.media,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
     }
@@ -139,7 +140,9 @@ class Media implements MediaItem
 
   @override
   Future<bool> like() {
+    isLiked = !isLiked;
     // TODO: implement like
+    print('media was liked');
     return null;
   }
 

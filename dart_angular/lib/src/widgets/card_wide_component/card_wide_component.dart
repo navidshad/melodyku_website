@@ -3,11 +3,16 @@ import 'package:angular/angular.dart';
 import '../../class/classes.dart';
 import '../../services/services.dart';
 
+import '../like_component/like_component.dart';
+
 @Component(
   selector: 'card-wide',
   templateUrl: 'card_wide_component.html',
   styleUrls: ['card_wide_component.scss.css'],
-  directives: [coreDirectives]
+  directives: [
+    coreDirectives,
+    LikeComponent,
+    ]
 )
 class CardWideComponent 
 {
@@ -26,4 +31,9 @@ class CardWideComponent
   CardWideComponent(this._playerService);
 
   void play() => _playerService.play(StreamDetail_Player(true, item.type, item.origin));
+
+    void like()
+  {
+    item.origin.like();
+  }
 }

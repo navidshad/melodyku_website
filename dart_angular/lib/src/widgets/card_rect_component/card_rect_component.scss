@@ -14,13 +14,18 @@
         @include overlay_card;
         background: $hoverGradient;
     
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
     }
     
     .overlay:hover{
         opacity: 100;
+    }
+
+    .play{
+        cursor: pointer;
     }
 }
 
@@ -33,3 +38,15 @@ $boxsize: 200px;
     width: $boxsize;
     height: $boxsize;
 }
+
+.like-btn{
+    position: relative;
+    top: -30px;
+    left: 10px;
+    float: left;
+}
+// .more {
+//     position: relative;
+//     bottom: 60px;
+//     //left: 0px;
+// }

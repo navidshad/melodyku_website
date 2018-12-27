@@ -4,8 +4,12 @@ abstract class MediaItem
 {
   final dynamic id;
   final ArchiveTypes type;
+  bool isLiked = false;
 
-  MediaItem(this.id, this.type);
+  MediaItem(this.id, this.type)
+  {
+    //getLikeStatus();
+  }
 
   Future<bool> like() {}
 

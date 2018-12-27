@@ -11,6 +11,7 @@ class Singer implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
+  bool isLiked;
 
   String name;
   String description;
@@ -80,7 +81,7 @@ class Singer implements MediaItem
             id: id,
             thumbnail: thumbnail,
             type: ArchiveTypes.singer,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
 
@@ -92,7 +93,7 @@ class Singer implements MediaItem
             number: digititemNumber,
             thumbnail: thumbnail,
             type: ArchiveTypes.singer,
-            origin: toDynamic()
+            origin: this
         ) as T;
         break;
     }

@@ -5,7 +5,7 @@ $rowHeight : 50px;
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-column-gap: 10px;
+    grid-column-gap: 30px;
     grid-auto-rows: auto;
     justify-content: center;
     align-items: center;
