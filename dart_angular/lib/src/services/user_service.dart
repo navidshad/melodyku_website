@@ -17,6 +17,8 @@ class UserService
 
   UserService(this._http);
 
+  String get token => _token;
+
   Future<bool> login(String email, String password) async
   {
     dynamic form = {'email': email, 'password': password};

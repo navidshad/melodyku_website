@@ -1,6 +1,7 @@
 import '../classes.dart';
+import '../../class/archive/media_item.dart';
 
-class Card extends Origin 
+class Card<T>
 {
   String id;
   String title;
@@ -9,14 +10,16 @@ class Card extends Origin
   Uri titleLink;
   Uri thumbnail;
 
+  T origin;
+  ArchiveTypes type;
+
   Card(this.title, 
     { 
       this.id,
       this.subtitle, 
       this.titleLink, 
       this.thumbnail , 
-      ArchiveTypes type, 
-      dynamic origin
-    }) 
-      : super(type, origin);
+      this.origin,
+      this.type,
+    });
 }

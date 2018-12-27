@@ -114,7 +114,7 @@ class Player
     // play next
     if(currentIndex < list.length)
     {
-      Media newTrack = Media.fromjson(list[currentIndex+1].origin);
+      Media newTrack = list[currentIndex+1].origin;//Media.fromjson(list[currentIndex+1].origin);
       playTrack(newTrack);
     }
   }

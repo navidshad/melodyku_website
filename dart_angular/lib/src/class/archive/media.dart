@@ -1,7 +1,19 @@
 import 'dart:convert';
+import 'package:melodyku/src/class/archive/media_item.dart';
 
-class Media {
-  String id;
+import '../classes.dart';
+
+import 'media_item.dart';
+import '../types.dart';
+import '../widgets/card.dart';
+import '../widgets/list_item.dart';
+
+class Media implements MediaItem
+{
+  dynamic id;
+  ArchiveTypes type;
+  bool isLiked = false;
+
   String title;
   String singer;
   String album;
@@ -81,5 +93,67 @@ class Media {
     durationStr += '$minutes : $seconds';
 
     return durationStr;
+  }
+
+  @override
+  T getAsWidget<T>({int itemNumber=1})
+  {
+    T widget;
+    String thumbnail = getRandomCovers(1)[0];
+
+    switch(T)
+    {
+      case Card:
+        widget = Card( title,
+            id: id,
+            thumbnail: Uri(path: thumbnail),
+            type: ArchiveTypes.media,
+            origin: this
+        ) as T;
+        break;
+
+      case ListItem:
+        String digititemNumber = getDigitStyle(itemNumber+1, 2);
+        widget = ListItem(title,
+            id: id,
+            duration: getDuration(),
+            number: digititemNumber,
+            thumbnail: Uri(path: thumbnail),
+            type: ArchiveTypes.media,
+            origin: this
+        ) as T;
+        break;
+    }
+  }
+
+  @override
+  List<T> getChildsAsWidgets<T>()
+  {
+    return <T>[getAsWidget<T>()];
+  }
+
+  @override
+  Future<bool> getLikeStatus() {
+    // TODO: implement getLikeStatus
+    return null;
+  }
+
+  @override
+  Future<bool> like() {
+    isLiked = !isLiked;
+    // TODO: implement like
+    print('media was liked');
+    return null;
+  }
+
+  @override
+  void play() {
+    // TODO: implement play
+  }
+
+  @override
+  Future<bool> getPlayStatus() {
+    // TODO: implement getPlayStatus
+    return null;
   }
 }

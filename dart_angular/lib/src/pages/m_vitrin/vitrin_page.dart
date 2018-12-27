@@ -39,16 +39,16 @@ void getItems() async
     // get 
     String p_month_name = '🎰 ترانه های پیشنهادی';
     Playlist pl_top10_month = await _contentProvider.archive.playlist_get(p_month_name);
-    card_top10_month = pl_top10_month.getCardList(10);
+    card_top10_month = pl_top10_month.getChildsAsWidgets<Card>(total: 10);
 
     // get forYou list
     String p_forYou_name = '🎧 برترین های هفته';
     Playlist pl_for_you = await _contentProvider.archive.playlist_get(p_forYou_name);
-    card_for_you = pl_for_you.getCardList(10);
+    card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
 
     // get 15 top media of day
     String p_day_name = '🎧 برترین های امروز';
     Playlist pl_top15_day = await _contentProvider.archive.playlist_get(p_day_name);
-    listItems_top15_day = pl_top15_day.getItemList(15);
+    listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
  }
 }

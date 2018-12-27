@@ -1,0 +1,21 @@
+:host{
+    // position: relative;
+    // bottom: 200px;
+}
+
+.more-btn{
+    cursor: pointer;
+    float: right;
+}
+
+.menu{
+    border-radius: 5px;
+    background: white;
+    width: 160px;
+    min-height: 30px;
+    float: left;
+
+    position: relative;
+    right: 5px;
+    top: 5px;
+}

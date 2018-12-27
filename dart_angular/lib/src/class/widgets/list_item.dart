@@ -1,6 +1,7 @@
 import '../classes.dart';
+import '../../class/archive/media_item.dart';
 
-class ListItem extends Origin 
+class ListItem<T>
 {
     String id;
     String title;
@@ -12,6 +13,9 @@ class ListItem extends Origin
     Uri titleLink;
     Uri thumbnail;
 
+    T origin;
+    ArchiveTypes type;
+
     ListItem(this.title, 
     {
       this.id,
@@ -19,9 +23,8 @@ class ListItem extends Origin
       this.duration, 
       this.number, 
       this.titleLink, 
-      this.thumbnail,
-      ArchiveTypes type, 
-      dynamic origin
-    }) 
-      : super(type, origin);
+      this.thumbnail, 
+      this.origin,
+      this.type,
+    });
 }

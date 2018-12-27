@@ -1,8 +1,16 @@
+import 'package:melodyku/src/class/archive/media_item.dart';
+
 import '../classes.dart';
 
+import 'media_item.dart';
+import '../types.dart';
 
-class Playlist {
-  String id;
+class Playlist implements MediaItem
+{
+  dynamic id;
+  ArchiveTypes type;
+  bool isLiked;
+
   String title;
   List<Media> list;
   String thumbnail;
@@ -50,9 +58,110 @@ class Playlist {
   }
 
   // methods
-  List<Card> getCardList([int total]) =>
-    ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
+//  List<Card> getCardList([int total]) =>
+//    ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
+//
+//  List<ListItem> getItemList([int total]) =>
+//    ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
 
-  List<ListItem> getItemList([int total]) =>
-    ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
+  @override
+  T getAsWidget<T>({int itemNumber=1})
+  {
+    T widget;
+    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
+
+    switch(T)
+    {
+      case Card:
+        widget = Card( title,
+            id: id,
+            thumbnail: thumbnail,
+            type: ArchiveTypes.playlist,
+            origin: this
+        ) as T;
+        break;
+
+      case ListItem:
+        String digititemNumber = getDigitStyle(itemNumber+1, 2);
+        widget = ListItem(title,
+            id: id,
+            duration: '',
+            number: digititemNumber,
+            thumbnail: thumbnail,
+            type: ArchiveTypes.playlist,
+            origin: this
+        ) as T;
+        break;
+    }
+
+    return widget;
+  }
+
+  @override
+  List<T> getChildsAsWidgets<T>({int total = 1})
+  {
+    print('getChildsAsWidgets ${list.length.toString()} ${T}');
+    List<T> items = [];
+
+    for(int i=0; i < total; i++)
+    {
+      Media item = list[i];
+      item.thumbnail = getRandomCovers(1)[0];
+      String itemNumber = getDigitStyle(i+1, 2);
+
+      switch(T)
+      {
+        case Card:
+        print('child is card');
+          T card = Card<Media>( item.title,
+              id: item.id,
+              thumbnail: Uri(path: item.thumbnail),
+              type: ArchiveTypes.media,
+              origin: item
+          ) as T;
+
+          items.add(card);
+          break;
+
+        case ListItem:
+          print('child is listItem');
+          T listITem = ListItem<Media>(item.title,
+              id: item.id,
+              duration: item.getDuration(),
+              number: itemNumber,
+              thumbnail: Uri(path: item.thumbnail),
+              type: ArchiveTypes.media,
+              origin: item
+          ) as T;
+
+          items.add(listITem);
+          break;
+      }
+    }
+
+    return items;
+  }
+
+  @override
+  Future<bool> getLikeStatus() {
+    // TODO: implement getLikeStatus
+    return null;
+  }
+
+  @override
+  Future<bool> getPlayStatus() {
+    // TODO: implement getPlayStatus
+    return null;
+  }
+
+  @override
+  Future<bool> like() {
+    // TODO: implement like
+    return null;
+  }
+
+  @override
+  void play() {
+    // TODO: implement play
+  }
 }
