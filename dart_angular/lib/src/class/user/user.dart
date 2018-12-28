@@ -16,8 +16,9 @@ class User
   {
     User user;
     try {
-      print(detail);
-      dynamic id = detail['_id'];
+      
+      print('factory User.fromJson | $detail');
+      dynamic id = detail['id'];
       String fullname = detail['fullname'];
       String email = detail['email'];
       user = User(id, fullname, email);

@@ -17,6 +17,8 @@ import '../like_component/like_component.dart';
 class CardWideComponent 
 {
   PlayerService _playerService;
+  UserService _userService;
+
   int boxSize = 50;
 
   @Input()
@@ -28,7 +30,7 @@ class CardWideComponent
   @Input()
   bool duration;
 
-  CardWideComponent(this._playerService);
+  CardWideComponent(this._playerService, this._userService);
 
   void play() => _playerService.play(StreamDetail_Player(true, item.type, item.origin));
 
@@ -36,4 +38,6 @@ class CardWideComponent
   {
     item.origin.like();
   }
+
+  bool get isLogedIn => _userService.isLogedIn;
 }

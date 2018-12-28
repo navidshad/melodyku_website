@@ -1,33 +1,27 @@
 import 'dart:async';
-import 'package:http/browser_client.dart';
+import 'dart:convert';
 import 'package:http/http.dart';
 import '../user_service.dart';
 
-import '../../class/injector.dart';
-
 class Requester
 {
-  BrowserClient _http;
+  Client _http;
   UserService _userService;
 
-  Requester()
-  {
-    _http = BrowserClient();
-    _userService = Injector.get<UserService>();
+  Requester(this._http, this._userService);
 
-    // register this userService into Injectory.
-    Injector.register(InjectorMember(this));
-  }
-
-  Future<Response> post(url, {body}) async
+  Future<dynamic> post(url, {dynamic body}) async
   {
     dynamic form = body != null ? body : {};
-    Response response;
+    dynamic result;
 
     try {
       String token = _getToken();
       dynamic header = {'token':token};
-      response = await _http.post(url, body: form, headers: header);
+
+      print('send request | url: $url | header: $header | body: $form');
+      Response response = await _http.post(url, body: form, headers: header);
+      result = _extractData(response);
     }
     catch (e) {
       print('error for playlist_getById()');
@@ -35,17 +29,18 @@ class Requester
     }
 
     //_printRequestStatus(response, sentBody: body);
-    return response;
+    return result;
   }
 
-  Future<Response> get(url) async
+  Future<dynamic> get(url) async
   {
-    Response response;
+    dynamic result;
 
     try {
       String token = _getToken();
       dynamic header = {'token':token};
-      response = await _http.get(url, headers: header);
+      Response response = await _http.get(url, headers: header);
+      result = _extractData(response);
     }
     catch (e) {
       print('error for playlist_getById()');
@@ -53,11 +48,25 @@ class Requester
     }
 
     //_printRequestStatus(response);
-    return response;
+    return result;
   }
 
-  String _getToken() =>
-    _userService.token ?? '';
+  // Future<dynamic> requestForBody(String method, url, {dynamic body}) async
+  // {
+  //   switch (method.toLowerCase()) {
+  //     case 'get':
+  //       Response response = await get(url);
+        
+  //       break;
+  //     default:
+  //   }
+  // }
+
+  String _getToken() {
+    print('_userService.token ${_userService.token}');
+    return _userService.token ?? 'none';
+  }
+    
 
   _printRequestStatus(Response response, {sentBody})
   {
@@ -69,6 +78,13 @@ class Requester
     print('Response Log ---------------');
     print('status: $status \nmethod: $method, sentBody: $sentBody, \nUrl: $url \nbody: $body');
     print('----------------------------');
+  }
+
+  dynamic _extractData(Response resp) 
+  {
+    print('body ${resp.body}');
+    dynamic body = json.decode(resp.body);
+    return body;
   }
 
   Exception _handleError(dynamic e) {

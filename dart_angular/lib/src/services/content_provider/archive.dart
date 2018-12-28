@@ -12,10 +12,7 @@ class Archive
 {
   Requester _rq;
 
-  Archive()
-  {
-    _rq = Injector.get<Requester>();
-  }
+  Archive(this._rq);
 
   // methods
   // singer -----------------------------------------------
@@ -29,9 +26,7 @@ class Archive
     print('singer_getList(), url: $url');
 
     try {
-      final response = await _rq.get(url);
-      
-      final result = _extractData(response);
+      final result = await _rq.get(url);
 
       Result_Singer singerList = Result_Singer.fromjson(
         result['pages'], result['current'], result['items']);
@@ -51,8 +46,7 @@ class Archive
     print('singer_get(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
       
       Singer singer = Singer.fromjson(result);
       return singer;
@@ -71,8 +65,7 @@ class Archive
     print('album_getList(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
       
       Result_Album albumList = Result_Album.fromjson(1, 1, result['albums']);
       return albumList;
@@ -89,8 +82,7 @@ class Archive
     print('album_getById(), url: $url');
 
     try {
-      final response = await _rq.get(url);
-      final result = _extractData(response);
+      final result = await _rq.get(url);
       
       Album album = Album.fromjson(result['album']);
       return album;
@@ -108,8 +100,7 @@ class Archive
     print('album_get(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
       
       Album album = Album.fromjson(result['album']);
       return album;
@@ -131,8 +122,7 @@ class Archive
     print('media_getList(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
       
       Result_Media mediaList = Result_Media.fromjson(
         result['pages'], result['current'], result['list']);
@@ -152,8 +142,7 @@ class Archive
     print('media_get(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
 
       Media media = Media.fromjson(result['media']);
       return media;
@@ -171,8 +160,7 @@ class Archive
     print('media_getById(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
 
       Media media = Media.fromjson(result['media']);
       return media;
@@ -190,8 +178,7 @@ class Archive
     print('playlist_getList(), url: $url');
 
     try {
-      final response = await _rq.get(url);
-      final result = _extractData(response);
+      final result = await _rq.get(url);
       
       Result_Playlist albumList = Result_Playlist.fromjson(1, 1, result['lists']);
       return albumList;
@@ -209,8 +196,7 @@ class Archive
     print('playlist_get(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
 
       Playlist playlist = Playlist.fromjson(result['playlist']);
       return playlist;
@@ -228,8 +214,7 @@ class Archive
     print('playlist_getById(), url: $url');
 
     try {
-      final response = await _rq.post(url, body: form);
-      final result = _extractData(response);
+      final result = await _rq.post(url, body: form);
 
       Playlist playlist = Playlist.fromjson(result['playlist']);
       return playlist;
@@ -251,12 +236,6 @@ class Archive
 
 
   // other methods ----------------------------------------
-  dynamic _extractData(Response resp) {
-    dynamic body = json.decode(resp.body);
-    //print('body $body');
-    return body;
-  }
-
   Exception _handleError(dynamic e) {
     print(e); // for demo purposes only
     return Exception('Server error; cause: $e');

@@ -20,9 +20,6 @@ class UserService
   UserService()
   {
     _http = BrowserClient();
-
-    // register this userService into Injectory.
-    Injector.register(InjectorMember(this));
   }
 
   String get token => _token;
@@ -69,6 +66,8 @@ class UserService
       print('error for login()');
       _handleError(e);
     }
+
+    print('verifyUser(), user: $user');
   }
 
   void logout()

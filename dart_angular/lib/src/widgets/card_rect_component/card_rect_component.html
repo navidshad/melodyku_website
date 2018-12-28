@@ -6,8 +6,11 @@
             <div class='flex-column flex-center' style="height:100%">
                 <img (click)="play()" class="play" src="/assets/imgs/icons/play.png">
             </div>
-            <like class='like-btn'
+            
+            <div *ngIf="isLogedIn">
+                <like class='like-btn'
                 *ngIf="card != null" (onlike)="like()" [isLiked]="card.origin.isLiked"></like>
+            </div>
         </div>
     </div>
     

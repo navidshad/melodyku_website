@@ -22,8 +22,12 @@
         </div>
     
         <div class="more">
-            <like class='like-btn'
+            
+            <div *ngIf="isLogedIn">
+                <like class='like-btn'
                 *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
+            </div>
+            
             <!-- <a href="#">
                 <img class="play" src="/assets/imgs/icons/more.png">
             </a> -->

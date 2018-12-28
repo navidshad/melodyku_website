@@ -5,8 +5,8 @@ import 'src/widgets/widgets.dart';
 import 'src/services/services.dart';
 import 'src/routting/routes.dart';
 
-import './src/class/injector.dart' as CI;
 import './src/services/content_provider/requester.dart';
+import './src/class/injector.dart' as CI;
 
 @Component(
   selector: 'my-app',
@@ -22,6 +22,7 @@ import './src/services/content_provider/requester.dart';
   ],
   providers: const [
     ClassProvider(UserService),
+    ClassProvider(Requester),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(MessageService),
@@ -34,16 +35,11 @@ import './src/services/content_provider/requester.dart';
 )
 class AppComponent 
 {
-  AppComponent()
+  AppComponent(UserService us, Requester rq, ContentProvider cp)
   {
-    registerIntoInjectory();
-  }
-
-  void registerIntoInjectory()
-  {
-    // these classes will be injected into Injectory with its own contructors
-    UserService();
-    Requester();
-    ContentProvider();
+    // register this userService into Injectory.
+    CI.Injector.register(CI.InjectorMember('UserService', us));
+    CI.Injector.register(CI.InjectorMember('Requester', rq));
+    CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
   }
 }

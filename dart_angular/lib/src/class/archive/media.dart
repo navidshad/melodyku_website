@@ -1,12 +1,18 @@
 import 'dart:convert';
 import 'package:melodyku/src/class/archive/media_item.dart';
 
+import '../injector.dart';
+import '../../services/content_provider/requester.dart';
+import '../../services/user_service.dart';
+
 import '../classes.dart';
 
 import 'media_item.dart';
 import '../types.dart';
 import '../widgets/card.dart';
 import '../widgets/list_item.dart';
+
+import '../../services/urls.dart';
 
 class Media implements MediaItem
 {
@@ -133,17 +139,41 @@ class Media implements MediaItem
   }
 
   @override
-  Future<bool> getLikeStatus() {
-    // TODO: implement getLikeStatus
-    return null;
+  Future<bool> getLikeStatus() async
+  {
+    Requester rq = Injector.get<Requester>();
+    UserService userService = Injector.get<UserService>();
+
+    if(!userService.isLogedIn) return false;
+
+    dynamic form = {
+      'userid': userService.user.id,
+      'item': id,
+    };
+
+    dynamic result = await rq.post('${link_api_user}/favorite/check', body: form);
+    isLiked = result['liked'];
+
+    return isLiked;
   }
 
   @override
-  Future<bool> like() {
+  Future<bool> like() async
+  {
     isLiked = !isLiked;
-    // TODO: implement like
-    print('media was liked');
-    return null;
+    Requester rq = Injector.get<Requester>();
+    UserService userService = Injector.get<UserService>();
+
+    dynamic form = {
+        'userid': userService.user.id,
+        'type': 'media',
+        'id': id
+    };
+
+    dynamic result = await rq.post('${link_archive}/like', body: form);
+    isLiked = result['liked'];
+
+    return isLiked;
   }
 
   @override

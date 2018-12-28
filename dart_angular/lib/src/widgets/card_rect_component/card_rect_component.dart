@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import '../../class/classes.dart';
 import '../../services/services.dart';
-import '../item_menu_component/ItemMenuComponent.dart';
+import '../../services/user_service.dart';
 import '../like_component/like_component.dart';
 
 @Component(
@@ -16,12 +16,13 @@ import '../like_component/like_component.dart';
 )
 class CardRectComponent
 {
+  UserService _userService;
   PlayerService _playerService;
 
   @Input()
   Card card;
 
-  CardRectComponent(this._playerService);
+  CardRectComponent(this._playerService, this._userService);
 
   void play()
   {
@@ -32,4 +33,6 @@ class CardRectComponent
   {
     card.origin.like();
   }
+
+  bool get isLogedIn => _userService.isLogedIn;
 }
