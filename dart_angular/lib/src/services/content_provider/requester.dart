@@ -1,13 +1,23 @@
 import 'dart:async';
+import 'package:http/browser_client.dart';
 import 'package:http/http.dart';
 import '../user_service.dart';
 
+import '../../class/injector.dart';
+
 class Requester
 {
-  Client _http;
+  BrowserClient _http;
   UserService _userService;
 
-  Requester(this._http, this._userService);
+  Requester()
+  {
+    _http = BrowserClient();
+    _userService = Injector.get<UserService>();
+
+    // register this userService into Injectory.
+    Injector.register(InjectorMember(this));
+  }
 
   Future<Response> post(url, {body}) async
   {
@@ -15,7 +25,7 @@ class Requester
     Response response;
 
     try {
-      String token = _userService.token;
+      String token = _getToken();
       dynamic header = {'token':token};
       response = await _http.post(url, body: form, headers: header);
     }
@@ -33,7 +43,7 @@ class Requester
     Response response;
 
     try {
-      String token = _userService.token;
+      String token = _getToken();
       dynamic header = {'token':token};
       response = await _http.get(url, headers: header);
     }
@@ -45,6 +55,9 @@ class Requester
     //_printRequestStatus(response);
     return response;
   }
+
+  String _getToken() =>
+    _userService.token ?? '';
 
   _printRequestStatus(Response response, {sentBody})
   {

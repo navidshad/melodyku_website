@@ -1,21 +1,29 @@
 import 'package:http/http.dart';
+import 'package:http/browser_client.dart';
 import 'dart:convert';
 import 'dart:async';
 import '../class/user/user.dart';
 import './urls.dart';
 
+import '../class/injector.dart';
 
 export '../class/user/user.dart';
 export '../class/types.dart';
 
 class UserService 
 {
-  Client _http;
+  BrowserClient _http;
   String _token;
   User user;
   bool isLogedIn = false;
 
-  UserService(this._http);
+  UserService()
+  {
+    _http = BrowserClient();
+
+    // register this userService into Injectory.
+    Injector.register(InjectorMember(this));
+  }
 
   String get token => _token;
 

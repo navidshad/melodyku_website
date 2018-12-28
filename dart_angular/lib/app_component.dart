@@ -5,6 +5,9 @@ import 'src/widgets/widgets.dart';
 import 'src/services/services.dart';
 import 'src/routting/routes.dart';
 
+import './src/class/injector.dart' as CI;
+import './src/services/content_provider/requester.dart';
+
 @Component(
   selector: 'my-app',
   styleUrls: [
@@ -31,5 +34,16 @@ import 'src/routting/routes.dart';
 )
 class AppComponent 
 {
+  AppComponent()
+  {
+    registerIntoInjectory();
+  }
 
+  void registerIntoInjectory()
+  {
+    // these classes will be injected into Injectory with its own contructors
+    UserService();
+    Requester();
+    ContentProvider();
+  }
 }

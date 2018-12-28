@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'dart:convert';
 
+import '../../class/injector.dart';
+
 import '../../class/classes.dart';
 import '../urls.dart';
 import './requester.dart';
@@ -9,7 +11,11 @@ import './requester.dart';
 class Archive
 {
   Requester _rq;
-  Archive(this._rq);
+
+  Archive()
+  {
+    _rq = Injector.get<Requester>();
+  }
 
   // methods
   // singer -----------------------------------------------
