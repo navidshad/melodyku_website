@@ -3,16 +3,21 @@ import 'archive.dart';
 import '../user_service.dart';
 import './requester.dart';
 
+import '../../class/injector.dart';
+
 class ContentProvider 
 {
-  Client _http;
   Archive archive;
-  UserService _userService;
-  Requester _requester;
 
-  ContentProvider(this._http, this._userService)
+  static final _instance = ContentProvider();
+
+  ContentProvider()
   {
-    _requester = Requester(this._http, this._userService);
-    archive = Archive(_requester);
+    archive = Archive();
+    
+    // register this userService into Injectory.
+    Injector.register(InjectorMember(this));
   }
+  
+  factory ContentProvider.getInstance() => _instance;
 }
