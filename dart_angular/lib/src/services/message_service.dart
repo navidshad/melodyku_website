@@ -45,9 +45,13 @@ class MessageService
     // create new controller
     _messageController = StreamController<MessageDetail>();
     
+    print('listeners.length ${listeners.length}');
+
     // add listeners
-    for (var i = 0; i < listeners.length; i++) 
+    for (var i = 0; i < listeners.length; i++){
       _broadCast.listen(listeners[i]['fn']);
+      print('${listeners[i]['name']}');
+    }
   }
 
   void _addNewListener(String name, fn)

@@ -21,11 +21,11 @@ import './src/class/injector.dart' as CI;
     PlayerBareComponent,
   ],
   providers: const [
+    ClassProvider(MessageService),
     ClassProvider(UserService),
     ClassProvider(Requester),
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
-    ClassProvider(MessageService),
     ClassProvider(ModalService),
     ClassProvider(PageRoutes),
     // player needs material-provider for seeker bar
@@ -35,11 +35,12 @@ import './src/class/injector.dart' as CI;
 )
 class AppComponent 
 {
-  AppComponent(UserService us, Requester rq, ContentProvider cp)
+  AppComponent(UserService us, Requester rq, ContentProvider cp, MessageService ms)
   {
     // register this userService into Injectory.
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
+    CI.Injector.register(CI.InjectorMember('MessageService', ms));
   }
 }

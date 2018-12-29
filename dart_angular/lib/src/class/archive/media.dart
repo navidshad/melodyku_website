@@ -40,7 +40,10 @@ class Media implements MediaItem
     this.lyric,
     this.duration,
     this.thumbnail,
-  });
+  })
+  {
+    getLikeStatus();
+  }
 
   factory Media.fromjson(dynamic detail)
   {

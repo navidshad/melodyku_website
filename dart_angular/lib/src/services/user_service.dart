@@ -5,19 +5,20 @@ import 'dart:async';
 import '../class/user/user.dart';
 import './urls.dart';
 
-import '../class/injector.dart';
+import '../services/message_service.dart';
 
 export '../class/user/user.dart';
 export '../class/types.dart';
 
 class UserService 
 {
+  MessageService _messageService;
   BrowserClient _http;
   String _token;
   User user;
   bool isLogedIn = false;
 
-  UserService()
+  UserService(this._messageService)
   {
     _http = BrowserClient();
   }
@@ -67,7 +68,9 @@ class UserService
       _handleError(e);
     }
 
-    print('verifyUser(), user: $user');
+    // ok lets messege and say user is logedIn
+    // MessageDetail message = MessageDetail(type: MessageType.userService, detail: {'isLogedIn': isLogedIn});
+    // _messageService.send(message);
   }
 
   void logout()
@@ -88,7 +91,7 @@ class UserService
       final response = await _http.post(link_auth_register, body: detail);
       final result = _extractData(response);
 
-      print('register result: $result');
+      //print('register result: $result');
 
       if(result['status'] == 'success') {
         isLogedIn = true;

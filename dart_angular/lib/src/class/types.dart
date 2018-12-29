@@ -1,6 +1,6 @@
 enum ClickType {switchable, trigger}
 enum ArchiveTypes {media, album, singer, playlist}
-enum MessageType {player, login, log, modal, appshell}
+enum MessageType {player, login, log, modal, userService, appshell}
 enum Direction {ltr, rtl}
 
 enum ItemMenuAction {like, share}

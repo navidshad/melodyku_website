@@ -100,7 +100,7 @@ class Playlist implements MediaItem
   @override
   List<T> getChildsAsWidgets<T>({int total = 1})
   {
-    print('getChildsAsWidgets ${list.length.toString()} ${T}');
+    //print('getChildsAsWidgets ${list.length.toString()} ${T}');
     List<T> items = [];
 
     int totalTemp = total <= list.length ? total : list.length;
@@ -114,7 +114,7 @@ class Playlist implements MediaItem
       switch(T)
       {
         case Card:
-        print('child is card');
+        //print('child is card');
           T card = Card<Media>( item.title,
               id: item.id,
               thumbnail: Uri(path: item.thumbnail),
@@ -126,7 +126,7 @@ class Playlist implements MediaItem
           break;
 
         case ListItem:
-          print('child is listItem');
+          //print('child is listItem');
           T listITem = ListItem<Media>(item.title,
               id: item.id,
               duration: item.getDuration(),

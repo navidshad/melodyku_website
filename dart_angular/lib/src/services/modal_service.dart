@@ -17,6 +17,7 @@ class ModalService
 
   void resiveMessage(MessageDetail message) async
   {
+    print('modal service recived a message');
     if(message.type != MessageType.modal) return;
 
     // get modal detail

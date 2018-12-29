@@ -19,7 +19,6 @@ class Requester
       String token = _getToken();
       dynamic header = {'token':token};
 
-      print('send request | url: $url | header: $header | body: $form');
       Response response = await _http.post(url, body: form, headers: header);
       result = _extractData(response);
     }
@@ -51,19 +50,8 @@ class Requester
     return result;
   }
 
-  // Future<dynamic> requestForBody(String method, url, {dynamic body}) async
-  // {
-  //   switch (method.toLowerCase()) {
-  //     case 'get':
-  //       Response response = await get(url);
-        
-  //       break;
-  //     default:
-  //   }
-  // }
-
   String _getToken() {
-    print('_userService.token ${_userService.token}');
+    //print('_userService.token ${_userService.token}');
     return _userService.token ?? 'none';
   }
     
@@ -82,7 +70,6 @@ class Requester
 
   dynamic _extractData(Response resp) 
   {
-    print('body ${resp.body}');
     dynamic body = json.decode(resp.body);
     return body;
   }

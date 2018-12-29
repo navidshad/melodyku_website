@@ -18,7 +18,7 @@ class Injector<T>
       if(m.name == newMember.name) isAdded = true;
     });
 
-    print('${newMember.member} | isAdded $isAdded');
+    //print('${newMember.member} | isAdded $isAdded');
     
     if(!isAdded) _injectory.add(newMember);
   }
@@ -32,7 +32,7 @@ class Injector<T>
       if(m.member is T) member = m.member;
     });
 
-    print('get injector ${member} | _injectory: ${_injectory.length}');
+    //print('get injector ${member} | _injectory: ${_injectory.length}');
     return member;
   }
 }
