@@ -8,7 +8,7 @@
             <div *ngFor="let item of player.list" [class]="isitCurrectPlaying(item.id)">
 
                 <card-wide  dir="rtl" 
-                    [item]='item' 
+                    [item]='item.origin'
                     [numerical]='false'
                     [duration]='false'>
                 </card-wide>

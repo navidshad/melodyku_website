@@ -23,6 +23,7 @@ import '../../widgets/translate_btn_component/translate_btn_component.dart';
     ElementExtractorDirective,
     LoginFormComponent,
     TranslateBtnComponent,
+    
   ],
   styleUrls: [
     'app_shell_component.scss.css',

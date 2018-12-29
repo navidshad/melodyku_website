@@ -38,7 +38,7 @@
             <router-outlet [routes]="pageRoutes.getAll()" ></router-outlet>
         </div>
 
-        <footer></footer>
+        <footer style="height:100px"></footer>
     </div>
     <!-- end mainContent -->
 
@@ -54,7 +54,7 @@
 
         <ul class="menu-group">
             <li *ngFor="let item of pageRoutes.getMainMenuItems()"
-            class="d-menu-item"
+            class="d-menu-item w3-center"
             [routerLinkActive]="'active'">
                 <a href="#" 
                     [routerLink]="item.url">
@@ -75,7 +75,7 @@
 
         <div *ngIf="user != null" class="info text-center">
             <div class="avatar">
-
+                <img src="/assets/imgs/profile.jpg" alt="">
             </div>
             {{user.fullname}}
         </div>
@@ -84,7 +84,7 @@
             <li *ngFor="let item of pageRoutes.getProfileMenuItems()"
             class="d-menu-item"
             [routerLinkActive]="'active'">
-                <a [routerLink]="item.url">
+                <a [routerLink]="item.url" class='item-right-text'>
                     <img src="{{item.img_ref}}" alt="" class="drawer-icon">
                     <span class="drawer-title">{{item.title}}</span>
                 </a>
@@ -92,7 +92,7 @@
             </li>
         </ul>
 
-        <div>
+        <div class="w3-center">
             <button class="btn-sl" (click)="logout()">{{lang.getStr('logout')}}</button>
         </div>
 

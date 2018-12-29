@@ -3,7 +3,6 @@
 
 .drawer{
     //@include material-item-background($menu-color);
-    text-align: center;
     padding-top: 2rem;
     background-color: $menu-color;
     
@@ -74,5 +73,9 @@
         background: $menu-divider;
         height: 2px;
         margin: 0px 30px 0px 30px;
+    }
+
+    .item-right-text {
+        padding: 0px 50px;
     }
 }
