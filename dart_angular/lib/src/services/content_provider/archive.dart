@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 import '../../class/injector.dart';
+import '../../services/user_service.dart';
 
 import '../../class/classes.dart';
 import '../urls.dart';
@@ -234,6 +235,32 @@ class Archive
     return Future.delayed(Duration(milliseconds: 100), () => url);
   }
 
+  // favorites
+  Future<Playlist> favorites_getList({int total=50, int page=1}) async
+  {
+    String url = '${link_api_user}/favorites';
+    print('favorites_getList(), url: $url');
+
+    UserService userService = Injector.get<UserService>();
+
+    dynamic form = {
+      'userid': userService.user.id,
+      'type': 'media',
+      'total': total.toString(),
+      'page': page.toString()
+    }; 
+
+    try {
+      final result = await _rq.post(url, body: form);
+      
+      Playlist playlist = Playlist.fromjson(result);
+      return playlist;
+    } 
+    catch (e) {
+      print('error for favorites_getList()');
+      throw _handleError(e);
+    }
+  }
 
   // other methods ----------------------------------------
   Exception _handleError(dynamic e) {

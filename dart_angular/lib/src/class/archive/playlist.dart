@@ -103,7 +103,9 @@ class Playlist implements MediaItem
     print('getChildsAsWidgets ${list.length.toString()} ${T}');
     List<T> items = [];
 
-    for(int i=0; i < total; i++)
+    int totalTemp = total <= list.length ? total : list.length;
+
+    for(int i=0; i < totalTemp; i++)
     {
       Media item = list[i];
       item.thumbnail = getRandomCovers(1)[0];

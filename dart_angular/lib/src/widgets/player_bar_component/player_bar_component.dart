@@ -53,7 +53,7 @@ class PlayerBareComponent implements OnInit
       if(detail.type == ArchiveTypes.media) 
       {
         print('playing media');
-        player.playTrack(Media.fromjson(detail.object));
+        player.playTrack(detail.object);
       }
     });
   }
