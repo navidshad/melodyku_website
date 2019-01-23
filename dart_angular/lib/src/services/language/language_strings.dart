@@ -249,4 +249,33 @@ dynamic languageStrings = [
     'en'  : 'Share',
     'fa'  : 'اشتراک گذاری',
   },
+
+  // ========================
+  // item detail
+  // ========================
+  {
+    'name': 'songTitle',
+    'en'  : 'Song Title',
+    'fa'  : 'عنوان',
+  },
+  {
+    'name': 'album',
+    'en'  : 'Album',
+    'fa'  : 'آلبوم',
+  },
+  {
+    'name': 'singer',
+    'en'  : 'Singer',
+    'fa'  : 'هنرمند',
+  },
+  {
+    'name': 'duration',
+    'en'  : 'Duration',
+    'fa'  : 'زمان',
+  },
+  {
+    'name': 'favoriteStatus',
+    'en'  : 'Favorite Status',
+    'fa'  : 'وضعیت علاقمندی',
+  },
 ];

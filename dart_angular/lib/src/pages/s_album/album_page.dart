@@ -1,21 +1,31 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
+import '../../class/archive/album.dart';
+
+import '../../widgets/table_media_component/table_media_component.dart';
 
 @Component(
   selector: 'page',
   templateUrl: 'album_page.html',
   styleUrls: [ 'album_page.scss.css' ],
+  directives: [
+    coreDirectives,
+    TableMedia
+  ]
 )
-class AlbumPage 
+class AlbumPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
   ContentProvider _contentProvider;
+
+  Album album;
 
   // constructor ==================================
   AlbumPage(this._contentProvider, this._messageService, this._userservice)
@@ -27,5 +37,14 @@ class AlbumPage
       needLogedIn: false,
       title: 'album',
     );
+  }
+
+  @override
+  void onActivate(_, RouterState current) async 
+  {
+    final id = current.parameters['id'];
+
+    // get album
+    album = await _contentProvider.archive.album_getById(id);
   }
 }

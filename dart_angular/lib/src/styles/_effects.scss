@@ -57,3 +57,13 @@
 .no-opacity {
     opacity: 0;
 }
+
+._line:after {
+    position: relative;
+    content: "";
+    float: left;
+    width: 100%;
+    height: 3px;
+    //background: rgba(59,200,231,0.61);
+    background-image: -webkit-linear-gradient(left,rgba(22,26,45,0.8),#3bc8e7db,#3bc8e7db,rgba(22,26,45,0.8));
+}

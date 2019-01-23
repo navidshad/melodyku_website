@@ -6,7 +6,7 @@ import '../../class/classes.dart';
 @Component(
   selector: 'slider-wide',
   templateUrl: 'slider_wide_component.html',
-  styleUrls: ['slider_wide_component.scss'],
+  styleUrls: ['slider_wide_component.scss.css'],
   directives: [
     coreDirectives,
     CardWideComponent

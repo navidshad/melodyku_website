@@ -1,0 +1,17 @@
+<div class='table'>
+    <ul class='_line'>
+        <li class='li-header'>#</li>
+        <li class='li-header'>{{lang.getStr("songTitle")}}</li>
+        <li class='li-header'>{{lang.getStr("album")}}</li>
+        <li class='li-header'>{{lang.getStr("singer")}}</li>
+        <li class='li-header'>{{lang.getStr("duration")}}</li>
+    </ul>
+
+    <ul *ngFor="let song of items; let i=index">
+        <li class='li-body'>{{i+1}}</li>
+        <li class='li-body'>{{song.title}}</li>
+        <li class='li-body'>{{song.album}}</li>
+        <li class='li-body'>{{song.singer}}</li>
+        <li class='li-body'>{{song.duration.toString()}}</li>
+    </ul>
+</div>
