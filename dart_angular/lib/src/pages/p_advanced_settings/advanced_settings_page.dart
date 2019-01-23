@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 
 import '../../services/services.dart';
 import '../../class/page/page.dart';
+import '../../class/types.dart';
 
 @Component(
   selector: 'page',
@@ -19,6 +20,12 @@ class AdvancedSettingsPage
   // constructor ==================================
   AdvancedSettingsPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(_userservice, _messageService, null, false, 'advanced_settings');
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.advanced_settings,
+      needLogedIn: true,
+      title: 'advanced_settings'
+    );
   }
 }

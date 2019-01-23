@@ -19,6 +19,11 @@ class DownloadsPage
   // constructor ==================================
   DownloadsPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(_userservice, _messageService, null, false, 'downloads');
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.premium_access,
+      needLogedIn: true,
+      title: 'downloads');
   }
 }

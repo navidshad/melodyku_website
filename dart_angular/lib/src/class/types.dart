@@ -5,7 +5,7 @@ enum Direction {ltr, rtl}
 
 enum ItemMenuAction {like, share}
 
-enum MenuPosition {mainMenuDrawer, profileDrawer}
+enum MenuPosition {mainMenuDrawer, profileDrawer, none}
 enum PermissionType{
   freemium_access,
   premium_access,

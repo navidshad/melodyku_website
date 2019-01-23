@@ -24,7 +24,12 @@ class FavoritesPage implements OnInit
   // constructor ==================================
   FavoritesPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(_userservice, _messageService, null, false, 'favorites');
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.freemium_access,
+      needLogedIn: true,
+      title: 'favorites');
   }
 
   // OnInit -

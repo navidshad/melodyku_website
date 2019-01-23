@@ -35,12 +35,13 @@ import './src/class/injector.dart' as CI;
 )
 class AppComponent 
 {
-  AppComponent(UserService us, Requester rq, ContentProvider cp, MessageService ms)
+  AppComponent(UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
   {
     // register this userService into Injectory.
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
+    CI.Injector.register(CI.InjectorMember('LanguageService', lang));
   }
 }

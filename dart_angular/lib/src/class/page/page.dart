@@ -4,14 +4,14 @@ import '../../services/message_service.dart';
 
 class Page
 {
-  UserService _userService;
+  UserService userService;
 
-  PermissionType _permissionType;
-  MessageService _messageService;
-  bool _needLogedIn;
+  PermissionType permissionType;
+  MessageService messageService;
+  bool needLogedIn;
   String title;
 
-  Page(this._userService, this._messageService, this._permissionType, this._needLogedIn, this.title)
+  Page({this.userService, this.messageService, this.permissionType, this.needLogedIn, this.title})
   {
     checkAccess();
     updateTitleBar();
@@ -19,15 +19,15 @@ class Page
 
   void checkAccess()
   {
-    if(!_needLogedIn) return;
+    if(!needLogedIn) return;
 
-    bool isEquale = _userService.user.permission.hasAccess(_permissionType);
+    bool isEquale = userService.user.permission.hasAccess(permissionType);
     if(!isEquale) window.location.pathname = "";
   }
 
   void updateTitleBar()
   {
     MessageDetail message = MessageDetail(type: MessageType.appshell, detail: {'title': title});
-    _messageService.send(message);
+    messageService.send(message);
   }
 }

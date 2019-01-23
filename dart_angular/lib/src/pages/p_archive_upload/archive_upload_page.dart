@@ -19,6 +19,11 @@ class ArchiveUploadPage
   // constructor ==================================
   ArchiveUploadPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(_userservice, _messageService, null, false, 'archive_upload');
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.archive_manager,
+      needLogedIn: true,
+      title: 'archive_upload');
   }
 }

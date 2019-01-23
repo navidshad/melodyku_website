@@ -3,16 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="428417f5-2453-4e5b-9cf7-6a1ebee5e5a9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/archive/album.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/album.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/class/archive/media_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/archive/media_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/services/language/language_strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/services/language/language_strings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/styles/_effects.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/styles/_effects.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_rect_component/card_rect_component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/card_wide_component/card_wide_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/card_wide_component/card_wide_component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.html" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/player_bar_component/player_bar_component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_component.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/class/page/page_definition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/page/page_definition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/class/types.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/class/types.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/m_vitrin/vitrin_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/m_vitrin/vitrin_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/routting/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/routting/routes.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -59,28 +54,30 @@
     <session id="607695751">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.52" value="1" />
           <entry key="project.open.time.53" value="1" />
+          <entry key="project.open.time.569" value="1" />
           <entry key="project.open.time.57" value="1" />
           <entry key="project.open.time.66" value="1" />
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.72" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="39" />
+          <entry key="dart" value="41" />
           <entry key="html" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="39" />
+          <entry key="Dart" value="41" />
           <entry key="HTML" value="1" />
         </counts>
       </usages-collector>
@@ -97,33 +94,11 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/src/widgets/item_menu_component/ItemMenuComponent.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/src/class/archive/album.dart">
+        <entry file="file://$PROJECT_DIR$/lib/src/pages/m_artists/artists_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2288">
-              <caret line="150" column="3" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/src/directives/ElementExtractorDirective.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state>
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -205,42 +180,15 @@
               <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="class" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
               <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="class" type="462c0819:PsiDirectoryNode" />
-              <item name="archive" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="directives" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="widgets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="widgets" type="462c0819:PsiDirectoryNode" />
-              <item name="grid_component" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dart_angular" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dart_angular" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="m_artists" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -311,16 +259,18 @@
       <workItem from="1545559300821" duration="172000" />
       <workItem from="1545738452970" duration="760000" />
       <workItem from="1545844334923" duration="46000" />
+      <workItem from="1546969300415" duration="1081000" />
+      <workItem from="1548228790649" duration="72000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28284000" />
+    <option name="totallyTimeSpent" value="29437000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1288" height="1004" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19157393" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21621622" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -447,13 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/services/content_provider/archive.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3113">
-          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/services/content_provider/requester.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="640">
@@ -478,26 +421,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="560">
           <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/directives/ElementExtractorDirective.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
+        <state relative-caret-position="160">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/services/content_provider/archive.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1376">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/class/archive/album.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2288">
-          <caret line="150" column="3" selection-start-line="150" selection-start-column="3" selection-end-line="150" selection-end-column="3" />
+        <state relative-caret-position="128">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/m_artists/artists_page.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

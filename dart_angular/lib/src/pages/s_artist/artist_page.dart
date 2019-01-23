@@ -6,10 +6,10 @@ import '../../class/types.dart';
 
 @Component(
   selector: 'page',
-  templateUrl: 'archive_artistList_page.html',
-  styleUrls: [ 'archive_artistList_page.scss.css' ],
+  templateUrl: 'artist_page.html',
+  styleUrls: [ 'artist_page.scss.css' ],
   )
-class ArchiveArtistListPage 
+class ArtistPage 
 {
   Page _page;
   LanguageService lang;
@@ -18,14 +18,14 @@ class ArchiveArtistListPage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  ArchiveArtistListPage(this._contentProvider, this._messageService, this._userservice)
+  ArtistPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(
+    _page = Page(      
       userService: _userservice, 
       messageService: _messageService, 
-      permissionType: PermissionType.archive_manager,
-      needLogedIn: true,
-      title: 'archive_artistList'
+      permissionType: PermissionType.freemium_access,
+      needLogedIn: false,
+      title: 'artist'
     );
   }
 }

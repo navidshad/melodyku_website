@@ -105,6 +105,9 @@ class Media implements MediaItem
   }
 
   @override
+  String get link => '/#media/$id';
+
+  @override
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;

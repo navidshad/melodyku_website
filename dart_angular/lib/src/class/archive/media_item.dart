@@ -16,6 +16,8 @@ abstract class MediaItem
   Future<bool> getLikeStatus() {}
 
   Future<bool> getPlayStatus() {}
+  
+  String get link;
 
   void play() {}
 

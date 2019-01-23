@@ -19,6 +19,11 @@ class HistoryPage
   // constructor ==================================
   HistoryPage(this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(_userservice, _messageService, null, false, 'history');
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.freemium_access,
+      needLogedIn: true,
+      title: 'history');
   }
 }

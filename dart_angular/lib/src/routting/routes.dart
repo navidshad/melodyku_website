@@ -23,6 +23,10 @@ import '../pages/p_favorites/favorites_page.template.dart' as favorites_template
 import '../pages/p_history/history_page.template.dart' as history_template;
 import '../pages/p_users/users_page.template.dart' as users_template;
 
+import '../pages/s_artist/artist_page.template.dart' as artsit_template;
+import '../pages/s_album/album_page.template.dart' as album_template;
+import '../pages/s_playlist/playlist_page.template.dart' as playlist_template;
+
 class PageRoutes
 {
   LanguageService _lang;
@@ -39,10 +43,10 @@ class PageRoutes
 
   createPages()
   {
-        _pageDefinitions = 
+    _pageDefinitions = 
     {
       // main menu drawer =======================
-      'vitrin' : PageDefinition( _lang,
+      'vitrin' : PageDefinition(
         title         : 'vitrin',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
@@ -53,7 +57,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/home.png',
       ),
 
-      'albums' : PageDefinition( _lang,
+      'albums' : PageDefinition(
         title         : 'albums',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
@@ -64,7 +68,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/albums.png',
       ),
 
-      'artists' : PageDefinition( _lang,
+      'artists' : PageDefinition(
         title         : 'artists',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
@@ -75,7 +79,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/artists.png', 
       ),
 
-      'genres' : PageDefinition( _lang,
+      'genres' : PageDefinition(
         title         : 'genres',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
@@ -86,7 +90,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/genres.png',
       ),
 
-      'top_tracks' : PageDefinition( _lang,
+      'top_tracks' : PageDefinition(
         title         : 'topTracks',
         position      : MenuPosition.mainMenuDrawer,
         permissionType: PermissionType.freemium_access,
@@ -99,7 +103,7 @@ class PageRoutes
 
       // profile drawer ===========================
       // user
-      'favorites' : PageDefinition( _lang,
+      'favorites' : PageDefinition(
         title         : 'favorites',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
@@ -110,7 +114,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/favorites.png',
       ),
 
-      'history' : PageDefinition( _lang,
+      'history' : PageDefinition(
         title         : 'history',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
@@ -121,7 +125,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/history.png',
       ),
 
-      'downloads' : PageDefinition( _lang,
+      'downloads' : PageDefinition(
         title         : 'downloads',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.freemium_access,
@@ -133,7 +137,7 @@ class PageRoutes
       ),
 
       // archive sergeant
-      'archive_artistList' : PageDefinition( _lang,
+      'archive_artistList' : PageDefinition(
         title         : 'archive_artistList',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.archive_manager,
@@ -144,7 +148,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
-      'archive_upload' : PageDefinition( _lang,
+      'archive_upload' : PageDefinition(
         title         : 'archive_upload',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.archive_manager,
@@ -155,7 +159,7 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
-      'archive_convert' : PageDefinition( _lang,
+      'archive_convert' : PageDefinition(
         title         : 'archive_convert',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.quality_management,
@@ -167,7 +171,7 @@ class PageRoutes
       ),
 
       // category sergeant
-      'archive_categories' : PageDefinition( _lang,
+      'archive_categories' : PageDefinition(
         title         : 'archive_categories',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.categorizing,
@@ -179,7 +183,7 @@ class PageRoutes
       ),
 
       // administrator
-      'users' : PageDefinition( _lang,
+      'users' : PageDefinition(
         title         : 'users',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.user_manager,
@@ -190,13 +194,47 @@ class PageRoutes
         iconImgRef    : 'assets/imgs/icons/',
       ),
 
-      'advanced_settings' : PageDefinition( _lang,
+      'advanced_settings' : PageDefinition(
         title         : 'advanced_settings',
         position      : MenuPosition.profileDrawer,
         permissionType: PermissionType.advanced_settings,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'advanced-settings'),
                           component: advanced_settings_template.AdvancedSettingsPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/',
+      ),
+
+      // single ===================================
+      'artist' : PageDefinition(
+        title         : 'artist',
+        position      : MenuPosition.none,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'artist/:id'),
+                          component: artsit_template.ArtistPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/',
+      ),
+
+      'album' : PageDefinition(
+        title         : 'album',
+        position      : MenuPosition.none,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'album/:id'),
+                          component: album_template.AlbumPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/',
+      ),
+
+      'playlist' : PageDefinition(
+        title         : 'playlist',
+        position      : MenuPosition.none,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'playlist/:id'),
+                          component: playlist_template.PlaylistPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/',
       ),

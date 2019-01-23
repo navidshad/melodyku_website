@@ -54,6 +54,9 @@ class Album implements MediaItem
   }
 
   @override
+  String get link => '/#album/$id';
+
+  @override
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;

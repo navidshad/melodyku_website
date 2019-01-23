@@ -57,12 +57,8 @@ class Playlist implements MediaItem
     return durationStr;
   }
 
-  // methods
-//  List<Card> getCardList([int total]) =>
-//    ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
-//
-//  List<ListItem> getItemList([int total]) =>
-//    ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
+  @override
+  String get link => '/#playlist/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})

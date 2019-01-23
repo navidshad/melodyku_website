@@ -47,6 +47,9 @@ class Singer implements MediaItem
   }
 
   @override
+  String get link => '/#artist/$id';
+
+  @override
   Future<bool> getLikeStatus() {
     // TODO: implement getLikeStatus
     return null;
