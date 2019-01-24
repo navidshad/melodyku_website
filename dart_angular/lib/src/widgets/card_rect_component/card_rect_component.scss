@@ -6,37 +6,8 @@
     @include unselectable;
 }
 
-.cover {
-    border-radius: 5px;
-    overflow: hidden;
-
-    .overlay {
-        @include overlay_card;
-        background: $hoverGradient;
-    
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        // justify-content: center;
-    }
-    
-    .overlay:hover{
-        opacity: 100;
-    }
-
-    .play{
-        cursor: pointer;
-    }
-}
-
 .info {
     margin-top: 5px;
-}
-
-$boxsize: 200px;
-.box {
-    width: $boxsize;
-    height: $boxsize;
 }
 
 .like-btn{

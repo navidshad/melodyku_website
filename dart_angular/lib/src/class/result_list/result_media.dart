@@ -8,11 +8,17 @@ class Result_Media extends ListResult
     : super(pages, current);
 
   factory Result_Media
-  .fromjson(int pages, int current, dynamic items){
+  .fromjson(int pages, int current, dynamic items)
+  {
+    List<Media> medias = [];
+    items.forEach((item) 
+      => medias.add(Media.fromjson(item))
+    );
+
     return Result_Media(
       pages, 
       current,
-      items.map((item) => Media.fromjson(item))
+      medias
       );
   }
 

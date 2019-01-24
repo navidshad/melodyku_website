@@ -1,1 +1,9 @@
-<h1>هنرمند</h1>
+<album-single-wrapper
+    *ngIf="singer != null"
+    [title]="singer.name"
+    [thumbnail]="singer.thumbnail"
+    [medias]='topList'>
+</album-single-wrapper>
+
+<grid-rect [items]='albums' [title]="lang.getStr('albums')">
+</grid-rect>

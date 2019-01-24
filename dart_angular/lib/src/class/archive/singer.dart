@@ -25,9 +25,9 @@ class Singer implements MediaItem
     try {
       singer =  Singer(
         id: (detail['_id'] != null) ? detail['_id'] : '',
-        name: (detail['name']) ? detail['name'] : '',
-        description: (detail['description']) ? detail['description'] : '',
-        thumbnail: (detail['thumbnail']) ? detail['thumbnail'] : '',
+        name: (detail['name'] != null) ? detail['name'] : '',
+        description: (detail['description'] != null) ? detail['description'] : '',
+        thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
         );
     } 
     catch (e) {
@@ -75,14 +75,13 @@ class Singer implements MediaItem
   @override
   T getAsWidget<T>({int itemNumber=1}) {
     T widget;
-    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
 
     switch(T)
     {
       case Card:
         widget = Card( name,
             id: id,
-            thumbnail: thumbnail,
+            thumbnail: Uri(path: thumbnail),
             type: ArchiveTypes.singer,
             origin: this
         ) as T;
@@ -94,7 +93,7 @@ class Singer implements MediaItem
             id: id,
             duration: '',
             number: digititemNumber,
-            thumbnail: thumbnail,
+            thumbnail: Uri(path: thumbnail),
             type: ArchiveTypes.singer,
             origin: this
         ) as T;

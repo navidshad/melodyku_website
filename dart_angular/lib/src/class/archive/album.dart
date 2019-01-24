@@ -26,7 +26,13 @@ class Album implements MediaItem
     Album album;
     try {
 
-      List<Media> items = (detail['medias'] as List).map((item) => Media.fromjson(item) ).toList();
+      List<Media> items = [];
+
+      if(detail['medias'] != null)
+      {
+        detail['medias'].forEach((item) 
+        { items.add(Media.fromjson(item)); });
+      }
       
       album = Album(
         id: (detail['_id'] != null) ? detail['_id'] : '',
@@ -35,7 +41,7 @@ class Album implements MediaItem
         singer: (detail['singer'] != null) ? detail['singer'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
         thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : '',
-        list: items ?? [],
+        list: items,
         );
     } 
     catch (e) {

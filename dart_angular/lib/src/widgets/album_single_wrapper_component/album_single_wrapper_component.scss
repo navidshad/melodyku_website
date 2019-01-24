@@ -1,0 +1,21 @@
+:host{
+    margin: 20px;
+}
+
+.header-wrappe{
+    display: flex;
+}
+
+.detail {
+    margin: 0px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}

@@ -48,6 +48,11 @@ dynamic languageStrings = [
     'en'  : 'Logout',
     'fa'  : 'خروج',
   },
+  {
+    'name': 'playAll',
+    'en'  : 'Play All',
+    'fa'  : 'گوش دادن',
+  },
 
   // ========================
   // pages
@@ -277,5 +282,10 @@ dynamic languageStrings = [
     'name': 'favoriteStatus',
     'en'  : 'Favorite Status',
     'fa'  : 'وضعیت علاقمندی',
+  },
+  {
+    'name': 'playlist',
+    'en'  : 'Playlist',
+    'fa'  : 'لیست پخش',
   },
 ];

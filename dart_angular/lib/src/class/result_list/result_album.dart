@@ -8,11 +8,16 @@ class Result_Album extends ListResult
     : super(pages, current);
 
   factory Result_Album
-  .fromjson(int pages, int current, dynamic items){
+  .fromjson(int pages, int current, dynamic items)
+  {
+    List<Album> albums = [];
+    items.forEach((item) 
+      => albums.add(Album.fromjson(item)));
+
     return Result_Album(
       pages, 
       current,
-      items.map((item) => Album.fromjson(item))
+      albums
       );
   }
 
