@@ -19,6 +19,8 @@ abstract class MediaItem
   
   String get link;
 
+  String thumbnail;
+
   void play() {}
 
   T getAsWidget<T>() {}

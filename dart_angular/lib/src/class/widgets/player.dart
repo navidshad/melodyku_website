@@ -6,7 +6,12 @@ class Player
 {
   // variables
   ContentProvider _contentProvider;
-  List<ListItem> list = [];
+  
+  List<Media> _list = [];
+  List<ListItem> listItems = [];
+
+  //List<>
+
   Media current;
   ImageButton playBtn;
 
@@ -87,15 +92,28 @@ class Player
   }
 
   // playlisy method ----------------------------
-  void remove(String id) => list.removeWhere((item) => (item.id == id) ? true : false);
+  void remove(String id) {
+    _list.removeWhere((item) => (item.id == id) ? true : false);
+    listItems.removeWhere((item) => (item.id == id) ? true : false);
+  }
   void repeat() => isLoop = !isLoop;
   void shuffle() => isShuffle = !isShuffle;
   
   void add(Media track) 
   {
     bool isAdded = false;
-    list.forEach((item) { if(track.id == item.id) isAdded = true; });
-    if(!isAdded) list.add(ArchiveToWidget.toListItem(track));
+
+    _list.forEach((item) { 
+      print('forEach | ${item}');
+      if(track.id == item.id) 
+        isAdded = true; 
+    });
+
+    if(!isAdded) {
+      _list.add(track);
+      listItems.add(track.getAsWidget<ListItem>());
+    }
+    print('added a media to list | ${track.id}');
   }
 
   void next() 
@@ -108,13 +126,13 @@ class Player
 
     // get current index
     int currentIndex;
-    for (var i = 0; i < list.length; i++) 
-      if(current.id == list[i].id) currentIndex = i;
+    for (var i = 0; i < _list.length; i++) 
+      if(current.id == _list[i].id) currentIndex = i;
 
     // play next
-    if(currentIndex < list.length)
+    if(currentIndex < _list.length)
     {
-      Media newTrack = list[currentIndex+1].origin;//Media.fromjson(list[currentIndex+1].origin);
+      Media newTrack = _list[currentIndex+1];
       playTrack(newTrack);
     }
   }
@@ -129,21 +147,21 @@ class Player
 
     // get current index
     int currentIndex;
-    for (var i = 0; i < list.length; i++) 
-      if(current.id == list[i].id) currentIndex = i;
+    for (var i = 0; i < _list.length; i++) 
+      if(current.id == _list[i].id) currentIndex = i;
 
     // play previous
     if(currentIndex > 0)
     {
-      Media newTrack = Media.fromjson(list[currentIndex-1].origin);
+      Media newTrack = _list[currentIndex-1];
       playTrack(newTrack);
     }
   }
 
   void playShuffle()
   {
-    Media newTrack = Media.fromjson( list[randomRange(0, list.length)].origin );
+    Media newTrack = _list[randomRange(0, _list.length-1)];
     playTrack(newTrack);
-    list = list.map((f) => f);
+    //_list = _list.map((f) => f);
   }
 }

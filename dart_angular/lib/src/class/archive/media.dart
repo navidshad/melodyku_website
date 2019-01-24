@@ -59,7 +59,7 @@ class Media implements MediaItem
       lyric: (detail['lyric'] != null) ? detail['lyric'] : '',
       year: (detail['year']   != null) ? detail['year'] : null,
       duration: (detail['duration']   != null) ? detail['duration'] : 0,
-      thumbnail: (detail['thumbnail']   != null) ? detail['thumbnail'] : '',
+      thumbnail: (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
     );
 
     if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
@@ -111,7 +111,6 @@ class Media implements MediaItem
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;
-    String thumbnail = getRandomCovers(1)[0];
 
     switch(T)
     {
@@ -136,6 +135,8 @@ class Media implements MediaItem
         ) as T;
         break;
     }
+
+    return widget;
   }
 
   @override

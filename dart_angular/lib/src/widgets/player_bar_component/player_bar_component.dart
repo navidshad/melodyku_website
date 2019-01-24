@@ -120,9 +120,9 @@ class PlayerBareComponent implements OnInit
   String getQueueClass() => 
     (isQueueVisible) ? 'queue-container queue-swipup' : 'queue-container queue-swipdown';
 
-  List<ListItem> get queueList => 
-    ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);
+  // List<ListItem> get queueList => 
+  //   ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);
 
-  String isitCurrectPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
+  String isitCurrentPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
 }
 
