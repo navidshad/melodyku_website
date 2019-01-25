@@ -10,17 +10,20 @@ class Drawer {
   Element el_plane;
   Element el_btn_pushing;
   Element el_btn_noPushing;
+  bool openOnInitialied;
 
   bool isDrawerOpen = false;
   bool pushing = false;
 
   Drawer(this.el_drawer, this. el_main, 
     {this.width, this.mainMargine, this.direction, this.planeOpacity,
-     this.el_btn_pushing, this.el_btn_noPushing, this.el_plane})
+     this.el_btn_pushing, this.el_btn_noPushing, this.el_plane, this.openOnInitialied=false})
   {
     setupStyle();
     setupButtons();
   }
+
+
 
   void setupStyle()
   {
@@ -41,8 +44,13 @@ class Drawer {
 
   void setupButtons()
   {
-    if(el_btn_noPushing != null) el_btn_noPushing.onClick.listen((e) => doOpenClose());
-    if(el_btn_pushing != null) el_btn_pushing.onClick.listen((e) => doOpenCloseWithPushing());
+    if(el_btn_noPushing != null) {
+      el_btn_noPushing.onClick.listen((e) => doOpenClose());
+    }
+    
+    if(el_btn_pushing != null) {
+      el_btn_pushing.onClick.listen((e) => doOpenCloseWithPushing());
+    }
   }
 
   void doOpenClose()

@@ -29,21 +29,17 @@ import '../pages/s_playlist/playlist_page.template.dart' as playlist_template;
 
 class PageRoutes
 {
-  LanguageService _lang;
   UserService _userService;
-  var _pageDefinitions;
+  Map<String, PageDefinition> pageDefinitions;
 
-  PageRoutes(this._lang, this._userService)
+  PageRoutes(this._userService)
   {
     createPages();
   }
 
-  get pageDefinitions =>
-    _pageDefinitions;
-
   createPages()
   {
-    _pageDefinitions = 
+    pageDefinitions = 
     {
       // main menu drawer =======================
       'vitrin' : PageDefinition(
@@ -246,7 +242,7 @@ class PageRoutes
     List<RouteDefinition> list = [
       // redirect from home to vitrin
       RouteDefinition.redirect(
-        path: '',
+        path: '/',
         redirectTo: pageDefinitions['vitrin'].route.toUrl() // RoutePaths.vitrin.toUrl()
       )
     ];
@@ -254,7 +250,6 @@ class PageRoutes
     // add all other routers
     pageDefinitions.forEach((String name, PageDefinition page) 
       { 
-        //print('get router of $name');
         if(page.route != null) list.add(page.route); 
       });
 
@@ -296,4 +291,6 @@ class PageRoutes
 
     return list;
   }
+
+  String getRouterUrl (name, [Map params]) => pageDefinitions[name].route.toUrl(params);
 }

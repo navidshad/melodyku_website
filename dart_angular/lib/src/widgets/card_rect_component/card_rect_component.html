@@ -4,7 +4,12 @@
         <div class="overlay box">
             <!-- <item-menu class="more"></item-menu> -->
             <div class='flex-column flex-center' style="height:100%">
-                <img (click)="play()" class="play" src="/assets/imgs/icons/play.png">
+
+                <img *ngIf="getPlayAccess()" (click)="play()" class="pointer" src="/assets/imgs/icons/play.png">
+                
+                <a *ngIf="getExploreAccess()" href="{{card.titleLink}}">
+                    <img class="pointer" src="/assets/svg/icon_link_rounded.svg">
+                </a>
             </div>
             
             <div *ngIf="isLogedIn">

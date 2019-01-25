@@ -2,6 +2,9 @@ import 'package:melodyku/src/class/archive/media_item.dart';
 
 import '../classes.dart';
 
+import '../injector.dart' as CI;
+import '../../routting/routes.dart';
+
 import 'media_item.dart';
 import '../types.dart';
 import '../widgets/card.dart';
@@ -76,12 +79,18 @@ class Singer implements MediaItem
   T getAsWidget<T>({int itemNumber=1}) {
     T widget;
 
+    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
+
+    Map<String, String> params = {'id':id};
+    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
+
     switch(T)
     {
       case Card:
         widget = Card( name,
             id: id,
-            thumbnail: Uri(path: thumbnail),
+            thumbnail: thumbnail,
+            titleLink: link,
             type: ArchiveTypes.singer,
             origin: this
         ) as T;
@@ -93,7 +102,8 @@ class Singer implements MediaItem
             id: id,
             duration: '',
             number: digititemNumber,
-            thumbnail: Uri(path: thumbnail),
+            thumbnail: thumbnail,
+            titleLink: link,
             type: ArchiveTypes.singer,
             origin: this
         ) as T;

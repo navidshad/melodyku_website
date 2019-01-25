@@ -21,10 +21,12 @@ class PageDefinition
       _lang = CI.Injector.get<LanguageService>();
     }
 
-  MenuItem toMenuItem() {
-    String tUrl = route != null ? route.toUrl() : "#";
+  MenuItem toMenuItem() 
+  {
+    String tUrl = route.toUrl();
+
     String localTitle = _lang.getStr(title);
-    //print('title: $title | localTitle: $localTitle');
-    return MenuItem(title: localTitle, img_ref: iconImgRef, url: tUrl);
+    MenuItem mi = MenuItem(title: localTitle, img_ref: iconImgRef, url: tUrl);
+    return mi;
   }
 }

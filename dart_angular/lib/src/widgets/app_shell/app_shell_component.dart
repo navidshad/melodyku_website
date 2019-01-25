@@ -3,6 +3,8 @@ import 'package:angular_router/angular_router.dart';
 import 'dart:html';
 import 'dart:async';
 
+import '../../class/injector.dart' as CI;
+
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../widgets/login_form_component/login_form_component.dart';
@@ -17,6 +19,12 @@ import '../../widgets/translate_btn_component/translate_btn_component.dart';
 @Component(
   selector: 'app-shell',
   templateUrl: 'app_shell_component.html',
+  styleUrls: [
+    'app_shell_component.scss.css',
+    'drawer.scss.css',
+    'header.scss.css',
+    'profile.scss.css',
+  ],
   directives: [
     coreDirectives, 
     routerDirectives,
@@ -25,11 +33,8 @@ import '../../widgets/translate_btn_component/translate_btn_component.dart';
     TranslateBtnComponent,
     
   ],
-  styleUrls: [
-    'app_shell_component.scss.css',
-    'drawer.scss.css',
-    'header.scss.css',
-    'profile.scss.css',
+  providers: [
+    ClassProvider(PageRoutes),
   ],
 )
 class AppShellComponent
@@ -48,6 +53,7 @@ class AppShellComponent
   // constructor ================================
   AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
   {
+    CI.Injector.register(CI.InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
   } 
 
@@ -87,9 +93,16 @@ class AppShellComponent
     Element drawerMenuBtnNoPushEl = shell.querySelector('.nopush');
     Element drawerMenuBtnPushEl = shell.querySelector('.push');
 
-    drawerMenu = Drawer(drawerMenuEl, mainContent, el_plane: planeEl,
-      el_btn_noPushing: drawerMenuBtnNoPushEl, el_btn_pushing: drawerMenuBtnPushEl,
-      width: 80, mainMargine: '80px', direction: 'right', planeOpacity: '0.8');
+    drawerMenu = Drawer(
+      drawerMenuEl, mainContent, 
+      el_plane: planeEl,
+      el_btn_noPushing: drawerMenuBtnNoPushEl, 
+      el_btn_pushing: drawerMenuBtnPushEl,
+      width: 80, 
+      mainMargine: '80px', 
+      direction: 'right', 
+      planeOpacity: '0.8',
+      openOnInitialied: true);
   }
 
   void setupProfileDrawer(Element shell)

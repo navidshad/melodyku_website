@@ -1,5 +1,8 @@
 import 'package:melodyku/src/class/archive/media_item.dart';
 
+import '../injector.dart' as CI;
+import '../../routting/routes.dart';
+
 import '../classes.dart';
 
 import 'media_item.dart';
@@ -40,7 +43,7 @@ class Album implements MediaItem
         name: (detail['name'] != null) ? detail['name'] : '',
         singer: (detail['singer'] != null) ? detail['singer'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
-        thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : '',
+        thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
         list: items,
         );
     } 
@@ -69,16 +72,20 @@ class Album implements MediaItem
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;
-    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
+
+    Map<String, String> params = {'id':id};
+    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
 
     switch(T)
     {
       case Card:
         widget = Card( name,
           id: id,
-          thumbnail: thumbnail,
+          thumbnail: Uri(path: thumbnail),
           type: ArchiveTypes.album,
-          origin: this
+          origin: this,
+          subtitle: singer,
+          titleLink: link,
         ) as T;
         break;
 
@@ -88,9 +95,11 @@ class Album implements MediaItem
           id: id,
           duration: '',
           number: digititemNumber,
-          thumbnail: thumbnail,
+          thumbnail: Uri(path: thumbnail),
           type: ArchiveTypes.album,
-          origin: this
+          origin: this,
+          subtitle: singer,
+          titleLink: link,
         ) as T;
         break;
     }

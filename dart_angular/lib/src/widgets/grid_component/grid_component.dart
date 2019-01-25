@@ -22,4 +22,10 @@ class GridComponent
 
   @Input()
   List<Card> items;
+
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
 }

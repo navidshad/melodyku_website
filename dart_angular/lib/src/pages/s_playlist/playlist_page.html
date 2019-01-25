@@ -1,2 +1,6 @@
-<table-media *ngIf="playlist != null"
-    [items]='playlist.list'></table-media>
+<album-single-wrapper
+    *ngIf="playlist != null"
+    [title]="playlist.title"
+    [thumbnail]="playlist.thumbnail"
+    [medias]='playlist.list'>
+</album-single-wrapper>

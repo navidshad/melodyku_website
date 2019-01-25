@@ -1,2 +1,6 @@
-<table-media *ngIf="album != null"
-    [items]='album.list'></table-media>
+<album-single-wrapper
+    *ngIf="album != null"
+    [title]="album.name"
+    [thumbnail]="album.thumbnail"
+    [medias]='album.list'>
+</album-single-wrapper>

@@ -27,7 +27,7 @@ import './src/class/injector.dart' as CI;
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(ModalService),
-    ClassProvider(PageRoutes),
+    //ClassProvider(PageRoutes),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),
@@ -35,13 +35,15 @@ import './src/class/injector.dart' as CI;
 )
 class AppComponent 
 {
-  AppComponent(UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
+  AppComponent(
+    UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
   {
     // register this userService into Injectory.
+    CI.Injector.register(CI.InjectorMember('LanguageService', lang));
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
-    CI.Injector.register(CI.InjectorMember('LanguageService', lang));
+    //CI.Injector.register(CI.InjectorMember('PageRoutes', pRoutes));
   }
 }

@@ -22,6 +22,12 @@ class CardRectComponent
   @Input()
   Card card;
 
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
+
   CardRectComponent(this._playerService, this._userService);
 
   void play()
@@ -35,4 +41,7 @@ class CardRectComponent
   }
 
   bool get isLogedIn => _userService.isLogedIn;
+
+  bool getPlayAccess() => playBtn ?? true;
+  bool getExploreAccess() => exploreBtn ?? false;
 }

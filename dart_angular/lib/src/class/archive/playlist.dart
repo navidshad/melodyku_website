@@ -2,6 +2,9 @@ import 'package:melodyku/src/class/archive/media_item.dart';
 
 import '../classes.dart';
 
+import '../injector.dart' as CI;
+import '../../routting/routes.dart';
+
 import 'media_item.dart';
 import '../types.dart';
 
@@ -22,8 +25,13 @@ class Playlist implements MediaItem
     Playlist playlist;
     try {
       List<Media> items = (detail['list'] as List)
-      .map((item) => Media.fromjson(item) ).toList();
-      playlist = Playlist( id: detail['_id'], title: detail['name'], thumbnail: detail['thumbnail'], list: items );
+        .map((item) => Media.fromjson(item) ).toList();
+
+      playlist = Playlist( 
+        id: detail['_id'], 
+        title: detail['name'], 
+        thumbnail: detail['thumbnail'] ?? getRandomCovers(1)[0], 
+        list: items );
     } 
     catch (e) {
       print('convert playlist from json');
@@ -64,14 +72,17 @@ class Playlist implements MediaItem
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;
-    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
+
+    Map<String, String> params = {'id':id};
+    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('playlist', params)}';
 
     switch(T)
     {
       case Card:
         widget = Card( title,
             id: id,
-            thumbnail: thumbnail,
+            thumbnail: Uri(path: thumbnail),
+            titleLink: link,
             type: ArchiveTypes.playlist,
             origin: this
         ) as T;
@@ -83,7 +94,8 @@ class Playlist implements MediaItem
             id: id,
             duration: '',
             number: digititemNumber,
-            thumbnail: thumbnail,
+            thumbnail: Uri(path: thumbnail),
+            titleLink: link,
             type: ArchiveTypes.playlist,
             origin: this
         ) as T;

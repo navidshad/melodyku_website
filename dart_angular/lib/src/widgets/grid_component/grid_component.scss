@@ -1,10 +1,17 @@
 $boxsize: 200px;
 .grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, $boxsize);
-	justify-content: space-between;
-    grid-column-gap: 10px;
-    grid-row-gap: 25px;
+	// display: grid;
+	// grid-template-columns: repeat(auto-fill, $boxsize);
+	// justify-content: space-between;
+    // grid-column-gap: 10px;
+	// grid-row-gap: 25px;
+	
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.grid-item{
+	margin: 25px 10px;
 }
 
 @media all and (max-width: 755px)

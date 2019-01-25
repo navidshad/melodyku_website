@@ -7,7 +7,7 @@ class Card<T>
   String title;
   String subtitle;
   
-  Uri titleLink;
+  String titleLink;
   Uri thumbnail;
 
   T origin;

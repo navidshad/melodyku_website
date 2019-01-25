@@ -13,3 +13,9 @@ String link_archive = '${_archive_host}/archive';
 
 // api user
 String link_api_user = '${_archive_host}/user';
+
+
+// ==========
+// indor endpoints
+// ==========
+

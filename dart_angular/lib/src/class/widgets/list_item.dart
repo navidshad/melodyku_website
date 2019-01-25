@@ -10,7 +10,7 @@ class ListItem<T>
     String duration;
     String number;
 
-    Uri titleLink;
+    String titleLink;
     Uri thumbnail;
 
     T origin;

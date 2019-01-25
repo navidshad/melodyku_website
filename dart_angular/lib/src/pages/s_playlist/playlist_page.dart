@@ -6,7 +6,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/archive/playlist.dart';
 
-import '../../widgets/table_media_component/table_media_component.dart';
+import '../../widgets/album_single_wrapper_component/album_single_wrapper_component.dart';
 
 @Component(
   selector: 'page',
@@ -14,7 +14,7 @@ import '../../widgets/table_media_component/table_media_component.dart';
   styleUrls: [ 'playlist_page.scss.css' ],
   directives: [
     coreDirectives,
-    TableMedia
+    AlbumSingleWrapperComponent,
   ]
 )
 class PlaylistPage implements OnActivate
