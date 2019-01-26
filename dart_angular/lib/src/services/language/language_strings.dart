@@ -55,6 +55,45 @@ dynamic languageStrings = [
   },
 
   // ========================
+  // common lables
+  // ========================
+  {
+    'name': 'featuredSingers',
+    'en'  : 'Featured Singers ',
+    'fa'  : 'خواننده های ویژه',
+  },
+  {
+    'name': 'featuredAlbums',
+    'en'  : 'Featured Albums',
+    'fa'  : 'آلبوم های ویژه',
+  },
+  {
+    'name': 'featuredSongs',
+    'en'  : 'Featured Songs',
+    'fa'  : 'ترانه های ویژه',
+  },
+  {
+    'name': 'bestAllTime',
+    'en'  : 'Best Of All The Time',
+    'fa'  : 'برترین های تاریخ',
+  },
+  {
+    'name': 'lasts',
+    'en'  : 'Lasts',
+    'fa'  : 'آخرین ها',
+  },
+  {
+    'name': 'today',
+    'en'  : 'Best Of The Day',
+    'fa'  : 'پیشنهاد های امروز',
+  },
+  {
+    'name': 'forYou',
+    'en'  : 'For You',
+    'fa'  : 'برای شما',
+  },
+
+  // ========================
   // pages
   // ========================
   {
@@ -242,7 +281,7 @@ dynamic languageStrings = [
   },
 
   // ========================
-  // Menu-Items
+  // small Menu-Items
   // ========================
   {
     'name': 'addToFavourites',

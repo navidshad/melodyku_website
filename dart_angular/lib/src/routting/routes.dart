@@ -77,7 +77,7 @@ class PageRoutes
 
       'genres' : PageDefinition(
         title         : 'genres',
-        position      : MenuPosition.mainMenuDrawer,
+        position      : MenuPosition.none,
         permissionType: PermissionType.freemium_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'genres'),

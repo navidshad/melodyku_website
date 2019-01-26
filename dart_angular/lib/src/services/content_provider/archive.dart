@@ -17,12 +17,9 @@ class Archive
 
   // methods
   // singer -----------------------------------------------
-  Future<Result_Singer> singer_getList(int page, [int total]) async
+  Future<Result_Singer> singer_getList(int page, {int total=15}) async
   {
-    int totalItems = 15;
-    if(total != null) totalItems = total;
-
-    String url = '${link_archive}/singer/all/${totalItems}/${page}';
+    String url = '${link_archive}/singer/all/${total.toString()}/${page.toString()}';
 
     print('singer_getList(), url: $url');
 
@@ -30,7 +27,7 @@ class Archive
       final result = await _rq.get(url);
 
       Result_Singer singerList = Result_Singer.fromjson(
-        result['pages'], result['current'], result['items']);
+        result['pages'], result['current'], result['list']);
 
       return singerList;
     } 
@@ -94,6 +91,26 @@ class Archive
     }
   }
 
+  Future<Result_Album> album_getAll(int page, {int total=15}) async
+  {
+    String url = '${link_archive}/album/all/${total.toString()}/${page.toString()}';
+
+    print('album_getAll(), url: $url');
+
+    try {
+      final result = await _rq.get(url);
+
+      Result_Album singerList = Result_Album.fromjson(
+        result['pages'], result['current'], result['list']);
+
+      return singerList;
+    } 
+    catch (e) {
+      print('error for album_getAll()');
+      throw _handleError(e);
+    }
+  }
+
   Future<Album> album_getById(String id) async
   {
     String url = '${link_archive}/album/id/${id}';
@@ -146,6 +163,26 @@ class Archive
     } 
     catch (e) {
       print('error for media_getList()');
+      throw _handleError(e);
+    }
+  }
+
+  Future<Result_Media> media_getAll(int page, {int total=15}) async
+  {
+    String url = '${link_archive}/media/all/${total.toString()}/${page.toString()}';
+
+    print('media_getAll(), url: $url');
+
+    try {
+      final result = await _rq.get(url);
+
+      Result_Media singerList = Result_Media.fromjson(
+        result['pages'], result['current'], result['list']);
+
+      return singerList;
+    } 
+    catch (e) {
+      print('error for media_getAll()');
       throw _handleError(e);
     }
   }

@@ -27,6 +27,12 @@ class SliderRectComponent
   @Input()
   List<Card> items;
 
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
+
   void next() 
   {
     //move += itemSize;

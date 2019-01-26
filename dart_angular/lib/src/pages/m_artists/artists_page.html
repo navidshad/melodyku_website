@@ -1,1 +1,13 @@
-<h1>هنرمندان</h1>
+<slider-rect 
+    [title]="lang.getStr('featuredSingers')"
+    [items]="featuredSingers"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</slider-rect>
+
+<grid-rect
+    [title]="lang.getStr('bestAllTime')"
+    [items]="topSingers"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</grid-rect>

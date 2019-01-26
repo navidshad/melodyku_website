@@ -3,13 +3,18 @@
     <img class="w3-image" src="/assets/imgs/fake_slider.png" alt="">    
 </div>
 
-<slider-rect    [title]="'برترین ها'" 
-                [items]="card_top10_month"></slider-rect>
+<slider-rect    
+    [title]="lang.getStr('bestAllTime')" 
+    [items]="card_top10_month">
+</slider-rect>
 
-<list-wide  [title]="'پیشنهاد های امروز'" 
-            [numerical]="true"
-            [items]="listItems_top15_day">
-        </list-wide>
+<list-wide  
+    [title]="lang.getStr('today')" 
+    [numerical]="true"
+    [items]="listItems_top15_day">
+</list-wide>
 
-<slider-rect    [title]="'برای شما'" 
-                [items]="card_for_you"></slider-rect>
+<slider-rect    
+    [title]="lang.getStr('forYou')" 
+    [items]="card_for_you">
+</slider-rect>

@@ -28,7 +28,7 @@ class VitrinPage implements OnInit
   
 
 // constructor ==================================
-VitrinPage(this._contentProvider, this._messageService, this._userservice)
+VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
 {
   _page = Page(
     userService: _userservice, 

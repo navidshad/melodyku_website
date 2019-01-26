@@ -20,11 +20,4 @@ class Result_Album extends ListResult
       albums
       );
   }
-
-  // abstract methods
-  List<Card> getCardList([int total]) =>
-    ArchiveToWidget.toCards(list, ArchiveTypes.album, (total !=null) ? total: null);
-
-  List<ListItem> getItemList([int total]) =>
-    ArchiveToWidget.toItemList(list, ArchiveTypes.album, (total !=null) ? total: null);
 }

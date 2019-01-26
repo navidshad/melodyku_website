@@ -1,1 +1,21 @@
-<p>آلبوم ها</p>
+<slider-rect 
+    [title]="lang.getStr('featuredAlbums')"
+    [items]="featuredAlbums"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</slider-rect>
+
+<list-wide  
+    [title]="lang.getStr('bestAllTime')" 
+    [numerical]="true"
+    [items]="top15albums"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</list-wide>
+
+<grid-rect
+    [title]="lang.getStr('lasts')"
+    [items]="lastAlbums"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</grid-rect>

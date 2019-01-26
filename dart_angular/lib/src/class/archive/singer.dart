@@ -81,7 +81,7 @@ class Singer implements MediaItem
 
     Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
 
-    Map<String, String> params = {'id':id};
+    Map<String, String> params = {'id':id.toString()};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
 
     switch(T)

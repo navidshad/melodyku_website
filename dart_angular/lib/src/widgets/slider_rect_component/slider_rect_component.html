@@ -4,7 +4,9 @@
     <div class='thumbs' id="thumbs" 
     extractor (onExtract)="getSliderElement($event)">
         <card-rect class="item" *ngFor="let item of items" 
-            [card]="item">
+            [card]="item"
+            [exploreBtn]="exploreBtn"
+            [playBtn]="playBtn">
         </card-rect>
     </div>
 

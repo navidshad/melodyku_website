@@ -3,11 +3,20 @@
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-        <div class="cover" (click)="play()">
+        <div class="cover" *ngIf="getPlayAccess()" (click)="play()">
             <img class="box" [attr.src]="item.thumbnail">
             <div class="box overlay">
                 <img class="play" src="/assets/imgs/icons/play.png">
             </div>
+        </div>
+
+        <div class="cover" *ngIf="getExploreAccess()">
+            <a href="{{item.titleLink}}">
+                <img class="box" [attr.src]="item.thumbnail">
+                <div class="box overlay">
+                    <img class="pointer" src="/assets/svg/icon_link_rounded.svg">
+                </div>
+            </a>
         </div>
     
         <div class="titles">

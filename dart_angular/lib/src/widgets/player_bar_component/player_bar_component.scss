@@ -192,22 +192,24 @@ $tempBorder: 0px solid white;
     @extend .fixed;
     background-color: $menu-color;
     width: 350px;
-    height: 400px;
+    height: 100%;
     border-top-right-radius: 5px;
-    bottom: -400px;
+    
+    top: 0px;
     left: 0px;
     right: auto;
-    transition: transform 0.2s ease;
+    transition: all 0.3s ease;
     box-shadow: 4px 0 20px 5px #101321;
     text-align: center;
+    padding-bottom: 135px;
 }
 
 .queue-swipup {
-    transform: translateY(-540px);
+    transform: translateY(0px);
 }
 
 .queue-swipdown {
-    transform: translateY(0px);
+    transform: translateY(2000px);
 }
 
 .queue-list {

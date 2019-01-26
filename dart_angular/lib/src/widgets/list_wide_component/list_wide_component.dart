@@ -24,4 +24,10 @@ class ListWideComponent
 
   @Input()
   List<ListItem> items;
+
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
 }

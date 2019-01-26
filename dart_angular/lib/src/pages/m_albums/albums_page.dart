@@ -3,11 +3,26 @@ import 'package:angular/angular.dart';
 import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
+import '../../class/utility/math.dart';
+
+import '../../class/result_list/result_album.dart';
+import '../../class/widgets/card.dart';
+import '../../class/widgets/list_item.dart';
+
+import '../../widgets/list_wide_component/list_wide_component.dart';
+import '../../widgets/slider_rect_component/slider_rect_component.dart';
+import '../../widgets/grid_component/grid_component.dart';
 
 @Component(
   selector: 'page',
   templateUrl: 'albums_page.html',
   styleUrls: [ 'albums_page.scss.css' ],
+  directives: [
+    coreDirectives,
+    ListWideComponent,
+    SliderRectComponent,
+    GridComponent,
+  ]
 )
 class AlbumsPage 
 {
@@ -17,8 +32,12 @@ class AlbumsPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
+  List<Card> featuredAlbums = [];
+  List<Card> lastAlbums = [];
+  List<ListItem> top15albums = [];
+
   // constructor ==================================
-  AlbumsPage(this._contentProvider, this._messageService, this._userservice)
+  AlbumsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 
@@ -27,5 +46,32 @@ class AlbumsPage
       needLogedIn: false,
       title: 'albums',
     );
+
+    getContent();
+  }
+
+    void getContent() async 
+  {
+
+    Result_Album rSingers_featured = await _contentProvider.archive
+      .album_getAll(randomRange(0, 50), total: 10);
+
+    rSingers_featured.list.forEach((singer) {
+      featuredAlbums.add(singer.getAsWidget<Card>());
+    });
+
+    Result_Album rSingers_tops = await _contentProvider.archive
+      .album_getAll(randomRange(0, 50), total: 15);
+
+    rSingers_tops.list.forEach((singer) {
+      top15albums.add(singer.getAsWidget<ListItem>());
+    });
+
+    Result_Album rSingers_Lasts = await _contentProvider.archive
+      .album_getAll(randomRange(0, 50), total: 20);
+
+    rSingers_Lasts.list.forEach((singer) {
+      lastAlbums.add(singer.getAsWidget<Card>());
+    });
   }
 }

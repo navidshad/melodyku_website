@@ -11,9 +11,6 @@ abstract class ListResult {
   int current;
 
   ListResult(this.pages, this.current);
-
-  List<Card> getCardList();
-  List<ListItem> getItemList();
 }
 
 

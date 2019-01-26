@@ -30,6 +30,12 @@ class CardWideComponent
   @Input()
   bool duration;
 
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
+
   CardWideComponent(this._playerService, this._userService);
 
   void play() => _playerService.play(StreamDetail_Player(true, item.type, item.origin));
@@ -40,4 +46,7 @@ class CardWideComponent
   }
 
   bool get isLogedIn => _userService.isLogedIn;
+
+    bool getPlayAccess() => playBtn ?? true;
+  bool getExploreAccess() => exploreBtn ?? false;
 }

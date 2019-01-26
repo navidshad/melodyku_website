@@ -1,0 +1,22 @@
+<list-wide  
+    [title]="lang.getStr('featuredSongs')" 
+    [numerical]="true"
+    [items]="top15Songs"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</list-wide>
+
+<slider-rect 
+    [title]="lang.getStr('bestAllTime')"
+    [items]="topOfAllTime"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</slider-rect>
+
+<grid-rect
+    [title]="lang.getStr('lasts')"
+    [items]="lastSongs"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</grid-rect>
+
