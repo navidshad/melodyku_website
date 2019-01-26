@@ -30,7 +30,7 @@ $columnGap: 10px;
     font-style: normal;
     font-weight: bold;
     font-size: 45px;
-    color: $boldNumber;
+    color: $white-color;
 
     flex-grow: 0;
     flex-shrink: 0;
@@ -114,6 +114,7 @@ $coversize: 50px;
 }
 
 .card:hover {
+
     img {
         filter: grayscale(100%) grayscale(200%);
         -webkit-filter: grayscale(100%) grayscale(200%);
@@ -122,13 +123,21 @@ $coversize: 50px;
         opacity: 100;
     }
     .number{
-        color: #ffffff;
+        color: $lightblue-color;
     }
-    .titles {
-        .title {
+
+    .titles{
+
+        .title{
             color: $lightblue-color;
         }
+
+        .sub {
+            color: $white-color;
+        }
+
     }
+
     .more img {
         filter: opacity(100%);
         -webkit-filter: opacity(100%);
