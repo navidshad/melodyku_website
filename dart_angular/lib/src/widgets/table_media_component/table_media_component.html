@@ -1,24 +1,21 @@
 <div class='table'>
-    <div class='row'>
-        <div class='cell'>#</div>
+    <div class='row header'>
+        <div class='cell index'>#</div>
         <div class='cell'>{{lang.getStr("songTitle")}}</div>
-        <div class='cell'>{{lang.getStr("album")}}</div>
+        <div class='cell album'>{{lang.getStr("album")}}</div>
         <div class='cell'>{{lang.getStr("singer")}}</div>
-        <div class='cell'>{{lang.getStr("duration")}}</div>
+        <div class='cell duration'>{{lang.getStr("duration")}}</div>
     </div>
 
     <div class="_line"></div>
 
-    <div class="row"
-        *ngFor="let song of items; let i=index" 
+    <div *ngFor="let song of items; let i=index"
+        class="row body {{selectedNumber == i ? 'selected':''}}" 
         (click)="play(i)"
         (mouseenter)="onmouseenter(i)"
         (mouseleave)="onmouseleave()">
 
-        <div class='cell'>
-
-            <!-- <span class="number {{hoverNumber == i ? 'none' : ''}}">{{}}</span> -->
-            
+        <div class='cell index'>
             <cover-small 
                 [lable]="(i+1).toString()"
                 [id]="song.id"
@@ -29,8 +26,8 @@
         </div>
 
         <div class='cell'>{{song.title}}</div>
-        <div class='cell'>{{song.album}}</div>
+        <div class='cell album'>{{song.album}}</div>
         <div class='cell'>{{song.singer}}</div>
-        <div class='cell'>{{song.duration.toString()}}</div>
+        <div class='cell duration'>{{song.duration.toString()}}</div>
     </div>
 </div>
