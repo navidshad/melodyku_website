@@ -60,42 +60,12 @@
     opacity: 0;
 }
 
-._line:after {
-    position: relative;
-    content: "";
-    float: left;
+._line {
+    //position: relative;
+    //content: "";
+    //float: left;
     width: 100%;
     height: 3px;
     //background: rgba(59,200,231,0.61);
     background-image: -webkit-linear-gradient(left,rgba(22,26,45,0.8),#3bc8e7db,#3bc8e7db,rgba(22,26,45,0.8));
-}
-
-.cover {
-    border-radius: 10px;
-    overflow: hidden;
-
-    .overlay {
-        @include overlay_card;
-        background: $hoverGradient;
-    
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        // justify-content: center;
-
-        img {
-            width: 40px;
-            height: auto;
-        }
-    }
-    
-    .overlay:hover{
-        opacity: 100;
-    }
-}
-
-$boxsize: 240px;
-.box {
-    width: $boxsize;
-    height: $boxsize;
 }

@@ -8,6 +8,7 @@ import '../class/widgets/menu_item.dart';
 
 // pages
 import '../pages/m_albums/albums_page.template.dart' as albums_page_template;
+import '../pages/m_playlists/playlists_page.template.dart' as playlists_page_template;
 import '../pages/m_artists/artists_page.template.dart' as artists_page_template;
 import '../pages/m_genres/genres_page.template.dart' as genres_page_template;
 import '../pages/m_top_tracks/top_tracks_page.template.dart' as top_tracks_page_template;
@@ -62,6 +63,17 @@ class PageRoutes
                           component: albums_page_template.AlbumsPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/albums.png',
+      ),
+
+      'playlists' : PageDefinition(
+        title         : 'playlists',
+        position      : MenuPosition.mainMenuDrawer,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'playlists'),
+                          component: playlists_page_template.PlaylistsPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/playlists.png',
       ),
 
       'artists' : PageDefinition(

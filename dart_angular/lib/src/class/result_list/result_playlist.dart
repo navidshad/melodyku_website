@@ -8,18 +8,20 @@ class Result_Playlist extends ListResult
     : super(pages, current);
 
   factory Result_Playlist
-  .fromjson(int pages, int current, dynamic items){
+  .fromjson(int pages, int current, dynamic items)
+  {
+    List<Playlist> playlists = [];
+
+    items.forEach((item) 
+    {
+      Playlist newList = Playlist.fromjson(item);
+      playlists.add(newList);
+    });
+
     return Result_Playlist(
       pages, 
       current,
-      items.map((item) => Playlist.fromjson(item))
+      playlists
       );
   }
-
-  // abstract methods
-  List<Card> getCardList([int total]) =>
-    ArchiveToWidget.toCards(list, ArchiveTypes.playlist, (total !=null) ? total: null);
-
-  List<ListItem> getItemList([int total]) =>
-    ArchiveToWidget.toItemList(list, ArchiveTypes.playlist, (total !=null) ? total: null);
 }

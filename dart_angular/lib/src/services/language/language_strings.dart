@@ -83,14 +83,29 @@ dynamic languageStrings = [
     'fa'  : 'آخرین ها',
   },
   {
-    'name': 'today',
+    'name': 'forYou',
+    'en'  : 'For You',
+    'fa'  : 'برای شما',
+  },
+  {
+    'name': 'day',
     'en'  : 'Best Of The Day',
     'fa'  : 'پیشنهاد های امروز',
   },
   {
-    'name': 'forYou',
-    'en'  : 'For You',
-    'fa'  : 'برای شما',
+    'name': 'week',
+    'en'  : 'Best Of The Week',
+    'fa'  : 'پیشنهاد های هفته',
+  },
+  {
+    'name': 'random',
+    'en'  : 'Random',
+    'fa'  : 'پیشنهاد های تصادفی',
+  },
+  {
+    'name': 'otherPlaylist',
+    'en'  : 'Other Playlist',
+    'fa'  : 'دیگر لیست ها',
   },
 
   // ========================
@@ -105,6 +120,11 @@ dynamic languageStrings = [
     'name': 'albums',
     'en'  : 'Albums',
     'fa'  : 'آلبوم ها',
+  },
+  {
+    'name': 'playlists',
+    'en'  : 'Playlists',
+    'fa'  : 'لیست های پخش',
   },
   {
     'name': 'artists',

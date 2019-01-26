@@ -1,17 +1,36 @@
 <div class='table'>
-    <ul class='_line'>
-        <li class='li-header'>#</li>
-        <li class='li-header'>{{lang.getStr("songTitle")}}</li>
-        <li class='li-header'>{{lang.getStr("album")}}</li>
-        <li class='li-header'>{{lang.getStr("singer")}}</li>
-        <li class='li-header'>{{lang.getStr("duration")}}</li>
-    </ul>
+    <div class='row'>
+        <div class='cell'>#</div>
+        <div class='cell'>{{lang.getStr("songTitle")}}</div>
+        <div class='cell'>{{lang.getStr("album")}}</div>
+        <div class='cell'>{{lang.getStr("singer")}}</div>
+        <div class='cell'>{{lang.getStr("duration")}}</div>
+    </div>
 
-    <ul *ngFor="let song of items; let i=index">
-        <li class='li-body'>{{i+1}}</li>
-        <li class='li-body'>{{song.title}}</li>
-        <li class='li-body'>{{song.album}}</li>
-        <li class='li-body'>{{song.singer}}</li>
-        <li class='li-body'>{{song.duration.toString()}}</li>
-    </ul>
+    <div class="_line"></div>
+
+    <div class="row"
+        *ngFor="let song of items; let i=index" 
+        (click)="play(i)"
+        (mouseenter)="onmouseenter(i)"
+        (mouseleave)="onmouseleave()">
+
+        <div class='cell'>
+
+            <!-- <span class="number {{hoverNumber == i ? 'none' : ''}}">{{}}</span> -->
+            
+            <cover-small 
+                [lable]="(i+1).toString()"
+                [id]="song.id"
+                [number]="i"
+                [selectedIndex]="selectedNumber"
+                [hoverIndex]="hoverNumber">
+            </cover-small>
+        </div>
+
+        <div class='cell'>{{song.title}}</div>
+        <div class='cell'>{{song.album}}</div>
+        <div class='cell'>{{song.singer}}</div>
+        <div class='cell'>{{song.duration.toString()}}</div>
+    </div>
 </div>

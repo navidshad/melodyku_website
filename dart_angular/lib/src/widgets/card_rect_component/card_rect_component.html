@@ -2,7 +2,6 @@
     <div class="cover box">
         <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
         <div class="overlay box">
-            <!-- <item-menu class="more"></item-menu> -->
             <div class='flex-column flex-center' style="height:100%">
 
                 <img *ngIf="getPlayAccess()" (click)="play()" class="pointer" src="/assets/imgs/icons/play.png">

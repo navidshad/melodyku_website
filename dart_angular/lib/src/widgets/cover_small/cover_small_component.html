@@ -1,0 +1,16 @@
+<div class="cover">
+
+    <img class="backElement background" *ngIf="thumbnail != null" src="{{thumbnail ?? ''}}">
+
+    <span class="backElement"
+        *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</span>
+
+    <div class="overlay
+        {{(thumbnail != null) ? 'blueback' : ''}}
+        {{(number == hoverIndex) ? 'shown' : ''}}
+        {{(number == selectedIndex) ? 'shown' : ''}}">
+        
+        <img *ngIf="number != selectedIndex" class="play" src="/assets/imgs/icons/play.png">
+        <img *ngIf="number == selectedIndex" class="play" src="/assets/imgs/icons/isPlaying.png">
+    </div>
+</div>

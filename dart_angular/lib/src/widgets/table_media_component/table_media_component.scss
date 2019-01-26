@@ -4,19 +4,33 @@
     margin: 20px 0px;
 }
 
-ul {
-    list-style: none;
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     padding: 0;
+    height: 50px;
+    cursor: pointer;
 }
 
-li {
-    display: inline-block;
-    width: 20%;
+.row:hover{
+    //background: $boldNumber;
+}
 
+.cell {
+    display: flex;
+    justify-content: center;
+
+    width: 20%;
     padding: 5px;
     text-align: center;
 }
 
-.li-header{
+.cover-small {
+    float: right;
+}
 
+.detail {
+    float: left;
 }

@@ -24,8 +24,15 @@ class Playlist implements MediaItem
   {
     Playlist playlist;
     try {
-      List<Media> items = (detail['list'] as List)
-        .map((item) => Media.fromjson(item) ).toList();
+      List<Media> items = [];
+
+      if(detail['list'] != null)
+      {
+        detail['list'].forEach((item) { 
+          Media newMedia = Media.fromjson(item);
+          items.add(newMedia); 
+        });
+      }
 
       playlist = Playlist( 
         id: detail['_id'], 
@@ -45,7 +52,7 @@ class Playlist implements MediaItem
     return {
       'name': title, 
       'thumbnail': thumbnail, 
-      'list': list.map((media){media.toDynamic();})
+      //'list': list.map((media){media.toDynamic();})
       };
   }
 

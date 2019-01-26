@@ -1,0 +1,51 @@
+@import '../../styles/colors';
+@import '../../styles/effects';
+
+:host {
+    position: relative;
+}
+
+.backElement {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+$coversize: 50px;
+.cover {
+    position: relative;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    width: $coversize;
+    height: $coversize;
+
+    cursor: pointer;
+
+    .overlay {
+        @include overlay_card;
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .shown{
+        opacity: 100;
+        transform: translateY(0);
+    }
+
+    .blueback{
+        background: $hoverGradient;
+    }
+
+    .background {
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,29 @@
+<list-wide  
+    [title]="lang.getStr('day')" 
+    [numerical]="true"
+    [items]="dayList"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</list-wide>
+
+<slider-rect  
+    [title]="lang.getStr('week')" 
+    [items]="weekList"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</slider-rect>
+
+<list-wide  
+    [title]="lang.getStr('random')" 
+    [numerical]="true"
+    [items]="randomList"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</list-wide>
+
+<grid-rect
+    [title]="lang.getStr('otherPlaylist')"
+    [items]="allList"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</grid-rect>

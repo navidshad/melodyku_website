@@ -42,12 +42,17 @@ class Media implements MediaItem
     this.thumbnail,
   })
   {
+    type = ArchiveTypes.media;
     getLikeStatus();
   }
 
   factory Media.fromjson(dynamic detail)
   {
-    List<String> genre_list = (detail['genre'] as List).map((gn) => gn.toString()).toList();
+    List<String> genre_list = [];
+
+    if(detail['genre'] != null)
+      detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
+
     Media mFromJson;
     try {
       mFromJson = Media(
@@ -55,7 +60,7 @@ class Media implements MediaItem
       title: (detail['title'] != null) ? detail['title'] : '',
       singer: (detail['albumartist'] != null) ? detail['albumartist'] : '',
       album: (detail['album'] != null) ? detail['album'] : '',
-      genre: (detail['genre'] != null) ? genre_list : '',
+      genre: genre_list,
       lyric: (detail['lyric'] != null) ? detail['lyric'] : '',
       year: (detail['year']   != null) ? detail['year'] : null,
       duration: (detail['duration']   != null) ? detail['duration'] : 0,
