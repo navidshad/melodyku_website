@@ -84,30 +84,28 @@ class Singer implements MediaItem
     Map<String, String> params = {'id':id.toString()};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
 
-    switch(T)
+    if(T == Card)
     {
-      case Card:
-        widget = Card( name,
-            id: id,
-            thumbnail: thumbnail,
-            titleLink: link,
-            type: ArchiveTypes.singer,
-            origin: this
-        ) as T;
-        break;
-
-      case ListItem:
-        String digititemNumber = getDigitStyle(itemNumber+1, 2);
-        widget = ListItem(name,
-            id: id,
-            duration: '',
-            number: digititemNumber,
-            thumbnail: thumbnail,
-            titleLink: link,
-            type: ArchiveTypes.singer,
-            origin: this
-        ) as T;
-        break;
+      widget = Card( name,
+          id: id,
+          thumbnail: thumbnail,
+          titleLink: link,
+          type: ArchiveTypes.singer,
+          origin: this
+      ) as T;
+    }
+    else if (T == ListItem)
+    {
+      String digititemNumber = getDigitStyle(itemNumber+1, 2);
+      widget = ListItem(name,
+          id: id,
+          duration: '',
+          number: digititemNumber,
+          thumbnail: thumbnail,
+          titleLink: link,
+          type: ArchiveTypes.singer,
+          origin: this
+      ) as T;
     }
 
     return widget;

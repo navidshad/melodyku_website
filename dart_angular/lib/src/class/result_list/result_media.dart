@@ -23,9 +23,9 @@ class Result_Media extends ListResult
   }
 
   // abstract methods
-  List<Card> getCardList([int total]) =>
-    ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
+  // List<Card> getCardList([int total]) =>
+  //   ArchiveToWidget.toCards(list, ArchiveTypes.media, (total !=null) ? total: null);
 
-  List<ListItem> getItemList([int total]) =>
-    ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
+  // List<ListItem> getItemList([int total]) =>
+  //   ArchiveToWidget.toItemList(list, ArchiveTypes.media, (total !=null) ? total: null);
 }

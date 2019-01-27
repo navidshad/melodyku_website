@@ -117,32 +117,31 @@ class Media implements MediaItem
   {
     T widget;
 
-    switch(T)
+    if(T == Card)
     {
-      case Card:
-        widget = Card( 
-          title,
-          subtitle: singer,
-          id: id,
-          thumbnail: Uri(path: thumbnail),
-          type: ArchiveTypes.media,
-          origin: this
-        ) as T;
-        break;
+      widget = Card( 
+        title,
+        subtitle: singer,
+        id: id,
+        thumbnail: Uri(path: thumbnail),
+        type: ArchiveTypes.media,
+        origin: this
+      ) as T;
+    }
 
-      case ListItem:
-        String digititemNumber = getDigitStyle(itemNumber+1, 2);
-        widget = ListItem(
-          title,
-          subtitle: singer,
-          id: id,
-          duration: getDuration(),
-          number: digititemNumber,
-          thumbnail: Uri(path: thumbnail),
-          type: ArchiveTypes.media,
-          origin: this
-        ) as T;
-        break;
+    else if(T == ListItem)
+    {
+      String digititemNumber = getDigitStyle(itemNumber+1, 2);
+      widget = ListItem(
+        title,
+        subtitle: singer,
+        id: id,
+        duration: getDuration(),
+        number: digititemNumber,
+        thumbnail: Uri(path: thumbnail),
+        type: ArchiveTypes.media,
+        origin: this
+      ) as T;
     }
 
     return widget;

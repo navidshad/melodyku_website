@@ -15,16 +15,17 @@ import '../../class/types.dart';
     GridComponent,
   ],
   )
-class VitrinPage implements OnInit
+class VitrinPage //implements OnInit
 {
   Page _page;
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
   ContentProvider _contentProvider;
-  List<Card> card_top10_month;
-  List<Card> card_for_you;
-  List<ListItem> listItems_top15_day;
+
+  List<Card> card_top10_month = [];
+  List<Card> card_for_you = [];
+  List<ListItem> listItems_top15_day = [];
   
 
 // constructor ==================================
@@ -37,10 +38,13 @@ VitrinPage(this.lang, this._contentProvider, this._messageService, this._userser
     needLogedIn: false,
     title: 'vitrin'
   );
+
+  getItems();
 }
 
 // OnInit -
-void ngOnInit() => getItems();
+//void ngOnInit() => getItems();
+
 void getItems() async 
  {
   // get 
@@ -48,14 +52,20 @@ void getItems() async
   Playlist pl_top10_month = await _contentProvider.archive.playlist_getById(p_month_id);
   card_top10_month = pl_top10_month.getChildsAsWidgets<Card>(total: 10);
 
+  print('pl_top10_month ${pl_top10_month.list.length}');
+
   // get forYou list
   String p_forYou_id = '5ba8f3018f5e0509f0b3d1cc';
   Playlist pl_for_you = await _contentProvider.archive.playlist_getById(p_forYou_id);
   card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
 
+  print('pl_for_you ${pl_for_you.list.length}');
+
   // get 15 top media of day
   String p_day_id = '5ba8a5cf31243004332bd45a';
   Playlist pl_top15_day = await _contentProvider.archive.playlist_getById(p_day_id);
   listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
+
+  print('pl_top15_day ${pl_top15_day.list.length}');
  }
 }

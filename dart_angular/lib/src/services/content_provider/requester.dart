@@ -21,13 +21,14 @@ class Requester
 
       Response response = await _http.post(url, body: form, headers: header);
       result = _extractData(response);
+
+      //_printRequestStatus(response, sentBody: body);
     }
     catch (e) {
       print('error for playlist_getById()');
       throw _handleError(e);
     }
 
-    //_printRequestStatus(response, sentBody: body);
     return result;
   }
 
@@ -40,13 +41,14 @@ class Requester
       dynamic header = {'token':token};
       Response response = await _http.get(url, headers: header);
       result = _extractData(response);
+
+      //_printRequestStatus(response);
     }
     catch (e) {
       print('error for playlist_getById()');
       throw _handleError(e);
     }
 
-    //_printRequestStatus(response);
     return result;
   }
 

@@ -20,6 +20,7 @@ class UserService
 
   UserService(this._messageService)
   {
+    print('an instance of userService being created');
     _http = BrowserClient();
   }
 

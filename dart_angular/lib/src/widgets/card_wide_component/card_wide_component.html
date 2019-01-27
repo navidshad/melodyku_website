@@ -6,7 +6,7 @@
         <div class="cover" *ngIf="getPlayAccess()" (click)="play()">
             <img class="box" [attr.src]="item.thumbnail">
             <div class="box overlay">
-                <img class="play" src="/assets/imgs/icons/play.png">
+                <img class="cover-icon" src="/assets/imgs/icons/play.png">
             </div>
         </div>
 
@@ -14,7 +14,7 @@
             <a href="{{item.titleLink}}">
                 <img class="box" [attr.src]="item.thumbnail">
                 <div class="box overlay">
-                    <img class="pointer" src="/assets/svg/icon_link_rounded.svg">
+                    <img class="cover-icon" src="/assets/svg/icon_link_rounded.svg">
                 </div>
             </a>
         </div>

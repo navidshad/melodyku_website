@@ -5,16 +5,22 @@
 
 <slider-rect    
     [title]="lang.getStr('bestAllTime')" 
-    [items]="card_top10_month">
+    [items]="card_top10_month"
+    [exploreBtn]="false"
+    [playBtn]="true">
 </slider-rect>
 
 <list-wide  
     [title]="lang.getStr('day')" 
     [numerical]="true"
-    [items]="listItems_top15_day">
+    [items]="listItems_top15_day"
+    [exploreBtn]="false"
+    [playBtn]="true">
 </list-wide>
 
 <slider-rect    
     [title]="lang.getStr('forYou')" 
-    [items]="card_for_you">
+    [items]="card_for_you"
+    [exploreBtn]="false"
+    [playBtn]="true">
 </slider-rect>

@@ -82,38 +82,36 @@ class Playlist implements MediaItem
 
     Map<String, String> params = {'id':id};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('playlist', params)}';
-
-    switch(T)
+    
+    if(T == Card)
     {
-      case Card:
-        widget = Card( title,
-            id: id,
-            thumbnail: Uri(path: thumbnail),
-            titleLink: link,
-            type: ArchiveTypes.playlist,
-            origin: this
-        ) as T;
-        break;
-
-      case ListItem:
-        String digititemNumber = getDigitStyle(itemNumber+1, 2);
-        widget = ListItem(title,
-            id: id,
-            duration: '',
-            number: digititemNumber,
-            thumbnail: Uri(path: thumbnail),
-            titleLink: link,
-            type: ArchiveTypes.playlist,
-            origin: this
-        ) as T;
-        break;
+      widget = Card( title,
+          id: id,
+          thumbnail: Uri(path: thumbnail),
+          titleLink: link,
+          type: ArchiveTypes.playlist,
+          origin: this
+      ) as T;
+    }
+    else if(T == ListItem)
+    {
+      String digititemNumber = getDigitStyle(itemNumber+1, 2);
+      widget = ListItem(title,
+          id: id,
+          duration: '',
+          number: digititemNumber,
+          thumbnail: Uri(path: thumbnail),
+          titleLink: link,
+          type: ArchiveTypes.playlist,
+          origin: this
+      ) as T;
     }
 
     return widget;
   }
 
   @override
-  List<T> getChildsAsWidgets<T>({int total = 1})
+  List<T> getChildsAsWidgets<T> ({int total = 1})
   {
     //print('getChildsAsWidgets ${list.length.toString()} ${T}');
     List<T> items = [];
@@ -126,34 +124,36 @@ class Playlist implements MediaItem
       item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
-      switch(T)
+      T widget;
+
+      if(T == Card)
       {
-        case Card:
-        //print('child is card');
-          T card = Card<Media>( item.title,
-              id: item.id,
-              thumbnail: Uri(path: item.thumbnail),
-              type: ArchiveTypes.media,
-              origin: item
-          ) as T;
-
-          items.add(card);
-          break;
-
-        case ListItem:
-          //print('child is listItem');
-          T listITem = ListItem<Media>(item.title,
-              id: item.id,
-              duration: item.getDuration(),
-              number: itemNumber,
-              thumbnail: Uri(path: item.thumbnail),
-              type: ArchiveTypes.media,
-              origin: item
-          ) as T;
-
-          items.add(listITem);
-          break;
+        //print('create Card from playlist items: ${item.title}');
+        widget = Card<Media>( 
+          item.title,
+          subtitle: item.singer,
+          id: item.id,
+          thumbnail: Uri(path: item.thumbnail),
+          type: ArchiveTypes.media,
+          origin: item
+        ) as T;
       }
+      else if(T == ListItem)
+      {
+        //print('create ListItem from playlist items: ${item.title}');
+        widget = ListItem<Media>(
+          item.title,
+          subtitle: item.singer,
+          id: item.id,
+          duration: item.getDuration(),
+          number: itemNumber,
+          thumbnail: Uri(path: item.thumbnail),
+          type: ArchiveTypes.media,
+          origin: item
+        ) as T;
+      }
+
+      items.add(widget);
     }
 
     return items;

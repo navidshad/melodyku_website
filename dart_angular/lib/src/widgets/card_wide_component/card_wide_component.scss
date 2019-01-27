@@ -30,7 +30,7 @@ $columnGap: 10px;
     font-style: normal;
     font-weight: bold;
     font-size: 45px;
-    color: $white-color;
+    color: $darker-white-color;
 
     flex-grow: 0;
     flex-shrink: 0;
@@ -68,6 +68,13 @@ $coversize: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding: 20%;
+
+    .cover-icon{
+        width: 100%;
+        height: auto;
+    }
 }
 
 .titles {

@@ -76,32 +76,30 @@ class Album implements MediaItem
     Map<String, String> params = {'id':id};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
 
-    switch(T)
+    if(T == Card)
     {
-      case Card:
-        widget = Card( name,
-          id: id,
-          thumbnail: Uri(path: thumbnail),
-          type: ArchiveTypes.album,
-          origin: this,
-          subtitle: singer,
-          titleLink: link,
-        ) as T;
-        break;
-
-      case ListItem:
-        String digititemNumber = getDigitStyle(itemNumber+1, 2);
-        widget = ListItem(name,
-          id: id,
-          duration: '',
-          number: digititemNumber,
-          thumbnail: Uri(path: thumbnail),
-          type: ArchiveTypes.album,
-          origin: this,
-          subtitle: singer,
-          titleLink: link,
-        ) as T;
-        break;
+      widget = Card( name,
+        id: id,
+        thumbnail: Uri(path: thumbnail),
+        type: ArchiveTypes.album,
+        origin: this,
+        subtitle: singer,
+        titleLink: link,
+      ) as T;
+    }
+    else if (T == ListItem)
+    {
+      String digititemNumber = getDigitStyle(itemNumber+1, 2);
+      widget = ListItem(name,
+        id: id,
+        duration: '',
+        number: digititemNumber,
+        thumbnail: Uri(path: thumbnail),
+        type: ArchiveTypes.album,
+        origin: this,
+        subtitle: singer,
+        titleLink: link,
+      ) as T;
     }
 
     return widget;
@@ -118,33 +116,32 @@ class Album implements MediaItem
       item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
-      switch(T)
+      T widget;
+
+      if(T == Card)
       {
-        case Card:
-          T card = Card( item.title,
-              id: item.id,
-              thumbnail: Uri(path: item.thumbnail),
-              type: ArchiveTypes.media,
-              origin: item
-          ) as T;
-
-          items.add(card);
-          break;
-
-        case ListItem:
-          T listITem = ListItem(item.title,
-              id: item.id,
-              duration: item.getDuration(),
-              number: itemNumber,
-              thumbnail: Uri(path: item.thumbnail),
-              type: ArchiveTypes.media,
-              origin: item
-          ) as T;
-
-          items.add(listITem);
-          break;
+        widget = Card<Media>( item.title,
+            id: item.id,
+            thumbnail: Uri(path: item.thumbnail),
+            type: ArchiveTypes.media,
+            origin: item
+        ) as T;
       }
+      else if (T == ListItem)
+      {
+        widget = ListItem<Media>(item.title,
+            id: item.id,
+            duration: item.getDuration(),
+            number: itemNumber,
+            thumbnail: Uri(path: item.thumbnail),
+            type: ArchiveTypes.media,
+            origin: item
+        ) as T;
+      }
+
+      items.add(widget);
     }
+    
     return items;
   }
 

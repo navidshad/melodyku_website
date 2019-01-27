@@ -308,7 +308,7 @@ class Archive
     } 
     catch (e) {
       print('error for favorites_getList()');
-      throw _handleError(e);
+      throw _handleError('$e | $form');
     }
   }
 
