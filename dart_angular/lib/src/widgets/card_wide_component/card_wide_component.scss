@@ -41,42 +41,6 @@ $columnGap: 10px;
     margin-left: $columnGap;
 }
 
-$coversize: 50px;
-.cover {
-    border-radius: 5px;
-    overflow: hidden;
-    
-    width: $coversize;
-    height: $coversize;
-
-    cursor: pointer;
-
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: $coversize;
-
-    .box {
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.overlay {
-    @include overlay_card;
-    background: $hoverGradient;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20%;
-
-    .cover-icon{
-        width: 100%;
-        height: auto;
-    }
-}
-
 .titles {
     @include unselectable;
     //grid-area: t;
@@ -122,13 +86,6 @@ $coversize: 50px;
 
 .card:hover {
 
-    img {
-        filter: grayscale(100%) grayscale(200%);
-        -webkit-filter: grayscale(100%) grayscale(200%);
-    }
-    .overlay{
-        opacity: 100;
-    }
     .number{
         color: $lightblue-color;
     }
@@ -151,11 +108,6 @@ $coversize: 50px;
     }
 }
 
-.not-numerical {
-    //grid-template-columns: repeat(12, 1fr);
-    //grid-template-areas: "c t t t t t t t t t l m";
-}
-
 .bottom-line {
     background: linear-gradient(to left, #ffffff2c, #ffffff00);
     height: 1px;
@@ -172,23 +124,16 @@ $coversize: 50px;
     :host {
         padding: 0px 5px;
     }
-    .card-container {
-        padding: 0px 15px;
-    }
-
-    .card {
-        margin: 0px 15px;
-    }
 
     .number {
         font-size: 30px;
     }
 
-    .cover {
-        width: 40px;
-        height: 40px;
-        flex-basis: 40px;
-    }
+    // .cover {
+    //     width: 40px;
+    //     height: 40px;
+    //     flex-basis: 40px;
+    // }
 
     .titles{
         .title {
@@ -200,7 +145,7 @@ $coversize: 50px;
     }
 
     .length{
-        padding: 10px;
+        padding: 10px 0px;
         font-size: 12px;
     }
 

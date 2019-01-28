@@ -1,6 +1,6 @@
 <div class="cover">
 
-    <img class="backElement background" *ngIf="thumbnail != null" src="{{thumbnail ?? ''}}">
+    <img class="background" *ngIf="thumbnail != null" src="{{thumbnail ?? ''}}">
 
     <span class="backElement"
         *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</span>
@@ -9,8 +9,22 @@
         {{(thumbnail != null) ? 'blueback' : ''}}
         {{(number == hoverIndex) ? 'shown' : ''}}
         {{(number == selectedIndex) ? 'shown' : ''}}">
-        
-        <img *ngIf="number != selectedIndex" class="play" src="/assets/imgs/icons/play.png">
-        <img *ngIf="number == selectedIndex" class="play" src="/assets/imgs/icons/isPlaying.png">
+        <!-- blue overlay -->
+    </div>
+
+    <div class="icon-container
+        {{(number == hoverIndex) ? 'shown' : ''}}
+        {{(number == selectedIndex) ? 'shown' : ''}}">
+
+        <div *ngIf="getPlayAccess()">
+            <img *ngIf="number != selectedIndex" class="cover-icon" src="/assets/imgs/icons/play.png">
+            <img *ngIf="number == selectedIndex" class="cover-icon" src="/assets/imgs/icons/isPlaying.png">
+        </div>
+
+        <div *ngIf="getExploreAccess()">
+            <a href="{{titleLink}}">
+                <img class="cover-icon" src="/assets/svg/icon_link_rounded.svg">
+            </a>
+        </div>
     </div>
 </div>

@@ -24,6 +24,9 @@ class CoverSmallComponent
   String thumbnail;
 
   @Input()
+  String titleLink;
+
+  @Input()
   int number;
 
   @Input()
@@ -31,4 +34,16 @@ class CoverSmallComponent
 
   @Input()
   int hoverIndex;
+
+  @Input()
+  bool exploreBtn;
+
+  @Input()
+  bool playBtn;
+
+  bool getPlayAccess() {
+    print('number $number | selectedIndex $selectedIndex');
+    return playBtn ?? true;
+  } 
+  bool getExploreAccess() => exploreBtn ?? false;
 }

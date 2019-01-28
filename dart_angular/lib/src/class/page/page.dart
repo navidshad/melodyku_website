@@ -21,7 +21,7 @@ class Page
   {
     if(!needLogedIn) return;
 
-    bool isEquale = userService.user.permission.hasAccess(permissionType);
+    bool isEquale = userService.user.hasAccess(permissionType);
     if(!isEquale) window.location.pathname = "";
   }
 

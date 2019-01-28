@@ -153,7 +153,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'archive-artistList'),
                           component: archive_artistList_template.ArchiveArtistListPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       'archive_upload' : PageDefinition(
@@ -164,7 +164,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'archive-upload'),
                           component: archive_upload_template.ArchiveUploadPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       'archive_convert' : PageDefinition(
@@ -175,7 +175,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'archive-convert'),
                           component: archive_convert_template.ArchiveConvertPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       // category sergeant
@@ -187,7 +187,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'archive-categories'),
                           component: archive_categories_template.ArchiveCategoriesPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       // administrator
@@ -199,7 +199,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'users'),
                           component: users_template.UsersPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       'advanced_settings' : PageDefinition(
@@ -210,7 +210,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'advanced-settings'),
                           component: advanced_settings_template.AdvancedSettingsPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       // single ===================================
@@ -222,7 +222,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'artist/:id'),
                           component: artsit_template.ArtistPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       'album' : PageDefinition(
@@ -233,7 +233,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'album/:id'),
                           component: album_template.AlbumPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
 
       'playlist' : PageDefinition(
@@ -244,7 +244,7 @@ class PageRoutes
                           routePath: RoutePath(path: 'playlist/:id'),
                           component: playlist_template.PlaylistPageNgFactory,
                         ),
-        iconImgRef    : 'assets/imgs/icons/',
+        iconImgRef    : 'assets/imgs/icons/more.png',
       ),
     };
   }
@@ -287,14 +287,14 @@ class PageRoutes
     pageDefinitions.forEach((String name, PageDefinition page) 
     { 
       bool  isProfilePosition = false;
-      bool hasAccess = true;
+      bool hasAccess = false;
 
       // check posion of item
       if(page.position == pType) isProfilePosition = true;
 
       // check user access
-      //if(_userService.user != null)
-      hasAccess = _userService.user.permission.hasAccess(page.permissionType);
+      if(_userService.user != null)
+        hasAccess = _userService.user.hasAccess(page.permissionType);
 
       // add if 
       if(isProfilePosition && hasAccess)

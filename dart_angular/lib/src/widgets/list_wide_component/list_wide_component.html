@@ -9,6 +9,7 @@
 
         <card-wide  *ngFor="let item of items; let i=index" dir="rtl"
             [item]='item' 
+            [number]='i'
             [numerical]='numerical'
             [duration]="true"
             [exploreBtn]="exploreBtn"

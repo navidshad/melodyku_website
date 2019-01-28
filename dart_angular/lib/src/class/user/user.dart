@@ -1,8 +1,9 @@
 import 'permission.dart';
+import '../types.dart';
 
 class User 
 {
-  Permission permission;
+  Permission _permission;
   dynamic id;
   String fullname;
   String email;
@@ -21,7 +22,7 @@ class User
       String fullname = detail['fullname'];
       String email = detail['email'];
       user = User(id, fullname, email);
-      user.permission = Permission.fromJson(detail['permission']);
+      user._permission = Permission.fromJson(detail['permission']);
       
     } catch (e) {
       throw e;
@@ -29,4 +30,7 @@ class User
 
     return user;
   }
+
+  bool hasAccess(PermissionType type) =>
+    _permission?.hasAccess(type);
 }

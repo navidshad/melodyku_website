@@ -4,6 +4,7 @@ import '../../class/classes.dart';
 import '../../services/services.dart';
 
 import '../like_component/like_component.dart';
+import '../cover_small/cover_small_component.dart';
 
 @Component(
   selector: 'card-wide',
@@ -12,6 +13,7 @@ import '../like_component/like_component.dart';
   directives: [
     coreDirectives,
     LikeComponent,
+    CoverSmallComponent,
     ]
 )
 class CardWideComponent 
@@ -36,17 +38,31 @@ class CardWideComponent
   @Input()
   bool playBtn;
 
+  @Input()
+  int number;
+
+  int selectedIndex = -1;
+  int hoverIndex = -1;
+
   CardWideComponent(this._playerService, this._userService);
 
-  void play() => _playerService.play(StreamDetail_Player(true, item.type, item.origin));
+  void play() {
+    selectedIndex = number;
+    _playerService.play(StreamDetail_Player(true, item.type, item.origin));
+  }
 
-    void like()
+  void like()
   {
     item.origin.like();
   }
 
   bool get isLogedIn => _userService.isLogedIn;
 
-    bool getPlayAccess() => playBtn ?? true;
-  bool getExploreAccess() => exploreBtn ?? false;
+  // when mose go into
+  void onmouseenter(int i) {
+    print('onmouseenter');
+    hoverIndex = i;
+  }
+  // when mose go out from
+  void onmouseleave() => hoverIndex = -1;
 }

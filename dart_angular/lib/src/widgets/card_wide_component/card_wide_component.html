@@ -1,22 +1,23 @@
-<div class="card-container">
+<div class="card-container pointer"
+    (mouseenter)="onmouseenter(number)"
+    (mouseleave)="onmouseleave()"
+    (click)="play()">
+
     <div class="card" [class.not-numerical]="!numerical">
 
         <div *ngIf="numerical" class="number">{{item.number}}</div>
-    
-        <div class="cover" *ngIf="getPlayAccess()" (click)="play()">
-            <img class="box" [attr.src]="item.thumbnail">
-            <div class="box overlay">
-                <img class="cover-icon" src="/assets/imgs/icons/play.png">
-            </div>
-        </div>
 
-        <div class="cover" *ngIf="getExploreAccess()">
-            <a href="{{item.titleLink}}">
-                <img class="box" [attr.src]="item.thumbnail">
-                <div class="box overlay">
-                    <img class="cover-icon" src="/assets/svg/icon_link_rounded.svg">
-                </div>
-            </a>
+        <div class="cover-container">
+            <cover-small 
+                [thumbnail]="item.thumbnail.toString()"
+                [titleLink]="item.titleLink.toString()"
+                [id]="item.id"
+                [number]="number"
+                [selectedIndex]="selectedIndex"
+                [hoverIndex]="hoverIndex"
+                [exploreBtn]="exploreBtn"
+                [playBtn]="playBtn">
+            </cover-small>
         </div>
     
         <div class="titles">
@@ -30,9 +31,9 @@
             <span>{{item.duration}}</span>
         </div>
     
-        <div class="more">
+        <div *ngIf="isLogedIn" class="more">
             
-            <div *ngIf="isLogedIn">
+            <div>
                 <like class='like-btn'
                 *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
             </div>

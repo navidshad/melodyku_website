@@ -11,11 +11,29 @@
     top: 15px;
 }
 
+.background {
+    position: absolute;
+}
+
+.icon-container{
+    position: absolute;
+    transition: all ease 0.5s;
+    opacity: 0;
+    transform: translateY(-100%);
+
+    padding: 20%;
+        
+    .cover-icon{
+        width: 100%;
+        height: auto;
+    }
+}
+
 $coversize: 50px;
 .cover {
     position: relative;
 
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
 
     width: $coversize;
@@ -27,6 +45,7 @@ $coversize: 50px;
         @include overlay_card;
 
         position: absolute;
+        transform: translateY(0);
         width: 100%;
         height: 100%;
     
@@ -38,6 +57,11 @@ $coversize: 50px;
     .shown{
         opacity: 100;
         transform: translateY(0);
+
+        img {
+            filter: grayscale(100%) grayscale(200%);
+            -webkit-filter: grayscale(100%) grayscale(200%);
+        }
     }
 
     .blueback{
@@ -47,5 +71,13 @@ $coversize: 50px;
     .background {
         width: 100%;
         height: 100%;
+    }
+}
+
+@media screen and (max-width: 479px) 
+{
+    .cover {
+        width: 40px;
+        height: 40px;
     }
 }

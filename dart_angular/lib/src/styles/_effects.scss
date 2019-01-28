@@ -16,7 +16,7 @@
 @mixin overlay_card {
     position: relative;
     transform: translateY(-100%);
-    transition: 0.5s ease;
+    transition: 1s ease;
     opacity: 0;
 }
 
