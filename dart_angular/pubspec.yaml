@@ -13,6 +13,7 @@ dependencies:
   angular_router: 
   angular_forms:
   http : ^0.11.3+17
+  pwa:
 
 dev_dependencies:
   angular_test: ^2.0.0-beta

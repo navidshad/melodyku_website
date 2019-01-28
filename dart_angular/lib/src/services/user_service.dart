@@ -68,10 +68,6 @@ class UserService
       print('error for login()');
       _handleError(e);
     }
-
-    // ok lets messege and say user is logedIn
-    // MessageDetail message = MessageDetail(type: MessageType.userService, detail: {'isLogedIn': isLogedIn});
-    // _messageService.send(message);
   }
 
   void logout()
