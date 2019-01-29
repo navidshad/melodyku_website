@@ -41,9 +41,6 @@ class CoverSmallComponent
   @Input()
   bool playBtn;
 
-  bool getPlayAccess() {
-    print('number $number | selectedIndex $selectedIndex');
-    return playBtn ?? true;
-  } 
+  bool getPlayAccess() => playBtn ?? true;
   bool getExploreAccess() => exploreBtn ?? false;
 }

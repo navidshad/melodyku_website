@@ -7,7 +7,14 @@ $rowHeight : 50px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     grid-column-gap: 30px;
     grid-auto-rows: auto;
-    justify-content: center;
+    //justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+@media screen and (max-width: 479px)
+{
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
 }

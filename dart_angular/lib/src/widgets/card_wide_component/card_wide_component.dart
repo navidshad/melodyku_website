@@ -18,6 +18,7 @@ import '../cover_small/cover_small_component.dart';
 )
 class CardWideComponent 
 {
+  Player _player;
   PlayerService _playerService;
   UserService _userService;
 
@@ -41,13 +42,18 @@ class CardWideComponent
   @Input()
   int number;
 
-  int selectedIndex = -1;
   int hoverIndex = -1;
 
-  CardWideComponent(this._playerService, this._userService);
+  int get selectedIndex {
+    if(_player.current?.id == item.id)
+      return number;
+    else return -1;
+    //return -1;
+  }
+
+  CardWideComponent(this._playerService, this._player, this._userService);
 
   void play() {
-    selectedIndex = number;
     _playerService.play(StreamDetail_Player(true, item.type, item.origin));
   }
 
@@ -59,10 +65,7 @@ class CardWideComponent
   bool get isLogedIn => _userService.isLogedIn;
 
   // when mose go into
-  void onmouseenter(int i) {
-    print('onmouseenter');
-    hoverIndex = i;
-  }
+  void onmouseenter(int i) => hoverIndex = i;
   // when mose go out from
   void onmouseleave() => hoverIndex = -1;
 }
