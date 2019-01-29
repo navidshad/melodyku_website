@@ -26,10 +26,13 @@ class AlbumSingleWrapperComponent
   String title;
 
   @Input()
-  String thumbnail;
+  String subtitle;
 
   @Input()
-  List<HtmlElement> detail;
+  String detail;
+
+  @Input()
+  String thumbnail;
 
   @Input()
   List<Media> medias;

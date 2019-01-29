@@ -19,20 +19,29 @@ import '../../class/classes.dart';
 class TableMedia
 {
   PlayerService _playerService;
+  Player _player;
   LanguageService lang;
   String title = '';
 
-  TableMedia(this.lang, this._playerService);
+  TableMedia(this.lang, this._playerService, this._player);
 
   @Input()
   List<Media> items;
 
-  int selectedNumber = -1;
   int hoverNumber = -1;
+
+  int get selectedNumber {
+    int selected = -1;
+    for(int i =0; i < items.length; i++) {
+      if(_player.current?.id == items[i].id) 
+        selected = i;
+    };
+
+    return selected;
+  }
 
   void play(int i) {
     _playerService.play(StreamDetail_Player(true, items[i].type, items[i]));
-    selectedNumber = i;
   }
 
   // when mose go into

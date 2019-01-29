@@ -4,7 +4,13 @@
     </div>
 
     <div class="detail">
-        <div><h1>{{title}}</h1></div>
+        <div>
+            <h1>{{title}}</h1>
+            <h3 *ngIf="subtitle != null">{{subtitle}}</h3>
+        </div>
+
+        <div *ngIf="detail != null"><P>{{detail}}</P></div>
+
         <div class="btn-md">{{lang.getStr('playAll')}}</div>
     </div>
 </div>

@@ -3,47 +3,50 @@
     (mouseleave)="onmouseleave()"
     (click)="play()">
 
-    <div class="card" [class.not-numerical]="!numerical">
+    <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null">
+        
+        <div class="card" [class.not-numerical]="!numerical">
 
-        <div *ngIf="numerical" class="number">{{item.number}}</div>
-
-        <div class="cover-container">
-            <cover-small 
-                [thumbnail]="item.thumbnail.toString()"
-                [titleLink]="item.titleLink.toString()"
-                [id]="item.id"
-                [number]="number"
-                [selectedIndex]="selectedIndex"
-                [hoverIndex]="hoverIndex"
-                [exploreBtn]="exploreBtn"
-                [playBtn]="playBtn">
-            </cover-small>
-        </div>
+            <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-        <div class="titles">
-            <p>
-                <span class="title">{{item.title}}</span><br>
-                <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
-            </p>
-        </div>
-    
-        <div class="length" *ngIf="duration">
-            <span>{{item.duration}}</span>
-        </div>
-    
-        <div *ngIf="isLogedIn" class="more">
-            
-            <div>
-                <like class='like-btn'
-                *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
+            <div class="cover-container">
+                <cover-small 
+                    [thumbnail]="item.thumbnail.toString()"
+                    [titleLink]="item.titleLink.toString()"
+                    [id]="item.id"
+                    [number]="number"
+                    [selectedIndex]="selectedIndex"
+                    [hoverIndex]="hoverIndex"
+                    [exploreBtn]="exploreBtn"
+                    [playBtn]="playBtn">
+                </cover-small>
             </div>
-            
-            <!-- <a href="#">
-                <img class="play" src="/assets/imgs/icons/more.png">
-            </a> -->
+        
+            <div class="titles">
+                <p>
+                    <span class="title">{{item.title}}</span><br>
+                    <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
+                </p>
+            </div>
+        
+            <div class="length" *ngIf="duration">
+                <span>{{item.duration}}</span>
+            </div>
+        
+            <div *ngIf="isLogedIn" class="more">
+                
+                <div>
+                    <like class='like-btn'
+                    *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
+                </div>
+                
+                <!-- <a href="#">
+                    <img class="play" src="/assets/imgs/icons/more.png">
+                </a> -->
+            </div>
+        
         </div>
-    
-    </div>
-    
-    <div class="bottom-line"></div>
+        
+        <div class="bottom-line"></div>
+    </a>
 </div>
