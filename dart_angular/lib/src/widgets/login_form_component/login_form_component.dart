@@ -7,6 +7,8 @@ import '../../services/language_service.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../class/modal/modal.dart';
 
+import 'dart:html';
+
 @Component(
   selector: 'login-form',
   templateUrl: 'login_form_component.html',
@@ -27,12 +29,20 @@ class LoginFormComponent
   bool isVisible = false;
   String activeForm = 'login';
   
-  String fullname = '';
   String email = '';
   String password = '';
+  String apikey = '';
+
+  String errorMessage;
 
   // constructor --------------------------------
-  LoginFormComponent(this.lang, this._userService, this._modalService);
+  LoginFormComponent(this.lang, this._userService, this._modalService)
+  {
+    window.onKeyPress.listen((KeyboardEvent e)
+    {
+      if(e.key == 'k') activeForm = (activeForm != 'apikey') ? 'apikey' : 'login';
+    });
+  }
 
   // get and register modal to modal Manager
   void getElement(Element el) 
@@ -42,9 +52,10 @@ class LoginFormComponent
   }
 
   // visibility of form -------------------------
-  void switchForm()
+  void switchForm([String name])
   {
-    if(activeForm == 'login') activeForm = 'register';
+    if(name != null) activeForm = name;
+    else if(activeForm == 'login') activeForm = 'register';
     else activeForm = 'login';
   }
 
@@ -52,23 +63,35 @@ class LoginFormComponent
   void login() async 
   {
     modal.doWaiting(true);
-    bool logedin = await _userService.login(email, password);
+    dynamic result = await _userService.login(email, password);
 
-    if(logedin) modal.close();
-    else modal.doWaiting(false);
+    if(result['done']) modal.close();
+    else {
+      errorMessage = result['message'];
+      modal.doWaiting(false);
+    }
+  }
+
+  void loginWithAPIKey() async
+  {
+    modal.doWaiting(true);
+    dynamic result = await _userService.loginWithAPIKey(apikey);
+
+    if(result['done']) modal.close();
+    else {
+      errorMessage = result['message'];
+      modal.doWaiting(false);
+    }
   }
 
   void register() async
   {
-    dynamic detail = {
-      'fullname': fullname,
-      'email': email,
-      'password': password
-    };
-    
-    bool registeredAndLogedin = await _userService.register(detail);
+    modal.doWaiting(true);
+    dynamic result = await _userService.register(email, password);
 
-    if(registeredAndLogedin) modal.close();
-    else modal.doWaiting(false);
+    if(result['done']) switchForm('login');
+    else errorMessage = result['message'];
+  
+    modal.doWaiting(false);
   }
 }

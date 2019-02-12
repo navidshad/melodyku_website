@@ -62,3 +62,23 @@ $boxsize: 240px;
         flex-wrap: wrap;
     }
 }
+
+@media all and (max-width: 425px)
+{
+    .cover {
+        margin-bottom: 20px;
+    }
+
+    .detail {
+        align-items: center;
+        text-align: center;
+        
+        h1 {
+            font-size: 24px;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+}

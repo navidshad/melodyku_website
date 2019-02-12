@@ -1,21 +1,23 @@
 <div class="card">
-    <div class="cover box">
-        <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
-        <div class="overlay box">
-            <div class='flex-column flex-center' style="height:100%">
-
-                <img *ngIf="getPlayAccess()" (click)="play()" class="pointer" src="/assets/imgs/icons/play.png">
+    <div class="cover box pointer" (click)="play()">
+        <a [attr.href]="(card.titleLink != null) ? card.titleLink.toString() : null">
+            <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
+            <div class="overlay box">
+                <div class='flex-column flex-center' style="height:100%">
+    
+                    <img *ngIf="getPlayAccess()" src="/assets/imgs/icons/play.png">
+                    
+                    <a *ngIf="getExploreAccess()" href="{{card.titleLink}}">
+                        <img src="/assets/svg/icon_link_rounded.svg">
+                    </a>
+                </div>
                 
-                <a *ngIf="getExploreAccess()" href="{{card.titleLink}}">
-                    <img class="pointer" src="/assets/svg/icon_link_rounded.svg">
-                </a>
+                <div *ngIf="isLogedIn">
+                    <like class='like-btn' (onload)="card.origin.getLikeStatus()"
+                    *ngIf="card != null" (onlike)="like()" [isLiked]="card.origin.isLiked"></like>
+                </div>
             </div>
-            
-            <div *ngIf="isLogedIn">
-                <like class='like-btn' (onload)="card.origin.getLikeStatus()"
-                *ngIf="card != null" (onlike)="like()" [isLiked]="card.origin.isLiked"></like>
-            </div>
-        </div>
+        </a>
     </div>
     
     <div class="info">

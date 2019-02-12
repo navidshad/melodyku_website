@@ -15,7 +15,7 @@ import '../../class/types.dart';
     GridComponent,
   ],
   )
-class VitrinPage //implements OnInit
+class VitrinPage
 {
   Page _page;
   LanguageService lang;
@@ -41,9 +41,6 @@ VitrinPage(this.lang, this._contentProvider, this._messageService, this._userser
 
   getItems();
 }
-
-// OnInit -
-//void ngOnInit() => getItems();
 
 void getItems() async 
  {

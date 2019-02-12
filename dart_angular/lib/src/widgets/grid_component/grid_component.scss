@@ -14,3 +14,10 @@ $boxsize: 200px;
 .grid-item{
 	margin: 25px 10px;
 }
+
+@media all and (max-width: 425px)
+{
+	.grid {
+		justify-content: center;
+	}
+}

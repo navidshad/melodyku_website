@@ -11,24 +11,12 @@ class User
   String provience;
   String city;
 
-  User(this.id, this.fullname, this.email, {this.country, this.provience, this.city});
-
-  factory User.fromJson(dynamic detail)
+  User(this.id, {bool fullAccess})
   {
-    User user;
-    try {
-      print('factory User.fromJson | $detail');
-      dynamic id = detail['_id'];
-      String fullname = detail['fullname'];
-      String email = detail['email'];
-      user = User(id, fullname, email);
-      user._permission = Permission.fromJson(detail['permission']);
-      
-    } catch (e) {
-      throw e;
+    if(fullAccess != null && fullAccess)
+    {
+      _permission = Permission.fullaccess();
     }
-
-    return user;
   }
 
   bool hasAccess(PermissionType type) =>

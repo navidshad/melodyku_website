@@ -21,8 +21,17 @@ class Page
   {
     if(!needLogedIn) return;
 
-    bool isEquale = userService.user.hasAccess(permissionType);
-    if(!isEquale) window.location.pathname = "";
+    bool isEquale = false;
+
+    try {
+      userService.user.hasAccess(permissionType);
+    }
+    catch(e) {
+      print("you don't have permission for this page, it will go to main page.");
+    }
+  
+    if(!isEquale)
+      window.location.replace('http://localhost:8080/');
   }
 
   void updateTitleBar()

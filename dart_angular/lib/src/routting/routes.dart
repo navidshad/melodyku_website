@@ -7,6 +7,9 @@ import '../class/types.dart';
 import '../class/widgets/menu_item.dart';
 
 // pages
+import '../pages/_email_confirmation/email_confirmation.template.dart' as email_confirmation_template;
+import '../pages/_password_reset/password_reset.template.dart' as password_reset_template;
+
 import '../pages/m_albums/albums_page.template.dart' as albums_page_template;
 import '../pages/m_playlists/playlists_page.template.dart' as playlists_page_template;
 import '../pages/m_artists/artists_page.template.dart' as artists_page_template;
@@ -42,6 +45,29 @@ class PageRoutes
   {
     pageDefinitions = 
     {
+      // user validation ========================
+      'email_confirmation' : PageDefinition(
+        title         : 'email_confirmation',
+        position      : MenuPosition.none,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'email_confirmation'),
+                          component: email_confirmation_template.EmailConfirmationPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/home.png',
+      ),
+      
+      'password_reset' : PageDefinition(
+        title         : 'password_reset',
+        position      : MenuPosition.none,
+        permissionType: PermissionType.freemium_access,
+        route         : RouteDefinition(
+                          routePath: RoutePath(path: 'password_reset'),
+                          component: password_reset_template.PasswordResetPageNgFactory,
+                        ),
+        iconImgRef    : 'assets/imgs/icons/home.png',
+      ),  
+
       // main menu drawer =======================
       'vitrin' : PageDefinition(
         title         : 'vitrin',

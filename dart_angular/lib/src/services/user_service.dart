@@ -5,7 +5,8 @@ import 'dart:async';
 import '../class/user/user.dart';
 import './urls.dart';
 
-import '../services/message_service.dart';
+import './message_service.dart';
+import './stitch_service.dart';
 
 export '../class/user/user.dart';
 export '../class/types.dart';
@@ -13,12 +14,16 @@ export '../class/types.dart';
 class UserService 
 {
   MessageService _messageService;
+  StitchService _stitch;
   BrowserClient _http;
   String _token;
+
   User user;
+  //User get user => user;
+
   bool isLogedIn = false;
 
-  UserService(this._messageService)
+  UserService(this._messageService, this._stitch)
   {
     print('an instance of userService being created');
     _http = BrowserClient();
@@ -26,112 +31,57 @@ class UserService
 
   String get token => _token;
 
-  Future<bool> login(String email, String password) async
+  Future<dynamic> login(String email, String password) async
   {
-    dynamic form = {'email': email, 'password': password};
-    
-    try {
-      final response = await _http.post(link_auth_login, body: form);
-      final result = _extractData(response);
+    dynamic result;
 
-      print('login result: $result');
+    await _stitch.loginWithEmailPassword(email, password)
+      .then((r){
+        result = r;
+        if(result['done']) isLogedIn = true;
+      }).catchError((onError){
+        result = onError;
+      });
 
-      if(result['status'] == 'success')
-        _token = result['token'];
-
-    } 
-    catch (e) {
-      print('error for login()');
-      _handleError(e);
-    }
-
-    await verifyUser();
-    return isLogedIn;
+    return result;
   }
 
-  Future<void> verifyUser() async
+  Future<dynamic> loginWithAPIKey(String key) async
   {
-    dynamic form = {'token': _token};
+    dynamic result = {'done':false, 'message':''};
 
-    try {
-      final response = await _http.post(link_auth_verify, body: form);
-      final result = _extractData(response);
-
-      if(result['status'] == 'success') 
+    await _stitch.loginWithAPIKey(key)
+      .then((r)
       {
+        user = User(_stitch.user.id, fullAccess: true);
+
+        result = r;
         isLogedIn = true;
-        user = User.fromJson(result['user']);
-      }
-      else logout();
-    } 
-    catch (e) {
-      print('error for login()');
-      _handleError(e);
-    }
+
+      }).catchError((onError){
+        result = onError;
+      });
+
+    return result;
   }
 
   void logout()
   {
-    _token = null;
+    _stitch.appClient.auth.logout();
     user = null;
     isLogedIn = false;
   }
 
-  Future<bool> register(dynamic detail) async
+  Future<dynamic> register(String email, String password) async
   {
-    try {
-      // get & set permissions
-      dynamic userPermission = await _getPermission('user');
-      detail['permission'] = userPermission['_id'];
+    dynamic result = {'done':false, 'message':''};
 
-      // register
-      final response = await _http.post(link_auth_register, body: detail);
-      final result = _extractData(response);
+    await _stitch.registerWithEmailPassword(email, password)
+    .catchError((onError){
+        result['message'] = onError;
+      });
 
-      //print('register result: $result');
-
-      if(result['status'] == 'success') {
-        isLogedIn = true;
-        _token = result['token'];
-      }
-    } 
-    catch (e) {
-      print('error for login()');
-      _handleError(e);
-    }
-
-    await verifyUser();
-    return isLogedIn;
-  }
-
-  Future<dynamic> _getPermissions() async 
-  {
-    dynamic permissions = [];
-
-    try {
-      final response = await _http.get(link_auth_permission);
-      final result = _extractData(response);
-
-      if(result['status'] == 'success')
-        permissions = result['permissions'];
-    } 
-    catch (e) {
-      print('error for _getPermissions()');
-      _handleError(e);
-    }
-
-    return permissions;
-  }
-
-  Future<dynamic> _getPermission(name) async
-  {
-    dynamic permissions = await _getPermissions();
-    dynamic permission = {};
-    
-    for (var item in permissions) 
-      if(item['name'] == name) permission = item;
-
-    return permission;
+    return result;    
   }
 
   // other methods ----------------------------------------

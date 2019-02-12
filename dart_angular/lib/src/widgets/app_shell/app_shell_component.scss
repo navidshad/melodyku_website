@@ -8,7 +8,14 @@
 
 
 /* SMARTPHONES PORTRAIT */
-@media only screen and (max-width: 479px) 
+@media only screen and (max-width: 375px) 
+{
+    .content-body {
+        padding: 0px 10px;
+    }
+}
+
+@media only screen and (min-width: 425px) 
 {
     .content-body {
         padding: 0px 20px;

@@ -1,6 +1,6 @@
 @import '../../styles/effects';
 
-$itemMargin: 0px 10px;
+$itemMargin: 0px 0px 0px 15px;
 
 .thumbs {
     display: flex;
@@ -44,5 +44,16 @@ $itemMargin: 0px 10px;
     left: -20px;
     right: auto;
     top: -20px;
+}
+
+@media all and (max-width: 768px)
+{
+    .thumbs{
+        overflow-x: auto;
+    }
+
+    .prev, .next {
+        display: none;
+    }
 }
 

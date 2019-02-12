@@ -1,19 +1,17 @@
 import '../types.dart';
 
 class Permission {
-  bool freemium_access;
-  bool premium_access;
-  bool my_works;
-  bool archive_manager;
-  bool categorizing;
-  bool user_manager;
-  bool quality_management;
-  bool advanced_settings;
+  bool freemium_access = false;
+  bool premium_access = false;
+  bool archive_manager = false;
+  bool categorizing = false;
+  bool user_manager = false;
+  bool quality_management = false;
+  bool advanced_settings = false;
 
   Permission({
     this.freemium_access, 
     this.premium_access,
-    this.my_works,
     this.archive_manager,
     this.categorizing,
     this.user_manager,
@@ -31,7 +29,6 @@ class Permission {
         categorizing      : detail['categorizing'],
         archive_manager   : detail['archive_manager'],
         freemium_access   : detail['freemium_access'],
-        my_works          : detail['my_works'],
         premium_access    : detail['premium_access'],
         quality_management: detail['quality_management'],
         user_manager      : detail['user_manager'],
@@ -44,6 +41,19 @@ class Permission {
     return p;
   }
 
+  factory Permission.fullaccess()
+  {
+    return Permission(
+        advanced_settings : true,
+        categorizing      : true,
+        archive_manager   : true,
+        freemium_access   : true,
+        premium_access    : true,
+        quality_management: true,
+        user_manager      : true,
+      );
+  }
+
 
   // compare two permission class
   bool isEqualeTo(Permission per)
@@ -52,7 +62,6 @@ class Permission {
     
     if(freemium_access != per.freemium_access)    isEquale = false;
     if(premium_access != per.premium_access)      isEquale = false;
-    if(my_works != per.my_works)                  isEquale = false;
     if(archive_manager != per.archive_manager)    isEquale = false;
     if(categorizing != per.categorizing)          isEquale = false;
     if(user_manager != per.user_manager)          isEquale = false;
@@ -75,10 +84,6 @@ class Permission {
         has = premium_access;
         break;
 
-      case PermissionType.my_works:
-        has = my_works;
-        break;
-
       case PermissionType.archive_manager:
         has = archive_manager;
         break;
@@ -98,6 +103,8 @@ class Permission {
       case PermissionType.advanced_settings:
         has = advanced_settings;
         break;
+
+      default: has = false;
     }
 
     return has;

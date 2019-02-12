@@ -1,6 +1,10 @@
 @import '../../styles/colors';
 @import '../../styles/effects';
 
+a{
+    text-decoration: none;
+}
+
 .card {
     //margin: 10px;
     @include unselectable;

@@ -16,7 +16,12 @@ import 'package:melodyku/src/services/language_service.dart';
 ])
 final InjectorFactory injector = self.injector$Injector;
 
-void main() {
+void main() 
+{
+  // stitch 
+  // StitchService stitch = StitchService();
+  // CI.Injector.register(CI.InjectorMember('StitchService', stitch));
+
   runApp(ng.AppComponentNgFactory, createInjector: injector);
 
   // register PWA ServiceWorker for offline caching.

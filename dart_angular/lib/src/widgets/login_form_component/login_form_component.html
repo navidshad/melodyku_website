@@ -11,13 +11,22 @@
             <!-- forms -->
             <div class="w3-container w3-half">
 
-                <!-- login -->
-                <div *ngIf="activeForm == 'login'">
-                    <h5>{{lang.getStr('loginToAccount')}}</h5>
+                <div>
+                    <!-- login -->
+                    <h5 *ngIf="activeForm == 'login'" >{{lang.getStr('loginToAccount')}}</h5>
+                    <!-- register -->
+                    <h5 *ngIf="activeForm == 'register'" >{{lang.getStr('createAccount')}}</h5>
+                    
+                    <!-- error -->
+                    <div *ngIf="errorMessage != null" style="color: red">
+                        <p>{{errorMessage}}</p>
+                    </div>
+
+                    <!-- form -->
                     <form id="login-from">
 
                         <!-- email -->
-                        <div class="w3-row w3-section group">
+                        <div *ngIf="activeForm != 'apikey'" class="w3-row w3-section group">
                             <div class="w3-col" style="width:50px">
                                 <img src="/assets/svg/icon_email.svg" alt="">
                             </div>
@@ -28,7 +37,7 @@
                         </div>
             
                         <!-- password -->
-                        <div class="w3-row w3-section group">
+                        <div *ngIf="activeForm != 'apikey'" class="w3-row w3-section group">
                             <div class="w3-col" style="width:50px">
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
@@ -37,62 +46,45 @@
                                     class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}">
                             </div>
                         </div>
+
+                        <!-- api key -->
+                        <div *ngIf="activeForm == 'apikey'" class="w3-row w3-section group">
+                            <div class="w3-col" style="width:50px">
+                                <img src="/assets/svg/icon_lock.svg" alt="">
+                            </div>
+                            <div class="w3-rest w3-mobile">
+                                <input [(ngModel)]="apikey"
+                                    class="w3-input w3-round" name="apikey" type="password" placeholder="enter your api key">
+                            </div>
+                        </div>
                     </form>
 
                     <div class="">
-                        <button class="btn-sl border-white w3-mobile" (click)="login()">{{lang.getStr('login')}}</button>
-                        <p>
+                        <!-- login -->
+                        <button *ngIf="activeForm == 'login'"  
+                            class="btn-sl border-white w3-mobile" 
+                            (click)="login()">{{lang.getStr('login')}}</button>
+
+                        <p *ngIf="activeForm == 'login'">
                             <b class="pointer">{{lang.getStr('forgotPassword')}}</b><br>
                             <span>{{lang.getStr('dontHaveAccount')}}</span>
                             <ins class="pointer" (click)="switchForm()">{{lang.getStr('register')}}</ins>
                         </p>
-                    </div>
-                </div>
 
-                <!-- register -->
-                <div *ngIf="activeForm == 'register'">
-                    <h5>{{lang.getStr('createAccount')}}</h5>
-                    <form id="register-from">
-                        <!-- fullname -->
-                        <div class="w3-row w3-section group">
-                                <div class="w3-col" style="width:50px">
-                                    <img src="/assets/svg/icon_avatar.svg" alt="">
-                                </div>
-                                <div class="w3-rest w3-mobile">
-                                    <input [(ngModel)]="fullname"
-                                        class="w3-input w3-round" name="fullname" type="text" placeholder="{{lang.getStr('fullName')}}">
-                                </div>
-                            </div>
+                        <!-- register -->
+                        <button *ngIf="activeForm == 'register'"
+                            class="btn-sl border-white w3-mobile" 
+                            (click)="register()">{{lang.getStr('register')}}</button>
 
-                        <!-- email -->
-                        <div class="w3-row w3-section group">
-                            <div class="w3-col" style="width:50px">
-                                <img src="/assets/svg/icon_email.svg" alt="">
-                            </div>
-                            <div class="w3-rest w3-mobile">
-                                <input [(ngModel)]="email"
-                                    class="w3-input w3-round" name="email" type="text" placeholder="{{lang.getStr('email')}}">
-                            </div>
-                        </div>
-            
-                        <!-- password -->
-                        <div class="w3-row w3-section group">
-                            <div class="w3-col" style="width:50px">
-                                <img src="/assets/svg/icon_lock.svg" alt="">
-                            </div>
-                            <div class="w3-rest w3-mobile">
-                                <input [(ngModel)]="password"
-                                    class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}">
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="">
-                        <button class="btn-sl border-white w3-mobile" (click)="register()">{{lang.getStr('register')}}</button>
-                        <p>
+                        <p *ngIf="activeForm == 'register'">
                             <span>{{lang.getStr('alreadyHaveAccount')}}</span>
                             <ins class="pointer" (click)="switchForm()">{{lang.getStr('loginHere')}}</ins>
                         </p>
+
+                        <!-- login with APIKEY -->
+                        <button *ngIf="activeForm == 'apikey'"  
+                            class="btn-sl border-white w3-mobile" 
+                            (click)="loginWithAPIKey()">{{lang.getStr('login')}}</button>
                     </div>
                 </div>
             </div>
