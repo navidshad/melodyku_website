@@ -9,6 +9,7 @@ import './interfaces/interface.dart';
 export 'modules/module.dart';
 export './class/class.dart';
 export './interfaces/interface.dart';
+export 'functions.dart';
 
 @JS('stitch.Stitch.StitchAppClient')
 class StitchAppClient {
@@ -28,7 +29,3 @@ external dynamic get userPasswordAuthProviderClientFactory;
 @JS('Stitch.initializeDefaultAppClient')
 external StitchAppClient initializeDefaultAppClient(String app_id);
 
-@JS('Console')
-class Console {
-  external static log(dynamic object);
-}

@@ -27,9 +27,25 @@ class UserService
   {
     print('an instance of userService being created');
     _http = BrowserClient();
+
+    loginWithLastSession();
   }
 
   String get token => _token;
+
+  void loginWithLastSession()
+  {
+    if(_stitch.user == null) return;
+
+    String pName = _stitch.user.loggedInProviderName;
+
+    //print('pName $pName');
+
+    if(pName == 'api-key'){
+        user = User(_stitch.user.id, fullAccess: true);
+        isLogedIn = true;
+    }
+  }
 
   Future<dynamic> login(String email, String password) async
   {

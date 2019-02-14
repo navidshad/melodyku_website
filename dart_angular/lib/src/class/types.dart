@@ -7,9 +7,7 @@ enum ItemMenuAction {like, share}
 
 enum MenuPosition {mainMenuDrawer, profileDrawer, none}
 enum PermissionType{
-  freemium_access,
-  premium_access,
-  my_works,
+  customer_access,
   archive_manager,
   categorizing,
   user_manager,

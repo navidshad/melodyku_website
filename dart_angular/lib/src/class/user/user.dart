@@ -11,12 +11,9 @@ class User
   String provience;
   String city;
 
-  User(this.id, {bool fullAccess})
+  User(this.id, {bool fullAccess=false})
   {
-    if(fullAccess != null && fullAccess)
-    {
-      _permission = Permission.fullaccess();
-    }
+    if(fullAccess) _permission = Permission.fullaccess();
   }
 
   bool hasAccess(PermissionType type) =>

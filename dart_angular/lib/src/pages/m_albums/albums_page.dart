@@ -42,7 +42,7 @@ class AlbumsPage
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
-      permissionType: PermissionType.freemium_access,
+      permissionType: PermissionType.customer_access,
       needLogedIn: false,
       title: 'albums',
     );

@@ -49,7 +49,7 @@ class PageRoutes
       'email_confirmation' : PageDefinition(
         title         : 'email_confirmation',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'email_confirmation'),
                           component: email_confirmation_template.EmailConfirmationPageNgFactory,
@@ -60,7 +60,7 @@ class PageRoutes
       'password_reset' : PageDefinition(
         title         : 'password_reset',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'password_reset'),
                           component: password_reset_template.PasswordResetPageNgFactory,
@@ -72,7 +72,7 @@ class PageRoutes
       'vitrin' : PageDefinition(
         title         : 'vitrin',
         position      : MenuPosition.mainMenuDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'vitrin'),
                           component: vitrin_page_template.VitrinPageNgFactory,
@@ -83,7 +83,7 @@ class PageRoutes
       'albums' : PageDefinition(
         title         : 'albums',
         position      : MenuPosition.mainMenuDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'albums'),
                           component: albums_page_template.AlbumsPageNgFactory,
@@ -94,7 +94,7 @@ class PageRoutes
       'playlists' : PageDefinition(
         title         : 'playlists',
         position      : MenuPosition.mainMenuDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'playlists'),
                           component: playlists_page_template.PlaylistsPageNgFactory,
@@ -105,7 +105,7 @@ class PageRoutes
       'artists' : PageDefinition(
         title         : 'artists',
         position      : MenuPosition.mainMenuDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'artists'),
                           component: artists_page_template.ArtistsPageNgFactory,
@@ -116,7 +116,7 @@ class PageRoutes
       'genres' : PageDefinition(
         title         : 'genres',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'genres'),
                           component: genres_page_template.GenresPageNgFactory,
@@ -127,7 +127,7 @@ class PageRoutes
       'top_tracks' : PageDefinition(
         title         : 'topTracks',
         position      : MenuPosition.mainMenuDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'top-tracks'),
                           component: top_tracks_page_template.TopTracksPageNgFactory,
@@ -140,7 +140,7 @@ class PageRoutes
       'favorites' : PageDefinition(
         title         : 'favorites',
         position      : MenuPosition.profileDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'favorites'),
                           component: favorites_template.FavoritesPageNgFactory,
@@ -151,7 +151,7 @@ class PageRoutes
       'history' : PageDefinition(
         title         : 'history',
         position      : MenuPosition.profileDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'history'),
                           component: history_template.HistoryPageNgFactory,
@@ -162,7 +162,7 @@ class PageRoutes
       'downloads' : PageDefinition(
         title         : 'downloads',
         position      : MenuPosition.profileDrawer,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'downloads'),
                           component: downloads_template.DownloadsPageNgFactory,
@@ -243,7 +243,7 @@ class PageRoutes
       'artist' : PageDefinition(
         title         : 'artist',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'artist/:id'),
                           component: artsit_template.ArtistPageNgFactory,
@@ -254,7 +254,7 @@ class PageRoutes
       'album' : PageDefinition(
         title         : 'album',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'album/:id'),
                           component: album_template.AlbumPageNgFactory,
@@ -265,7 +265,7 @@ class PageRoutes
       'playlist' : PageDefinition(
         title         : 'playlist',
         position      : MenuPosition.none,
-        permissionType: PermissionType.freemium_access,
+        permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
                           routePath: RoutePath(path: 'playlist/:id'),
                           component: playlist_template.PlaylistPageNgFactory,

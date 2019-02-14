@@ -24,6 +24,8 @@ class Modal
     // delay for making none
     await Future.delayed(Duration(microseconds: 500));
     base.style.display = 'none';
+
+    doWaiting(false);
   }
 
   void doWaiting(key)

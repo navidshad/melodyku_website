@@ -4,11 +4,16 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 
+import '../../widgets/admin/permission_manager/permission_manager.dart';
+
 @Component(
   selector: 'page',
   templateUrl: 'users_page.html',
   styleUrls: [ 'users_page.scss.css' ],
-  )
+  directives: [
+    PermissionManagerComponent,
+  ]
+)
 class UsersPage 
 {
   Page _page;
@@ -27,4 +32,6 @@ class UsersPage
       needLogedIn: true,
       title: 'users');
   }
+
+
 }

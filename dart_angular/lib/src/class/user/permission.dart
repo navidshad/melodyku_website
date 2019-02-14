@@ -1,17 +1,19 @@
 import '../types.dart';
 
 class Permission {
-  bool freemium_access = false;
-  bool premium_access = false;
-  bool archive_manager = false;
-  bool categorizing = false;
-  bool user_manager = false;
-  bool quality_management = false;
-  bool advanced_settings = false;
+  dynamic id;
+  String title;
+  bool customer_access;  
+  bool archive_manager;
+  bool categorizing;
+  bool user_manager;
+  bool quality_management;
+  bool advanced_settings;
 
   Permission({
-    this.freemium_access, 
-    this.premium_access,
+    this.id,
+    this.title,
+    this.customer_access,     
     this.archive_manager,
     this.categorizing,
     this.user_manager,
@@ -25,11 +27,12 @@ class Permission {
     try
     {
       p = Permission(
+        id                : detail['_id'],
+        title             : detail['title'],
         advanced_settings : detail['advanced_settings'],
         categorizing      : detail['categorizing'],
         archive_manager   : detail['archive_manager'],
-        freemium_access   : detail['freemium_access'],
-        premium_access    : detail['premium_access'],
+        customer_access   : detail['customer_access'],        
         quality_management: detail['quality_management'],
         user_manager      : detail['user_manager'],
       );
@@ -47,21 +50,31 @@ class Permission {
         advanced_settings : true,
         categorizing      : true,
         archive_manager   : true,
-        freemium_access   : true,
-        premium_access    : true,
+        customer_access   : true,        
         quality_management: true,
         user_manager      : true,
       );
   }
 
+  factory Permission.lessAccess()
+  {
+    return Permission(
+        title: '',
+        advanced_settings : false,
+        categorizing      : false,
+        archive_manager   : false,
+        customer_access   : false,        
+        quality_management: false,
+        user_manager      : false,
+      );
+  }
 
   // compare two permission class
   bool isEqualeTo(Permission per)
   {
     bool isEquale = true;
     
-    if(freemium_access != per.freemium_access)    isEquale = false;
-    if(premium_access != per.premium_access)      isEquale = false;
+    if(customer_access != per.customer_access)    isEquale = false;    
     if(archive_manager != per.archive_manager)    isEquale = false;
     if(categorizing != per.categorizing)          isEquale = false;
     if(user_manager != per.user_manager)          isEquale = false;
@@ -76,12 +89,8 @@ class Permission {
   {
     bool has = false;
     switch (type) {
-      case PermissionType.freemium_access:
-        has = freemium_access;
-        break;
-
-      case PermissionType.premium_access:
-        has = premium_access;
+      case PermissionType.customer_access:
+        has = customer_access;
         break;
 
       case PermissionType.archive_manager:

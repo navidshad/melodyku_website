@@ -1,0 +1,10 @@
+@import 'colors';
+
+.table-header {
+	background-color: $menu-color;
+	color : $darker-white-color;
+}
+
+.table-row {
+	border-bottom: 1px solid $menu-color;
+}

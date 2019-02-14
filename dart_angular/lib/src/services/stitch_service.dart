@@ -28,7 +28,13 @@ class StitchService
 
   Future<void> loginAnonymouse()
   {
+    if(appClient.auth.user != null) return null;
+
     Completer completer = Completer();
+
+    //get user list
+    //List users = appClient.auth.user listUsers(); //.forEach((u) => print('old user ' +  u.id));
+    //print('users ${appClient.auth.user}');
 
     appClient.auth.loginWithCredential(AnonymousCredential()).then((newUser) 
     {

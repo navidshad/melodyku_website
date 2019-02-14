@@ -7,7 +7,6 @@ import '../../services/language_service.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../class/modal/modal.dart';
 
-import 'dart:html';
 
 @Component(
   selector: 'login-form',

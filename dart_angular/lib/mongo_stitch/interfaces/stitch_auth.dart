@@ -14,4 +14,5 @@ abstract class StitchAuth {
   external PromiseJsImpl<StitchUser> loginWithCredential(StitchCredential credential);
   external UserPasswordAuthProviderClient getProviderClient(dynamic authProviderClientFactory, [String providerName]);
   external PromiseJsImpl logout();
+  external List<StitchUser> listUsers();
 }

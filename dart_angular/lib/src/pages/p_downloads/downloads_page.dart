@@ -22,7 +22,7 @@ class DownloadsPage
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
-      permissionType: PermissionType.premium_access,
+      permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'downloads');
   }

@@ -12,10 +12,24 @@
     border: none;
     outline: none;
     cursor: pointer;
+
+    margin: 5px;
+
+    transition: all ease 0.5s;
+
+    text-align: center;
 }
 
 .button:hover {
     background-color: darken($lightblue-color, 10);
+}
+
+.btn-sl-x {
+    @extend .button;
+    @include border-radius(20px);
+    background: $lightblue-color;
+    font-size: 12px;
+    padding: 3px 10px;
 }
 
 .btn-sl {

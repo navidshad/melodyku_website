@@ -1,0 +1,89 @@
+<div class="widget-container">
+	<div class="head">
+		<div class="buttons">
+			<div class="btn-sl" (click)="showForm('add')">add new</div>
+		</div>
+		<div class="widget-title none-margine">
+	        <h3>Manage Permissions</h3>
+	        <!-- <div class="_line-title"></div> -->
+	    </div>
+	</div>
+
+	<div class="w3-responsive table">
+		<table class="w3-table w3-centered w3-hoverable">
+			<tr class="table-header">
+				<th *ngFor="let hTitle of titles; let i=index">
+					{{hTitle}}
+				</th>
+			</tr>
+
+			<tr class="table-row" *ngFor="let per of list; let i=index">
+				<td class="table-header">{{per.title}}</td>
+				<td>{{per.customer_access.toString()}}</td>
+				<td>{{per.archive_manager.toString()}}</td>
+				<td>{{per.categorizing.toString()}}</td>
+				<td>{{per.user_manager.toString()}}</td>
+				<td>{{per.quality_management.toString()}}</td>
+				<td>{{per.advanced_settings.toString()}}</td>
+				<td>
+					<div class="btn-sl-x" (click)="showForm('update', per)">edit</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getElement($event)">
+	<div class="modal-card text-center text-normal">
+		<div class="w3-row modal-content" style="direction: ltr;">
+			<!-- add new -->
+			<form *ngIf="newPer != null">
+				<div class="w3-row w3-section group">
+					<input [(ngModel)]="newPer.title" 
+                        class="w3-input w3-round" type="text" placeholder="title">
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.customer_access">
+					<label>customer_access</label>
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.archive_manager">
+					<label>archive_manager</label>
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.categorizing">
+					<label>categorizing</label>
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.user_manager">
+					<label>user_manager</label>
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.quality_management">
+					<label>quality_management</label>
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.advanced_settings">
+					<label>advanced_settings</label>
+				</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'add'" (click)="addNewPermission()">Add</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update'" (click)="updatePermission()">update</div>
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update'" (click)="deletePermission()">delete</div>
+			</form>
+
+			<!-- update -->
+
+		</div>
+	</div>
+</div>

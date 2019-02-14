@@ -21,16 +21,16 @@ class Page
   {
     if(!needLogedIn) return;
 
-    bool isEquale = false;
+    bool hasAccess = false;
 
     try {
-      userService.user.hasAccess(permissionType);
+      hasAccess = userService.user.hasAccess(permissionType);
     }
     catch(e) {
       print("you don't have permission for this page, it will go to main page.");
     }
   
-    if(!isEquale)
+    if(!hasAccess)
       window.location.replace('http://localhost:8080/');
   }
 

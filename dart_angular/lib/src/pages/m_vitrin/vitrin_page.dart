@@ -34,7 +34,7 @@ VitrinPage(this.lang, this._contentProvider, this._messageService, this._userser
   _page = Page(
     userService: _userservice, 
     messageService: _messageService, 
-    permissionType: PermissionType.freemium_access,
+    permissionType: PermissionType.customer_access,
     needLogedIn: false,
     title: 'vitrin'
   );
