@@ -181,6 +181,11 @@ dynamic languageStrings = [
     'fa'  : 'تائیدیه ایمیل برای شما ارسال شد.',
   },
   {
+    'name': 'userCreated',
+    'en'  : 'your user created and an confirmation email was sent to you.',
+    'fa'  : 'حساب کاربری شما ساخته شد و یک ایمیل تائیدیه برای شما ارسال شد.',
+  },
+  {
     'name': 'email',
     'en'  : 'Email',
     'fa'  : 'ایمیل',

@@ -2,8 +2,11 @@ import 'package:http/http.dart';
 import 'package:http/browser_client.dart';
 import 'dart:convert';
 import 'dart:async';
-import '../class/user/user.dart';
+
+
 import './urls.dart';
+import '../class/page/page.dart';
+import '../class/user/user.dart';
 
 import './message_service.dart';
 import './stitch_service.dart';
@@ -52,9 +55,13 @@ class UserService
     dynamic result;
 
     await _stitch.loginWithEmailPassword(email, password)
-      .then((r){
+      .then((r)
+      {
         result = r;
-        if(result['done']) isLogedIn = true;
+        if(result['done']) {
+          isLogedIn = true;
+          user = User(_stitch.user.id, getDetail: true);
+        }
       }).catchError((onError){
         result = onError;
       });
@@ -64,17 +71,16 @@ class UserService
 
   Future<dynamic> loginWithAPIKey(String key) async
   {
-    dynamic result = {'done':false, 'message':''};
+    dynamic result;
 
     await _stitch.loginWithAPIKey(key)
       .then((r)
       {
         user = User(_stitch.user.id, fullAccess: true);
-
         result = r;
-        isLogedIn = true;
-
-      }).catchError((onError){
+        if(result['done']) isLogedIn = true;
+      }).catchError((onError)
+      {
         result = onError;
       });
 
@@ -84,8 +90,12 @@ class UserService
   void logout()
   {
     _stitch.appClient.auth.logout();
+    _stitch.loginAnonymouse();
+
     user = null;
     isLogedIn = false;
+
+    Page.goToHome();
   }
 
   Future<dynamic> register(String email, String password) async
@@ -93,9 +103,12 @@ class UserService
     dynamic result = {'done':false, 'message':''};
 
     await _stitch.registerWithEmailPassword(email, password)
+    .then((r) {
+      result = r;
+    })
     .catchError((onError){
         result['message'] = onError;
-      });
+    });
 
     return result;    
   }

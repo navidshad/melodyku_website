@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:http/browser_client.dart';
 
-import 'package:js/js_util.dart' as js;
+//import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 export 'package:melodyku/mongo_stitch/app_client.dart';
 
 class StitchService 
 {
-  BrowserClient _http;
-
   String app_id = 'melodyku-etevw';
   String _serviceName =  'mongodb-atlas';
   StitchAppClient appClient;
@@ -72,7 +69,8 @@ class StitchService
 
     UserApiKeyCredential credential = UserApiKeyCredential(key);
 
-    return promiseToFuture(appClient.auth.loginWithCredential(credential)).then((newUser)
+    return promiseToFuture(appClient.auth.loginWithCredential(credential))
+    .then((newUser)
     {
       print('user logined EmailPassword');
       print(user.id);

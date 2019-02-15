@@ -43,42 +43,8 @@ class Page
     messageService.send(message);
   }
 
-  void goToHome()
+  static void goToHome()
   {
     window.location.replace('/#');
-  }
-
-  static void reDirectTo(Map<String, String> parameters)
-  {
-    // extract
-    String path = parameters['redirect'];
-
-    Uri url = Uri.http('', '', parameters);
-    window.location.replace('/#${url.query}');
-  }
-
-  // static Map<String, String> parsQuery(String url)
-  // {
-
-  // }
-
-  static void checkRedirect()
-  {
-    print('checkRedirect ${window.location}');
-
-    String url = window.location.toString();
-    String redirect;
-    
-    String rPattern = '?redirect=';
-    if(url.contains(rPattern))
-      redirect = url.split(rPattern)[1];
-    
-    if(redirect != null)
-    {
-      redirect = redirect.replaceAll('&', '/');
-      redirect = redirect.replaceAll('=', '/');
-
-      window.location.replace('/#${redirect}');
-    }
   }
 }

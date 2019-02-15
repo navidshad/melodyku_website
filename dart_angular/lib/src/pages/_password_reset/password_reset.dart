@@ -55,7 +55,7 @@ class PasswordResetPage implements OnActivate
   void getElement(Element el) async
   {
     print('create modal');
-    modal = Modal(el, onClose: _page.goToHome);
+    modal = Modal(el, onClose: Page.goToHome);
 
     _modalService.register('pasword_reset', modal);
 
@@ -83,7 +83,7 @@ class PasswordResetPage implements OnActivate
       else modal.showMessage();
 
       await Future.delayed(Duration(seconds: 1));
-      _page.goToHome();
+      Page.goToHome();
     })
     .catchError((result) {
       modal.addMessage(result['message'], color: 'red');

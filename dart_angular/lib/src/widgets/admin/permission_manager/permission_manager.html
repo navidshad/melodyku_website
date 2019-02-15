@@ -13,12 +13,13 @@
 		<table class="w3-table w3-centered w3-hoverable">
 			<tr class="table-header">
 				<th *ngFor="let hTitle of titles; let i=index">
-					{{hTitle}}
+					{{hTitle.toUpperCase()}}
 				</th>
 			</tr>
 
 			<tr class="table-row" *ngFor="let per of list; let i=index">
 				<td class="table-header">{{per.title}}</td>
+				<td>{{per.isDefault.toString()}}</td>
 				<td>{{per.customer_access.toString()}}</td>
 				<td>{{per.archive_manager.toString()}}</td>
 				<td>{{per.categorizing.toString()}}</td>
@@ -41,6 +42,11 @@
 				<div class="w3-row w3-section group">
 					<input [(ngModel)]="newPer.title" 
                         class="w3-input w3-round" type="text" placeholder="title">
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="newPer.isDefault">
+					<label>isDefault</label>
 				</div>
 
 				<div class="w3-row w3-section group">

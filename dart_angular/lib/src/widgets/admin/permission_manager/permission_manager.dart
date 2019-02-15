@@ -36,12 +36,13 @@ class PermissionManagerComponent
 
 	List<String> titles = [
 		'title', 
-		'customer_access',
-		'archive_manager',
+		'isDefault',
+		'customer access',
+		'archive manager',
 		'categorizing',
-		'user_manager',
-		'quality_management',
-		'advanced_settings',
+		'user manager',
+		'quality management',
+		'advanced settings',
 		'options'
 	];
 
@@ -92,6 +93,7 @@ class PermissionManagerComponent
 
 		dynamic newPermission = js.jsify({
 			'title'				: newPer.title,
+			'isDefault'			: newPer.isDefault,
 			'advanced_settings' : newPer.advanced_settings,
 	        'categorizing'      : newPer.categorizing,
 	        'archive_manager'   : newPer.archive_manager,
@@ -122,6 +124,7 @@ class PermissionManagerComponent
 		dynamic update = js.jsify({
 			'\$set': {
 				'title'				: newPer.title,
+				'isDefault'			: newPer.isDefault,
 				'advanced_settings' : newPer.advanced_settings,
 		        'categorizing'      : newPer.categorizing,
 		        'archive_manager'   : newPer.archive_manager,

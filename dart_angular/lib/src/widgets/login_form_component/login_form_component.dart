@@ -94,7 +94,11 @@ class LoginFormComponent
     modal.doWaiting(true);
     dynamic result = await _userService.register(email, password);
 
-    if(result['done']) switchForm('login');
+    if(result['done']) {
+      modal.addMessage(lang.getStr('userCreated'), color:'yellow');
+      modal.showMessage();
+      switchForm('login');
+    }
     else errorMessage = result['message'];
   
     modal.doWaiting(false);

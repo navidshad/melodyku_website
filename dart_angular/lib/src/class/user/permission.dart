@@ -3,6 +3,7 @@ import '../types.dart';
 class Permission {
   dynamic id;
   String title;
+  bool isDefault;
   bool customer_access;  
   bool archive_manager;
   bool categorizing;
@@ -13,6 +14,7 @@ class Permission {
   Permission({
     this.id,
     this.title,
+    this.isDefault,
     this.customer_access,     
     this.archive_manager,
     this.categorizing,
@@ -29,6 +31,7 @@ class Permission {
       p = Permission(
         id                : detail['_id'],
         title             : detail['title'],
+        isDefault         : detail['isDefault'],
         advanced_settings : detail['advanced_settings'],
         categorizing      : detail['categorizing'],
         archive_manager   : detail['archive_manager'],
@@ -48,6 +51,7 @@ class Permission {
   {
     return Permission(
         advanced_settings : true,
+        isDefault         : false,
         categorizing      : true,
         archive_manager   : true,
         customer_access   : true,        
@@ -61,6 +65,7 @@ class Permission {
     return Permission(
         title: '',
         advanced_settings : false,
+        isDefault         : false,
         categorizing      : false,
         archive_manager   : false,
         customer_access   : false,        

@@ -11,6 +11,10 @@
 	margin: 20px 0px;
     border-radius: 10px;
 	background-color: darken($back-color, 1%);
+
+	th {
+		font-size: 0.9rem;
+	}
 }
 
 form {

@@ -16,8 +16,8 @@ class User
   String email;
 
   User(this.id, { 
-    bool fullAccess=false, 
-    bool getDetail = true,
+    bool fullAccess= false, 
+    bool getDetail=true,
     this.permissionName,
     this.fullname,
     this.email
@@ -48,31 +48,43 @@ class User
     return p;
   }
 
-  bool hasAccess(PermissionType type) =>
-    _permission?.hasAccess(type);
+  bool hasAccess(PermissionType type) 
+  {
+    bool access = false;
+    if(_permission != null) access = _permission.hasAccess(type);
+    return access;
+  }
 
   void getData() async
   {
+    print('begin to get user detail');
+
     StitchService stitch = CI.Injector.get<StitchService>();
     RemoteMongoDatabase userDB = stitch.dbClient.db('user');
 
-    // get detail
-    dynamic detailQuery = js.jsify({'rfId': id.toString()});
+    //get detail
+    dynamic detailQuery = js.jsify({'refId': id.toString()});
 
-    promiseToFuture(userDB.collection('permission').find(detailQuery).first())
-    .then((doc){
+    await promiseToFuture(userDB.collection('detail').find(detailQuery).first())
+    .then((doc)
+    {
+      //print('user detail | $doc');
       fullname = js.getProperty(doc, 'fullname');
       permissionName = js.getProperty(doc, 'permissionName');
       email = js.getProperty(doc, 'email');
+
     }).catchError(_catchError);
 
 
     // get permission
-    dynamic permissQuery = js.jsify({'permissionName': permissionName});
-    promiseToFuture(userDB.collection('permission').find(permissQuery).first())
-    .then((doc) {
-      if(doc != null) 
-        _permission = Permission.fromJson(doc);
+    dynamic permissQuery = js.jsify({'title': permissionName});
+
+    await promiseToFuture(userDB.collection('permission').find(permissQuery).first())
+    .then((doc) 
+    {
+      //print('user permission | $doc');
+      dynamic pDetail = convertFromJS(doc);
+      _permission = Permission.fromJson(pDetail);
     }).catchError(_catchError);
   }
 

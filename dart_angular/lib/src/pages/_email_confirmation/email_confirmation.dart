@@ -49,7 +49,7 @@ class  EmailConfirmationPage implements OnActivate
 	void getElement(Element el) async
 	{
 		print('create modal');
-		modal = Modal(el, onClose: _page.goToHome);
+		modal = Modal(el, onClose: Page.goToHome);
 
 		_modalService.register('email_confirmation', modal);
 
