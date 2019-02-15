@@ -20,3 +20,15 @@ dynamic convertFromJS(dynamic jsObject)
 
 	return newObject;
 }
+
+Map<String, String> dynamicToMapString(dynamic object)
+{
+	dynamic jsObject = js.jsify(object);
+	Map<String, String> newMap = {};
+
+	Objectjs.keys(jsObject).forEach((key) {
+		newMap[key] = js.getProperty(jsObject, key);
+	});
+
+	return newMap;
+}

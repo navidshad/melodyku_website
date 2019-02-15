@@ -1,11 +1,15 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
+import 'dart:html';
+
 import 'src/services/stitch_service.dart';
 import 'src/services/services.dart';
 
 import 'src/widgets/widgets.dart';
 import 'src/routting/routes.dart';
+
+import 'src/class/page/page.dart';
 
 import './src/services/content_provider/requester.dart';
 import './src/class/injector.dart' as CI;
@@ -19,6 +23,7 @@ import './src/class/injector.dart' as CI;
   encapsulation: ViewEncapsulation.None,
 
   directives: [
+    coreDirectives,
     AppShellComponent,
     PlayerBareComponent,
   ],
@@ -36,18 +41,43 @@ import './src/class/injector.dart' as CI;
     ClassProvider(Player),
   ],
 )
-class AppComponent 
+class AppComponent
 {
+  bool hasRedirect = true;
+
   AppComponent( StitchService stitch,
     UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
   {
+    checkRedirect();
+
     // register this userService into Injectory.
-    //CI.Injector.register(CI.InjectorMember('StitchService', stitch));
+    CI.Injector.register(CI.InjectorMember('StitchService', stitch));
     CI.Injector.register(CI.InjectorMember('LanguageService', lang));
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
     //CI.Injector.register(CI.InjectorMember('PageRoutes', pRoutes));
+  }
+
+  void checkRedirect()
+  {
+    print('checkRedirect ${window.location}');
+
+    String url = window.location.toString();
+    String redirect;
+    
+    String rPattern = '?redirect=';
+    if(url.contains(rPattern))
+      redirect = url.split(rPattern)[1];
+    
+    if(redirect != null)
+    {
+      redirect = redirect.replaceAll('&', '/');
+      redirect = redirect.replaceAll('=', '/');
+
+      window.location.replace('/#${redirect}');
+    }
+    else hasRedirect = false;
   }
 }

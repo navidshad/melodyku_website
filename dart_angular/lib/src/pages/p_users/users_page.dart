@@ -5,6 +5,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 
 import '../../widgets/admin/permission_manager/permission_manager.dart';
+import '../../widgets/admin/user_manager/user_manager.dart';
 
 @Component(
   selector: 'page',
@@ -12,6 +13,7 @@ import '../../widgets/admin/permission_manager/permission_manager.dart';
   styleUrls: [ 'users_page.scss.css' ],
   directives: [
     PermissionManagerComponent,
+    UserManagerComponent,
   ]
 )
 class UsersPage 

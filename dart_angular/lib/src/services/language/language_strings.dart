@@ -53,6 +53,11 @@ dynamic languageStrings = [
     'en'  : 'Play All',
     'fa'  : 'گوش دادن',
   },
+  {
+    'name': 'submit',
+    'en'  : 'Submit',
+    'fa'  : 'ثبت',
+  },
 
   // ========================
   // common lables
@@ -154,6 +159,26 @@ dynamic languageStrings = [
     'name': 'loginToAccount',
     'en'  : 'login to your account',
     'fa'  : 'ورود به حساب کاربری',
+  },
+  {
+    'name': 'getResetLink',
+    'en'  : 'get reset link',
+    'fa'  : 'درخواست تغییر رمز',
+  },
+  {
+    'name': 'resetLinkSent',
+    'en'  : 'reset link has been sent to your email, check it out, please',
+    'fa'  : 'لینک بازناشی رمز به ایمیل شما ارسال شد.',
+  },
+  {
+    'name': 'sendConfirmation',
+    'en'  : 'resend confirmation email',
+    'fa'  : 'ارسال مجدد تائید ایمیل',
+  },
+  {
+    'name': 'confirmationSent',
+    'en'  : 'confirmation email has been sent to you',
+    'fa'  : 'تائیدیه ایمیل برای شما ارسال شد.',
   },
   {
     'name': 'email',

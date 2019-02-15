@@ -14,6 +14,14 @@
     }
 }
 
+.alternatives {
+    list-style: none;
+    
+    li {
+        text-align: right;
+    }
+}
+
 /* SMARTPHONES PORTRAIT */
 @media only screen and (max-width: 479px) 
 {

@@ -4,6 +4,7 @@ import 'dart:html';
 import 'dart:async';
 
 import '../../class/injector.dart' as CI;
+import '../../class/page/page.dart';
 
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';

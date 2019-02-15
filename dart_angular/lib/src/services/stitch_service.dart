@@ -52,7 +52,7 @@ class StitchService
     
     UserPasswordCredential credential = UserPasswordCredential(email, password);
     
-    return promiseToFuture(appClient.auth.user.linkWithCredential(credential)).then((newUser)
+    return promiseToFuture(appClient.auth.loginWithCredential(credential)).then((newUser)
     {
       print('user logined EmailPassword');
       print(user.id);
@@ -98,6 +98,96 @@ class StitchService
     {
       print('user registerd with EmailPassword');
       result['done'] = true;
+      return result;
+    })
+    .catchError((error){
+      result['message'] = error.toString();
+      return result;
+    });
+  }
+
+  Future<dynamic> confirmEmail(String token, String tokenID)
+  {
+    dynamic result = {'done':false, 'message':''};
+
+    UserPasswordAuthProviderClient emailPassClient = appClient.auth
+      .getProviderClient(userPasswordAuthProviderClientFactory);
+    
+    return promiseToFuture(emailPassClient.confirmUser(token, tokenID))
+    .then((msg)
+    {
+      print('email was confirmed');
+
+      if(!msg.toString().contains('invalid token'))
+        result['done'] = true;
+
+      result['message'] = msg;
+      return result;
+    })
+    .catchError((error){
+      result['message'] = error.toString();
+      return result;
+    });
+  }
+
+  Future<dynamic> resendConfirmationEmail(String email)
+  {
+    dynamic result = {'done':false, 'message':''};
+
+    UserPasswordAuthProviderClient emailPassClient = appClient.auth
+      .getProviderClient(userPasswordAuthProviderClientFactory);
+    
+    return promiseToFuture(emailPassClient.resendConfirmationEmail(email))
+    .then((msg)
+    {
+      print('confirmation email was sent | $msg');
+      result['done'] = true;
+      result['message'] = msg;
+      return result;
+    })
+    .catchError((error){
+      result['message'] = error.toString();
+      return result;
+    });
+  }
+
+  Future<dynamic> sendResetPasswordEmail(String email)
+  {
+    dynamic result = {'done':false, 'message':''};
+
+    UserPasswordAuthProviderClient emailPassClient = appClient.auth
+      .getProviderClient(userPasswordAuthProviderClientFactory);
+    
+    return promiseToFuture(emailPassClient.sendResetPasswordEmail(email))
+    .then((msg)
+    {
+      print('reset link was sent | $msg');
+      result['done'] = true;
+      result['message'] = msg;
+      return result;
+    })
+    .catchError((error){
+      result['message'] = error.toString();
+      return result;
+    });
+  }
+
+  Future<dynamic> resetPassword(String token, String tokenID, String newPassword)
+  {
+    dynamic result = {'done':false, 'message':''};
+
+    UserPasswordAuthProviderClient emailPassClient = appClient.auth
+      .getProviderClient(userPasswordAuthProviderClientFactory);
+    
+    return promiseToFuture(emailPassClient.resetPassword(token, tokenID, newPassword))
+    .then((msg)
+    {
+      print('password was reseted');
+
+      if(!msg.toString().contains('invalid token'))
+        result['done'] = true;
+
+      result['message'] = msg;
       return result;
     })
     .catchError((error){

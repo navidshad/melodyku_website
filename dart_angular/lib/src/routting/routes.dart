@@ -51,7 +51,7 @@ class PageRoutes
         position      : MenuPosition.none,
         permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
-                          routePath: RoutePath(path: 'email_confirmation'),
+                          routePath: RoutePath(path: 'email_confirmation/token/:token/tokenId/:tokenId'),
                           component: email_confirmation_template.EmailConfirmationPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/home.png',
@@ -62,7 +62,7 @@ class PageRoutes
         position      : MenuPosition.none,
         permissionType: PermissionType.customer_access,
         route         : RouteDefinition(
-                          routePath: RoutePath(path: 'password_reset'),
+                          routePath: RoutePath(path: 'password_reset/token/:token/tokenId/:tokenId'),
                           component: password_reset_template.PasswordResetPageNgFactory,
                         ),
         iconImgRef    : 'assets/imgs/icons/home.png',

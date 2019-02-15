@@ -37,7 +37,8 @@
                         </div>
             
                         <!-- password -->
-                        <div *ngIf="activeForm != 'apikey'" class="w3-row w3-section group">
+                        <div *ngIf="activeForm == 'login' || activeForm == 'register'"
+                            class="w3-row w3-section group">
                             <div class="w3-col" style="width:50px">
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
@@ -65,26 +66,38 @@
                             class="btn-sl border-white w3-mobile" 
                             (click)="login()">{{lang.getStr('login')}}</button>
 
-                        <p *ngIf="activeForm == 'login'">
-                            <b class="pointer">{{lang.getStr('forgotPassword')}}</b><br>
-                            <span>{{lang.getStr('dontHaveAccount')}}</span>
-                            <ins class="pointer" (click)="switchForm()">{{lang.getStr('register')}}</ins>
-                        </p>
+                        <!-- reset password -->
+                        <button *ngIf="activeForm == 'resetPassword'"  
+                            class="btn-sl border-white w3-mobile" 
+                            (click)="sendResetLink()">{{lang.getStr('getResetLink')}}</button>
+
+                        <!-- resend email confirmation -->
+                        <button *ngIf="activeForm == 'confirmation'"  
+                            class="btn-sl border-white w3-mobile" 
+                            (click)="sendEmailConfirmation()">{{lang.getStr('getResetLink')}}</button>
 
                         <!-- register -->
                         <button *ngIf="activeForm == 'register'"
                             class="btn-sl border-white w3-mobile" 
                             (click)="register()">{{lang.getStr('register')}}</button>
 
-                        <p *ngIf="activeForm == 'register'">
-                            <span>{{lang.getStr('alreadyHaveAccount')}}</span>
-                            <ins class="pointer" (click)="switchForm()">{{lang.getStr('loginHere')}}</ins>
-                        </p>
-
                         <!-- login with APIKEY -->
                         <button *ngIf="activeForm == 'apikey'"  
                             class="btn-sl border-white w3-mobile" 
                             (click)="loginWithAPIKey()">{{lang.getStr('login')}}</button>
+
+                        <ul class="alternatives">
+                            <li class="pointer" *ngIf="activeForm == 'login'"
+                                (click)="switchForm('register')">{{lang.getStr('register')}}</li>
+
+                            <li class="pointer" *ngIf="activeForm != 'login'"
+                                (click)="switchForm('login')">{{lang.getStr('loginHere')}}</li>
+                        </ul>
+
+                        <ul class="alternatives">
+                            <li class="pointer" (click)="switchForm('resetPassword')">{{lang.getStr('forgotPassword')}}</li>
+                            <li class="pointer" (click)="switchForm('confirmation')">{{lang.getStr('sendConfirmation')}}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,8 @@ import 'dart:html';
 import '../../services/user_service.dart';
 import '../../services/modal_service.dart';
 import '../../services/language_service.dart';
+import '../../services/stitch_service.dart';
+
 import '../../directives/ElementExtractorDirective.dart';
 import '../../class/modal/modal.dart';
 
@@ -23,6 +25,7 @@ class LoginFormComponent
   LanguageService lang;
   UserService _userService;
   ModalService _modalService;
+  StitchService _stitch;
   Modal modal;
 
   bool isVisible = false;
@@ -35,7 +38,7 @@ class LoginFormComponent
   String errorMessage;
 
   // constructor --------------------------------
-  LoginFormComponent(this.lang, this._userService, this._modalService)
+  LoginFormComponent(this.lang, this._userService, this._modalService, this._stitch)
   {
     window.onKeyPress.listen((KeyboardEvent e)
     {
@@ -46,7 +49,7 @@ class LoginFormComponent
   // get and register modal to modal Manager
   void getElement(Element el) 
   {
-    modal = Modal(el);
+    modal = Modal(el, onClose: switchForm, arg: 'login');
     _modalService.register('login', modal);
   }
 
@@ -56,11 +59,14 @@ class LoginFormComponent
     if(name != null) activeForm = name;
     else if(activeForm == 'login') activeForm = 'register';
     else activeForm = 'login';
+
+    errorMessage = null;
   }
 
   // login logout -------------------------------
   void login() async 
   {
+    
     modal.doWaiting(true);
     dynamic result = await _userService.login(email, password);
 
@@ -92,5 +98,43 @@ class LoginFormComponent
     else errorMessage = result['message'];
   
     modal.doWaiting(false);
+  }
+
+  void sendResetLink()
+  {
+    modal.doWaiting(true);
+
+    _stitch.sendResetPasswordEmail(email)
+    .then((result) 
+    {
+      modal.addMessage(lang.getStr('resetLinkSent'), color: 'yellow');
+      modal.showMessage();
+      modal.doWaiting(false);
+    })
+    .catchError((result)
+    {
+      modal.addMessage(result['message'], color:'red');
+      modal.showMessage();
+      modal.doWaiting(false);
+    });
+  }
+
+  void sendEmailConfirmation()
+  {
+    modal.doWaiting(true);
+    
+    _stitch.resendConfirmationEmail(email)
+    .then((result) 
+    {
+      modal.addMessage(lang.getStr('confirmationSent'), color: 'yellow');
+      modal.showMessage();
+      modal.doWaiting(false);
+    })
+    .catchError((result)
+    {
+      modal.addMessage(result['message'], color:'red');
+      modal.showMessage();
+      modal.doWaiting(false);
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+
 import '../../widgets/widgets.dart';
 import '../../services/services.dart';
 import '../../class/classes.dart';
@@ -14,7 +15,7 @@ import '../../class/types.dart';
     ListWideComponent,
     GridComponent,
   ],
-  )
+)
 class VitrinPage
 {
   Page _page;
@@ -28,22 +29,22 @@ class VitrinPage
   List<ListItem> listItems_top15_day = [];
   
 
-// constructor ==================================
-VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
-{
-  _page = Page(
-    userService: _userservice, 
-    messageService: _messageService, 
-    permissionType: PermissionType.customer_access,
-    needLogedIn: false,
-    title: 'vitrin'
-  );
+  // constructor ==================================
+  VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
+  {
+    _page = Page(
+      userService: _userservice, 
+      messageService: _messageService, 
+      permissionType: PermissionType.customer_access,
+      needLogedIn: false,
+      title: 'vitrin'
+    );
 
-  getItems();
-}
+    getItems();
+  }
 
-void getItems() async 
- {
+  void getItems() async 
+  {
   // get 
   String p_month_id = '5bfd635ccb6db178f4e4b14e';
   Playlist pl_top10_month = await _contentProvider.archive.playlist_getById(p_month_id);

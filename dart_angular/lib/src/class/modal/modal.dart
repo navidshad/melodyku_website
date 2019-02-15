@@ -4,11 +4,15 @@ import 'dart:async';
 class Modal
 {
   Element base;
+  Function onClose;
+  dynamic arg;
 
-  Modal(this.base)
+  Modal(this.base, {this.onClose, this.arg})
   {
-    close();
-    addCloseButton();
+    close(performCallback: false);
+
+    _addMessageSection();
+    _addCloseButton();
   }
 
   void show()
@@ -17,7 +21,7 @@ class Modal
     base.style.opacity = '1';
   }
 
-  void close() async
+  void close({bool performCallback=true}) async
   {
     base.style.opacity = '1';
 
@@ -26,6 +30,14 @@ class Modal
     base.style.display = 'none';
 
     doWaiting(false);
+
+    // close callback
+    if(performCallback && onClose != null)
+    {
+      if(arg != null) onClose(arg);
+      else onClose();
+    }
+
   }
 
   void doWaiting(key)
@@ -37,7 +49,16 @@ class Modal
     else cardContent.style.opacity = '1';
   }
 
-  void addCloseButton()
+  void _addMessageSection()
+  {
+    Element  ul = Element.tag('ul');
+    ul.classes.add('modal-message');
+    ul.style.display = 'none';
+
+    base.querySelector('.modal-card').append(ul);
+  }
+
+  void _addCloseButton()
   {
     DivElement  div = DivElement();
     div.classes.add('btn-close');
@@ -48,4 +69,15 @@ class Modal
 
     base.querySelector('.modal-card').append(div);
   }
+
+  void addMessage(String text, {String color})
+  {
+    Element  li = Element.tag('li');
+    if(color != null) li.style.color = color;
+    li.appendText(text);
+
+    base.querySelector('.modal-message').append(li);
+  }
+
+  void showMessage() => base.querySelector('.modal-message').style.display = 'block';
 }
