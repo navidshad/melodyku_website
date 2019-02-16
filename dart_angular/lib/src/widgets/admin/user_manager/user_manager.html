@@ -22,7 +22,7 @@
 				<td>{{user.email}}</td>
 				<td>{{user.permissionName}}</td>
 				<td>
-					<div class="btn-sl-x" (click)="showForm('update', user)">edit</div>
+					<div class="btn-sl-x" (click)="showForm(user)">edit</div>
 				</td>
 			</tr>
 		</table>
@@ -33,20 +33,28 @@
 	<div class="modal-card text-center text-normal">
 		<div class="w3-row modal-content" style="direction: ltr;">
 			<!-- add new -->
-			<form *ngIf="newUser != null">
-<!-- 				<div class="w3-row w3-section group">
-					<input [(ngModel)]="newUser.title" 
-                        class="w3-input w3-round" type="text" placeholder="title">
-				</div>
+			<form *ngIf="editable != null">
+				
+				<div class="w3-row w3-section group">
+					<label>full name</label>
+					<input [(ngModel)]="editable.fullname" 
+                        class="w3-input w3-round" type="text" placeholder="full name">
+                </div>
 
+				<div class="w3-row w3-section group">
+					<label>email</label>
+					<input [(ngModel)]="editable.email" 
+                        class="w3-input w3-round" type="text" placeholder="email" disabled>
+                </div>
 
-				<div class='btn-sl border-white' 
-					*ngIf="formType == 'add'" (click)="addNewPermission()">Add</div>
+                <div class="w3-row w3-section group">
+                	<label>permission</label>
+                	<select class="w3-select" [(ngModel)]="editable.permissionName">
+                		<option *ngFor="let p of plist" [value]="p.title">{{p.title}}</option>
+                	</select>
+                </div>
 
-				<div class='btn-sl border-white' 
-					*ngIf="formType == 'update'" (click)="updatePermission()">update</div>
-				<div class='btn-sl border-white' 
-					*ngIf="formType == 'update'" (click)="deletePermission()">delete</div> -->
+				<div class='btn-sl border-white' (click)="updateUser()">update</div>
 			</form>
 
 			<!-- update -->

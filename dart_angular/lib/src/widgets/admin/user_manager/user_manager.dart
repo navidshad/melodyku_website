@@ -34,6 +34,7 @@ class UserManagerComponent
 	RemoteMongoDatabase _userdb;
 
 	List<User> list = [];
+	List<Permission> plist = [];
 
 	int perPage = 5;
 	int total = 0;
@@ -48,14 +49,32 @@ class UserManagerComponent
 		'OPTIONS',
 	];
 
-	User newUser;
+	User editable;
 	String formType = 'add';
 
 	UserManagerComponent(this._stitch, this._modalService)
 	{
 		_userdb = _stitch.dbClient.db('user');
 		getPage();
+		getPermissions();
+	}
 
+	void getPermissions() async
+	{
+		await promiseToFuture(_userdb.collection('permission').find().asArray())
+		.then((documents) 
+		{
+			plist = [];	
+
+			for(int i=0; i < documents.length; i++)
+			{
+				dynamic detail = convertFromJS(documents[i]);
+				Permission pr = Permission.fromJson(detail);
+				plist.add(pr);
+			}
+		});
+
+		print('permission gotten, ${plist.length}');
 	}
 
 	dynamic getNavigatorDetail(int total, int page, int perPage)
@@ -108,78 +127,39 @@ class UserManagerComponent
 	void getElement(Element el) 
 	{
 		modal = Modal(el);
-		_modalService.register('add_permission', modal);
+		_modalService.register('edit_user', modal);
 	}
 
-	void showForm(String type, [User editable])
+	void showForm(User user)
 	{
-		newUser = User('');
-		formType = type;
-		_modalService.show('add_permission');
+		editable = user;
+		_modalService.show('edit_user');
 	}
 
-	void addNewPermission() async
+	void updateUser() async
 	{
-		
+		modal.doWaiting(true);
 
-		// dynamic newPermission = js.jsify({
+		print('updating ${editable.id}');
 
-		// });
+		dynamic query = js.jsify({'refId': editable.id.toString()});
 
-		// await promiseToFuture(_userdb.collection('permission').insertOne(newPermission))
-		// .then((document) {
-		// 	modal.close();
-		// 	getPage();
-		// })
-		// .catchError((error){
-		// 	print(error);
-		// });		
-	}
+		dynamic update = js.jsify({
+			'\$set': {
+				'fullname': editable.fullname,
+				'permissionName': editable.permissionName,
+			}
+		});
 
-	void updatePermission() async
-	{
-		// modal.doWaiting(true);
-
-		// print('updating ${newUser.id}');
-
-		// dynamic query = js.newObject();
-		// js.setProperty(query, '_id', newUser.id);
-
-		// dynamic update = js.jsify({
-		// 	'\$set': {
-
-		// 	}
-		// });
-
-		// await promiseToFuture(_userdb.collection('permission').updateOne(query, update))
-		// .then((d){
-		// 	print(convertFromJS(d));
-		// 	modal.close();
-		// 	getPage();
-		// })
-		// .catchError((error){
-		// 	print(error);
-		// });
-	}
-
-	void deletePermission() async
-	{
-		// modal.doWaiting(true);
-
-		// print('deleting ${newUser.id}');
-
-		// dynamic query = js.newObject();
-		// js.setProperty(query, '_id', newUser.id);
-
-		// await promiseToFuture(_userdb.collection('permission').deleteOne(query))
-		// .then((d){
-		// 	print(convertFromJS(d));
-		// 	modal.close();
-		// 	getPage();
-		// })
-		// .catchError((error){
-		// 	print(error);
-		// });
+		await promiseToFuture(_userdb.collection('detail').updateOne(query, update))
+		.then((d){
+			print(convertFromJS(d));
+			modal.close();
+			getPage();
+		})
+		.catchError((error){
+			print(error);
+		});
 	}
 
 	void _catchError(error) => print(error);

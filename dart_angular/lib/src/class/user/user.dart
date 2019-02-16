@@ -36,7 +36,7 @@ class User
 
     try{
       p = User(
-      detail['rfId'],
+      detail['refId'],
       permissionName : detail['permissionName'],
       email : detail['email'],
       fullname : detail['fullname']);
