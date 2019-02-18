@@ -1,0 +1,79 @@
+<div class="widget-container">
+	<div class="head">
+		<div class="buttons">
+			<div class="btn-sl" *ngIf="couldAdd" (click)="showForm('add')">add new</div>
+		</div>
+		<div class="widget-title none-margine">
+	        <h3>{{title}}</h3>
+	        <!-- <div class="_line-title"></div> -->
+	    </div>
+	</div>
+
+	<div class="w3-responsive table">
+		<table class="w3-table w3-centered w3-hoverable">
+			<tr class="table-header">
+				<th *ngFor="let field of fields; let i=index">
+					{{field.toUpperCase()}}
+				</th>
+				<th>OPTION</th>
+			</tr>
+
+			<tr class="table-row" *ngFor="let item of list; let i=index">
+
+				<td *ngFor="let field of fields; let i=index">
+					{{item[field]}}
+				</td>
+
+				<td>
+					<div class="btn-sl-x" (click)="showForm('update', item)">edit</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getElement($event)">
+	<div class="modal-card text-center text-normal">
+		<div class="w3-row modal-content" style="direction: ltr;">
+			
+			<!-- add new -->
+			<form *ngIf="editable != null">
+
+				<div *ngFor="let field of fields; let i=index"
+					class="w3-row w3-section group">
+					
+					<label>{{field}}</label>
+
+					<input 	*ngIf="getFiledType(field) == 'String'"
+							[(ngModel)]="editable[field]" 
+                        	class="w3-input w3-round" type="text" placeholder="{{field}}">
+
+                    <input 	*ngIf="getFiledType(field) == 'bool'"
+                    		[(ngModel)]="editable[field]"
+                        	class="w3-radio" type="checkbox" placeholder="{{field}}">
+
+                    <select *ngIf="getFiledType(field) == 'List<String>'"
+                    		[(ngModel)]="editable[field]"
+                    		class="w3-select" >
+
+                		<option *ngFor="let option of customFieldTypes[field]" 
+                				[value]="option">{{option}}</option>
+                	</select>
+
+				</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'add' && couldAdd" (click)="addNewItem()">Add</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update' && couldUpdate" (click)="updateItem()">update</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update' && couldRemove" (click)="removeItem()">remove</div>
+			</form>
+
+			<!-- update -->
+
+		</div>
+	</div>
+</div>

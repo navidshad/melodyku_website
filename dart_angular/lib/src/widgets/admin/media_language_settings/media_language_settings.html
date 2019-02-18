@@ -1,0 +1,75 @@
+<div class="widget-container">
+	<div class="head">
+		<div class="buttons">
+			<div class="btn-sl" (click)="showForm('add')">add new</div>
+		</div>
+		<div class="widget-title none-margine">
+	        <h3>Manage Media Languages</h3>
+	        <!-- <div class="_line-title"></div> -->
+	    </div>
+	</div>
+
+	<div class="w3-responsive table">
+		<table class="w3-table w3-centered w3-hoverable">
+			<tr class="table-header">
+				<th *ngFor="let hTitle of titles; let i=index">
+					{{hTitle.toUpperCase()}}
+				</th>
+			</tr>
+
+			<tr class="table-row" *ngFor="let lang of list; let i=index">
+				<td class="table-header">{{lang['title']}}</td>
+				<td>{{lang['title_en']}}</td>
+				<td>{{lang['code']}}</td>
+				<td>{{lang['isDefault']}}</td>
+				<td>
+					<div class="btn-sl-x" (click)="showForm('update', lang)">edit</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getElement($event)">
+	<div class="modal-card text-center text-normal">
+		<div class="w3-row modal-content" style="direction: ltr;">
+			<!-- add new -->
+			<form *ngIf="editable != null">
+
+				<div class="w3-row w3-section group">
+					<label>title</label>
+					<input [(ngModel)]="editable['title']" 
+                        class="w3-input w3-round" type="text" placeholder="title">
+				</div>
+
+				<div class="w3-row w3-section group">
+					<label>en title</label>
+					<input [(ngModel)]="editable['title_en']" 
+                        class="w3-input w3-round" type="text" placeholder="en">
+				</div>
+
+				<div class="w3-row w3-section group">
+					<label>language code</label>
+					<input [(ngModel)]="editable['code']" 
+                        class="w3-input w3-round" type="text" placeholder="fa">
+				</div>
+
+				<div class="w3-row w3-section group">
+					<input class="w3-radio" type="checkbox" [(ngModel)]="editable['isDefault']">
+					<label>isDefault</label>
+				</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'add'" (click)="addNewLanguage()">Add</div>
+
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update'" (click)="updateLanguage()">update</div>
+				<div class='btn-sl border-white' 
+					*ngIf="formType == 'update'" (click)="deleteLanguage()">delete</div>
+			</form>
+
+			<!-- update -->
+
+		</div>
+	</div>
+</div>

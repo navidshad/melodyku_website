@@ -4,10 +4,17 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 
+import '../../widgets/admin/media_language_settings/media_language_settings.dart';
+import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
+
 @Component(
   selector: 'page',
   templateUrl: 'advanced_settings_page.html',
-  //styleUrls: [ 'advanced_settings_page.scss.css' ],
+  styleUrls: [ 'advanced_settings_page.scss.css' ],
+  directives: [
+    mediaLanguageSettingsComponent,
+    DbCollectionTableComponent,
+  ]
 )
 class AdvancedSettingsPage 
 {

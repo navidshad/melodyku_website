@@ -58,6 +58,9 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
     //CI.Injector.register(CI.InjectorMember('PageRoutes', pRoutes));
+
+    // login with last session
+    us.loginWithLastSession();
   }
 
   void checkRedirect()

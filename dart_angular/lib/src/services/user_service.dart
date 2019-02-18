@@ -30,8 +30,6 @@ class UserService
   {
     print('an instance of userService being created');
     _http = BrowserClient();
-
-    loginWithLastSession();
   }
 
   String get token => _token;
@@ -42,11 +40,15 @@ class UserService
 
     String pName = _stitch.user.loggedInProviderName;
 
-    //print('pName $pName');
+    print('pName $pName');
 
     if(pName == 'api-key'){
         user = User(_stitch.user.id, fullAccess: true);
         isLogedIn = true;
+    }
+    else if(pName != 'anon-user') {
+      user = User(_stitch.user.id);
+      isLogedIn = true;
     }
   }
 
