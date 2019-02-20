@@ -1,0 +1,26 @@
+@import './colors';
+@import 'effects';
+
+.input {
+	@include border-radius(20px);
+	background-color: darken($back-color, 5%);
+
+	outline: none;
+}
+
+.input:focus {
+	
+}
+
+.input-text {
+	@extend .input;
+	border-width: 0px;
+	color: $darker-white-color;
+
+	text-align: left;
+    padding: 5px 10px;
+    direction: ltr;
+
+    box-shadow: 0px 0px 0px 3px $menu-color;
+    letter-spacing: 1.5px;
+}

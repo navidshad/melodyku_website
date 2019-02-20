@@ -1,10 +1,11 @@
 @import 'colors';
+@import 'effects';
 
-@mixin border-radius($rad) {
-    -webkit-border-radius: $rad;
-    -moz-border-radius: $rad;
-    -ms-border-radius: $rad;
-    border-radius: $rad;
+@mixin image($width, $margine){
+    img {
+        width: $width;
+        margin: $margine;
+    }
 }
 
 .button {
@@ -18,15 +19,18 @@
     transition: all ease 0.5s;
 
     text-align: center;
+    letter-spacing: 1px;
+    //font-weight: bold;
 }
 
 .button:hover {
-    background-color: darken($lightblue-color, 10);
+    background-color: darken($lightblue-color, 20);
 }
 
 .btn-sl-x {
     @extend .button;
     @include border-radius(20px);
+    @include image(20px, 5px);
     background: $lightblue-color;
     font-size: 12px;
     padding: 3px 10px;
@@ -35,14 +39,16 @@
 .btn-sl {
     @extend .button;
     @include border-radius(20px);
+    @include image(20px, 5px);
     background: $lightblue-color;
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 50px;
 }
 
 .btn-md {
     @extend .button;
     @include border-radius(20px);
+    @include image(20px, 5px);
     background: $lightblue-color;
     font-size: 24px;
     padding: 5px 50px;
@@ -51,6 +57,7 @@
 .btn-bg {
     @extend .button;
     @include border-radius(20px);
+    @include image(20px, 5px);
     background: $lightblue-color;
     font-size: 34px;
     padding: 5px 50px;
@@ -62,6 +69,7 @@
     width: 20px;
     height: 20px;
     margin: 10px 0px;
+
     img {
         width: 100%;
     }

@@ -1,17 +1,11 @@
 import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
 
-import 'package:js/js_util.dart' as js;
-
 import '../../../services/stitch_service.dart';
-import '../../../services/modal_service.dart';
 
 import '../../../class/user/permission.dart';
-import '../../../class/user/user.dart';
-import '../../../class/modal/modal.dart';
 
-import '../../../directives/ElementExtractorDirective.dart';
+import '../dbCollection_table/dbCollection_table.dart';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 
@@ -21,41 +15,31 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 	styleUrls: ['user_manager.scss.css'],
 	directives: [
 		coreDirectives,
-		ElementExtractorDirective,
-		formDirectives,
+		DbCollectionTableComponent
 	]
 )
 class UserManagerComponent 
 {
-	ModalService _modalService;
-  	Modal modal;
-
 	StitchService _stitch;
 	RemoteMongoDatabase _userdb;
 
-	List<User> list = [];
-	List<Permission> plist = [];
+	// int perPage = 5;
+	// int total = 0;
+	// int total_pages = 0;
+	// int current_page = 1;
 
-	int perPage = 5;
-	int total = 0;
-	int total_pages = 0;
-	int current_page = 1;
+	Map<String, dynamic> options = {
+		'disables': <String>['email', 'refId'],
+		"types" : <String, dynamic>{},
+
+		"allowAdd": false,
+		"allowRemove": false
+	};
 
 
-	List<String> titles = [
-		'NAME', 
-		'EMAIL',
-		'ACCESS',
-		'OPTIONS',
-	];
-
-	User editable;
-	String formType = 'add';
-
-	UserManagerComponent(this._stitch, this._modalService)
+	UserManagerComponent(this._stitch)
 	{
 		_userdb = _stitch.dbClient.db('user');
-		getPage();
 		getPermissions();
 	}
 
@@ -64,103 +48,71 @@ class UserManagerComponent
 		await promiseToFuture(_userdb.collection('permission').find().asArray())
 		.then((documents) 
 		{
-			plist = [];	
+			List<String> plist = [];	
 
 			for(int i=0; i < documents.length; i++)
 			{
 				dynamic detail = convertFromJS(documents[i]);
 				Permission pr = Permission.fromJson(detail);
-				plist.add(pr);
+				plist.add(pr.title);
 			}
-		});
 
-		print('permission gotten, ${plist.length}');
-	}
+			Map<String, dynamic> customfields = {
+				'permissionName': plist,
+			};
 
-	dynamic getNavigatorDetail(int total, int page, int perPage)
-	{
-		int _total_pages = (total/perPage).toInt();
-		if(page > _total_pages) page = 1;
+			options['types'] = customfields;
 
-		int from = 0;
-		if(perPage == 1) from = page-1;
-		else from = (perPage * page) - perPage;
-
-		if (page <= 1) from = 0;
-
-		Map result = {'from':from, 'to':perPage};
-		return result;
-	}
-
-	void getPage([int page=1]) async
-	{
-		await promiseToFuture(_userdb.collection('detail').count())
-		.then((count) {
-			total = count;
 		}).catchError(_catchError);
 
-
-		Map avigatorDetail = getNavigatorDetail(total, page, perPage);
-
-		dynamic pipline = js.jsify([
-			{"\$skip": avigatorDetail['from']},
-			{"\$limit": avigatorDetail['to']}
-		]);
-
-		await promiseToFuture(_userdb.collection('detail').aggregate(pipline).asArray())
-		.then((documents) 
-		{
-			list = [];	
-
-			for(int i=0; i < documents.length; i++)
-			{
-				dynamic detail = convertFromJS(documents[i]);
-				User user = User.fromJson(detail);
-				list.add(user);
-			}
-		});
-
-		print('users gotten, ${list.length}');
+		//print('permission gotten, ${plist.length}');
 	}
 
-	// get and register modal to modal Manager
-	void getElement(Element el) 
-	{
-		modal = Modal(el);
-		_modalService.register('edit_user', modal);
-	}
+	// dynamic getNavigatorDetail(int total, int page, int perPage)
+	// {
+	// 	int _total_pages = (total/perPage).toInt();
+	// 	if(page > _total_pages) page = 1;
 
-	void showForm(User user)
-	{
-		editable = user;
-		_modalService.show('edit_user');
-	}
+	// 	int from = 0;
+	// 	if(perPage == 1) from = page-1;
+	// 	else from = (perPage * page) - perPage;
 
-	void updateUser() async
-	{
-		modal.doWaiting(true);
+	// 	if (page <= 1) from = 0;
 
-		print('updating ${editable.id}');
+	// 	Map result = {'from':from, 'to':perPage};
+	// 	return result;
+	// }
 
-		dynamic query = js.jsify({'refId': editable.id.toString()});
+	// void getPage([int page=1]) async
+	// {
+	// 	await promiseToFuture(_userdb.collection('detail').count())
+	// 	.then((count) {
+	// 		total = count;
+	// 	}).catchError(_catchError);
 
-		dynamic update = js.jsify({
-			'\$set': {
-				'fullname': editable.fullname,
-				'permissionName': editable.permissionName,
-			}
-		});
 
-		await promiseToFuture(_userdb.collection('detail').updateOne(query, update))
-		.then((d){
-			print(convertFromJS(d));
-			modal.close();
-			getPage();
-		})
-		.catchError((error){
-			print(error);
-		});
-	}
+	// 	Map avigatorDetail = getNavigatorDetail(total, page, perPage);
+
+	// 	dynamic pipline = js.jsify([
+	// 		{"\$skip": avigatorDetail['from']},
+	// 		{"\$limit": avigatorDetail['to']}
+	// 	]);
+
+	// 	await promiseToFuture(_userdb.collection('detail').aggregate(pipline).asArray())
+	// 	.then((documents) 
+	// 	{
+	// 		list = [];	
+
+	// 		for(int i=0; i < documents.length; i++)
+	// 		{
+	// 			dynamic detail = convertFromJS(documents[i]);
+	// 			User user = User.fromJson(detail);
+	// 			list.add(user);
+	// 		}
+	// 	});
+
+	// 	print('users gotten, ${list.length}');
+	// }
 
 	void _catchError(error) => print(error);
 }

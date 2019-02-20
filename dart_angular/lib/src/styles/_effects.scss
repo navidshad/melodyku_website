@@ -1,5 +1,12 @@
 @import './colors';
 
+@mixin border-radius($rad) {
+    -webkit-border-radius: $rad;
+    -moz-border-radius: $rad;
+    -ms-border-radius: $rad;
+    border-radius: $rad;
+}
+
 @mixin unselectable {
     user-select: none;
     -moz-user-select: none;

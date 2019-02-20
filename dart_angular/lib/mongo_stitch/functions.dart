@@ -60,8 +60,6 @@ List<String> getKeies(dynamic jsObject, {List<String> removes = const []})
 	{
 		bool isValid = true;
 
-		print(key);
-
 		removes.forEach((member) {
 			if(key == member) isValid = false;
 		});
@@ -70,4 +68,19 @@ List<String> getKeies(dynamic jsObject, {List<String> removes = const []})
 	});
 
 	return keies;
+}
+
+dynamic getNavigatorDetail({int total=10, int page=1, int perPage=5})
+{
+	int _total_pages = (total/perPage).toInt();
+	if(page > _total_pages) page = 1;
+
+	int from = 0;
+	if(perPage == 1) from = page-1;
+	else from = (perPage * page) - perPage;
+
+	if (page <= 1) from = 0;
+
+	Map result = {'from':from, 'to':perPage};
+	return result;
 }

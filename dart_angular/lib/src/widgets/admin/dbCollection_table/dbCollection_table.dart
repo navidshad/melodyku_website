@@ -33,10 +33,12 @@ class DbCollectionTableComponent
 	RemoteMongoCollection _collection;
 
 	List<String> fields = [];
-	Map<String, dynamic> customFieldTypes= {};
+	Map<String, dynamic> customFieldTypes = {};
 
 	List<dynamic> list = [];
 	dynamic editable;
+	dynamic searchQuery;
+	dynamic _query = {};
 
 	String modalName = '';
 	String formType;
@@ -44,26 +46,37 @@ class DbCollectionTableComponent
 	bool couldAdd = true;
 	bool couldUpdate = true;
 	bool couldRemove = true;
+	bool couldQuery = true;
+	bool hasNavigator = true;
+
+	List<String> disables = [];
+
+	int perPage = 10;
+	int total = 0;
+	int total_pages = 0;
+	int current_page = 1;
 
 	@Input() String title;
 	@Input() String dataBase;
 	@Input() String collection;
 
-	@Input() List<String> disables;
-	@Input() void customFields(List<String> value) => fields = value;
-
 	@Input()
-	void set addButton(bool value) => couldAdd = value;
-	@Input()
-	void set removeButton(bool value) => couldRemove = value;
-	@Input()
-	void set updateButton(bool value) => couldUpdate = value;
+	void set options(Map<String, dynamic> options)
+	{
+		if(options.containsKey('fields')) 	fields = options['fields'];
+		if(options.containsKey('types')) 	customFieldTypes = options['types'];
+		if(options.containsKey('disables')) disables = options['disables'];
+		
+		if(options.containsKey('allowAdd')) 	couldAdd = options['allowAdd'];
+		if(options.containsKey('allowUpdate')) 	couldUpdate = options['allowUpdate'];
+		if(options.containsKey('allowRemove')) 	couldRemove = options['allowRemove'];
+		if(options.containsKey('allowQuery')) 	couldQuery = options['allowQuery'];
+		if(options.containsKey('hasNavigator')) hasNavigator = options['hasNavigator'];
+	}
 
 	DbCollectionTableComponent(this._stitch, this._modalService)
 	{
-		getData();
-
-		print('object type is ' + {}.runtimeType.toString());
+		getPage();
 	}
 
 	// get and register modal to modal Manager
@@ -82,13 +95,24 @@ class DbCollectionTableComponent
 		if(customFieldTypes.containsKey(field))
 		{
 			// detect list
-			if(customFieldTypes[field].runtimeType == 'List<String>')
-				type = customFieldTypes[field].runtimeType;
+			if(customFieldTypes[field].runtimeType.toString() == 'List<String>')
+				type = customFieldTypes[field].runtimeType.toString();
 			// use vlue of the member as type
 			else type = customFieldTypes[field]; 
 		}
 
 		return type;
+	}
+
+	bool getActiveStatus(String field)
+	{
+		bool isActive = true;
+
+		if(disables != null) disables.forEach((item) {
+			if(field == item) isActive = false;
+		});
+
+		return isActive;
 	}
 
 	void showForm(String type, [dynamic selected])
@@ -99,18 +123,63 @@ class DbCollectionTableComponent
 		_modalService.show(modalName);
 	}
 
-	void getData() async
+	void search()
 	{
-		print('begin to get data');
+		try{
+			_query = json.decode(searchQuery);
+			getPage();
+		}
+		catch(e){
+			_query = {};
+			searchQuery = '';
+		}
+	}
 
-		await Future.delayed(Duration(seconds:1));
+	void setPage(String enteredPage)
+	{
+		int tempPage = int.tryParse(enteredPage);
+		if(tempPage != null) getPage(page: tempPage);
+	}
 
+	void navigate(int value) => getPage(navigate: value);
+
+	void getPage({int page, int navigate}) async
+	{
 		// get collection
-		if(_collection == null)
+		if(_collection == null){
+			await Future.delayed(Duration(seconds:1));
 			_collection = _stitch.dbClient.db(dataBase).collection(collection);
+		}
 
-		// get data
-		await promiseToFuture(_collection.find().asArray())
+		if(page != null) current_page = page;
+		if(navigate != null) current_page += navigate;
+
+		// get total items
+		await promiseToFuture(_collection.count(_query))
+		.then((count) {
+			total = count;
+		}).catchError(_catchError);
+
+		// setup navigator option
+		Map avigatorDetail = getNavigatorDetail(
+								total: total, 
+								page: current_page, 
+								perPage: perPage);
+
+		// aggregate pipline
+		List<dynamic> pipline = [
+			_query,
+			{"\$skip": avigatorDetail['from']},
+			{"\$limit": avigatorDetail['to']},
+			{"\$sort": { '_id': -1 } },
+		];
+
+		// remove query pipline if it doesn't has
+		if(getKeies(js.jsify(_query)).length == 0)
+			pipline.removeAt(0);
+
+		// get by aggregate
+		await promiseToFuture(_collection.aggregate(js.jsify(pipline)).asArray())
 		.then((documents) 
 		{
 			list = [];	
@@ -119,16 +188,15 @@ class DbCollectionTableComponent
 			{
 				dynamic document = documents[i];
 
-				print('document $document');
-
-				// crate fields dont exists
-				if(fields.length == 0) fields = getKeies(document, removes: ['_id']);
+				// crate fields if dont exists
+				List<String> keies = getKeies(document, removes: ['_id']);
+				if(fields.length < keies.length) fields = keies;
 
 				// add item to list for presenting
 				dynamic item = convertFromJS(document);
 				list.add(item);
 			}
-		}).catchError(printError);
+		}).catchError(_catchError);
 
 		print('items gotten, ${list.length}');
 	}
@@ -142,7 +210,7 @@ class DbCollectionTableComponent
 
 		await promiseToFuture(_collection.insertOne(newItem))
 		.then((document) {
-			getData();
+			getPage();
 			modal.close();
 		})
 		.catchError(printError);		
@@ -169,7 +237,7 @@ class DbCollectionTableComponent
 		await promiseToFuture(_collection.updateOne(query, update))
 		.then((d){
 			print(convertFromJS(d));
-			getData();
+			getPage();
 			modal.close();
 		})
 		.catchError(printError);
@@ -187,7 +255,7 @@ class DbCollectionTableComponent
 		await promiseToFuture(_collection.deleteOne(query))
 		.then((d){
 			print(convertFromJS(d));
-			getData();
+			getPage();
 			modal.close();
 		})
 		.catchError(printError);
@@ -199,7 +267,7 @@ class DbCollectionTableComponent
 
 		getKeies(js.jsify(object)).forEach((key) 
 		{
-			print('key $key');
+			//print('key $key');
 
 			// _id
 			if(key == '_id') normalized[key] = object[key];
@@ -235,5 +303,9 @@ class DbCollectionTableComponent
 		modal.addMessage(error, color: 'red');
 		modal.showMessage();
 		modal.doWaiting(false);
+	}
+
+	void _catchError(error){
+		print(error.toString());
 	}
 }

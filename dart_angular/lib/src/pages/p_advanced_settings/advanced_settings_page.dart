@@ -6,6 +6,7 @@ import '../../class/types.dart';
 
 import '../../widgets/admin/media_language_settings/media_language_settings.dart';
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
+import '../../widgets/admin/tariff_manager/tariff_manager.dart';
 
 @Component(
   selector: 'page',
@@ -14,6 +15,7 @@ import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
   directives: [
     mediaLanguageSettingsComponent,
     DbCollectionTableComponent,
+    TariffManagerComponent,
   ]
 )
 class AdvancedSettingsPage 
