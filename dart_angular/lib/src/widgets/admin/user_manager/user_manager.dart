@@ -23,22 +23,17 @@ class UserManagerComponent
 	StitchService _stitch;
 	RemoteMongoDatabase _userdb;
 
-	// int perPage = 5;
-	// int total = 0;
-	// int total_pages = 0;
-	// int current_page = 1;
-
-	Map<String, dynamic> options = {
-		'disables': <String>['email', 'refId'],
-		"types" : <String, dynamic>{},
-
-		"allowAdd": false,
-		"allowRemove": false
-	};
-
+	DbCollectionTableOptions options;
 
 	UserManagerComponent(this._stitch)
 	{
+		options = DbCollectionTableOptions(
+			disables: <String>['email', 'refId'],
+			types 	: <String, dynamic>{},
+			allowAdd: false,
+			allowRemove: false
+		);
+
 		_userdb = _stitch.dbClient.db('user');
 		getPermissions();
 	}
@@ -61,58 +56,12 @@ class UserManagerComponent
 				'permissionName': plist,
 			};
 
-			options['types'] = customfields;
+			options.types = customfields;
 
 		}).catchError(_catchError);
 
 		//print('permission gotten, ${plist.length}');
 	}
-
-	// dynamic getNavigatorDetail(int total, int page, int perPage)
-	// {
-	// 	int _total_pages = (total/perPage).toInt();
-	// 	if(page > _total_pages) page = 1;
-
-	// 	int from = 0;
-	// 	if(perPage == 1) from = page-1;
-	// 	else from = (perPage * page) - perPage;
-
-	// 	if (page <= 1) from = 0;
-
-	// 	Map result = {'from':from, 'to':perPage};
-	// 	return result;
-	// }
-
-	// void getPage([int page=1]) async
-	// {
-	// 	await promiseToFuture(_userdb.collection('detail').count())
-	// 	.then((count) {
-	// 		total = count;
-	// 	}).catchError(_catchError);
-
-
-	// 	Map avigatorDetail = getNavigatorDetail(total, page, perPage);
-
-	// 	dynamic pipline = js.jsify([
-	// 		{"\$skip": avigatorDetail['from']},
-	// 		{"\$limit": avigatorDetail['to']}
-	// 	]);
-
-	// 	await promiseToFuture(_userdb.collection('detail').aggregate(pipline).asArray())
-	// 	.then((documents) 
-	// 	{
-	// 		list = [];	
-
-	// 		for(int i=0; i < documents.length; i++)
-	// 		{
-	// 			dynamic detail = convertFromJS(documents[i]);
-	// 			User user = User.fromJson(detail);
-	// 			list.add(user);
-	// 		}
-	// 	});
-
-	// 	print('users gotten, ${list.length}');
-	// }
 
 	void _catchError(error) => print(error);
 }

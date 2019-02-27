@@ -43,12 +43,12 @@ import './src/class/injector.dart' as CI;
 )
 class AppComponent
 {
-  bool hasRedirect = true;
+  //bool hasRedirect = true;
 
   AppComponent( StitchService stitch,
     UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
   {
-    checkRedirect();
+    //checkRedirect();
 
     // register this userService into Injectory.
     CI.Injector.register(CI.InjectorMember('StitchService', stitch));
@@ -63,24 +63,24 @@ class AppComponent
     us.loginWithLastSession();
   }
 
-  void checkRedirect()
-  {
-    print('checkRedirect ${window.location}');
+  // void checkRedirect()
+  // {
+  //   print('checkRedirect ${window.location}');
 
-    String url = window.location.toString();
-    String redirect;
+  //   String url = window.location.toString();
+  //   String redirect;
     
-    String rPattern = '?redirect=';
-    if(url.contains(rPattern))
-      redirect = url.split(rPattern)[1];
+  //   String rPattern = '?redirect=';
+  //   if(url.contains(rPattern))
+  //     redirect = url.split(rPattern)[1];
     
-    if(redirect != null)
-    {
-      redirect = redirect.replaceAll('&', '/');
-      redirect = redirect.replaceAll('=', '/');
+  //   if(redirect != null)
+  //   {
+  //     redirect = redirect.replaceAll('&', '/');
+  //     redirect = redirect.replaceAll('=', '/');
 
-      window.location.replace('/#${redirect}');
-    }
-    else hasRedirect = false;
-  }
+  //     window.location.replace('/#${redirect}');
+  //   }
+  //   else hasRedirect = false;
+  // }
 }

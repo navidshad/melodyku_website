@@ -85,7 +85,8 @@ class mediaLanguageSettingsComponent
 
 	void addNewLanguage() async
 	{
-		dynamic newLanguage = js.jsify({
+		dynamic newLanguage = js.jsify(
+		{
 			'title'		: editable['title'],
 			'title_en' 	: editable['title_en'],
 	        'code'      : editable['code'],

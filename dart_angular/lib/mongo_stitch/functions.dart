@@ -1,6 +1,7 @@
 @JS()
 library main;
 
+import 'dart:convert';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js;
 
@@ -10,12 +11,30 @@ class Objectjs {
 	external static List<dynamic> valus(dynamic object);
 }
 
-dynamic convertFromJS(dynamic jsObject)
+enum jsTypes {String, Bool, Int, Double, Object, Array}
+
+dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], List<String>stringObjects = const[]})
 {
 	dynamic newObject = {};
 
-	Objectjs.keys(jsObject).forEach((key) {
-		newObject[key] = js.getProperty(jsObject, key);
+	Objectjs.keys(jsObject).forEach((key) 
+	{
+		dynamic value = js.getProperty(jsObject, key);
+		String runtimeType = value.runtimeType.toString();
+
+		bool isObject = false;
+		stringObjects.forEach((field) {
+			if(field == key) isObject = true;
+		});
+
+		bool isArray = false;
+
+
+		if(isObject) 
+		 	newObject[key] = convertFromJS(value, stringArrays: stringArrays, stringObjects: stringObjects);
+
+		// else newObject[key] = value;
+		else newObject[key] = value;
 	});
 
 	return newObject;
@@ -34,7 +53,7 @@ dynamic deleteDynamicMembers(dynamic object, List<String> members)
 			if(key == member) isValid = false;
 		});
 
-		if(isValid) newObject[key] = js.getProperty(jsObject, key);
+		if(isValid) newObject[key] = object[key];
 	});
 
 	return newObject;
@@ -83,4 +102,42 @@ dynamic getNavigatorDetail({int total=10, int page=1, int perPage=5})
 
 	Map result = {'from':from, 'to':perPage};
 	return result;
+}
+
+dynamic normalize(dynamic object)
+{
+	dynamic normalized = {};
+
+	getKeies(js.jsify(object)).forEach((key) 
+	{
+		//print('key $key');
+
+		// _id
+		if(key == '_id') normalized[key] = object[key];
+
+		// normalizing field and specify the type of it
+		// bool
+		else if(object[key] == 'true' && object[key] == 'false')
+			normalized[key] = bool.fromEnvironment(object[key]);
+		// int
+		else if (int.tryParse(object[key].toString()) != null)
+			normalized[key] = int.tryParse(object[key]);
+		// double
+		else if (double.tryParse(object[key].toString()) != null)
+			normalized[key] = double.tryParse(object[key]);
+
+		// json form
+		else normalized[key] = object[key];
+		// else {
+		// 	try{
+		// 		String jsonString = json.encode(object[key]);
+		// 		normalized[key] = json.decode(jsonString);
+		// 	}
+		// 	catch(e){
+		// 		normalized[key] = object[key];
+		// 	}
+		// }
+	});
+
+	return normalized;
 }

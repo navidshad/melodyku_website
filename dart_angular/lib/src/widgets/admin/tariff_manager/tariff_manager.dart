@@ -14,10 +14,15 @@ import '../dbCollection_table/dbCollection_table.dart';
 )
 class TariffManagerComponent 
 {
-	Map<String, dynamic> options = {
-		'fields'	: <String>[ 'title', 'days', 'price', 'suggested' ],
-		'disables'	: <String>['email', 'refId'],
-		"types" 	: <String, dynamic>{ 'suggested':'bool' },
-		"allowQuery": false,
-	};
+	DbCollectionTableOptions options;
+
+	TariffManagerComponent()
+	{
+		options = DbCollectionTableOptions(
+			fields	: <String>[ 'title', 'days', 'price', 'suggested' ],
+			disables: <String>['email', 'refId'],
+			types	: <String, dynamic>{ 'suggested':'bool' },
+			allowQuery: false,
+		);
+	}
 }

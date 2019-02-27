@@ -35,7 +35,9 @@
 				</td>
 
 				<td>
-					<div class="btn-sl-x" (click)="showForm('update', item)">edit</div>
+					<div class="btn-sl-x" *ngIf="couldUpdate" (click)="showForm('update', item)">edit</div>
+					<a class="btn-sl-x" *ngFor="let lb of linkButtons" 
+						href="{{lb.toUrl(item)}}">{{lb.title}}</a>
 				</td>
 			</tr>
 		</table>

@@ -31,38 +31,39 @@ a{
     left: 10px;
     float: left;
 }
+
 // .more {
 //     position: relative;
 //     bottom: 60px;
 //     //left: 0px;
 // }
 
-.cover {
-    border-radius: 10px;
-    overflow: hidden;
+// .cover {
+//     border-radius: 10px;
+//     overflow: hidden;
 
-    .overlay {
-        @include overlay_card;
-        background: $hoverGradient;
+//     .overlay {
+//         @include overlay_card;
+//         background: $hoverGradient;
     
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        // justify-content: center;
+//         // display: flex;
+//         // flex-direction: column;
+//         // align-items: center;
+//         // justify-content: center;
 
-        img {
-            width: 40px;
-            height: auto;
-        }
-    }
+//         img {
+//             width: 40px;
+//             height: auto;
+//         }
+//     }
     
-    .overlay:hover{
-        opacity: 100;
-    }
-}
+//     .overlay:hover{
+//         opacity: 100;
+//     }
+// }
 
-$boxsize: 240px;
-.box {
-    width: $boxsize;
-    height: $boxsize;
-}
+// $boxsize: 240px;
+// .box {
+//     width: $boxsize;
+//     height: $boxsize;
+// }

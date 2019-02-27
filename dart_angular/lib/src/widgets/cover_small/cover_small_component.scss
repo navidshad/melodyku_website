@@ -43,7 +43,7 @@ $coversize: 50px;
 
     .overlay {
         @include overlay_card;
-
+        background: none;
         position: absolute;
         transform: translateY(0);
         width: 100%;

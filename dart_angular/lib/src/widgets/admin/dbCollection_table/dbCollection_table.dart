@@ -10,6 +10,9 @@ import '../../../services/modal_service.dart';
 
 import '../../../class/modal/modal.dart';
 
+import '../../../class/utility/db_collection_table_options.dart';
+export '../../../class/utility/db_collection_table_options.dart';
+
 import '../../../directives/ElementExtractorDirective.dart';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
@@ -34,11 +37,13 @@ class DbCollectionTableComponent
 
 	List<String> fields = [];
 	Map<String, dynamic> customFieldTypes = {};
+	List<LinkButton> linkButtons = [];
 
 	List<dynamic> list = [];
 	dynamic editable;
 	dynamic searchQuery;
-	dynamic _query = {};
+	dynamic _mainQuery = {};
+	dynamic _searchQuery = {};
 
 	String modalName = '';
 	String formType;
@@ -61,17 +66,19 @@ class DbCollectionTableComponent
 	@Input() String collection;
 
 	@Input()
-	void set options(Map<String, dynamic> options)
+	void set options(DbCollectionTableOptions options)
 	{
-		if(options.containsKey('fields')) 	fields = options['fields'];
-		if(options.containsKey('types')) 	customFieldTypes = options['types'];
-		if(options.containsKey('disables')) disables = options['disables'];
+		if(options.fields != null) 	 	fields = options.fields;
+		if(options.types != null) 	 	customFieldTypes = options.types;
+		if(options.disables != null) 	disables = options.disables;
+		if(options.linkButtons != null)	linkButtons = options.linkButtons;
+		if(options.query != null)		_mainQuery = options.query;
 		
-		if(options.containsKey('allowAdd')) 	couldAdd = options['allowAdd'];
-		if(options.containsKey('allowUpdate')) 	couldUpdate = options['allowUpdate'];
-		if(options.containsKey('allowRemove')) 	couldRemove = options['allowRemove'];
-		if(options.containsKey('allowQuery')) 	couldQuery = options['allowQuery'];
-		if(options.containsKey('hasNavigator')) hasNavigator = options['hasNavigator'];
+		if(options.allowAdd != null) 	couldAdd = options.allowAdd;
+		if(options.allowUpdate != null) couldUpdate = options.allowUpdate;
+		if(options.allowRemove != null) couldRemove = options.allowRemove;
+		if(options.allowQuery != null) 	couldQuery = options.allowQuery;
+		if(options.hasNavigator != null) hasNavigator = options.hasNavigator;
 	}
 
 	DbCollectionTableComponent(this._stitch, this._modalService)
@@ -126,11 +133,11 @@ class DbCollectionTableComponent
 	void search()
 	{
 		try{
-			_query = json.decode(searchQuery);
+			_searchQuery = json.decode(searchQuery);
 			getPage();
 		}
 		catch(e){
-			_query = {};
+			_searchQuery = {};
 			searchQuery = '';
 		}
 	}
@@ -155,7 +162,8 @@ class DbCollectionTableComponent
 		if(navigate != null) current_page += navigate;
 
 		// get total items
-		await promiseToFuture(_collection.count(_query))
+		//print('_mainQuery $_mainQuery');
+		await promiseToFuture(_collection.count(js.jsify(_mainQuery)))
 		.then((count) {
 			total = count;
 		}).catchError(_catchError);
@@ -168,15 +176,14 @@ class DbCollectionTableComponent
 
 		// aggregate pipline
 		List<dynamic> pipline = [
-			_query,
+			{"\$match": _mainQuery},
+			{"\$match": _searchQuery},
 			{"\$skip": avigatorDetail['from']},
 			{"\$limit": avigatorDetail['to']},
 			{"\$sort": { '_id': -1 } },
 		];
-
-		// remove query pipline if it doesn't has
-		if(getKeies(js.jsify(_query)).length == 0)
-			pipline.removeAt(0);
+		
+		//print('pipline $pipline');
 
 		// get by aggregate
 		await promiseToFuture(_collection.aggregate(js.jsify(pipline)).asArray())
@@ -190,7 +197,7 @@ class DbCollectionTableComponent
 
 				// crate fields if dont exists
 				List<String> keies = getKeies(document, removes: ['_id']);
-				if(fields.length < keies.length) fields = keies;
+				if(fields.length == 0) fields = keies;
 
 				// add item to list for presenting
 				dynamic item = convertFromJS(document);
@@ -220,7 +227,7 @@ class DbCollectionTableComponent
 	{
 		modal.doWaiting(true);
 
-		print('updating ${editable['_id']}');
+		//print('updating ${editable['_id']}');
 
 		// create update query
 		dynamic query = js.jsify({'_id': editable['_id']});
@@ -247,7 +254,7 @@ class DbCollectionTableComponent
 	{
 		modal.doWaiting(true);
 
-		print('deleting ${editable['_id']}');
+		//print('deleting ${editable['_id']}');
 
 		// create update query
 		dynamic query = js.jsify({'_id': editable['_id']});
@@ -259,42 +266,6 @@ class DbCollectionTableComponent
 			modal.close();
 		})
 		.catchError(printError);
-	}
-
-	dynamic normalize(dynamic object)
-	{
-		dynamic normalized = {};
-
-		getKeies(js.jsify(object)).forEach((key) 
-		{
-			//print('key $key');
-
-			// _id
-			if(key == '_id') normalized[key] = object[key];
-
-			// normalizing field and specify the type of it
-			// bool
-			else if(object[key] == 'true' && object[key] == 'false')
-				normalized[key] = bool.fromEnvironment(object[key]);
-			// int
-			else if (int.tryParse(object[key].toString()) != null)
-				normalized[key] = int.tryParse(object[key]);
-			// double
-			else if (double.tryParse(object[key].toString()) != null)
-				normalized[key] = double.tryParse(object[key]);
-
-			// json form
-			else {
-				try{
-					normalized[key] = json.decode(object[key]);
-				}
-				catch(e){
-					normalized[key] = object[key];
-				}
-			}
-		});
-
-		return normalized;
 	}	
 
 	void printError(error)

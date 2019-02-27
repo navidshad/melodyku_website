@@ -1,18 +1,21 @@
 <div class="card">
-    <div class="cover box pointer" (click)="play()">
+    <div class="cover-md pointer" (click)="play()">
         <a [attr.href]="(card.titleLink != null) ? card.titleLink.toString() : null">
-            <div><img [attr.src]="card.thumbnail.toString()" class="box"></div>
-            <div class="overlay box">
-                <div class='flex-column flex-center' style="height:100%">
+            <div>
+                <img class="background" 
+                    [attr.src]="card.thumbnail.toString()">
+            </div>
+            <div class="overlay">
+                <div class='back flex-column flex-center' style="height:100%">
     
-                    <img *ngIf="getPlayAccess()" src="/assets/imgs/icons/play.png">
+                    <img class="icon" *ngIf="getPlayAccess()" src="/assets/imgs/icons/play.png">
                     
                     <a *ngIf="getExploreAccess()" href="{{card.titleLink}}">
-                        <img src="/assets/svg/icon_link_rounded.svg">
+                        <img class="icon" src="/assets/svg/icon_link_rounded.svg">
                     </a>
                 </div>
                 
-                <div *ngIf="isLogedIn">
+                <div class="front" *ngIf="isLogedIn">
                     <like class='like-btn' (onload)="card.origin.getLikeStatus()"
                     *ngIf="card != null" (onlike)="like()" [isLiked]="card.origin.isLiked"></like>
                 </div>

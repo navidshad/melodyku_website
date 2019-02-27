@@ -1,5 +1,7 @@
 import 'package:angular/angular.dart';
 
+import '../../routting/routes.dart';
+
 import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
@@ -33,10 +35,15 @@ class ArchiveArtistListPage
       needLogedIn: true,
       title: 'archive_artistList'
     );
+
+    options = DbCollectionTableOptions(
+      allowUpdate: false,
+      allowRemove: false,
+      linkButtons: <LinkButton>[
+        LinkButton('detail', pageDefinitions['archive_artist'].route, ['_id']),
+      ]
+    );
   }
 
-  Map<String, dynamic> options = {
-    'allowUpdate': false,
-    'allowRemove': false,
-  };
+  DbCollectionTableOptions options;
 }

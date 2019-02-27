@@ -18,6 +18,7 @@ class Language
       string = _strings[name];
     } catch (e) {
       print('the $name dosent found');
+      string = name;
     }
 
     return string;

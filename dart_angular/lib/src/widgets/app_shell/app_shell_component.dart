@@ -51,11 +51,15 @@ class AppShellComponent
   String _titleBar;
   get titleBar => lang.getStr(_titleBar);
 
+  bool hasRedirect = true;
+
   // constructor ================================
   AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
   {
     CI.Injector.register(CI.InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
+
+    checkRedirect();
   } 
 
   void resiveMessage(MessageDetail message)
@@ -65,6 +69,27 @@ class AppShellComponent
     // check to get new title
     if(message.detail['title'] != null) 
       _titleBar = message.detail['title'];
+  }
+
+  void checkRedirect()
+  {
+    print('checkRedirect ${window.location}');
+
+    String url = window.location.toString();
+    String redirect;
+    
+    String rPattern = '?redirect=';
+    if(url.contains(rPattern))
+      redirect = url.split(rPattern)[1];
+    
+    if(redirect != null)
+    {
+      redirect = redirect.replaceAll('&', '/');
+      redirect = redirect.replaceAll('=', '/');
+
+      window.location.replace('/#/${redirect}');
+    }
+    else hasRedirect = false;
   }
 
   // user =======================================

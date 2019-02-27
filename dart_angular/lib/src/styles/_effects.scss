@@ -20,6 +20,7 @@
     filter: drop-shadow(0px 0px $blure rgb(215, 215, 235));
 }
 
+// must be removed
 @mixin overlay_card {
     position: relative;
     transform: translateY(-100%);
@@ -35,9 +36,9 @@
     @include hoverShadow()
 }
 
-.overlay_card {
-    @include overlay_card();
-}
+// .overlay_card {
+//     @include overlay_card();
+// }
 
 .rotate-half{
     transform: rotate(180deg);
