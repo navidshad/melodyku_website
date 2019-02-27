@@ -1,0 +1,9 @@
+<div class="widget-container">
+	<single-item-editor [options]="singleOptions"></single-item-editor>
+</div>
+
+<db-collection-table
+	[title]="'Manage Albums'"
+	[dataBase]="'media'"
+	[collection]="'album'"
+	[options]="AlbumTableOptions"></db-collection-table>

@@ -23,11 +23,11 @@ class UserManagerComponent
 	StitchService _stitch;
 	RemoteMongoDatabase _userdb;
 
-	DbCollectionTableOptions options;
+	CollectionOptions options;
 
 	UserManagerComponent(this._stitch)
 	{
-		options = DbCollectionTableOptions(
+		options = CollectionOptions(
 			disables: <String>['email', 'refId'],
 			types 	: <String, dynamic>{},
 			allowAdd: false,

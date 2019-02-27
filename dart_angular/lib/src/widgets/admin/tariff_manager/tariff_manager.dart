@@ -14,11 +14,11 @@ import '../dbCollection_table/dbCollection_table.dart';
 )
 class TariffManagerComponent 
 {
-	DbCollectionTableOptions options;
+	CollectionOptions options;
 
 	TariffManagerComponent()
 	{
-		options = DbCollectionTableOptions(
+		options = CollectionOptions(
 			fields	: <String>[ 'title', 'days', 'price', 'suggested' ],
 			disables: <String>['email', 'refId'],
 			types	: <String, dynamic>{ 'suggested':'bool' },

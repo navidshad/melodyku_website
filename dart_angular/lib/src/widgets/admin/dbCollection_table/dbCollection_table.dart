@@ -10,8 +10,8 @@ import '../../../services/modal_service.dart';
 
 import '../../../class/modal/modal.dart';
 
-import '../../../class/utility/db_collection_table_options.dart';
-export '../../../class/utility/db_collection_table_options.dart';
+import '../../../class/utility/collection_options.dart';
+export '../../../class/utility/collection_options.dart';
 
 import '../../../directives/ElementExtractorDirective.dart';
 
@@ -55,6 +55,8 @@ class DbCollectionTableComponent
 	bool hasNavigator = true;
 
 	List<String> disables = [];
+	List<String> stringArrays = [];
+	List<String> stringObjects = [];
 
 	int perPage = 10;
 	int total = 0;
@@ -66,7 +68,7 @@ class DbCollectionTableComponent
 	@Input() String collection;
 
 	@Input()
-	void set options(DbCollectionTableOptions options)
+	void set options(CollectionOptions options)
 	{
 		if(options.fields != null) 	 	fields = options.fields;
 		if(options.types != null) 	 	customFieldTypes = options.types;
@@ -79,6 +81,9 @@ class DbCollectionTableComponent
 		if(options.allowRemove != null) couldRemove = options.allowRemove;
 		if(options.allowQuery != null) 	couldQuery = options.allowQuery;
 		if(options.hasNavigator != null) hasNavigator = options.hasNavigator;
+
+		if(options.stringArrays != null) stringArrays = options.stringArrays;
+		if(options.stringObjects != null) stringObjects = options.stringObjects;
 	}
 
 	DbCollectionTableComponent(this._stitch, this._modalService)
@@ -200,7 +205,7 @@ class DbCollectionTableComponent
 				if(fields.length == 0) fields = keies;
 
 				// add item to list for presenting
-				dynamic item = convertFromJS(document);
+				dynamic item = convertFromJS(document, stringArrays: stringArrays, stringObjects: stringObjects);
 				list.add(item);
 			}
 		}).catchError(_catchError);

@@ -14,11 +14,11 @@ import '../dbCollection_table/dbCollection_table.dart';
 )
 class PermissionManagerComponent 
 {
-	DbCollectionTableOptions options;
+	CollectionOptions options;
 
 	PermissionManagerComponent()
 	{
-		options =  DbCollectionTableOptions(
+		options =  CollectionOptions(
 			types : <String, dynamic>{
 				'isDefault'			:'bool',
 				'advanced_settings'	:'bool',
