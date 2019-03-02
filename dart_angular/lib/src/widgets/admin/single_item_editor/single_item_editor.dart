@@ -64,6 +64,7 @@ class SingleItemEditor
 		if(options.title != null) 	 	title = options.title;
 		if(options.collection != null) 	collection = options.collection;
 		if(options.id != null) 			id = options.id;
+		if(options.document != null)	setNewEditable(options.document);
 
 		if(options.fields != null) 	 	fields = options.fields;
 		if(options.types != null) 	 	customFieldTypes = options.types;
@@ -73,11 +74,11 @@ class SingleItemEditor
 		if(options.stringArrays != null) stringArrays = options.stringArrays;
 		if(options.stringObjects != null) stringObjects = options.stringObjects;
 
-		getItem();
+		if(editable == null) getItem();
 		_collection = _stitch.dbClient.db('media').collection(collection);
 	}
 
-	void changeMode() => editeMode = !editeMode;
+	void changeMode([bool key]) => editeMode = key ?? !editeMode;
 
 	bool getActiveStatus(String field)
 	{
@@ -146,11 +147,16 @@ class SingleItemEditor
 			List<String> keies = getKeies(document, removes: ['_id']);
 			if(fields.length == 0) fields = keies;
 
-			editable = convertFromJS(document, stringArrays: stringArrays, stringObjects: stringObjects);
+			setNewEditable(document);
 			
 		}).catchError(_catchError);
 
 		print('item gotten, ${editable['_id']}');
+	}
+
+	void setNewEditable(dynamic doc) {
+		editable = convertFromJS(doc, stringArrays: stringArrays, stringObjects: stringObjects);
+		id = editable['_id'].toString();
 	}
 
 	void updateItem() async
@@ -175,6 +181,7 @@ class SingleItemEditor
 		.then((d){
 			print(convertFromJS(d));
 			getItem();
+			changeMode(false);
 		})
 		.catchError(_catchError);
 

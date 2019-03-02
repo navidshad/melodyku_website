@@ -1,5 +1,9 @@
-<db-collection-table
-	[title]="'Manage Singers'"
-	[dataBase]="'media'"
-	[collection]="'singer'"
-	[options]="options"></db-collection-table>
+<div class="widget-container">
+	<single-item-editor [options]="albumEditorOptions"></single-item-editor>
+</div>
+
+<div class="widget-container">
+	<div *ngFor="let option of songsEditorOption" class="divider">
+			<single-item-editor [options]="option"></single-item-editor>
+		</div>
+</div>

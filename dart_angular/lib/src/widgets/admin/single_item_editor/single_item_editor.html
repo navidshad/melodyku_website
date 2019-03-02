@@ -4,48 +4,56 @@
 
 		<div 	*ngIf="editable != null && editeMode"
 				class="w3-twothird text-left {{isUpdating ? 'no-opacity' : ''}}" >
-			<div *ngFor="let field of fields; let i=index"
-					class="flex-column">
-				
-				<label>{{field}}: {{(!getActiveStatus(field) ? editable[field] : '')}}</label>
 
-				<!-- text field -->
-				<input 	*ngIf="getFiledType(field) == 'String' && getActiveStatus(field)"
-						[(ngModel)]="editable[field]" 
-	                	class="input-text" type="text" placeholder="{{field}}">
+			<table class="w3-table">
+					<!-- <td><label>{{field}} </label></td>
+					<td><label>{{editable[field]}}</label></td> -->
 
-	            <!-- checkbocx -->
-	            <input 	*ngIf="getFiledType(field) == 'bool' && getActiveStatus(field)"
-	            		[(ngModel)]="editable[field]"
-	                	class="w3-radio" type="checkbox" placeholder="{{field}}">
+				<tr *ngFor="let field of fields; let i=index"
+						class="">
+					
+					<td><label>{{field}}: {{(!getActiveStatus(field) ? editable[field] : '')}}</label></td>
 
-	            <!-- select -->
-	            <select *ngIf="getFiledType(field) == 'List<String>' && getActiveStatus(field)"
-	            		[(ngModel)]="editable[field]"
-	            		class="w3-select">
+					<!-- text field -->
+					<td>
+						<input 	*ngIf="getFiledType(field) == 'String' && getActiveStatus(field)"
+								[(ngModel)]="editable[field]" 
+			                	class="input-text input-wide" type="text" placeholder="{{field}}">
 
-					<option value="" selected="selected" hidden="hidden">Choose here</option>
-	        		<option *ngFor="let option of customFieldTypes[field]" 
-	        				[value]="option" selected>{{option}}</option>
-	        	</select>
+			            <!-- checkbocx -->
+			            <input 	*ngIf="getFiledType(field) == 'bool' && getActiveStatus(field)"
+			            		[(ngModel)]="editable[field]"
+			                	class="w3-radio" type="checkbox" placeholder="{{field}}">
 
-	        	<!-- 1 layered object -->
-	        	<div *ngIf="getFiledType(field) == 'IdentityMap<String, SingleItemObjectProperty>' && getActiveStatus(field)"
-	        		class="local_title">
+			            <!-- select -->
+			            <select *ngIf="getFiledType(field) == 'List<String>' && getActiveStatus(field)"
+			            		[(ngModel)]="editable[field]"
+			            		class="w3-select">
 
-	        		<div *ngFor="let key of customFieldTypes[field].keys.toList(); let i=index"
-					class="flex-column">
+							<option value="" selected="selected" hidden="hidden">Choose here</option>
+			        		<option *ngFor="let option of customFieldTypes[field]" 
+			        				[value]="option" selected>{{option}}</option>
+			        	</select>
 
-						<label>{{customFieldTypes[field][key].title}}</label>
+			        	<!-- 1 layered object -->
+			        	<div *ngIf="getFiledType(field) == 'IdentityMap<String, SingleItemObjectProperty>' && getActiveStatus(field)"
+			        		class="local_title">
 
-						<input #member 	(change)="addValueToObjectFiled(field, customFieldTypes[field][key].key, member.value)"
-								value="{{getValueOfObjectField(field, customFieldTypes[field][key].key)}}"
-		                		class="input-text" type="text" placeholder="">
+			        		<div *ngFor="let key of customFieldTypes[field].keys.toList(); let i=index"
+							class="flex-column">
 
-					</div>
+								<label>{{customFieldTypes[field][key].title}}</label>
 
-	        	</div>
-			</div>
+								<input #member 	(change)="addValueToObjectFiled(field, customFieldTypes[field][key].key, member.value)"
+										value="{{getValueOfObjectField(field, customFieldTypes[field][key].key)}}"
+				                		class="input-text" type="text" placeholder="">
+
+							</div>
+
+			        	</div>
+		        	</td>
+				</tr>
+			</table>
 		</div>
 
 		<div class="w3-twothird text-left" *ngIf="editable != null && !editeMode">

@@ -2,17 +2,17 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'dart:html';
-import 'package:js/js_util.dart' as js;
 
 import '../../services/services.dart';
 import '../../services/stitch_service.dart';
+
+import '../../routting/routes.dart';
 
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/single_item_object_property.dart';
 
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
-import '../../widgets/admin/cover_item_editor/cover_item_editor.dart';
 import '../../widgets/admin/single_item_editor/single_item_editor.dart';
 
 @Component(
@@ -22,7 +22,6 @@ import '../../widgets/admin/single_item_editor/single_item_editor.dart';
   directives: [
     coreDirectives,
     DbCollectionTableComponent,
-    CoverItemEditor,
     SingleItemEditor,
   ]
 )
@@ -91,6 +90,12 @@ class ArchiveArtistPage implements OnActivate
       allowUpdate: false,
       allowRemove: false,
       stringObjects: ['local_title'],
+      linkButtons: <LinkButton>[
+        LinkButton(
+          title: 'detail', 
+          route: pageDefinitions['archive_album'].route, 
+          parameters: ['_id']),
+      ],
     );
   }
 

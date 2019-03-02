@@ -42,7 +42,10 @@ class ArchiveArtistListPage
       allowUpdate: false,
       allowRemove: false,
       linkButtons: <LinkButton>[
-        LinkButton('detail', pageDefinitions['archive_artist'].route, ['_id']),
+        LinkButton(
+          title: 'detail', 
+          route: pageDefinitions['archive_artist'].route, 
+          parameters: ['_id']),
       ],
       stringObjects: ['local_title']
     );

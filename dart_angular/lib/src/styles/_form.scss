@@ -12,6 +12,10 @@
 	
 }
 
+.input-wide {
+	width: 100%;
+}
+
 .input-text {
 	@extend .input;
 	border-width: 0px;

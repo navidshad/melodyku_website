@@ -121,10 +121,10 @@ dynamic normalize(dynamic object)
 			normalized[key] = bool.fromEnvironment(object[key]);
 		// int
 		else if (int.tryParse(object[key].toString()) != null)
-			normalized[key] = int.tryParse(object[key]);
+			normalized[key] = int.tryParse(object[key].toString());
 		// double
 		else if (double.tryParse(object[key].toString()) != null)
-			normalized[key] = double.tryParse(object[key]);
+			normalized[key] = double.tryParse(object[key].toString());
 
 		// json form
 		else normalized[key] = object[key];

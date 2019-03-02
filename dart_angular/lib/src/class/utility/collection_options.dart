@@ -5,7 +5,7 @@ class LinkButton {
 	RouteDefinition route;
 	List<String> parameters;
 
-	LinkButton(this.title, this.route, this.parameters);
+	LinkButton({this.title, this.route, this.parameters});
 
 	String toUrl(dynamic doc)
 	{
@@ -27,7 +27,6 @@ class CollectionOptions
 {
 	String title;
 	String collection;
-	String id;
 
 	List<String> fields;
 	Map<String, dynamic> types;
@@ -45,8 +44,11 @@ class CollectionOptions
 	List<String> stringArrays;
 	List<String> stringObjects;
 
+	String id;
+	dynamic document;
+
 	CollectionOptions({
-		this.title, 		this.collection, 	this.id,
+		this.title, 		this.collection, 	this.id, 			this.document,
 		this.fields, 		this.types, 		this.disables, 		this.linkButtons, 	this.query,
 		this.allowAdd, 		this.allowUpdate, 	this.allowRemove, 	this.allowQuery, 
 		this.hasNavigator, 	this.hasCover,
