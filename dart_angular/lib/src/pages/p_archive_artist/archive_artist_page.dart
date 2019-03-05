@@ -10,7 +10,7 @@ import '../../routting/routes.dart';
 
 import '../../class/page/page.dart';
 import '../../class/types.dart';
-import '../../class/utility/single_item_object_property.dart';
+import '../../class/utility/collection_options.dart';
 
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
 import '../../widgets/admin/single_item_editor/single_item_editor.dart';
@@ -61,14 +61,15 @@ class ArchiveArtistPage implements OnActivate
 
   void prepareOptions(String singerID) async
   {
-    Map<String, SingleItemObjectProperty> languages = {};
+    Map<String, SubField> languages = {};
 
     await promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
     .then((languageDocs) 
     {
       languageDocs.forEach((language) 
       {
-          languages[language.code.toString()] = SingleItemObjectProperty(language.code.toString(), language.title);
+          SubField sField = SubField(key: language.code.toString(), title: language.title);
+          languages[language.code.toString()] = sField;
       });
 
       singleOptions = CollectionOptions(

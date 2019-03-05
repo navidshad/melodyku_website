@@ -9,7 +9,7 @@ import '../../services/stitch_service.dart';
 
 import '../../class/page/page.dart';
 import '../../class/types.dart';
-import '../../class/utility/single_item_object_property.dart';
+import '../../class/utility/collection_options.dart';
 
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
 import '../../widgets/admin/single_item_editor/single_item_editor.dart';
@@ -34,7 +34,7 @@ class ArchiveAlbumPage implements OnActivate
   StitchService _stitch;
 
   String albumID;
-  Map<String, SingleItemObjectProperty> languages = {};
+  Map<String, SubField> languages = {};
   CollectionOptions albumEditorOptions;
   List<CollectionOptions> songsEditorOption = [];
   
@@ -66,7 +66,10 @@ class ArchiveAlbumPage implements OnActivate
     {
       languageDocs.forEach((language) 
       {
-          languages[language.code.toString()] = SingleItemObjectProperty(language.code.toString(), language.title);
+          languages[language.code.toString()] = SubField(
+              title: language.title, 
+              key: language.code.toString(),
+            );
       });
 
       albumEditorOptions = CollectionOptions(
@@ -86,6 +89,7 @@ class ArchiveAlbumPage implements OnActivate
     promiseToFuture(_stitch.dbClient.db('media').collection('song').find(songQuery).asArray())
     .then((songs) 
     {
+      print('songs ${songs.length}');
       songs.forEach((song) 
       {
         CollectionOptions songOption = CollectionOptions(

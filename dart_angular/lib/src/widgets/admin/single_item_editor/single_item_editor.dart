@@ -16,6 +16,7 @@ export '../../../class/utility/collection_options.dart';
 import '../../../directives/ElementExtractorDirective.dart';
 
 import '../cover_item_editor/cover_item_editor.dart';
+import '../db_form/one_layered_object/one_layered_object.dart';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 
@@ -28,6 +29,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 		ElementExtractorDirective,
 		formDirectives,
 		CoverItemEditor,
+		OneLayeredObject,
 	]
 )
 class SingleItemEditor
@@ -64,7 +66,6 @@ class SingleItemEditor
 		if(options.title != null) 	 	title = options.title;
 		if(options.collection != null) 	collection = options.collection;
 		if(options.id != null) 			id = options.id;
-		if(options.document != null)	setNewEditable(options.document);
 
 		if(options.fields != null) 	 	fields = options.fields;
 		if(options.types != null) 	 	customFieldTypes = options.types;
@@ -74,6 +75,7 @@ class SingleItemEditor
 		if(options.stringArrays != null) stringArrays = options.stringArrays;
 		if(options.stringObjects != null) stringObjects = options.stringObjects;
 
+		if(options.document != null)	setNewEditable(options.document);
 		if(editable == null) getItem();
 		_collection = _stitch.dbClient.db('media').collection(collection);
 	}
@@ -101,7 +103,7 @@ class SingleItemEditor
 			if(customFieldTypes[field].runtimeType.toString() == 'List<String>')
 				type = customFieldTypes[field].runtimeType.toString();
 
-			else if(customFieldTypes[field].runtimeType.toString() == 'IdentityMap<String, SingleItemObjectProperty>')
+			else if(customFieldTypes[field].runtimeType.toString() == 'IdentityMap<String, SubField>')
 				type = customFieldTypes[field].runtimeType.toString();
 
 			// use vlue of the member as type
@@ -114,14 +116,14 @@ class SingleItemEditor
 	void addValueToObjectFiled(field, key, value)
 	{
 		String runtimeType = editable[field].runtimeType.toString();
-		print(editable[field].runtimeType);
+		//print(editable[field].runtimeType);
 
 		if(editable[field] == null || runtimeType != 'LinkedMap<dynamic, dynamic>') 
 			editable[field] = {};
 
 		editable[field][key] = value;
 
-		print('addValueToObjectFiled $editable');
+		//print('addValueToObjectFiled $editable');
 	}
 
 	String getValueOfObjectField(field, key)
@@ -151,12 +153,14 @@ class SingleItemEditor
 			
 		}).catchError(_catchError);
 
-		print('item gotten, ${editable['_id']}');
+		//print('item gotten, ${editable['_id']}');
 	}
 
 	void setNewEditable(dynamic doc) {
 		editable = convertFromJS(doc, stringArrays: stringArrays, stringObjects: stringObjects);
 		id = editable['_id'].toString();
+
+		//print('editable $editable');
 	}
 
 	void updateItem() async
@@ -172,14 +176,14 @@ class SingleItemEditor
 		// normaliz
 		editable = normalize(editable);
 
-		print('updating $editable');
+		//print('updating $editable');
 
 		// create update option
 		dynamic update = js.jsify({ '\$set': editable });
 
 		await promiseToFuture(_collection.updateOne(query, update))
 		.then((d){
-			print(convertFromJS(d));
+			//print(convertFromJS(d));
 			getItem();
 			changeMode(false);
 		})

@@ -23,6 +23,14 @@ class LinkButton {
 	}
 }
 
+class SubField {
+	String title;
+	String key;
+	dynamic value;
+
+	SubField({this.title, this.key, this.value});
+}
+
 class CollectionOptions 
 {
 	String title;
@@ -32,7 +40,7 @@ class CollectionOptions
 	Map<String, dynamic> types;
 	List<String> disables;
 	List<LinkButton> linkButtons;
-	dynamic query;
+	Map<String, dynamic> query;
 
 	bool allowAdd;
 	bool allowUpdate;

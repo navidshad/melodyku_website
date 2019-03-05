@@ -48,7 +48,7 @@
 
 		<div class="info">
 			<span>page {{current_page}}</span>
-			<span>of {{total}}</span>
+			<span>of {{total_pages}}</span>
 		</div>
 
 		<div class="navigator flex-row" *ngIf="hasNavigator">
@@ -87,6 +87,7 @@
                     		[(ngModel)]="editable[field]"
                         	class="w3-radio" type="checkbox" placeholder="{{field}}">
 
+                    <!-- simple string select -->
                     <select *ngIf="getFiledType(field) == 'List<String>' && getActiveStatus(field)"
                     		[(ngModel)]="editable[field]"
                     		class="w3-select">
@@ -96,6 +97,15 @@
                 				[value]="option" selected>{{option}}</option>
                 	</select>
 
+                	<!-- select with deffrent value and lable -->
+                    <select *ngIf="getFiledType(field) == 'List<SubField>' && getActiveStatus(field)"
+                    		[(ngModel)]="editable[field]"
+                    		class="w3-select">
+
+						<option value="" selected="selected" hidden="hidden">Choose here</option>
+                		<option *ngFor="let option of customFieldTypes[field]" 
+                				[value]="option.value" selected>{{option.title}}</option>
+                	</select>
 				</div>
 
 				<div class='btn-sl border-white' 

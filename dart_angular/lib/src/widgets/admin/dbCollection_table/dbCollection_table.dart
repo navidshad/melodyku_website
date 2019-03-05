@@ -42,8 +42,8 @@ class DbCollectionTableComponent
 	List<dynamic> list = [];
 	dynamic editable;
 	dynamic searchQuery;
-	dynamic _mainQuery = {};
-	dynamic _searchQuery = {};
+	Map<String, dynamic> _mainQuery = {};
+	Map<String, dynamic> _searchQuery = {};
 
 	String modalName = '';
 	String formType;
@@ -84,12 +84,12 @@ class DbCollectionTableComponent
 
 		if(options.stringArrays != null) stringArrays = options.stringArrays;
 		if(options.stringObjects != null) stringObjects = options.stringObjects;
-	}
 
-	DbCollectionTableComponent(this._stitch, this._modalService)
-	{
+		//print('options.query ${options.query}');
 		getPage();
 	}
+
+	DbCollectionTableComponent(this._stitch, this._modalService);
 
 	// get and register modal to modal Manager
 	void getElement(Element el) 
@@ -109,10 +109,14 @@ class DbCollectionTableComponent
 			// detect list
 			if(customFieldTypes[field].runtimeType.toString() == 'List<String>')
 				type = customFieldTypes[field].runtimeType.toString();
+			// detect subfield list
+			if(customFieldTypes[field].runtimeType.toString() == 'List<SubField>')
+				type = customFieldTypes[field].runtimeType.toString();
 			// use vlue of the member as type
 			else type = customFieldTypes[field]; 
 		}
 
+		//print('$field type $type');
 		return type;
 	}
 
@@ -124,6 +128,7 @@ class DbCollectionTableComponent
 			if(field == item) isActive = false;
 		});
 
+		//print('$field isActive $isActive');
 		return isActive;
 	}
 
@@ -166,11 +171,19 @@ class DbCollectionTableComponent
 		if(page != null) current_page = page;
 		if(navigate != null) current_page += navigate;
 
+		// combine queries objects 
+		dynamic combinedQueries = _mainQuery;
+
+		_searchQuery.keys.forEach((key) {
+				if(!_mainQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
+			});
+
 		// get total items
 		//print('_mainQuery $_mainQuery');
-		await promiseToFuture(_collection.count(js.jsify(_mainQuery)))
+		await promiseToFuture(_collection.count(js.jsify(combinedQueries)))
 		.then((count) {
 			total = count;
+			total_pages = (total / perPage).ceil();
 		}).catchError(_catchError);
 
 		// setup navigator option
@@ -181,8 +194,9 @@ class DbCollectionTableComponent
 
 		// aggregate pipline
 		List<dynamic> pipline = [
-			{"\$match": _mainQuery},
-			{"\$match": _searchQuery},
+			// {"\$match": _mainQuery},
+			// {"\$match": _searchQuery},
+			{"\$match": combinedQueries},
 			{"\$skip": avigatorDetail['from']},
 			{"\$limit": avigatorDetail['to']},
 			{"\$sort": { '_id': -1 } },
@@ -210,7 +224,7 @@ class DbCollectionTableComponent
 			}
 		}).catchError(_catchError);
 
-		print('items gotten, ${list.length}');
+		//print('items gotten, ${list.length}');
 	}
 
 	void addNewItem() async
@@ -275,8 +289,8 @@ class DbCollectionTableComponent
 
 	void printError(error)
 	{
-		print(error);
-		modal.addMessage(error, color: 'red');
+		//print(error);
+		modal.addMessage(error.toString(), color: 'red');
 		modal.showMessage();
 		modal.doWaiting(false);
 	}

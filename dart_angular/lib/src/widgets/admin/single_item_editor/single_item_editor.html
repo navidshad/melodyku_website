@@ -36,10 +36,15 @@
 			        	</select>
 
 			        	<!-- 1 layered object -->
-			        	<div *ngIf="getFiledType(field) == 'IdentityMap<String, SingleItemObjectProperty>' && getActiveStatus(field)"
+			        	<div *ngIf="getFiledType(field) == 'IdentityMap<String, SubField>' && getActiveStatus(field)"
 			        		class="local_title">
 
-			        		<div *ngFor="let key of customFieldTypes[field].keys.toList(); let i=index"
+			        		<one-layered-object 
+			        			[customFields]="customFieldTypes[field]"
+			        			[(object)]="editable[field]">
+			        			</one-layered-object>
+
+<!-- 			        		<div *ngFor="let key of customFieldTypes[field].keys.toList(); let i=index"
 							class="flex-column">
 
 								<label>{{customFieldTypes[field][key].title}}</label>
@@ -48,7 +53,7 @@
 										value="{{getValueOfObjectField(field, customFieldTypes[field][key].key)}}"
 				                		class="input-text" type="text" placeholder="">
 
-							</div>
+							</div> -->
 
 			        	</div>
 		        	</td>
