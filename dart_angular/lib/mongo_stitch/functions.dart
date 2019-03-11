@@ -1,9 +1,10 @@
 @JS()
 library main;
 
-import 'dart:convert';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js;
+
+import 'field.dart';
 
 @JS('Object')
 class Objectjs {
@@ -20,15 +21,11 @@ dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], Li
 	Objectjs.keys(jsObject).forEach((key) 
 	{
 		dynamic value = js.getProperty(jsObject, key);
-		String runtimeType = value.runtimeType.toString();
 
 		bool isObject = false;
 		stringObjects.forEach((field) {
 			if(field == key) isObject = true;
 		});
-
-		bool isArray = false;
-
 
 		if(isObject) 
 		 	newObject[key] = convertFromJS(value, stringArrays: stringArrays, stringObjects: stringObjects);
@@ -37,6 +34,90 @@ dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], Li
 		else newObject[key] = value;
 	});
 
+	return newObject;
+}
+
+Map convertToMap(dynamic jsObject, List<DbField> fields)
+{
+
+	Map newObject = {};
+
+	//_id field
+	try{
+		dynamic id = js.getProperty(jsObject, '_id');
+		if(id != null) newObject['_id'] = id;
+	}catch(e){
+		print('_id catch | $e');
+	}
+	
+	// other fields
+	fields.forEach((DbField field) 
+		{
+			dynamic value = js.getProperty(jsObject, field.key);
+
+			// string field
+			if(field.dataType == DataType.string){
+				if(value == null) value = '';
+				newObject[field.key] = value.toString();
+			}
+			
+			// bool field
+			else if(field.dataType == DataType.bool) 
+			{
+				try{
+					newObject[field.key] = bool.fromEnvironment(value.toString());
+				}catch(e){
+					print('bool array catch | key ${field.key}, value ${value}');
+					newObject[field.key] = false;
+				}
+			}
+
+			// string array
+			else if(field.dataType == DataType.array_string)
+			{
+				List<String> stringArray = [];
+
+				try{
+					value.forEach((element) 
+						=> stringArray.add(element.toString()));
+				}catch(e){
+					print('string array catch | key ${field.key}, value ${value}');
+				}
+
+				newObject[field.key] = stringArray;
+			}
+
+			// object array
+			else if(field.dataType == DataType.array_string)
+			{
+				List<Map> objectArray = [];
+
+				try{
+					value.forEach((element) {
+						Map newMember = convertToMap(element, field.subFields);
+						objectArray.add(newMember);
+					});
+				}catch(e){
+					print('object array catch | key ${field.key}, value ${value}');
+				}
+
+				newObject[field.key] = objectArray;
+			}
+
+			// object field
+			else if(field.dataType == DataType.object)
+			{
+				try{
+					newObject[field.key] = convertToMap(value, field.subFields);
+				}catch(e){
+					print('object field catch | key ${field.key}, value ${value}');
+					newObject[field.key] = convertToMap({}, field.subFields);
+				}
+			}
+
+		});
+
+	//print('convertToMap $newObject');
 	return newObject;
 }
 
@@ -91,7 +172,7 @@ List<String> getKeies(dynamic jsObject, {List<String> removes = const []})
 
 dynamic getNavigatorDetail({int total=10, int page=1, int perPage=5})
 {
-	int _total_pages = (total/perPage).toInt();
+	int _total_pages = total~/perPage;
 	if(page > _total_pages) page = 1;
 
 	int from = 0;

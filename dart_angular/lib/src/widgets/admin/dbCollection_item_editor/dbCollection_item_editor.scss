@@ -1,6 +1,6 @@
-.widget-container {
-	margin: 0px 10px;
-}
+// .widget-container {
+// 	margin: 0px 10px;
+// }
 
 label {
     direction: ltr;
@@ -19,7 +19,8 @@ label {
 }
 
 .detail {
-	min-height: 380px;
+	max-height: 380px;
+    overflow: auto;
 }
 
 .options {

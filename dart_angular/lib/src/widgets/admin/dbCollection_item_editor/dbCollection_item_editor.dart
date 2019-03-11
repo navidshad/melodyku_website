@@ -16,8 +16,10 @@ export '../../../class/utility/collection_options.dart';
 import '../../../directives/ElementExtractorDirective.dart';
 
 import '../cover_item_editor/cover_item_editor.dart';
-import '../db_form/one_layered_object/one_layered_object.dart';
+//import '../db_form/one_layered_object/one_layered_object.dart';
 import '../db_form/select_item/select_item.dart';
+import '../db_form/object_field/object_field.dart';
+
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 
@@ -30,11 +32,11 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 		ElementExtractorDirective,
 		formDirectives,
 		CoverItemEditor,
-		OneLayeredObject,
+		ObjectField,
 		SelectItem,
 	],
 	exports: [
-		fieldType,
+		FieldType,
 	]
 )
 class dbCollection_item_editor
@@ -59,7 +61,7 @@ class dbCollection_item_editor
 
 	dynamic editable;
 
-	bool editeMode = false;
+	bool viewMode = true;
 	bool isUpdating = false;
 	bool hasCover = true;
 	
@@ -82,7 +84,7 @@ class dbCollection_item_editor
 		_collection = _stitch.dbClient.db(database).collection(collection);
 	}
 
-	void changeMode([bool key]) => editeMode = key ?? !editeMode;
+	void changeMode([bool key]) => viewMode = key ?? !viewMode;
 
 
 	void addValueToObjectFiled(field, key, value)
@@ -114,24 +116,27 @@ class dbCollection_item_editor
 	{
 		//await Future.delayed(Duration(seconds:1));
 
+		print('getting item, $id');
+
 		// get by aggregate
-		await promiseToFuture(_stitch.appClient.callFunction('getById', ['media', collection, id]))
+		await promiseToFuture(_stitch.appClient.callFunction('getById', [database, collection, id]))
 		.then((document) 
 		{
 			// List<String> keies = getKeies(document, removes: ['_id']);
 			// if(fields.length == 0) fields = keies;
-
+			//print('gotten item, $document');
 			setNewEditable(document);
 			
 		}).catchError(_catchError);
 
-		//print('item gotten, ${editable['_id']}');
+		//print('item gotten, ${editable}');
 	}
 
 	void setNewEditable(dynamic doc) {
 		//editable = convertFromJS(doc, stringArrays: stringArrays, stringObjects: stringObjects);
-		editable = convertFromJS(doc);
-		id = editable['_id'].toString();
+		//editable = convertFromJS(doc);
+		editable = convertToMap(doc, fields);
+		//id = editable['_id'].toString();
 
 		//print('editable $editable');
 	}
@@ -156,7 +161,7 @@ class dbCollection_item_editor
 
 		await promiseToFuture(_collection.updateOne(query, update))
 		.then((d){
-			//print(convertFromJS(d));
+			print(convertFromJS(d));
 			getItem();
 			changeMode(false);
 		})
