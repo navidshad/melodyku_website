@@ -1,5 +1,8 @@
 import 'package:angular_router/angular_router.dart';
 
+import 'package:melodyku/mongo_stitch/field.dart';
+export 'package:melodyku/mongo_stitch/field.dart';
+
 class LinkButton {
 	String title;
 	RouteDefinition route;
@@ -34,6 +37,7 @@ class SubField {
 class CollectionOptions 
 {
 	String title;
+	String database;
 	String collection;
 
 	List<String> fields;
@@ -41,6 +45,8 @@ class CollectionOptions
 	List<String> disables;
 	List<LinkButton> linkButtons;
 	Map<String, dynamic> query;
+
+	List<DbField> dbFields;
 
 	bool allowAdd;
 	bool allowUpdate;
@@ -56,10 +62,11 @@ class CollectionOptions
 	dynamic document;
 
 	CollectionOptions({
-		this.title, 		this.collection, 	this.id, 			this.document,
+		this.title, 		this.database,		this.collection, 	this.id, 			this.document,
 		this.fields, 		this.types, 		this.disables, 		this.linkButtons, 	this.query,
 		this.allowAdd, 		this.allowUpdate, 	this.allowRemove, 	this.allowQuery, 
 		this.hasNavigator, 	this.hasCover,
-		this.stringArrays, 	this.stringObjects
+		this.stringArrays, 	this.stringObjects,
+		this.dbFields,
 	});
 }

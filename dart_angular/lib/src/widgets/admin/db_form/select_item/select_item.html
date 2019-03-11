@@ -1,0 +1,9 @@
+<select *ngIf="chackNullObject()"
+		[ngModel]="field"
+		(ngModelChange)="changeValue($event)"
+		class="w3-select">
+
+	<option value="" selected="selected" hidden="hidden">Choose here</option>
+	<option *ngFor="let field of fields" 
+			[value]="field.strvalue" selected>{{field.title}}</option>
+</select>

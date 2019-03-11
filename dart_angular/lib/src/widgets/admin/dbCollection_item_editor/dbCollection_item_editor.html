@@ -1,0 +1,100 @@
+<div class="widget-container flex-column">
+	
+	<div class="w3-row detail">
+
+		<div 	*ngIf="editable != null && editeMode"
+				class="w3-twothird text-left {{isUpdating ? 'no-opacity' : ''}}" >
+
+			<table class="w3-table">
+					<!-- <td><label>{{field}} </label></td>
+					<td><label>{{editable[field]}}</label></td> -->
+
+				<tr *ngFor="let field of fields; let i=index"
+						class="">
+					
+					<td><label>{{field.title}}</label></td>
+
+					<!-- text field -->
+					<td>
+						<input 	*ngIf="field.type == fieldType.string"
+								[(ngModel)]="editable[field.key]"
+			                	class="input-text input-wide" type="text">
+
+			            <!-- checkbocx -->
+			            <input 	*ngIf="field.type == fieldType.bool"
+			            		[(ngModel)]="editable[field.key]"
+			                	class="w3-radio" type="checkbox">
+
+			            <!-- select -->
+			            <select-item 	*ngIf="field.type == fieldType.select"
+			            				[options]="field.subFields"
+			            				[field]="editable[field.key]"
+			            				(onChange)="editable[field.key] = $event"></select-item>
+			            				
+			            <!-- <select *ngIf="getFiledType(field) == 'List<String>' && getActiveStatus(field)"
+			            		[(ngModel)]="editable[field.key]"
+			            		class="w3-select">
+
+							<option value="" selected="selected" hidden="hidden">Choose here</option>
+			        		<option *ngFor="let option of customFieldTypes[field.key]" 
+			        				[value]="option" selected>{{option}}</option>
+			        	</select> -->
+
+			        	<!-- 1 layered object -->
+			        	<!-- <div *ngIf="getFiledType(field) == 'IdentityMap<String, SubField>' && getActiveStatus(field)"
+			        		class="local_title"> -->
+
+			        		<!-- <one-layered-object 
+			        			[customFields]="customFieldTypes[field]"
+			        			[(object)]="editable[field]">
+			        			</one-layered-object> -->
+
+		        	</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="w3-twothird text-left" *ngIf="editable != null && !editeMode">
+			
+			<div *ngFor="let field of fields; let i=index"
+						class="flex-column">
+
+					<div *ngIf="field.type == fieldType.string || field.type == fieldType.bool || field.type == fieldType.select"
+						class="">
+						<table class="w3-table">
+							<tr>
+								<td><label>{{field.title}} </label></td>
+								<td><label>{{editable[field.key]}}</label></td>
+							</tr>
+						</table>
+
+					</div>
+
+<!-- 					<div *ngIf="field.getType() == 'IdentityMap<String, SingleItemObjectProperty>'"
+						class="">
+						<label>{{field}}</label>
+						<div class= "local_title">
+							<table class="w3-table">
+								<tr *ngFor="let key of customFieldTypes[field].keys.toList(); let i=index">
+									<td><label>{{field.title}}</label></td>
+									<td><label>{{getValueOfObjectField(field.key, customFieldTypes[field][key].key)}}</label></td>
+								</tr>
+							</table>
+						</div>
+					</div> -->
+			</div>
+
+		</div>
+
+		<div class ="w3-third" *ngIf="hasCover">
+			<cover-item-editor></cover-item-editor>
+		</div>
+			
+	</div>	
+
+	<div class="options flex-row">
+		<div class="btn-sl {{editeMode ? 'btn-selected' : ''}}" (click)="changeMode()">edite</div>
+		<div class="btn-sl {{!editeMode ? 'btn-disabled' : ''}}" (click)="updateItem()">save</div>
+	</div>
+
+</div>
