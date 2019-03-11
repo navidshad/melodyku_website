@@ -1,0 +1,17 @@
+@import '../../../../styles/colors';
+:host {
+	direction: ltr;
+}
+
+$border: 1px solid darken($back-color, 3%);
+.bottom_line {
+	border-bottom: $border;
+}
+
+.key {
+
+}
+
+.value{
+	border-left: $border;
+}
