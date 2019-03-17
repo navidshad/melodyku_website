@@ -8,15 +8,15 @@ import 'dart:async';
 import '../../../../class/utility/collection_options.dart';
 
 @Component(
-	selector:'select-item',
-	templateUrl: 'select_item.html',
-	styleUrls: ['select_item.scss.css'],
+	selector:'select-field',
+	templateUrl: 'select_field.html',
+	styleUrls: ['select_field.scss.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,
 	]
 )
-class SelectItem 
+class SelectField
 {
 	List<DbField> fields = [];
 

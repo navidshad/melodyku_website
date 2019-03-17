@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import '../../../../class/utility/collection_options.dart';
 
-import '../../db_form/select_item/select_item.dart';
+import '../../db_form/select_field/select_field.dart';
 
 @Component(
 	selector:'object-field',
@@ -16,7 +16,7 @@ import '../../db_form/select_item/select_item.dart';
 		coreDirectives,
 		formDirectives,
 		ObjectField,
-		SelectItem,
+		SelectField,
 	],
 	exports: [
 		FieldType,

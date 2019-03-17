@@ -16,8 +16,6 @@ export '../../../class/utility/collection_options.dart';
 import '../../../directives/ElementExtractorDirective.dart';
 
 import '../cover_item_editor/cover_item_editor.dart';
-//import '../db_form/one_layered_object/one_layered_object.dart';
-import '../db_form/select_item/select_item.dart';
 import '../db_form/object_field/object_field.dart';
 
 
@@ -33,7 +31,6 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 		formDirectives,
 		CoverItemEditor,
 		ObjectField,
-		SelectItem,
 	],
 	exports: [
 		FieldType,

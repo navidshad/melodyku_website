@@ -21,10 +21,10 @@
                 	class="w3-radio" type="checkbox">
 
             <!-- select field -->
-            <select-item 	*ngIf="field.fieldType == FieldType.select"
+            <select-field 	*ngIf="field.fieldType == FieldType.select"
             				[options]="field.subFields"
             				[field]="object[field.key]"
-            				(onChange)="object[field.key] = $event"></select-item>
+            				(onChange)="object[field.key] = $event"></select-field>
 
         	<!-- object field -->
         	<object-field	*ngIf="field.fieldType == FieldType.object"
