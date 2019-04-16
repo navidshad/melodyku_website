@@ -230,7 +230,7 @@ class Archive
     print('playlist_getList(), url: $url');
 
     try {
-      final result = await _rq.get(url);
+      final result = await _rq.post(url, body: {});
       
       Result_Playlist albumList = Result_Playlist.fromjson(1, 1, result['lists']);
       return albumList;

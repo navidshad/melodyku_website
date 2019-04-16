@@ -37,10 +37,11 @@ dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], Li
 	return newObject;
 }
 
-Map convertToMap(dynamic jsObject, List<DbField> fields)
+Map convertToMap(dynamic jsObject, List<DbField> customFields)
 {
 
 	Map newObject = {};
+	List<DbField> fields = customFields ?? [];
 
 	//_id field
 	try{

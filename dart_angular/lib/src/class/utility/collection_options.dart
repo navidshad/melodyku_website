@@ -48,12 +48,12 @@ class CollectionOptions
 
 	List<DbField> dbFields;
 
-	bool allowAdd;
-	bool allowUpdate;
-	bool allowRemove;
-	bool allowQuery;
-	bool hasNavigator;
-	bool hasCover;	
+	bool allowAdd = true;
+	bool allowUpdate = true;
+	bool allowRemove = true;
+	bool allowQuery = true;
+	bool hasNavigator = true;
+	bool hasCover = false;	
 
 	List<String> stringArrays;
 	List<String> stringObjects;

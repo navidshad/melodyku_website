@@ -13,7 +13,8 @@
 			<!-- text field -->
 			<input 	*ngIf="field.fieldType == FieldType.text"
 					[(ngModel)]="object[field.key]"
-                	class="input-text input-wide" type="text">
+                	class="input-text input-wide" type="text"
+                    [attr.disable]="field.isDisable">
 
             <!-- checkbocx field -->
             <input 	*ngIf="field.fieldType == FieldType.checkbox"

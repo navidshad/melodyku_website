@@ -1,15 +1,10 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
-import 'dart:html';
-
 import 'src/services/stitch_service.dart';
 import 'src/services/services.dart';
 
 import 'src/widgets/widgets.dart';
-import 'src/routting/routes.dart';
-
-import 'src/class/page/page.dart';
 
 import './src/services/content_provider/requester.dart';
 import './src/class/injector.dart' as CI;

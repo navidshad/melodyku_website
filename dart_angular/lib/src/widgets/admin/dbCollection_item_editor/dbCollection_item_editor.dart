@@ -36,7 +36,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 		FieldType,
 	]
 )
-class dbCollection_item_editor
+class DbCollectionItemEditorComponent
 {
 	ModalService _modalService;
   	Modal modal;
@@ -44,7 +44,7 @@ class dbCollection_item_editor
 	StitchService _stitch;
 	RemoteMongoCollection _collection;
 
-	dbCollection_item_editor(this._stitch, this._modalService)
+	DbCollectionItemEditorComponent(this._stitch, this._modalService)
 	{
 		
 	}
@@ -79,6 +79,7 @@ class dbCollection_item_editor
 		if(editable == null) getItem();
 
 		_collection = _stitch.dbClient.db(database).collection(collection);
+		if(id != null) getItem();
 	}
 
 	void changeMode([bool key]) => viewMode = key ?? !viewMode;
@@ -109,7 +110,7 @@ class dbCollection_item_editor
 		return value;
 	}
 
-	void getItem({int page, int navigate}) async
+	void getItem() async
 	{
 		//await Future.delayed(Duration(seconds:1));
 

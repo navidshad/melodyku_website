@@ -2,21 +2,28 @@ enum FieldType {text, textbox, checkbox, select, object}
 enum DataType {string, bool, int, float, object, array_string, array_object}
 
 class DbField {
-  
+  	
+  	// the main key of object property.
 	String key;
-	String strvalue;
-
+	// the custom title of this property
 	String title;
+	// the data type of this property
 	DataType dataType;
+	// the type of field for this property
 	FieldType fieldType;
+	// value of this obtion for select FieldType type.
+	String strvalue;
 	
+	// the field of this property could be disable
 	bool isDisable;
+	// the field of this property could be hide
 	bool isHide;
 
 	//only for map type
 	List<DbField> subFields;
 
-	DbField(this.key, {
+	DbField(
+		this.key, {
 		String customTitle,
 		this.strvalue,
 		this.dataType=DataType.string,

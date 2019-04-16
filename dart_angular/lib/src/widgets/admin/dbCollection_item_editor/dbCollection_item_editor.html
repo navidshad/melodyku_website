@@ -2,14 +2,13 @@
 	
 	<div class="w3-row">
 
-		<div class="detail w3-twothird text-left {{isUpdating ? 'no-opacity' : ''}}" >
-
+		<div class="detail w3-twothird w3-container text-left {{isUpdating ? 'no-opacity' : ''}}" >
 			<object-field 
 				[options]="fields" [(object)]="editable" [viewMode]="viewMode">
 			</object-field>
 		</div>
 
-		<div class ="w3-third" *ngIf="hasCover">
+		<div class ="w3-third w3-container" *ngIf="hasCover">
 			<cover-item-editor></cover-item-editor>
 		</div>
 			

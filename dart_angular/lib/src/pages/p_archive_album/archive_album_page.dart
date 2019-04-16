@@ -11,6 +11,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/collection_options.dart';
 
+import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
 import '../../widgets/admin/single_item_editor/single_item_editor.dart';
 
@@ -20,6 +21,7 @@ import '../../widgets/admin/single_item_editor/single_item_editor.dart';
   styleUrls: [ 'archive_album_page.scss.css' ],
   directives: [
     coreDirectives,
+    DbCollectionTableEditorComponent,
     DbCollectionTableComponent,
     SingleItemEditor,
   ]
@@ -40,7 +42,7 @@ class ArchiveAlbumPage implements OnActivate
   
 
   // constructor ==================================
-  ArchiveAlbumPage(this._contentProvider, this._messageService, this._userservice, this._stitch)
+  ArchiveAlbumPage(this._contentProvider, this._messageService, this.lang, this._userservice, this._stitch)
   {
     _page = Page(
       userService: _userservice,
@@ -61,7 +63,8 @@ class ArchiveAlbumPage implements OnActivate
   void prepareOptions(String albumID) async
   {
     print('album prepareOptions');
-    promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
+
+    await promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
     .then((languageDocs) 
     {
       languageDocs.forEach((language) 
@@ -73,14 +76,24 @@ class ArchiveAlbumPage implements OnActivate
       });
 
       albumEditorOptions = CollectionOptions(
+        allowUpdate: true,
         title:"detail",
+        database: "media",
         collection:"album",
         id:albumID,
         fields: ['title', 'singer', 'local_title'],
         stringObjects: ['local_title'],
         types: {
           'local_title': languages
-        }
+        },
+        dbFields: [
+          DbField('title', dataType: DataType.string, fieldType: FieldType.text),
+          DbField('album', isDisable: true),
+          DbField('singer', isDisable: true),
+          DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
+          DbField('year', dataType: DataType.int, fieldType: FieldType.text),
+          DbField('local_title', customTitle: lang.getStr('local_title'), dataType: DataType.object, fieldType: FieldType.object),
+        ],
       );
 
     }).catchError(_catchError);

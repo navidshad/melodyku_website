@@ -7,6 +7,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 
 import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
+import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 
 @Component(
@@ -16,7 +17,8 @@ import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.da
   directives: [
     coreDirectives,
     DbCollectionTableComponent,
-    dbCollection_item_editor,
+    DbCollectionTableEditorComponent,
+    DbCollectionItemEditorComponent,
   ]
 )
 class ArchiveArtistListPage 
@@ -28,6 +30,7 @@ class ArchiveArtistListPage
   ContentProvider _contentProvider;
 
   CollectionOptions options;
+  CollectionOptions tableEditorOptions;
   CollectionOptions item_editor_options;
 
   // constructor ==================================
@@ -42,7 +45,7 @@ class ArchiveArtistListPage
     );
 
     options = CollectionOptions(
-      allowUpdate: false,
+      allowUpdate: true,
       allowRemove: false,
       linkButtons: <LinkButton>[
         LinkButton(
@@ -53,34 +56,23 @@ class ArchiveArtistListPage
       stringObjects: ['local_title']
     );
 
-    item_editor_options = CollectionOptions(
+    tableEditorOptions = CollectionOptions(
         title:    'new field system',
         database: 'media',
         collection:'language',
-        id: '5c6a82dd89f5bddcf28fd254',
+        allowUpdate: true,
+        allowAdd: true,
+        allowRemove: true,
+        allowQuery: true,
+        hasCover: false,
         dbFields: [
           DbField('code', dataType: DataType.string),
           DbField('title', dataType: DataType.string),
           DbField('title_en', dataType: DataType.string),
           DbField('isDefault', dataType: DataType.bool),
-          DbField('selector', dataType: DataType.string, fieldType: FieldType.select,
-            subFields: [
-              DbField('option01', strvalue: 'option01'),
-              DbField('option02', strvalue: 'option02'),
-            ]),
-
-          DbField('object', dataType: DataType.object,
-            subFields: [
-              DbField('field01', dataType: DataType.string),
-              DbField('field02', dataType: DataType.bool),
-
-              DbField('selector', dataType: DataType.string, fieldType: FieldType.select,
-                subFields: [
-                  DbField('option01', strvalue: 'option01'),
-                  DbField('option02', strvalue: 'option02'),
-                ]),
-            ]),
         ]
       );
+
+      item_editor_options = tableEditorOptions;
   }
 }

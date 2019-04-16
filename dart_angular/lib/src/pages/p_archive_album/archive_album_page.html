@@ -2,8 +2,12 @@
 	<single-item-editor [options]="albumEditorOptions"></single-item-editor>
 </div>
 
+<db-collection-table-editor
+	*ngIf="albumEditorOptions != null"
+	[options]="albumEditorOptions"></db-collection-table-editor>
+
 <div class="widget-container">
 	<div *ngFor="let option of songsEditorOption" class="divider">
-			<single-item-editor [options]="option"></single-item-editor>
-		</div>
+		<single-item-editor [options]="option"></single-item-editor>
+	</div>
 </div>
