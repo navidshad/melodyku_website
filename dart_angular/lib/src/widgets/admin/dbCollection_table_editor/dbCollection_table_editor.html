@@ -1,0 +1,83 @@
+<div class="widget-container" *ngIf="options != null">
+
+	<!-- header -->
+	<div class="head">
+		<div class="buttons" *ngIf="options.allowAdd">
+			<div class="btn-sl" (click)="showForm('add')">add new</div>
+		</div>
+
+		<div class="query" *ngIf="options.allowQuery">
+			<input 	[(ngModel)]="searchQuery" (change)="search()"
+					class="input-text" type="text" placeholder='{"field":"val"}'>
+			<!-- <lable>SEARCH</lable> -->
+		</div>
+
+		<div class="widget-title none-margine">
+	        <h3>{{options.title}}</h3>
+	        <!-- <div class="_line-title"></div> -->
+	    </div>
+	</div>
+
+	<!-- table -->
+	<div class="w3-responsive table">
+		<table class="w3-table w3-centered w3-hoverable">
+			<!-- header -->
+			<tr class="table-header">
+				<th *ngFor="let field of options.dbFields; let i=index">
+					{{field.title.toUpperCase()}}
+				</th>
+				<th>OPTION</th>
+			</tr>
+
+			<!-- rows -->
+			<tr class="table-row" *ngFor="let item of list; let i=index">
+
+				<td *ngFor="let field of options.dbFields; let i=index">
+					{{item[field.key]}}
+				</td>
+
+				<td>
+					<div class="btn-sl-x" *ngIf="options.allowUpdate" (click)="showForm('update', item)">edit</div>
+					<a class="btn-sl-x" *ngFor="let lb of options.linkButtons" 
+						href="{{lb.toUrl(item)}}">{{lb.title}}</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- footer -->
+	<div class="head">
+
+		<div class="info">
+			<span>page {{current_page}}</span>
+			<span>of {{total_pages}}</span>
+		</div>
+
+		<div class="navigator flex-row" *ngIf="options.hasNavigator">
+			<div class="btn-sl-x" (click)="navigate(1)">
+				<img src="/assets/svg/icon_right-arrow.svg" alt="next">
+			</div>
+
+			<input class="input-text" type="text" value="{{current_page}}"
+				#enteredPage (change)="setPage(enteredPage.value)">
+
+			<div class="btn-sl-x" (click)="navigate(-1)">
+				<img src="/assets/svg/icon_right-arrow.svg" alt="back" style="transform: rotate(180deg);">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getElement($event)">
+	<div class="modal-card text-center text-normal">
+		<div class="w3-row modal-content">
+			
+			<db-collection-item-editor
+				*ngIf="editableItemOptions != null"
+				[options]="editableItemOptions">		
+			</db-collection-item-editor>
+
+		</div>
+	</div>
+</div>
