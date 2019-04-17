@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
 
-import '../dbCollection_table/dbCollection_table.dart';
+import '../dbCollection_table_editor/dbCollection_table_editor.dart';
 
 
 @Component(
@@ -9,7 +9,7 @@ import '../dbCollection_table/dbCollection_table.dart';
 	styleUrls: ['permission_manager.scss.css'],
 	directives: [
 		coreDirectives,
-		DbCollectionTableComponent
+		DbCollectionTableEditorComponent
 	]
 )
 class PermissionManagerComponent 
@@ -19,16 +19,22 @@ class PermissionManagerComponent
 	PermissionManagerComponent()
 	{
 		options =  CollectionOptions(
-			types : <String, dynamic>{
-				'isDefault'			:'bool',
-				'advanced_settings'	:'bool',
-				'categorizing'		:'bool',
-				'archive_manager'	:'bool',
-				'customer_access'	:'bool',
-				'quality_management':'bool',
-				'user_manager'		:'bool',
-			},
-			allowQuery: false,
+      title: 'Manage Permissions',
+      database: 'user',
+      collection: 'permission',
+      allowQuery: false,
+      allowAdd: true,
+      allowUpdate: true,
+      allowRemove: true,
+      dbFields: [
+        DbField('isDefault', customTitle: 'is default', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('advanced_settings', customTitle: 'advanced settings', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('categorizing', customTitle: 'categorizing', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('archive_manager', customTitle: 'archive manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('customer_access', customTitle: 'customer access', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('quality_management', customTitle: 'quality management', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('user_manager', customTitle: 'user manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      ]
 		);
 	}
 }

@@ -5,7 +5,7 @@ import '../../../services/stitch_service.dart';
 
 import '../../../class/user/permission.dart';
 
-import '../dbCollection_table/dbCollection_table.dart';
+import '../dbCollection_table_editor/dbCollection_table_editor.dart';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 
@@ -15,7 +15,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 	styleUrls: ['user_manager.scss.css'],
 	directives: [
 		coreDirectives,
-		DbCollectionTableComponent
+		DbCollectionTableEditorComponent
 	]
 )
 class UserManagerComponent 
@@ -28,10 +28,12 @@ class UserManagerComponent
 	UserManagerComponent(this._stitch)
 	{
 		options = CollectionOptions(
-			disables: <String>['email', 'refId'],
-			types 	: <String, dynamic>{},
-			allowAdd: false,
-			allowRemove: false
+			dbFields: [
+        DbField('email'),
+        DbField('fullname'),
+        DbField('permissionName'),
+        DbField('rfId', isDisable: true)
+      ]
 		);
 
 		_userdb = _stitch.dbClient.db('user');

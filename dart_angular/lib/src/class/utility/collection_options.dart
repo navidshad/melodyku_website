@@ -62,11 +62,14 @@ class CollectionOptions
 	dynamic document;
 
 	CollectionOptions({
-		this.title, 		this.database,		this.collection, 	this.id, 			this.document,
-		this.fields, 		this.types, 		this.disables, 		this.linkButtons, 	this.query,
-		this.allowAdd, 		this.allowUpdate, 	this.allowRemove, 	this.allowQuery, 
-		this.hasNavigator, 	this.hasCover,
-		this.stringArrays, 	this.stringObjects,
-		this.dbFields,
+		this.title, 			this.database,		this.collection, 	this.id, 			this.document,
+		this.fields, 			this.types, 		this.disables, 		this.linkButtons, 	this.query,
+		this.stringArrays, 		this.stringObjects,	this.dbFields,
+		this.allowAdd 	 = true, 		 	 	
+		this.allowUpdate = true,
+		this.allowRemove = true,
+		this.allowQuery  = true, 
+		this.hasNavigator=true, 
+		this.hasCover 	 = false,	
 	});
 }

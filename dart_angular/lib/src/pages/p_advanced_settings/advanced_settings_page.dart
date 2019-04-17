@@ -5,7 +5,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 
 import '../../widgets/admin/media_language_settings/media_language_settings.dart';
-import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
+import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 import '../../widgets/admin/tariff_manager/tariff_manager.dart';
 
 @Component(
@@ -14,7 +14,7 @@ import '../../widgets/admin/tariff_manager/tariff_manager.dart';
   styleUrls: [ 'advanced_settings_page.scss.css' ],
   directives: [
     mediaLanguageSettingsComponent,
-    DbCollectionTableComponent,
+    DbCollectionTableEditorComponent,
     TariffManagerComponent,
   ]
 )

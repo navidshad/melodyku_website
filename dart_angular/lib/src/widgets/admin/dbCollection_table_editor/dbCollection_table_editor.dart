@@ -44,7 +44,6 @@ class DbCollectionTableEditorComponent
 	dynamic editable;
 
 	dynamic searchQuery;
-	Map<String, dynamic> _mainQuery = {};
 	Map<String, dynamic> _searchQuery = {};
 
 	String modalName;
@@ -124,10 +123,10 @@ class DbCollectionTableEditorComponent
 		if(navigate != null) current_page += navigate;
 
 		// combine queries objects 
-		dynamic combinedQueries = _mainQuery;
+		dynamic combinedQueries = options.query ?? {};
 
 		_searchQuery.keys.forEach((key) {
-				if(!_mainQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
+				if(!_searchQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
 			});
 
 		// get total items

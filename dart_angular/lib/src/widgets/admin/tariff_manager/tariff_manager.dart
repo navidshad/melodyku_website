@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
 
-import '../dbCollection_table/dbCollection_table.dart';
+import '../dbCollection_table_editor/dbCollection_table_editor.dart';
 
 
 @Component(
@@ -9,7 +9,7 @@ import '../dbCollection_table/dbCollection_table.dart';
 	styleUrls: ['tariff_manager.scss.css'],
 	directives: [
 		coreDirectives,
-		DbCollectionTableComponent
+		DbCollectionTableEditorComponent
 	]
 )
 class TariffManagerComponent 
@@ -19,10 +19,18 @@ class TariffManagerComponent
 	TariffManagerComponent()
 	{
 		options = CollectionOptions(
-			fields	: <String>[ 'title', 'days', 'price', 'suggested' ],
-			disables: <String>['email', 'refId'],
-			types	: <String, dynamic>{ 'suggested':'bool' },
+      title: 'Manage Tariffs',
+      database: 'cms',
+      collection: 'tariffs',
 			allowQuery: false,
+      dbFields: [
+        DbField('title'),
+        DbField('days', dataType: DataType.int),
+        DbField('price', dataType: DataType.int),
+        DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
+        DbField('email'),
+        DbField('refId'),
+      ]
 		);
 	}
 }

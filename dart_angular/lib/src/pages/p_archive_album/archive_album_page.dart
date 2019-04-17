@@ -12,8 +12,7 @@ import '../../class/types.dart';
 import '../../class/utility/collection_options.dart';
 
 import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
-import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
-import '../../widgets/admin/single_item_editor/single_item_editor.dart';
+import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 
 @Component(
   selector: 'page',
@@ -22,8 +21,7 @@ import '../../widgets/admin/single_item_editor/single_item_editor.dart';
   directives: [
     coreDirectives,
     DbCollectionTableEditorComponent,
-    DbCollectionTableComponent,
-    SingleItemEditor,
+    DbCollectionItemEditorComponent,
   ]
 )
 class ArchiveAlbumPage implements OnActivate 
@@ -36,9 +34,9 @@ class ArchiveAlbumPage implements OnActivate
   StitchService _stitch;
 
   String albumID;
-  Map<String, SubField> languages = {};
+  List<DbField> languages = [];
   CollectionOptions albumEditorOptions;
-  List<CollectionOptions> songsEditorOption = [];
+  CollectionOptions songOptions;
   
 
   // constructor ==================================
@@ -69,57 +67,67 @@ class ArchiveAlbumPage implements OnActivate
     {
       languageDocs.forEach((language) 
       {
-          languages[language.code.toString()] = SubField(
-              title: language.title, 
-              key: language.code.toString(),
-            );
+        DbField sField = DbField(language.code.toString(), customTitle: language.title);
+        languages.add(sField);
       });
 
       albumEditorOptions = CollectionOptions(
-        allowUpdate: true,
+        hasCover: true,
         title:"detail",
         database: "media",
         collection:"album",
         id:albumID,
-        fields: ['title', 'singer', 'local_title'],
-        stringObjects: ['local_title'],
-        types: {
-          'local_title': languages
-        },
+        dbFields: [
+          DbField('title'),
+          DbField('singer', isDisable: true),
+          DbField('description'),
+          DbField('singerId', isDisable: true),
+          DbField('local_title', subFields: languages,
+            dataType: DataType.object, fieldType: FieldType.object),
+        ],
+      );
+
+      songOptions = CollectionOptions(
+        hasCover: true,
+        title:"songs",
+        database: 'media',
+        collection:"song",
+        query: {'albumId': albumID},
         dbFields: [
           DbField('title', dataType: DataType.string, fieldType: FieldType.text),
           DbField('album', isDisable: true),
           DbField('singer', isDisable: true),
           DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
           DbField('year', dataType: DataType.int, fieldType: FieldType.text),
-          DbField('local_title', customTitle: lang.getStr('local_title'), dataType: DataType.object, fieldType: FieldType.object),
-        ],
-      );
+          DbField('local_title', subFields: languages,
+            dataType: DataType.object, fieldType: FieldType.object),
+        ]
+      ); 
 
     }).catchError(_catchError);
 
-    dynamic songQuery = js.jsify({'albumId': albumID});
-    promiseToFuture(_stitch.dbClient.db('media').collection('song').find(songQuery).asArray())
-    .then((songs) 
-    {
-      print('songs ${songs.length}');
-      songs.forEach((song) 
-      {
-        CollectionOptions songOption = CollectionOptions(
-          title:"detail",
-          collection:"song",
-          document: song,
-          fields: ['title', 'album', 'singer', 'genre', 'year', 'local_title'],
-          stringObjects: ['local_title'],
-          types: {
-            'local_title': languages
-          }
-        ); 
+    // dynamic songQuery = js.jsify({'albumId': albumID});
+    // promiseToFuture(_stitch.dbClient.db('media').collection('song').find(songQuery).asArray())
+    // .then((songs) 
+    // {
+    //   print('songs ${songs.length}');
+    //   songs.forEach((song) 
+    //   {
+    //     CollectionOptions songOption = CollectionOptions(
+    //       title:"detail",
+    //       collection:"song",
+    //       document: song,
+    //       fields: ['title', 'album', 'singer', 'genre', 'year', 'local_title'],
+    //       stringObjects: ['local_title'],
+    //       types: {
+    //         'local_title': languages
+    //       }
+    //     ); 
 
-        songsEditorOption.add(songOption);
-      });
+    //     songsEditorOption.add(songOption);
+    //   });
 
-    }).catchError(_catchError);
+    // }).catchError(_catchError);
   }
 
   void _catchError(Error) => print(Error);

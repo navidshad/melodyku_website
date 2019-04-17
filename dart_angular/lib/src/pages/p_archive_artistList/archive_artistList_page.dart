@@ -6,7 +6,6 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 
-import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
 import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 
@@ -16,7 +15,6 @@ import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.da
   styleUrls: [ 'archive_artistList_page.scss.css' ],
   directives: [
     coreDirectives,
-    DbCollectionTableComponent,
     DbCollectionTableEditorComponent,
     DbCollectionItemEditorComponent,
   ]
@@ -30,8 +28,6 @@ class ArchiveArtistListPage
   ContentProvider _contentProvider;
 
   CollectionOptions options;
-  CollectionOptions tableEditorOptions;
-  CollectionOptions item_editor_options;
 
   // constructor ==================================
   ArchiveArtistListPage(this._contentProvider, this._messageService, this._userservice)
@@ -45,34 +41,24 @@ class ArchiveArtistListPage
     );
 
     options = CollectionOptions(
-      allowUpdate: true,
-      allowRemove: false,
-      linkButtons: <LinkButton>[
-        LinkButton(
-          title: 'detail', 
-          route: pageDefinitions['archive_artist'].route, 
-          parameters: ['_id']),
-      ],
-      stringObjects: ['local_title']
-    );
-
-    tableEditorOptions = CollectionOptions(
         title:    'new field system',
         database: 'media',
-        collection:'language',
-        allowUpdate: true,
+        collection:'singer',
+        allowUpdate: false,
         allowAdd: true,
-        allowRemove: true,
-        allowQuery: true,
+        allowRemove: false,
         hasCover: false,
+        
         dbFields: [
-          DbField('code', dataType: DataType.string),
-          DbField('title', dataType: DataType.string),
-          DbField('title_en', dataType: DataType.string),
-          DbField('isDefault', dataType: DataType.bool),
+          DbField('name', dataType: DataType.string),
+        ],
+
+        linkButtons: [
+          LinkButton(
+            title: 'detail', 
+            route: pageDefinitions['archive_artist'].route, 
+            parameters: ['_id']),
         ]
       );
-
-      item_editor_options = tableEditorOptions;
   }
 }

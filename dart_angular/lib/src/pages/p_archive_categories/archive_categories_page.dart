@@ -5,7 +5,7 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 
-import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
+import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 
 @Component(
   selector: 'page',
@@ -13,7 +13,7 @@ import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
   styleUrls: [ 'archive_categories_page.scss.css' ],
   directives: [
     coreDirectives,
-    DbCollectionTableComponent
+    DbCollectionTableEditorComponent
   ]
 )
 class ArchiveCategoriesPage 
@@ -43,7 +43,7 @@ class ArchiveCategoriesPage
 
   void setupOptions() async 
   {
-    List<SubField> clusterFilds = [];
+    List<DbField> clusterFilds = [];
 
     await promiseToFuture(_stitch.dbClient.db('media').collection('cluster').find().asArray())
     .then((clusters) 
@@ -51,21 +51,22 @@ class ArchiveCategoriesPage
       clusters.forEach((doc) 
       {
         dynamic converted = convertFromJS(doc, stringObjects: ['local_title']);
-        SubField field = SubField(
-          title: converted['title'],
-          value: converted['_id'].toString(),
-        );
-
+        DbField field = DbField(
+          converted['title'], strvalue: converted['_id'].toString());
         clusterFilds.add(field);
       });
 
     }).catchError((error) => print(error));
 
     catrgoryOptions = CollectionOptions(
-        fields: ['title', 'clusterId', 'local_title'],
-        types: {
-          'clusterId': clusterFilds
-        },
+        title: 'Manage Categories',
+        database: 'media',
+        collection: 'cluster',
+        dbFields: [
+          DbField('title'),
+          DbField('clusterId', fieldType: FieldType.select, subFields: clusterFilds),
+          DbField('local_title', dataType: DataType.object, fieldType: FieldType.object)
+        ],
       );
 
     clusterOptions = CollectionOptions(

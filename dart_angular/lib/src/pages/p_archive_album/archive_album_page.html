@@ -1,13 +1,13 @@
 <div class="widget-container">
-	<single-item-editor [options]="albumEditorOptions"></single-item-editor>
+	<db-collection-item-editor [options]="albumEditorOptions"></db-collection-item-editor>
 </div>
 
 <db-collection-table-editor
 	*ngIf="albumEditorOptions != null"
-	[options]="albumEditorOptions"></db-collection-table-editor>
+	[options]="songOptions"></db-collection-table-editor>
 
-<div class="widget-container">
+<!-- <div class="widget-container">
 	<div *ngFor="let option of songsEditorOption" class="divider">
 		<single-item-editor [options]="option"></single-item-editor>
 	</div>
-</div>
+</div> -->

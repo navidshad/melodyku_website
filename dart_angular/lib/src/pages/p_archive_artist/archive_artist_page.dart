@@ -12,8 +12,8 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/collection_options.dart';
 
-import '../../widgets/admin/dbCollection_table/dbCollection_table.dart';
-import '../../widgets/admin/single_item_editor/single_item_editor.dart';
+import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
+import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 
 @Component(
   selector: 'page',
@@ -21,8 +21,8 @@ import '../../widgets/admin/single_item_editor/single_item_editor.dart';
   styleUrls: [ 'archive_artist_page.scss.css' ],
   directives: [
     coreDirectives,
-    DbCollectionTableComponent,
-    SingleItemEditor,
+    DbCollectionTableEditorComponent,
+    DbCollectionItemEditorComponent,
   ]
 )
 class ArchiveArtistPage implements OnActivate 
@@ -61,36 +61,47 @@ class ArchiveArtistPage implements OnActivate
 
   void prepareOptions(String singerID) async
   {
-    Map<String, SubField> languages = {};
+    
+    List<DbField> languages = [];
 
     await promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
     .then((languageDocs) 
     {
       languageDocs.forEach((language) 
       {
-          SubField sField = SubField(key: language.code.toString(), title: language.title);
-          languages[language.code.toString()] = sField;
+          DbField sField = DbField(language.code.toString(), customTitle: language.title);
+          languages.add(sField);
       });
 
       singleOptions = CollectionOptions(
+        hasCover: true,
         title:"detail",
+        database: 'media',
         collection:"singer",
         id:singerID,
-        fields: ['name', 'local_title'],
-        stringObjects: ['local_title'],
-        types: {
-          'local_title': languages
-        }
+        dbFields: [
+          DbField('name'),
+          DbField('local_title',  subFields: languages, dataType: DataType.object, fieldType: FieldType.object)
+        ]
       );
 
     }).catchError(_catchError);
 
 
     AlbumTableOptions = CollectionOptions(
+      title: 'Manage Albums',
+      database: 'media',
+      collection: 'album',
       query: {'singerId': singerID},
       allowUpdate: false,
-      allowRemove: false,
-      stringObjects: ['local_title'],
+      dbFields: [
+        DbField('title'),
+        DbField('singer', isDisable: true),
+        DbField('description'),
+        DbField('singerId', isDisable: true),
+        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object),
+      ],
+
       linkButtons: <LinkButton>[
         LinkButton(
           title: 'detail', 
