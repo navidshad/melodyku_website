@@ -61,7 +61,7 @@ class ArchiveCategoriesPage
     catrgoryOptions = CollectionOptions(
         title: 'Manage Categories',
         database: 'media',
-        collection: 'cluster',
+        collection: 'category',
         dbFields: [
           DbField('title'),
           DbField('clusterId', fieldType: FieldType.select, subFields: clusterFilds),
@@ -70,7 +70,13 @@ class ArchiveCategoriesPage
       );
 
     clusterOptions = CollectionOptions(
-      fields: ['title', 'local_title'],
+      title: 'Manage Clusters',
+      database: 'media',
+      collection: 'cluster',
+      dbFields: [
+        DbField('title'),
+        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object)
+      ],
     );
   }
 }

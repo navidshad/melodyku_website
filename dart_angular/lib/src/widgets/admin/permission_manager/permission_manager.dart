@@ -27,6 +27,7 @@ class PermissionManagerComponent
       allowUpdate: true,
       allowRemove: true,
       dbFields: [
+        DbField('title'),
         DbField('isDefault', customTitle: 'is default', dataType: DataType.bool, fieldType: FieldType.checkbox),
         DbField('advanced_settings', customTitle: 'advanced settings', dataType: DataType.bool, fieldType: FieldType.checkbox),
         DbField('categorizing', customTitle: 'categorizing', dataType: DataType.bool, fieldType: FieldType.checkbox),

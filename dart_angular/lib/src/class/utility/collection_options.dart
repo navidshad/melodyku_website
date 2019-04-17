@@ -40,31 +40,26 @@ class CollectionOptions
 	String database;
 	String collection;
 
-	List<String> fields;
-	Map<String, dynamic> types;
-	List<String> disables;
 	List<LinkButton> linkButtons;
 	Map<String, dynamic> query;
 
 	List<DbField> dbFields;
 
+	bool createNew;
 	bool allowAdd = true;
 	bool allowUpdate = true;
 	bool allowRemove = true;
 	bool allowQuery = true;
 	bool hasNavigator = true;
-	bool hasCover = false;	
-
-	List<String> stringArrays;
-	List<String> stringObjects;
+	bool hasCover = false;
 
 	String id;
 	dynamic document;
 
 	CollectionOptions({
 		this.title, 			this.database,		this.collection, 	this.id, 			this.document,
-		this.fields, 			this.types, 		this.disables, 		this.linkButtons, 	this.query,
-		this.stringArrays, 		this.stringObjects,	this.dbFields,
+		this.linkButtons, 		this.query,			this.dbFields,
+		this.createNew	 = false,
 		this.allowAdd 	 = true, 		 	 	
 		this.allowUpdate = true,
 		this.allowRemove = true,

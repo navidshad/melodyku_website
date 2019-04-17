@@ -27,15 +27,6 @@ class UserManagerComponent
 
 	UserManagerComponent(this._stitch)
 	{
-		options = CollectionOptions(
-			dbFields: [
-        DbField('email'),
-        DbField('fullname'),
-        DbField('permissionName'),
-        DbField('rfId', isDisable: true)
-      ]
-		);
-
 		_userdb = _stitch.dbClient.db('user');
 		getPermissions();
 	}
@@ -45,20 +36,27 @@ class UserManagerComponent
 		await promiseToFuture(_userdb.collection('permission').find().asArray())
 		.then((documents) 
 		{
-			List<String> plist = [];	
+			List<DbField> permissions = [];
 
 			for(int i=0; i < documents.length; i++)
 			{
 				dynamic detail = convertFromJS(documents[i]);
 				Permission pr = Permission.fromJson(detail);
-				plist.add(pr.title);
+				DbField sub = DbField(pr.title, strvalue: pr.id.toString());
+				permissions.add(sub);
 			}
 
-			Map<String, dynamic> customfields = {
-				'permissionName': plist,
-			};
-
-			options.types = customfields;
+			options = CollectionOptions(
+				title: 'Manage Users',
+				database: 'user',
+				collection: 'detail',
+				dbFields: [
+			        DbField('email'),
+			        DbField('fullname'),
+			        DbField('rfId', isDisable: true),
+			        DbField('permissionId', subFields: permissions),
+		      	]
+			);
 
 		}).catchError(_catchError);
 

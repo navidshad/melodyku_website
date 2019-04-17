@@ -11,14 +11,14 @@ class User
 {
   Permission _permission;
   dynamic id;
-  String permissionName;
+  String permissionId;
   String fullname;
   String email;
 
   User(this.id, { 
     bool fullAccess= false, 
     bool getDetail=true,
-    this.permissionName,
+    this.permissionId,
     this.fullname,
     this.email
     })
@@ -37,7 +37,7 @@ class User
     try{
       p = User(
       detail['refId'],
-      permissionName : detail['permissionName'],
+      permissionId : detail['permissionId'],
       email : detail['email'],
       fullname : detail['fullname']);
     }
@@ -70,16 +70,14 @@ class User
     {
       //print('user detail | $doc');
       fullname = js.getProperty(doc, 'fullname');
-      permissionName = js.getProperty(doc, 'permissionName');
+      permissionId = js.getProperty(doc, 'permissionId');
       email = js.getProperty(doc, 'email');
 
     }).catchError(_catchError);
 
 
-    // get permission
-    dynamic permissQuery = js.jsify({'title': permissionName});
-
-    await promiseToFuture(userDB.collection('permission').find(permissQuery).first())
+    // get permission 
+    await promiseToFuture(stitch.appClient.callFunction('getById', ['user', 'permission', permissionId]))
     .then((doc) 
     {
       //print('user permission | $doc');

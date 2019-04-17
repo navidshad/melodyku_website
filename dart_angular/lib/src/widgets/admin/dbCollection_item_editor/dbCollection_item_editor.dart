@@ -49,37 +49,39 @@ class DbCollectionItemEditorComponent
 		
 	}
 
-	List<DbField> fields = [];
+	// List<DbField> fields = [];
 
-	String 	title;
-	String 	database;
-	String 	collection;
-	String 	id;
+	// String 	title;
+	// String 	database;
+	// String 	collection;
+	// String 	id;
 
 	dynamic editable;
+	CollectionOptions op;
 
 	bool viewMode = true;
 	bool isUpdating = false;
 	bool hasCover = true;
+	bool createNew= false;
 	
 	@Input()
 	void set options(CollectionOptions options)
 	{
-		if(options.title != null) 	 	title = options.title;
-		if(options.database != null) 	database = options.database;
-		if(options.collection != null) 	collection = options.collection;
-		if(options.id != null) 			id = options.id;
+		// if(options.title != null) 	 	title = options.title;
+		// if(options.database != null) 	database = options.database;
+		// if(options.collection != null) 	collection = options.collection;
+		// if(options.id != null) 			id = options.id;
 
-		if(options.dbFields != null)	fields = options.dbFields;
+		// if(options.dbFields != null)	fields = options.dbFields;
 
-		if(options.hasCover != null)	hasCover = options.hasCover;
+		// if(options.hasCover != null)	hasCover = options.hasCover;
 
+		op = options;
 
 		if(options.document != null)	setNewEditable(options.document);
-		if(editable == null) getItem();
+		if(editable == null && options.id != null) getItem();
 
-		_collection = _stitch.dbClient.db(database).collection(collection);
-		if(id != null) getItem();
+		_collection = _stitch.dbClient.db(op.database).collection(op.collection);
 	}
 
 	void changeMode([bool key]) => viewMode = key ?? !viewMode;
@@ -114,10 +116,10 @@ class DbCollectionItemEditorComponent
 	{
 		//await Future.delayed(Duration(seconds:1));
 
-		print('getting item, $id');
+		print('getting item, ${op.id}');
 
 		// get by aggregate
-		await promiseToFuture(_stitch.appClient.callFunction('getById', [database, collection, id]))
+		await promiseToFuture(_stitch.appClient.callFunction('getById', [op.database, op.collection, op.id]))
 		.then((document) 
 		{
 			// List<String> keies = getKeies(document, removes: ['_id']);
@@ -133,15 +135,33 @@ class DbCollectionItemEditorComponent
 	void setNewEditable(dynamic doc) {
 		//editable = convertFromJS(doc, stringArrays: stringArrays, stringObjects: stringObjects);
 		//editable = convertFromJS(doc);
-		editable = convertToMap(doc, fields);
+		editable = convertToMap(doc, op.dbFields);
 		//id = editable['_id'].toString();
 
 		//print('editable $editable');
 	}
 
-	void updateItem() async
+	void createItem() async 
 	{
 		isUpdating = true;
+
+		dynamic newItem = js.jsify(editable);
+
+		await promiseToFuture(_collection.insertOne(newItem))
+		.then((d){
+			print(convertFromJS(d));
+			getItem();
+			changeMode(false);
+		})
+		.catchError(_catchError);
+
+		isUpdating = false;
+		op.createNew = false;
+	}
+
+	void updateItem() async
+	{
+		
 
 		// create update query
 		dynamic query = js.jsify({'_id': editable['_id']});
