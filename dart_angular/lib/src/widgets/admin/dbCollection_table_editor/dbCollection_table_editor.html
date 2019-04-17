@@ -1,9 +1,10 @@
-<div class="widget-container" *ngIf="options != null">
+<div class="widget-container" 
+	*ngIf="options != null">
 
 	<!-- header -->
 	<div class="head">
 		<div class="buttons" *ngIf="options.allowAdd">
-			<div class="btn-sl" (click)="showForm('add')">add new</div>
+			<div class="btn-sl" (click)="showForm()">add new</div>
 		</div>
 
 		<div class="query" *ngIf="options.allowQuery">
@@ -36,8 +37,9 @@
 					{{item[field.key]}}
 				</td>
 
-				<td>
-					<div class="btn-sl-x" *ngIf="options.allowUpdate" (click)="showForm('update', item)">edit</div>
+				<td class="option">
+					<div class="btn-sl-x" *ngIf="options.allowUpdate" (click)="showForm(item)">edit</div>
+					<div class="btn-sl-x" *ngIf="options.allowRemove" (click)="removeItem(item)">remove</div>
 					<a class="btn-sl-x" *ngFor="let lb of options.linkButtons" 
 						href="{{lb.toUrl(item)}}">{{lb.title}}</a>
 				</td>
@@ -69,13 +71,17 @@
 	</div>
 </div>
 
-<div class="modal-base" extractor (onExtract)="getElement($event)">
+<div class="modal-base" 
+	*ngIf="options != null"
+	extractor (onExtract)="getElement($event)">
+	
 	<div class="modal-card text-center text-normal">
 		<div class="w3-row modal-content">
 			
 			<db-collection-item-editor
 				*ngIf="editableItemOptions != null"
-				[options]="editableItemOptions">		
+				[options]="editableItemOptions"
+				(onChanged)="onChanchedItem($event)">
 			</db-collection-item-editor>
 
 		</div>

@@ -19,18 +19,16 @@ class TariffManagerComponent
 	TariffManagerComponent()
 	{
 		options = CollectionOptions(
-      title: 'Manage Tariffs',
-      database: 'cms',
-      collection: 'tariffs',
+	      	title: 'Manage Tariffs',
+	      	database: 'cms',
+	      	collection: 'tariffs',
 			allowQuery: false,
-      dbFields: [
-        DbField('title'),
-        DbField('days', dataType: DataType.int),
-        DbField('price', dataType: DataType.int),
-        DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
-        DbField('email'),
-        DbField('refId'),
-      ]
+	      	dbFields: [
+		        DbField('title'),
+		        DbField('days', dataType: DataType.int),
+		        DbField('price', dataType: DataType.int),
+		        DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	      	],
 		);
 	}
 }

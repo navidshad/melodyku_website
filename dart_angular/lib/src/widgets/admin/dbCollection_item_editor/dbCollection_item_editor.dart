@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:js/js_util.dart' as js;
 
@@ -38,23 +38,14 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 )
 class DbCollectionItemEditorComponent
 {
+	final eventController = StreamController<bool>();
 	ModalService _modalService;
   	Modal modal;
 
 	StitchService _stitch;
 	RemoteMongoCollection _collection;
 
-	DbCollectionItemEditorComponent(this._stitch, this._modalService)
-	{
-		
-	}
-
-	// List<DbField> fields = [];
-
-	// String 	title;
-	// String 	database;
-	// String 	collection;
-	// String 	id;
+	DbCollectionItemEditorComponent(this._stitch, this._modalService);
 
 	dynamic editable;
 	CollectionOptions op;
@@ -67,50 +58,20 @@ class DbCollectionItemEditorComponent
 	@Input()
 	void set options(CollectionOptions options)
 	{
-		// if(options.title != null) 	 	title = options.title;
-		// if(options.database != null) 	database = options.database;
-		// if(options.collection != null) 	collection = options.collection;
-		// if(options.id != null) 			id = options.id;
-
-		// if(options.dbFields != null)	fields = options.dbFields;
-
-		// if(options.hasCover != null)	hasCover = options.hasCover;
-
 		op = options;
 
 		if(options.document != null)	setNewEditable(options.document);
 		if(editable == null && options.id != null) getItem();
 
+		if(op.createNew) changeMode(false);
+
 		_collection = _stitch.dbClient.db(op.database).collection(op.collection);
 	}
 
+	@Output()
+	Stream get onChanged => eventController.stream;
+
 	void changeMode([bool key]) => viewMode = key ?? !viewMode;
-
-
-	void addValueToObjectFiled(field, key, value)
-	{
-		String runtimeType = editable[field].runtimeType.toString();
-		//print(editable[field].runtimeType);
-
-		if(editable[field] == null || runtimeType != 'LinkedMap<dynamic, dynamic>') 
-			editable[field] = {};
-
-		editable[field][key] = value;
-
-		//print('addValueToObjectFiled $editable');
-	}
-
-	String getValueOfObjectField(field, key)
-	{
-		String value = '';
-
-		try{
-			value = editable[field][key];
-		}
-		catch(e){}
-
-		return value;
-	}
 
 	void getItem() async
 	{
@@ -148,10 +109,13 @@ class DbCollectionItemEditorComponent
 		dynamic newItem = js.jsify(editable);
 
 		await promiseToFuture(_collection.insertOne(newItem))
-		.then((d){
+		.then((d)
+		{
 			print(convertFromJS(d));
 			getItem();
 			changeMode(false);
+
+			eventController.add(true);
 		})
 		.catchError(_catchError);
 
@@ -178,10 +142,12 @@ class DbCollectionItemEditorComponent
 		dynamic update = js.jsify({ '\$set': editable });
 
 		await promiseToFuture(_collection.updateOne(query, update))
-		.then((d){
+		.then((d)
+		{
 			print(convertFromJS(d));
 			getItem();
 			changeMode(false);
+			eventController.add(true);
 		})
 		.catchError(_catchError);
 
@@ -198,14 +164,17 @@ class DbCollectionItemEditorComponent
 		dynamic query = js.jsify({'_id': editable['_id']});
 
 		await promiseToFuture(_collection.deleteOne(query))
-		.then((d){
+		.then((d)
+		{
 			print(convertFromJS(d));
 			getItem();
+			eventController.add(true);
 		})
 		.catchError(_catchError);
 	}
 
 	void _catchError(error){
 		print(error.toString());
+		eventController.add(false);
 	}
 }

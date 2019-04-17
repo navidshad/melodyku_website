@@ -72,21 +72,37 @@ class DbCollectionTableEditorComponent
 		_modalService.register(modalName, modal);
 	}
 
-	void showForm(String type, [dynamic selected])
+	void showForm([dynamic selected])
 	{
 		editable = selected ?? {};
 
 		print(editable);
-		print(options.database + ' | ' + options.collection);
 
-		editableItemOptions = CollectionOptions(
-			database: options.database,
-			collection: options.collection,
-			id: editable['_id'].toString(),
-			dbFields: options.dbFields,
-			allowRemove: options.allowRemove,
-			hasCover: options.hasCover,
-		);
+		// setup for new Item
+		if(selected == null)
+		{
+			editableItemOptions = CollectionOptions(
+				createNew: true,
+				document: editable,
+				database: options.database,
+				collection: options.collection,
+				dbFields: options.dbFields,
+				allowRemove: options.allowRemove,
+				hasCover: options.hasCover,
+			);
+		}
+
+		// setup for edit selected item
+		else {
+			editableItemOptions = CollectionOptions(
+				database: options.database,
+				collection: options.collection,
+				id: editable['_id'].toString(),
+				dbFields: options.dbFields,
+				allowRemove: options.allowRemove,
+				hasCover: options.hasCover,
+			);
+		}
 
 		_modalService.show(modalName);
 	}
@@ -174,38 +190,29 @@ class DbCollectionTableEditorComponent
 		print('items gotten, ${list.length}');
 	}
 
-	// void addNewItem() async
-	// {
-	// 	// normaliz
-	// 	editable = normalize(editable);
+	void onChanchedItem(bool changed)
+	{
+		//if(changed) modal.close();
+		getPage();
+	}
 
-	// 	dynamic newItem = js.jsify(editable);
+	void removeItem(Map item) async
+	{
+		//print('deleting ${editable['_id']}');
 
-	// 	await promiseToFuture(_collection.insertOne(newItem))
-	// 	.then((document) {
-	// 		getPage();
-	// 		modal.close();
-	// 	})
-	// 	.catchError(printError);		
-	// }
+		// create remove query
+		dynamic query = js.jsify({'_id': item['_id']});
 
-	// void removeItem() async
-	// {
-	// 	modal.doWaiting(true);
+		await promiseToFuture(_collection.deleteOne(query))
+		.then((d){
+			print(convertFromJS(d));
+			getPage();
+			modal.close();
 
-	// 	//print('deleting ${editable['_id']}');
-
-	// 	// create update query
-	// 	dynamic query = js.jsify({'_id': editable['_id']});
-
-	// 	await promiseToFuture(_collection.deleteOne(query))
-	// 	.then((d){
-	// 		print(convertFromJS(d));
-	// 		getPage();
-	// 		modal.close();
-	// 	})
-	// 	.catchError(printError);
-	// }
+			getPage();
+		})
+		.catchError(printError);
+	}
 
 	void printError(error)
 	{
