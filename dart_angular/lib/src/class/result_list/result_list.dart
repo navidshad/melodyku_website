@@ -2,7 +2,7 @@ import '../classes.dart';
 export './result_album.dart';
 export './result_media.dart';
 export './result_playlist.dart';
-export './result_singer.dart';
+export './result_artist.dart';
 
 export './archive_to_widget.dart';
 

@@ -1,7 +1,7 @@
 export 'types.dart';
 
 // archive
-export 'archive/singer.dart';
+export 'archive/artist.dart';
 export 'archive/album.dart';
 export 'archive/media.dart';
 export 'archive/playlist.dart';

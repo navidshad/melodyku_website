@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 
-//import 'package:js/js_util.dart' as js;
-
 import 'package:melodyku/mongo_stitch/app_client.dart';
 export 'package:melodyku/mongo_stitch/app_client.dart';
 

@@ -43,7 +43,7 @@ class ArchiveArtistListPage
     options = CollectionOptions(
         title:    'new field system',
         database: 'media',
-        collection:'singer',
+        collection:'artist',
         allowUpdate: false,
         allowAdd: true,
         allowRemove: false,

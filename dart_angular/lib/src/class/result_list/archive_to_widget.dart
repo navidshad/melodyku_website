@@ -2,7 +2,7 @@ import '../classes.dart';
 
 class ArchiveToWidget 
 {
-  // singer -----------------------------------------------
+  // artist -----------------------------------------------
   static List<Card> toCards(List list, ArchiveTypes type, [int total])
   {
     List<Card> tempList = [];
@@ -22,7 +22,7 @@ class ArchiveToWidget
           tempList.add(
             Card( item.title, 
                   id: item.id,
-                  subtitle: item.singer,
+                  subtitle: item.artist,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.media,
                   origin: item.toDynamic()
@@ -41,14 +41,14 @@ class ArchiveToWidget
                   ));
           break;
 
-        case ArchiveTypes.singer:
-          Singer item = list[i] as Singer;
+        case ArchiveTypes.artist:
+          Artist item = list[i] as Artist;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.name, 
                   id: item.id,
                   thumbnail: Uri(path: item.thumbnail),
-                  type: ArchiveTypes.singer,
+                  type: ArchiveTypes.artist,
                   origin: item.toDynamic()
                   ));
           break;
@@ -92,7 +92,7 @@ class ArchiveToWidget
           tempList.add(
             ListItem( item.title, 
                   id: item.id,
-                  subtitle: item.singer,
+                  subtitle: item.artist,
                   duration: item.getDuration(),
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),
@@ -114,15 +114,15 @@ class ArchiveToWidget
                   ));
           break;
 
-        case ArchiveTypes.singer:
-          Singer item = list[i] as Singer;
+        case ArchiveTypes.artist:
+          Artist item = list[i] as Artist;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.name, 
                   id: item.id,
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),
-                  type: ArchiveTypes.singer,
+                  type: ArchiveTypes.artist,
                   origin: item.toDynamic()
                   ));
           break;
@@ -152,7 +152,7 @@ class ArchiveToWidget
     return ListItem( 
             media.title, 
             id: media.id,
-            subtitle: media.singer,
+            subtitle: media.artist,
             duration: media.getDuration(),
             thumbnail: Uri(path: media.thumbnail),
             type: ArchiveTypes.media,

@@ -4,7 +4,7 @@ import 'package:angular_router/angular_router.dart';
 import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
-import '../../class/archive/singer.dart';
+import '../../class/archive/artist.dart';
 import '../../class/result_list/result_media.dart';
 import '../../class/result_list/result_album.dart';
 import '../../class/archive/media.dart';
@@ -31,7 +31,7 @@ class ArtistPage implements OnActivate
   MessageService _messageService;
   ContentProvider _contentProvider;
 
-  Singer singer;
+  Artist artist;
   List<Media> topList = [];
   List<Card> albums = [];
 
@@ -43,7 +43,7 @@ class ArtistPage implements OnActivate
       messageService: _messageService,
       permissionType: PermissionType.customer_access,
       needLogedIn: false,
-      title: 'singer',
+      title: 'artist',
     );
   }
 
@@ -53,14 +53,14 @@ class ArtistPage implements OnActivate
     final id = current.parameters['id'];
 
     // get playlist
-    singer = await _contentProvider.archive.singer_getById(id);
+    artist = await _contentProvider.archive.artist_getById(id);
 
     // get 10 song of artist
-    Result_Media rMedia = await _contentProvider.archive.media_getList(singer.name, 1, total: 10);
+    Result_Media rMedia = await _contentProvider.archive.media_getList(artist.name, 1, total: 10);
     topList = rMedia.list;
 
     // get albums
-    Result_Album rAlbums = await _contentProvider.archive.album_getList(singer.name);
+    Result_Album rAlbums = await _contentProvider.archive.album_getList(artist.name);
     rAlbums.list.forEach((album) {
       albums.add(album.getAsWidget<Card>());
     });

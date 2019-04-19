@@ -37,7 +37,7 @@ class ArchiveArtistPage implements OnActivate
   CollectionOptions AlbumTableOptions;
   CollectionOptions singleOptions;
 
-  dynamic singer;
+  dynamic artist;
 
   // constructor ==================================
   ArchiveArtistPage(this._contentProvider, this._messageService, this._userservice, this._stitch)
@@ -54,12 +54,12 @@ class ArchiveArtistPage implements OnActivate
   @override
   void onActivate(_, RouterState current)
   {
-    String singerID = current.parameters['_id'];
-    //print('singerID $singerID');
-    prepareOptions(singerID);
+    String artistID = current.parameters['_id'];
+    //print('artistID $artistID');
+    prepareOptions(artistID);
   }
 
-  void prepareOptions(String singerID) async
+  void prepareOptions(String artistID) async
   {
     
     List<DbField> languages = [];
@@ -77,8 +77,8 @@ class ArchiveArtistPage implements OnActivate
         hasCover: true,
         title:"detail",
         database: 'media',
-        collection:"singer",
-        id:singerID,
+        collection:"artist",
+        id:artistID,
         dbFields: [
           DbField('name'),
           DbField('local_title',  subFields: languages, dataType: DataType.object, fieldType: FieldType.object)
@@ -92,13 +92,13 @@ class ArchiveArtistPage implements OnActivate
       title: 'Manage Albums',
       database: 'media',
       collection: 'album',
-      query: {'singerId': singerID},
+      query: {'artistId': artistID},
       allowUpdate: false,
       dbFields: [
         DbField('title'),
-        DbField('singer', isDisable: true),
+        DbField('artist', isDisable: true),
         DbField('description'),
-        DbField('singerId', isDisable: true),
+        DbField('artistId', isDisable: true),
         DbField('local_title', dataType: DataType.object, fieldType: FieldType.object),
       ],
 

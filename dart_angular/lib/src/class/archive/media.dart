@@ -21,7 +21,7 @@ class Media implements MediaItem
   bool isLiked = false;
 
   String title;
-  String singer;
+  String artist;
   String album;
   List<String> genre;
   String lyric;
@@ -33,7 +33,7 @@ class Media implements MediaItem
   Media({
     this.id,
     this.title, 
-    this.singer, 
+    this.artist, 
     this.album, 
     this.year, 
     this.genre,
@@ -58,7 +58,7 @@ class Media implements MediaItem
       mFromJson = Media(
       id: (detail['_id'] != null) ? detail['_id'] : '',
       title: (detail['title'] != null) ? detail['title'] : '',
-      singer: (detail['albumartist'] != null) ? detail['albumartist'] : '',
+      artist: (detail['albumartist'] != null) ? detail['albumartist'] : '',
       album: (detail['album'] != null) ? detail['album'] : '',
       genre: genre_list,
       lyric: (detail['lyric'] != null) ? detail['lyric'] : '',
@@ -82,7 +82,7 @@ class Media implements MediaItem
     return {
       '_id'         : id,
       'title'       : title,
-      'albumartist' : singer,
+      'albumartist' : artist,
       'album'       : album,
       'year'        : year,
       'genre'       : genre,
@@ -121,7 +121,7 @@ class Media implements MediaItem
     {
       widget = Card( 
         title,
-        subtitle: singer,
+        subtitle: artist,
         id: id,
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.media,
@@ -134,7 +134,7 @@ class Media implements MediaItem
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
         title,
-        subtitle: singer,
+        subtitle: artist,
         id: id,
         duration: getDuration(),
         number: digititemNumber,

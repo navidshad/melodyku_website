@@ -63,8 +63,8 @@ dynamic languageStrings = [
   // common lables
   // ========================
   {
-    'name': 'featuredSingers',
-    'en'  : 'Featured Singers ',
+    'name': 'featuredArtists',
+    'en'  : 'Featured Artists ',
     'fa'  : 'خواننده های ویژه',
   },
   {
@@ -358,8 +358,8 @@ dynamic languageStrings = [
     'fa'  : 'آلبوم',
   },
   {
-    'name': 'singer',
-    'en'  : 'Singer',
+    'name': 'artist',
+    'en'  : 'Artist',
     'fa'  : 'هنرمند',
   },
   {

@@ -5,7 +5,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/math.dart';
 
-import '../../class/result_list/result_singer.dart';
+import '../../class/result_list/result_artist.dart';
 import '../../class/widgets/card.dart';
 
 import '../../widgets/grid_component/grid_component.dart';
@@ -29,8 +29,8 @@ class ArtistsPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
-  List<Card> featuredSingers = [];
-  List<Card> topSingers = [];
+  List<Card> featuredArtists = [];
+  List<Card> topArtists = [];
 
   // constructor ==================================
   ArtistsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -49,18 +49,18 @@ class ArtistsPage
   void getContent() async 
   {
 
-    Result_Singer rSingers_featured = await _contentProvider.archive
-      .singer_getList(randomRange(0, 50), total: 10);
+    Result_Artist rArtists_featured = await _contentProvider.archive
+      .artist_getList(randomRange(0, 50), total: 10);
 
-    rSingers_featured.list.forEach((singer) {
-      featuredSingers.add(singer.getAsWidget<Card>());
+    rArtists_featured.list.forEach((artist) {
+      featuredArtists.add(artist.getAsWidget<Card>());
     });
 
-    Result_Singer rSingers_tops = await _contentProvider.archive
-      .singer_getList(randomRange(0, 50), total: 20);
+    Result_Artist rArtists_tops = await _contentProvider.archive
+      .artist_getList(randomRange(0, 50), total: 20);
 
-    rSingers_tops.list.forEach((singer) {
-      topSingers.add(singer.getAsWidget<Card>());
+    rArtists_tops.list.forEach((artist) {
+      topArtists.add(artist.getAsWidget<Card>());
     });
   }
 }

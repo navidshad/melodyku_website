@@ -131,7 +131,7 @@ class Playlist implements MediaItem
         //print('create Card from playlist items: ${item.title}');
         widget = Card<Media>( 
           item.title,
-          subtitle: item.singer,
+          subtitle: item.artist,
           id: item.id,
           thumbnail: Uri(path: item.thumbnail),
           type: ArchiveTypes.media,
@@ -143,7 +143,7 @@ class Playlist implements MediaItem
         //print('create ListItem from playlist items: ${item.title}');
         widget = ListItem<Media>(
           item.title,
-          subtitle: item.singer,
+          subtitle: item.artist,
           id: item.id,
           duration: item.getDuration(),
           number: itemNumber,

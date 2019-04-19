@@ -10,7 +10,7 @@ import '../types.dart';
 import '../widgets/card.dart';
 import '../widgets/list_item.dart';
 
-class Singer implements MediaItem
+class Artist implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
@@ -20,13 +20,13 @@ class Singer implements MediaItem
   String description;
   String thumbnail;
 
-  Singer({this.id, this.name, this.description, this.thumbnail});
+  Artist({this.id, this.name, this.description, this.thumbnail});
 
-  factory Singer.fromjson(dynamic detail)
+  factory Artist.fromjson(dynamic detail)
   {
-    Singer singer;
+    Artist artist;
     try {
-      singer =  Singer(
+      artist =  Artist(
         id: (detail['_id'] != null) ? detail['_id'] : '',
         name: (detail['name'] != null) ? detail['name'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
@@ -34,10 +34,10 @@ class Singer implements MediaItem
         );
     } 
     catch (e) {
-      print('convert singer from json $detail');
+      print('convert artist from json $detail');
       print(e);
     }
-    return singer;
+    return artist;
   }
 
   dynamic toDynamic()
@@ -90,7 +90,7 @@ class Singer implements MediaItem
           id: id,
           thumbnail: thumbnail,
           titleLink: link,
-          type: ArchiveTypes.singer,
+          type: ArchiveTypes.artist,
           origin: this
       ) as T;
     }
@@ -103,7 +103,7 @@ class Singer implements MediaItem
           number: digititemNumber,
           thumbnail: thumbnail,
           titleLink: link,
-          type: ArchiveTypes.singer,
+          type: ArchiveTypes.artist,
           origin: this
       ) as T;
     }

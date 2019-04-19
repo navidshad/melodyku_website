@@ -79,9 +79,9 @@ class ArchiveAlbumPage implements OnActivate
         id:albumID,
         dbFields: [
           DbField('title'),
-          DbField('singer', isDisable: true),
+          DbField('artist', isDisable: true),
           DbField('description'),
-          DbField('singerId', isDisable: true),
+          DbField('artistId', isDisable: true),
           DbField('local_title', subFields: languages,
             dataType: DataType.object, fieldType: FieldType.object),
         ],
@@ -96,7 +96,7 @@ class ArchiveAlbumPage implements OnActivate
         dbFields: [
           DbField('title', dataType: DataType.string, fieldType: FieldType.text),
           DbField('album', isDisable: true),
-          DbField('singer', isDisable: true),
+          DbField('artist', isDisable: true),
           DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
           DbField('year', dataType: DataType.int, fieldType: FieldType.text),
           DbField('local_title', subFields: languages,
@@ -117,7 +117,7 @@ class ArchiveAlbumPage implements OnActivate
     //       title:"detail",
     //       collection:"song",
     //       document: song,
-    //       fields: ['title', 'album', 'singer', 'genre', 'year', 'local_title'],
+    //       fields: ['title', 'album', 'artist', 'genre', 'year', 'local_title'],
     //       stringObjects: ['local_title'],
     //       types: {
     //         'local_title': languages

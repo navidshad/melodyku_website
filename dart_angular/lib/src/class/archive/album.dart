@@ -18,11 +18,11 @@ class Album implements MediaItem
   List<Media> list;
 
   String name;
-  String singer;
+  String artist;
   String description;
   String thumbnail;
 
-  Album({this.id, this.type, this.name, this.singer, this.list, this.description, this.thumbnail});
+  Album({this.id, this.type, this.name, this.artist, this.list, this.description, this.thumbnail});
 
   factory Album.fromjson(dynamic detail)
   {
@@ -41,7 +41,7 @@ class Album implements MediaItem
         id: (detail['_id'] != null) ? detail['_id'] : '',
         type: ArchiveTypes.album,
         name: (detail['name'] != null) ? detail['name'] : '',
-        singer: (detail['singer'] != null) ? detail['singer'] : '',
+        artist: (detail['artist'] != null) ? detail['artist'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
         thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
         list: items,
@@ -59,7 +59,7 @@ class Album implements MediaItem
   {
     return {
       'name'   : name,
-      'singer' : singer,
+      'artist' : artist,
       'description' : description,
       'thumbnail'   : thumbnail,
     };
@@ -83,7 +83,7 @@ class Album implements MediaItem
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.album,
         origin: this,
-        subtitle: singer,
+        subtitle: artist,
         titleLink: link,
       ) as T;
     }
@@ -97,7 +97,7 @@ class Album implements MediaItem
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.album,
         origin: this,
-        subtitle: singer,
+        subtitle: artist,
         titleLink: link,
       ) as T;
     }

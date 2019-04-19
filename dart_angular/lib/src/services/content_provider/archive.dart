@@ -16,67 +16,67 @@ class Archive
   Archive(this._rq);
 
   // methods
-  // singer -----------------------------------------------
-  Future<Result_Singer> singer_getList(int page, {int total=15}) async
+  // artist -----------------------------------------------
+  Future<Result_Artist> artist_getList(int page, {int total=15}) async
   {
     String url = '${link_archive}/singer/all/${total.toString()}/${page.toString()}';
 
-    print('singer_getList(), url: $url');
+    print('artist_getList(), url: $url');
 
     try {
       final result = await _rq.get(url);
 
-      Result_Singer singerList = Result_Singer.fromjson(
+      Result_Artist artistList = Result_Artist.fromjson(
         result['pages'], result['current'], result['list']);
 
-      return singerList;
+      return artistList;
     } 
     catch (e) {
-      print('error for singer_getList()');
+      print('error for artist_getList()');
       throw _handleError(e);
     }
   }
 
-  Future<Singer> singer_get(String name) async
+  Future<Artist> artist_get(String name) async
   {
     String url = '${link_archive}/singer';
     dynamic form = {'name': name};
-    print('singer_get(), url: $url');
+    print('artist_get(), url: $url');
 
     try {
       final result = await _rq.post(url, body: form);
       
-      Singer singer = Singer.fromjson(result);
-      return singer;
+      Artist artist = Artist.fromjson(result);
+      return artist;
     } 
     catch (e) {
-      print('error for singer_get()');
+      print('error for artist_get()');
       throw _handleError(e);
     }
   }
 
-  Future<Singer> singer_getById(String id) async
+  Future<Artist> artist_getById(String id) async
   {
-    String url = '${link_archive}/singer/id/$id';
-    print('singer_get(), url: $url');
+    String url = '${link_archive}/artist/id/$id';
+    print('artist_get(), url: $url');
 
     try {
       final result = await _rq.get(url);
       
-      Singer singer = Singer.fromjson(result);
-      return singer;
+      Artist artist = Artist.fromjson(result);
+      return artist;
     } 
     catch (e) {
-      print('error for singer_get()');
+      print('error for artist_get()');
       throw _handleError(e);
     }
   }
 
   // album ------------------------------------------------
-  Future<Result_Album> album_getList(String singer) async
+  Future<Result_Album> album_getList(String artist) async
   {
     String url = '${link_archive}/album/all';
-    dynamic form = {'singername': singer};
+    dynamic form = {'artistname': artist};
     print('album_getList(), url: $url');
 
     try {
@@ -100,10 +100,10 @@ class Archive
     try {
       final result = await _rq.get(url);
 
-      Result_Album singerList = Result_Album.fromjson(
+      Result_Album artistList = Result_Album.fromjson(
         result['pages'], result['current'], result['list']);
 
-      return singerList;
+      return artistList;
     } 
     catch (e) {
       print('error for album_getAll()');
@@ -128,10 +128,10 @@ class Archive
     }
   }
 
-  Future<Album> album_get(String name, String singer) async
+  Future<Album> album_get(String name, String artist) async
   {
     String url = '${link_archive}/album';
-    dynamic form = {'name': name, 'singername': singer};
+    dynamic form = {'name': name, 'artistname': artist};
     print('album_get(), url: $url');
 
     try {
@@ -150,7 +150,7 @@ class Archive
   Future<Result_Media> media_getList(String name, int page, {int total=15}) async
   {
     String url = '${link_archive}/media/all';
-    Map form = {'singername': name, 'total': total.toString(), 'page':page.toString()};
+    Map form = {'artistname': name, 'total': total.toString(), 'page':page.toString()};
     print('media_getList(), url: $url');
 
     try {
@@ -176,10 +176,10 @@ class Archive
     try {
       final result = await _rq.get(url);
 
-      Result_Media singerList = Result_Media.fromjson(
+      Result_Media artistList = Result_Media.fromjson(
         result['pages'], result['current'], result['list']);
 
-      return singerList;
+      return artistList;
     } 
     catch (e) {
       print('error for media_getAll()');
@@ -187,10 +187,10 @@ class Archive
     }
   }
 
-  Future<Media> media_get(String title, String singer) async
+  Future<Media> media_get(String title, String artist) async
   {
     String url = '${link_archive}/media/name';
-    dynamic form = {'title': title, 'singername': singer};
+    dynamic form = {'title': title, 'artistname': artist};
     print('media_get(), url: $url');
 
     try {

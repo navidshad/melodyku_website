@@ -53,25 +53,25 @@ class AlbumsPage
     void getContent() async 
   {
 
-    Result_Album rSingers_featured = await _contentProvider.archive
+    Result_Album rArtists_featured = await _contentProvider.archive
       .album_getAll(randomRange(0, 50), total: 10);
 
-    rSingers_featured.list.forEach((singer) {
-      featuredAlbums.add(singer.getAsWidget<Card>());
+    rArtists_featured.list.forEach((artist) {
+      featuredAlbums.add(artist.getAsWidget<Card>());
     });
 
-    Result_Album rSingers_tops = await _contentProvider.archive
+    Result_Album rArtists_tops = await _contentProvider.archive
       .album_getAll(randomRange(0, 50), total: 15);
 
-    rSingers_tops.list.forEach((singer) {
-      top15albums.add(singer.getAsWidget<ListItem>());
+    rArtists_tops.list.forEach((artist) {
+      top15albums.add(artist.getAsWidget<ListItem>());
     });
 
-    Result_Album rSingers_Lasts = await _contentProvider.archive
+    Result_Album rArtists_Lasts = await _contentProvider.archive
       .album_getAll(randomRange(0, 50), total: 20);
 
-    rSingers_Lasts.list.forEach((singer) {
-      lastAlbums.add(singer.getAsWidget<Card>());
+    rArtists_Lasts.list.forEach((artist) {
+      lastAlbums.add(artist.getAsWidget<Card>());
     });
   }
 }
