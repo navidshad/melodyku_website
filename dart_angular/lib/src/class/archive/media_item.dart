@@ -1,4 +1,5 @@
 import '../types.dart';
+import 'dart:async';
 
 abstract class MediaItem
 {

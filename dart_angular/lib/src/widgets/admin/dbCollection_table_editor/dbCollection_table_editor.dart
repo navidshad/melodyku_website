@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:js/js_util.dart' as js;
 

@@ -1,13 +1,13 @@
 import '../classes.dart';
 
-class Result_Media extends ListResult
+class Result_Song extends ListResult
 {
   List<Media> list;
 
-  Result_Media(int pages, int current, this.list) 
+  Result_Song(int pages, int current, this.list) 
     : super(pages, current);
 
-  factory Result_Media
+  factory Result_Song
   .fromjson(int pages, int current, dynamic items)
   {
     List<Media> medias = [];
@@ -15,7 +15,7 @@ class Result_Media extends ListResult
       => medias.add(Media.fromjson(item))
     );
 
-    return Result_Media(
+    return Result_Song(
       pages, 
       current,
       medias

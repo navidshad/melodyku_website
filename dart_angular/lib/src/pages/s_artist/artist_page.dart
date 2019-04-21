@@ -5,7 +5,7 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/archive/artist.dart';
-import '../../class/result_list/result_media.dart';
+import '../../class/result_list/result_song.dart';
 import '../../class/result_list/result_album.dart';
 import '../../class/archive/media.dart';
 import '../../class/widgets/card.dart';
@@ -56,7 +56,7 @@ class ArtistPage implements OnActivate
     artist = await _contentProvider.archive.artist_getById(id);
 
     // get 10 song of artist
-    Result_Media rMedia = await _contentProvider.archive.media_getList(artist.name, 1, total: 10);
+    Result_Song rMedia = await _contentProvider.archive.media_getList(artist.name, 1, total: 10);
     topList = rMedia.list;
 
     // get albums

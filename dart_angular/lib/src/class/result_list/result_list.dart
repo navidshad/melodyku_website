@@ -1,6 +1,6 @@
 import '../classes.dart';
 export './result_album.dart';
-export './result_media.dart';
+export './result_song.dart';
 export './result_playlist.dart';
 export './result_artist.dart';
 

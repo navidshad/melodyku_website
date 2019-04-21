@@ -1,9 +1,12 @@
 import 'dart:async';
-import 'package:http/http.dart';
-import 'dart:convert';
+import 'dart:html';
+import 'package:js/js_util.dart' as js;
+
 
 import '../../class/injector.dart';
+
 import '../../services/user_service.dart';
+import '../../services/stitch_service.dart';
 
 import '../../class/classes.dart';
 import '../urls.dart';
@@ -12,34 +15,30 @@ import './requester.dart';
 class Archive
 {
   Requester _rq;
+  StitchService _stitch;
+  RemoteMongoDatabase _mediaDB;
 
-  Archive(this._rq);
+
+  Archive(){
+    _stitch = Injector.get<StitchService>();
+    _mediaDB = _stitch.dbClient.db('media');
+  }
 
   // methods
   // artist -----------------------------------------------
-  Future<Result_Artist> artist_getList(int page, {int total=15}) async
+  Future<Result_Artist> artist_getList(int page, {int total=15, String alphabet}) async
   {
-    String url = '${link_archive}/singer/all/${total.toString()}/${page.toString()}';
+    RemoteMongoCollection artistColl = _mediaDB.collection('artist');
+    Result_Artist artistList;
 
-    print('artist_getList(), url: $url');
+    var result = await promiseToFuture(_stitch.appClient.callFunction('getArtists', [total, page, alphabet]));
 
-    try {
-      final result = await _rq.get(url);
-
-      Result_Artist artistList = Result_Artist.fromjson(
-        result['pages'], result['current'], result['list']);
-
-      return artistList;
-    } 
-    catch (e) {
-      print('error for artist_getList()');
-      throw _handleError(e);
-    }
+    return artistList;
   }
 
   Future<Artist> artist_get(String name) async
   {
-    String url = '${link_archive}/singer';
+    String url = '${link_archive}/artist';
     dynamic form = {'name': name};
     print('artist_get(), url: $url');
 
