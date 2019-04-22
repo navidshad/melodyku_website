@@ -16,17 +16,17 @@ import '../../class/classes.dart';
     CoverSmallComponent,
   ]
 )
-class TableMedia
+class TableSong
 {
   PlayerService _playerService;
   Player _player;
   LanguageService lang;
   String title = '';
 
-  TableMedia(this.lang, this._playerService, this._player);
+  TableSong(this.lang, this._playerService, this._player);
 
   @Input()
-  List<Media> items;
+  List<Song> items;
 
   int hoverNumber = -1;
 

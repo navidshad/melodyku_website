@@ -2,13 +2,13 @@ import '../../../mongo_stitch/field.dart';
 
 class SystemSchema
 {
-	static List artist = 
+	static List<DbField> artist = 
 	[
 		DbField('name'),
         DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
-	static List album =
+	static List<DbField> album =
 	[
 		DbField('title'),
      	DbField('artist', isDisable: true),
@@ -17,7 +17,7 @@ class SystemSchema
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
-	static List song = 
+	static List<DbField> song = 
 	[
 		DbField('title', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('album', isDisable: true),
@@ -27,21 +27,21 @@ class SystemSchema
 		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
-	static List result_artists = 
+	static List<DbField> result_artists = 
 	[
 		DbField('pages', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('current', isDisable: true),
 		DbField('list', dataType: DataType.array_object, subFields: SystemSchema.artist),
 	];
 
-	static List result_albums = 
+	static List<DbField> result_albums = 
 	[
 		DbField('pages', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('current', isDisable: true),
 		DbField('list', dataType: DataType.array_object, subFields: SystemSchema.album),
 	];
 
-	static List result_song = 
+	static List<DbField> result_song = 
 	[
 		DbField('pages', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('current', isDisable: true),

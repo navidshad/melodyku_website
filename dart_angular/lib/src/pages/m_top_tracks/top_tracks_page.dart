@@ -53,24 +53,24 @@ class TopTracksPage
   void getContent() async 
   {
 
-    Result_Song rMedia_top15 = await _contentProvider.archive
+    Result_Song rSong_top15 = await _contentProvider.archive
       .media_getAll(randomRange(0, 50), total: 15);
 
-    rMedia_top15.list.forEach((song) {
+    rSong_top15.list.forEach((song) {
       top15Songs.add(song.getAsWidget<ListItem>());
     });
 
-    Result_Song rMedia_allTime = await _contentProvider.archive
+    Result_Song rSong_allTime = await _contentProvider.archive
       .media_getAll(randomRange(0, 50), total: 10);
 
-    rMedia_allTime.list.forEach((song) {
+    rSong_allTime.list.forEach((song) {
       topOfAllTime.add(song.getAsWidget<Card>());
     });
 
-    Result_Song rMedia_last = await _contentProvider.archive
+    Result_Song rSong_last = await _contentProvider.archive
       .media_getAll(randomRange(0, 50), total: 20);
 
-    rMedia_last.list.forEach((song) {
+    rSong_last.list.forEach((song) {
       lastSongs.add(song.getAsWidget<Card>());
     });      
   }

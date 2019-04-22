@@ -187,7 +187,7 @@ class Archive
     }
   }
 
-  Future<Media> media_get(String title, String artist) async
+  Future<Song> media_get(String title, String artist) async
   {
     String url = '${link_archive}/media/name';
     dynamic form = {'title': title, 'artistname': artist};
@@ -196,7 +196,7 @@ class Archive
     try {
       final result = await _rq.post(url, body: form);
 
-      Media media = Media.fromjson(result['media']);
+      Song media = Song.fromjson(result['media']);
       return media;
     } 
     catch (e) {
@@ -205,7 +205,7 @@ class Archive
     }
   }
 
-  Future<Media> media_getById(String id) async
+  Future<Song> media_getById(String id) async
   {
     String url = '${link_archive}/media/id';
     dynamic form = {'id': id};
@@ -214,7 +214,7 @@ class Archive
     try {
       final result = await _rq.post(url, body: form);
 
-      Media media = Media.fromjson(result['media']);
+      Song media = Song.fromjson(result['media']);
       return media;
     } 
     catch (e) {

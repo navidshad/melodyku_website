@@ -5,9 +5,8 @@ import '../../services/services.dart';
 import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/archive/artist.dart';
-import '../../class/result_list/result_song.dart';
-import '../../class/result_list/result_album.dart';
-import '../../class/archive/media.dart';
+import '../../class/archive/result_with_navigator.dart';
+import '../../class/archive/song.dart';
 import '../../class/widgets/card.dart';
 
 import '../../widgets/album_single_wrapper_component/album_single_wrapper_component.dart';
@@ -32,7 +31,7 @@ class ArtistPage implements OnActivate
   ContentProvider _contentProvider;
 
   Artist artist;
-  List<Media> topList = [];
+  List<Song> topList = [];
   List<Card> albums = [];
 
   // constructor ==================================
@@ -52,15 +51,15 @@ class ArtistPage implements OnActivate
   {
     final id = current.parameters['id'];
 
-    // get playlist
-    artist = await _contentProvider.archive.artist_getById(id);
+    // get detail
+    artist = await _contentProvider.stitchArchive.getItemByID<Artist>(id);
 
     // get 10 song of artist
-    Result_Song rMedia = await _contentProvider.archive.media_getList(artist.name, 1, total: 10);
-    topList = rMedia.list;
+    ResultWithNavigator rSong = await _contentProvider.stitchArchive.song_getListByArtist(artist.id, page: 1, total: 10);
+    topList = rSong.list;
 
     // get albums
-    Result_Album rAlbums = await _contentProvider.archive.album_getList(artist.name);
+    ResultWithNavigator rAlbums = await _contentProvider.stitchArchive.album_getListByArtist(artist.id);
     rAlbums.list.forEach((album) {
       albums.add(album.getAsWidget<Card>());
     });

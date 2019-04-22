@@ -7,12 +7,12 @@ class Player
   // variables
   ContentProvider _contentProvider;
   
-  List<Media> _list = [];
+  List<Song> _list = [];
   List<ListItem> listItems = [];
 
   //List<>
 
-  Media current;
+  Song current;
   ImageButton playBtn;
 
   AudioElement _audio;
@@ -72,7 +72,7 @@ class Player
     }
   }
 
-  void playTrack(Media track) async
+  void playTrack(Song track) async
   {
     //add to Queue
     add(track);
@@ -99,7 +99,7 @@ class Player
   void repeat() => isLoop = !isLoop;
   void shuffle() => isShuffle = !isShuffle;
   
-  void add(Media track) 
+  void add(Song track) 
   {
     bool isAdded = false;
 
@@ -132,7 +132,7 @@ class Player
     // play next
     if(currentIndex < _list.length)
     {
-      Media newTrack = _list[currentIndex+1];
+      Song newTrack = _list[currentIndex+1];
       playTrack(newTrack);
     }
   }
@@ -153,14 +153,14 @@ class Player
     // play previous
     if(currentIndex > 0)
     {
-      Media newTrack = _list[currentIndex-1];
+      Song newTrack = _list[currentIndex-1];
       playTrack(newTrack);
     }
   }
 
   void playShuffle()
   {
-    Media newTrack = _list[randomRange(0, _list.length-1)];
+    Song newTrack = _list[randomRange(0, _list.length-1)];
     playTrack(newTrack);
     //_list = _list.map((f) => f);
   }

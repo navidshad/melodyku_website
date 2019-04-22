@@ -5,7 +5,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/math.dart';
 
-import '../../class/result_list/result_album.dart';
+import '../../class/archive/result_with_navigator.dart';
 import '../../class/widgets/card.dart';
 import '../../class/widgets/list_item.dart';
 
@@ -53,25 +53,24 @@ class AlbumsPage
     void getContent() async 
   {
 
-    Result_Album rArtists_featured = await _contentProvider.archive
-      .album_getAll(randomRange(0, 50), total: 10);
+    ResultWithNavigator rAlbums_featured = await _contentProvider.stitchArchive
+      .album_getList(randomRange(0, 50), total: 10);
 
-    rArtists_featured.list.forEach((artist) {
-      featuredAlbums.add(artist.getAsWidget<Card>());
+    rAlbums_featured.list.forEach((album) 
+      => featuredAlbums.add(album.getAsWidget<Card>()));
+
+    ResultWithNavigator ralbums_tops = await _contentProvider.stitchArchive
+      .album_getList(randomRange(0, 50), total: 15);
+
+    ralbums_tops.list.forEach((album) {
+      top15albums.add(album.getAsWidget<ListItem>());
     });
 
-    Result_Album rArtists_tops = await _contentProvider.archive
-      .album_getAll(randomRange(0, 50), total: 15);
+    ResultWithNavigator ralbums_Lasts = await _contentProvider.stitchArchive
+      .album_getList(randomRange(0, 50), total: 20);
 
-    rArtists_tops.list.forEach((artist) {
-      top15albums.add(artist.getAsWidget<ListItem>());
-    });
-
-    Result_Album rArtists_Lasts = await _contentProvider.archive
-      .album_getAll(randomRange(0, 50), total: 20);
-
-    rArtists_Lasts.list.forEach((artist) {
-      lastAlbums.add(artist.getAsWidget<Card>());
+    ralbums_Lasts.list.forEach((album) {
+      lastAlbums.add(album.getAsWidget<Card>());
     });
   }
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
-export 'package:melodyku/mongo_stitch/app_client.dart';
+export 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 
 class StitchService 
 {

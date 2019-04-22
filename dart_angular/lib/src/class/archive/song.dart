@@ -15,7 +15,7 @@ import '../widgets/list_item.dart';
 
 import '../../services/urls.dart';
 
-class Media implements MediaItem
+class Song implements SongItem
 {
   dynamic id;
   ArchiveTypes type;
@@ -31,7 +31,7 @@ class Media implements MediaItem
   int year;
   int duration;
 
-  Media({
+  Song({
     this.id,
     this.title, 
     this.artist, 
@@ -47,16 +47,16 @@ class Media implements MediaItem
     getLikeStatus();
   }
 
-  factory Media.fromjson(dynamic detail)
+  factory Song.fromjson(dynamic detail)
   {
     List<String> genre_list = [];
 
     if(detail['genre'] != null)
       detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
 
-    Media mFromJson;
+    Song mFromJson;
     try {
-      mFromJson = Media(
+      mFromJson = Song(
       id: (detail['_id'] != null) ? detail['_id'] : '',
       title: (detail['title'] != null) ? detail['title'] : '',
       artist: (detail['albumartist'] != null) ? detail['albumartist'] : '',
@@ -71,7 +71,7 @@ class Media implements MediaItem
     if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
 
     } catch (e) {
-      print('convert Media from json ${json.encode(detail)}');
+      print('convert Song from json ${json.encode(detail)}');
       print(e);
     }
 

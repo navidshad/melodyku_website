@@ -35,7 +35,7 @@ class PlayerBareComponent implements OnInit
   ImageButton shuffleBtn;
 
   // calculated variables
-  Media get current => player.current;
+  Song get current => player.current;
   
 
   PlayerBareComponent(this._playerService, this.player);

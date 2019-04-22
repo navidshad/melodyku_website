@@ -1,13 +1,13 @@
 import '../types.dart';
 import 'dart:async';
 
-abstract class MediaItem
+abstract class SongItem
 {
   final dynamic id;
   final ArchiveTypes type;
   bool isLiked = false;
 
-  MediaItem(this.id, this.type)
+  SongItem(this.id, this.type)
   {
     //getLikeStatus();
   }

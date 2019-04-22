@@ -17,7 +17,7 @@ class ArchiveToWidget
       switch (type) {
 
         case ArchiveTypes.media:
-          Media item = list[i] as Media;
+          Song item = list[i] as Song;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             Card( item.title, 
@@ -87,7 +87,7 @@ class ArchiveToWidget
       switch (type) {
 
         case ArchiveTypes.media:
-          Media item = list[i] as Media;
+          Song item = list[i] as Song;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
             ListItem( item.title, 
@@ -146,7 +146,7 @@ class ArchiveToWidget
     return tempList;
   }
 
-  static ListItem toListItem(Media media)
+  static ListItem toListItem(Song media)
   {
     media.thumbnail = getRandomCovers(1)[0];
     return ListItem( 

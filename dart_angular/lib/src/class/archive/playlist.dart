@@ -8,14 +8,14 @@ import '../../routting/routes.dart';
 import 'media_item.dart';
 import '../types.dart';
 
-class Playlist implements MediaItem
+class Playlist implements SongItem
 {
   dynamic id;
   ArchiveTypes type;
   bool isLiked;
 
   String title;
-  List<Media> list;
+  List<Song> list;
   String thumbnail;
 
   Playlist({this.id, this.title, this.list, this.thumbnail});
@@ -24,13 +24,13 @@ class Playlist implements MediaItem
   {
     Playlist playlist;
     try {
-      List<Media> items = [];
+      List<Song> items = [];
 
       if(detail['list'] != null)
       {
         detail['list'].forEach((item) { 
-          Media newMedia = Media.fromjson(item);
-          items.add(newMedia); 
+          Song newSong = Song.fromjson(item);
+          items.add(newSong); 
         });
       }
 
@@ -120,7 +120,7 @@ class Playlist implements MediaItem
 
     for(int i=0; i < totalTemp; i++)
     {
-      Media item = list[i];
+      Song item = list[i];
       item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
@@ -129,7 +129,7 @@ class Playlist implements MediaItem
       if(T == Card)
       {
         //print('create Card from playlist items: ${item.title}');
-        widget = Card<Media>( 
+        widget = Card<Song>( 
           item.title,
           subtitle: item.artist,
           id: item.id,
@@ -141,7 +141,7 @@ class Playlist implements MediaItem
       else if(T == ListItem)
       {
         //print('create ListItem from playlist items: ${item.title}');
-        widget = ListItem<Media>(
+        widget = ListItem<Song>(
           item.title,
           subtitle: item.artist,
           id: item.id,

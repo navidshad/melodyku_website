@@ -2,6 +2,7 @@ import 'package:melodyku/src/class/archive/media_item.dart';
 import 'dart:async';
 
 import '../injector.dart' as CI;
+import '../../services/content_provider/content_provider.dart';
 import '../../routting/routes.dart';
 
 import '../classes.dart';
@@ -11,41 +12,47 @@ import '../types.dart';
 import '../widgets/card.dart';
 import '../widgets/list_item.dart';
 
-class Album implements MediaItem
+class Album implements SongItem
 {
-  dynamic id;
+  String id;
+  String artistId;
   ArchiveTypes type;
 
-  List<Media> list;
+  List<Song> list;
 
   String name;
   String artist;
   String description;
   String thumbnail;
 
-  Album({this.id, this.type, this.name, this.artist, this.list, this.description, this.thumbnail});
+  Album({this.id, this.artistId, this.type, this.name, this.artist, 
+    this.list, this.description, this.thumbnail})
+  {
+    if(list.length == 0) getSongs();
+  }
 
-  factory Album.fromjson(dynamic detail)
+  factory Album.fromjson(Map detail)
   {
     Album album;
     try {
 
-      List<Media> items = [];
+      List<Song> items = [];
 
-      if(detail['medias'] != null)
+      if(detail.containsKey('songs'))
       {
-        detail['medias'].forEach((item) 
-        { items.add(Media.fromjson(item)); });
+        detail['songs'].forEach((item) 
+        { items.add(Song.fromjson(item)); });
       }
       
       album = Album(
-        id: (detail['_id'] != null) ? detail['_id'] : '',
-        type: ArchiveTypes.album,
-        name: (detail['name'] != null) ? detail['name'] : '',
-        artist: (detail['artist'] != null) ? detail['artist'] : '',
-        description: (detail['description'] != null) ? detail['description'] : '',
-        thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
-        list: items,
+        type        : ArchiveTypes.album,
+        id          : (detail['_id'] != null)         ? detail['_id'] : '',
+        artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
+        name        : (detail['name'] != null)        ? detail['name'] : '',
+        artist      : (detail['artist'] != null)      ? detail['artist'] : '',
+        description : (detail['description'] != null) ? detail['description'] : '',
+        thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
+        list        : items,
         );
     } 
     catch (e) {
@@ -54,6 +61,14 @@ class Album implements MediaItem
     }
 
     return album;
+  }
+
+  void getSongs() async
+  {
+    print('album getSongs');
+    ContentProvider cp = CI.Injector.get<ContentProvider>();
+    ResultWithNavigator<Song> rwn = await cp.stitchArchive.song_getListByAlbum(id);
+    list = rwn.list;
   }
 
   dynamic toDynamic()
@@ -74,8 +89,14 @@ class Album implements MediaItem
   {
     T widget;
 
-    Map<String, String> params = {'id':id};
+    Map<String, String> params = {'id':id.toString()};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
+
+    print('id $id');
+    print('origin $this');
+    print('subtitle $id');
+    print('titleLink $artist');
+    print('titleLink $link');
 
     if(T == Card)
     {
@@ -113,7 +134,7 @@ class Album implements MediaItem
 
     for(int i=0; i < total; i++)
     {
-      Media item = list[i];
+      Song item = list[i];
       item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
@@ -121,7 +142,7 @@ class Album implements MediaItem
 
       if(T == Card)
       {
-        widget = Card<Media>( item.title,
+        widget = Card<Song>( item.title,
             id: item.id,
             thumbnail: Uri(path: item.thumbnail),
             type: ArchiveTypes.media,
@@ -130,7 +151,7 @@ class Album implements MediaItem
       }
       else if (T == ListItem)
       {
-        widget = ListItem<Media>(item.title,
+        widget = ListItem<Song>(item.title,
             id: item.id,
             duration: item.getDuration(),
             number: itemNumber,

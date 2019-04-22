@@ -3,8 +3,9 @@ export 'types.dart';
 // archive
 export 'archive/artist.dart';
 export 'archive/album.dart';
-export 'archive/media.dart';
+export 'archive/song.dart';
 export 'archive/playlist.dart';
+export 'archive/result_with_navigator.dart';
 export 'result_list/result_list.dart';
 export './archive/archive_item.dart';
 

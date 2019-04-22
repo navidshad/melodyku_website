@@ -46,7 +46,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 	//_id field
 	try{
 		dynamic id = js.getProperty(jsObject, '_id');
-		if(id != null) newObject['_id'] = id;
+		if(id != null) newObject['_id'] = id.toString();
 	}catch(e){
 		print('_id catch | $e');
 	}
@@ -56,8 +56,11 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 		{
 			dynamic value = js.getProperty(jsObject, field.key);
 
+			//print('convertToMap forEach ${field.key} ${field.dataType} = $value');
+
 			// string field
-			if(field.dataType == DataType.string){
+			if(field.dataType == DataType.string)
+			{
 				if(value == null) value = '';
 				newObject[field.key] = value.toString();
 			}
@@ -71,6 +74,11 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 					print('bool array catch | key ${field.key}, value ${value}');
 					newObject[field.key] = false;
 				}
+			}
+
+			else if(field.dataType == DataType.int || field.dataType == DataType.float)
+			{
+				newObject[field.key] = value;
 			}
 
 			// string array
@@ -89,7 +97,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			}
 
 			// object array
-			else if(field.dataType == DataType.array_string)
+			else if(field.dataType == DataType.array_object)
 			{
 				List<Map> objectArray = [];
 

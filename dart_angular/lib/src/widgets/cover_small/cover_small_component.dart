@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 
 import '../../services/services.dart';
-import '../../class/archive/media.dart';
+import '../../class/archive/song.dart';
 
 @Component(
   selector: 'cover-small',

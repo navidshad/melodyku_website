@@ -5,7 +5,7 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/math.dart';
 
-import '../../class/result_list/result_artist.dart';
+import '../../class/archive/result_with_navigator.dart';
 import '../../class/widgets/card.dart';
 
 import '../../widgets/grid_component/grid_component.dart';
@@ -49,14 +49,14 @@ class ArtistsPage
   void getContent() async 
   {
 
-    Result_Artist rArtists_featured = await _contentProvider.archive
+    ResultWithNavigator rArtists_featured = await _contentProvider.stitchArchive
       .artist_getList(randomRange(0, 50), total: 10);
 
     rArtists_featured.list.forEach((artist) {
       featuredArtists.add(artist.getAsWidget<Card>());
     });
 
-    Result_Artist rArtists_tops = await _contentProvider.archive
+    ResultWithNavigator rArtists_tops = await _contentProvider.stitchArchive
       .artist_getList(randomRange(0, 50), total: 20);
 
     rArtists_tops.list.forEach((artist) {

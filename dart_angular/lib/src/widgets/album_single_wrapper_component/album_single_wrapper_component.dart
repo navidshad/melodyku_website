@@ -13,7 +13,7 @@ import '../../widgets/table_media_component/table_media_component.dart';
   styleUrls: ['album_single_wrapper_component.scss.css'],
   directives: [
     coreDirectives,
-    TableMedia
+    TableSong
   ]
 )
 class AlbumSingleWrapperComponent
@@ -35,5 +35,5 @@ class AlbumSingleWrapperComponent
   String thumbnail;
 
   @Input()
-  List<Media> medias;
+  List<Song> medias;
 }

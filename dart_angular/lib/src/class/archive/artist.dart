@@ -11,7 +11,7 @@ import '../types.dart';
 import '../widgets/card.dart';
 import '../widgets/list_item.dart';
 
-class Artist implements MediaItem
+class Artist implements SongItem
 {
   dynamic id;
   ArchiveTypes type;
