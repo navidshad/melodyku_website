@@ -278,9 +278,9 @@ class Archive
   }
 
   // stream link
-  Future<String> getStreamLink(id)
+  Future<String> getStreamLink({String id, String version})
   {
-    String url = '${link_archive}/static/96/$id';
+    String url = '${link_archive}/static/$version/$id';
     print('getStreamLink(), url: $url');
     return Future.delayed(Duration(milliseconds: 100), () => url);
   }

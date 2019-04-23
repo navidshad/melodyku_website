@@ -1,11 +1,13 @@
 import 'dart:html';
 import '../classes.dart';
-import '../../services/content_provider/content_provider.dart';
+import 'package:melodyku/src/services/content_provider/content_provider.dart';
+import 'package:melodyku/src/services/user_service.dart';
 
 class Player 
 {
   // variables
   ContentProvider _contentProvider;
+  UserService _userServide;
   
   List<Song> _list = [];
   List<ListItem> listItems = [];
@@ -31,7 +33,10 @@ class Player
   double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
 
   // constructor
-  Player(this._contentProvider){
+  Player(this._contentProvider)
+  {
+    _userServide = Injector.get<UserService>();
+    // create an audio element
     audio = AudioElement();
   }
 
@@ -84,8 +89,13 @@ class Player
     current = track;
     audio.currentTime = 0;
 
+    // define version of Song
+    String version = 'demo';
+    if(_userServide.user.subscription.canListen())
+      version = '96';
+
     // get stream link
-    String streamLink = await _contentProvider.archive.getStreamLink(track.id);
+    String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
     audio.src = streamLink;
 
     play();

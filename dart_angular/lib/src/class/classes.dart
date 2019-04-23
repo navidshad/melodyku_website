@@ -24,3 +24,5 @@ export 'widgets/drawer.dart';
 export './utility/math.dart';
 export '../services/content_provider/mock_Json.dart';
 export './utility/stream_detail.dart';
+
+export 'injector.dart';

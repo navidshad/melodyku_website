@@ -1,4 +1,5 @@
 import 'permission.dart';
+import 'subscription.dart';
 import '../types.dart';
 
 import 'package:js/js_util.dart' as js;
@@ -10,7 +11,11 @@ import '../../services/stitch_service.dart';
 class User 
 {
   Permission _permission;
-  dynamic id;
+
+  Subscription _subscription;
+  Subscription get subscription => _subscription;
+
+  String id;
   String permissionId;
   String fullname;
   String email;
@@ -23,11 +28,14 @@ class User
     this.email
     })
   {
-    if(fullAccess) {
+    if(fullAccess) 
+    {
       _permission = Permission.fullaccess();
       fullname = 'Administrator';
     }
     else if(getDetail) getData();
+
+    _subscription = Subscription();
   }
 
   factory User.fromJson(dynamic detail)
@@ -36,7 +44,7 @@ class User
 
     try{
       p = User(
-      detail['refId'],
+      detail['refId'].toString(),
       permissionId : detail['permissionId'],
       email : detail['email'],
       fullname : detail['fullname']);
@@ -63,7 +71,7 @@ class User
     RemoteMongoDatabase userDB = stitch.dbClient.db('user');
 
     //get detail
-    dynamic detailQuery = js.jsify({'refId': id.toString()});
+    dynamic detailQuery = js.jsify({'refId': id});
 
     await promiseToFuture(userDB.collection('detail').find(detailQuery).first())
     .then((doc)
