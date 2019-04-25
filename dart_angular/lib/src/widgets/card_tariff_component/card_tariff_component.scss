@@ -1,0 +1,26 @@
+@import '../../styles/colors';
+@import '../../styles/effects';
+
+.tariff_card{
+	width: 250px;
+	border-radius: 5px;
+    overflow: hidden;
+}
+
+.head{
+	height: 150px;
+	background-color: $lightblue-color;
+}
+
+.body{
+	height: 250px;
+	background-color: white;
+}
+
+.detail{
+	color: black;
+}
+
+// .btn-disabled{
+// 	cursor: wait;
+// }

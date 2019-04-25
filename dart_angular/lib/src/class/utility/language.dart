@@ -10,15 +10,14 @@ class Language
   Language(this.name, this.flag, this.direction, this._strings);
 
   // ask a string
-  String getStr(String name)
+  String getStr(String str)
   {
-    String string  = "";
+    String string  = '$name-$str';
 
     try {
-      string = _strings[name];
+      string = _strings[str];
     } catch (e) {
       print('the $name dosent found');
-      string = name;
     }
 
     return string;

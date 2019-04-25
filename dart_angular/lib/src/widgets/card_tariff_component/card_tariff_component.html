@@ -1,0 +1,24 @@
+<div class="tariff_card">
+
+	<div class="head flex-column flex-center">
+		<h2>{{detail['title']}}</h2>
+	</div>
+
+	<div class="body flex-column flex-wide">
+		
+		<div>
+			<ul class="detail">
+				<li>{{lang.getStr('downloadSongs')}}</li>
+				<li>{{lang.getStr('offlineAccess')}}</li>
+				<li>{{lang.getStr('multipleQuality')}}</li>
+				<li><span>{{detail['days'].toString()}}</span> <span>روز</span></li>
+				<li><span>{{lang.getStr('Price')}}</span><span>{{detail['price'].toString()}}</span> تومان</li>
+			</ul>
+		</div>
+
+		<div class="btn-sl" 
+			[class.btn-disabled]="!active"
+			(click)="makePurchase()">خرید</div>
+	</div>
+
+</div>

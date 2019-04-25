@@ -15,6 +15,7 @@ class StitchService
 
   StitchService()
   {
+    print('StitchService constructor');
     appClient = initializeDefaultAppClient(app_id);
     dbClient = appClient.getServiceClient(remoteMongoClientFactory, _serviceName);
 
@@ -31,7 +32,7 @@ class StitchService
     //List users = appClient.auth.user listUsers(); //.forEach((u) => print('old user ' +  u.id));
     //print('users ${appClient.auth.user}');
 
-    appClient.auth.loginWithCredential(AnonymousCredential()).then((newUser) 
+    promiseToFuture(appClient.auth.loginWithCredential(AnonymousCredential())).then((newUser) 
     {
       print('user logined with Anonymouse');
       print(user.id);

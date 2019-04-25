@@ -30,7 +30,7 @@ import './src/class/injector.dart' as CI;
     ClassProvider(ContentProvider),
     ClassProvider(PlayerService),
     ClassProvider(ModalService),
-    //ClassProvider(PageRoutes),
+    ClassProvider(SubscriptionService),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),
@@ -41,7 +41,8 @@ class AppComponent
   //bool hasRedirect = true;
 
   AppComponent( StitchService stitch,
-    UserService us, Requester rq, ContentProvider cp, MessageService ms, LanguageService lang)
+    UserService us, Requester rq, ContentProvider cp, MessageService ms, 
+    LanguageService lang, SubscriptionService subScription)
   {
     //checkRedirect();
 
@@ -52,7 +53,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
-    //CI.Injector.register(CI.InjectorMember('PageRoutes', pRoutes));
+    CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
 
     // login with last session
     us.loginWithLastSession();

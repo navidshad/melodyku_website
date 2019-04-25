@@ -2,6 +2,7 @@ import '../../../mongo_stitch/field.dart';
 
 class SystemSchema
 {
+	// Media ====================================
 	static List<DbField> artist = 
 	[
 		DbField('name'),
@@ -54,4 +55,13 @@ class SystemSchema
 	// 	DbField('current', isDisable: true),
 	// 	DbField('list', dataType: DataType.array_object, subFields: ArchiveSchema.song),
 	// ];
+
+	// CMS ======================================
+	static List<DbField> tariff = 
+	[
+		DbField('title'),
+		DbField('days', dataType: DataType.int),
+		DbField('price', dataType: DataType.int),
+		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	];
 }

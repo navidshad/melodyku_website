@@ -29,6 +29,7 @@ import '../pages/p_downloads/downloads_page.template.dart' as downloads_template
 import '../pages/p_favorites/favorites_page.template.dart' as favorites_template;
 import '../pages/p_history/history_page.template.dart' as history_template;
 import '../pages/p_users/users_page.template.dart' as users_template;
+import '../pages/p_subscription/subscription_page.template.dart' as subscription_template;
 
 import '../pages/s_artist/artist_page.template.dart' as artsit_template;
 import '../pages/s_album/album_page.template.dart' as album_template;
@@ -248,6 +249,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'advanced-settings'),
                       component: advanced_settings_template.AdvancedSettingsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'subscription' : PageDefinition(
+    title         : 'subscription',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'subscription'),
+                      component: subscription_template.SubscriptionPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

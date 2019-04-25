@@ -1,31 +1,40 @@
+import 'package:js/js_util.dart' as js;
+
 import 'package:melodyku/src/services/stitch_service.dart';
 import 'package:melodyku/src/class/injector.dart';
 
 class Subscription 
 {
+	final String refId;
+
 	String plan;
-	String refId;
 	DateTime startIn;
 	DateTime expiresIn;
 
 	StitchService _stitch;
 
-	Subscription()
+	Subscription(this.refId)
 	{
 		this._stitch = Injector.get<StitchService>();
 		getUserSubscription();
-
 
 		expiresIn = DateTime.now().add(Duration(days: 1));
 	}
 
 	void getUserSubscription()
 	{
-		// if(_stitch != null) print('=== appid ${_stitch.app_id}');
-		// else print('=== appid null');
+		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection('subscription');
+		dynamic query = js.jsify({'refId': refId});
+		
+		promiseToFuture(collection.find(query).first())
+			.then((result) 
+			{
+				
+			})
+			.catchError(_catchError);
 	}
 
-	bool canListen()
+	bool hasSubscription()
 	{
 		bool key = false;
 
@@ -39,4 +48,6 @@ class Subscription
 
 		return key;
 	}
+
+	void _catchError(error) => print(error);
 }

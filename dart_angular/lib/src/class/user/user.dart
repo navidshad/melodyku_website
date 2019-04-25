@@ -35,7 +35,7 @@ class User
     }
     else if(getDetail) getData();
 
-    _subscription = Subscription();
+    _subscription = Subscription(id);
   }
 
   factory User.fromJson(dynamic detail)

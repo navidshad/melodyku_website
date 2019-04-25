@@ -91,7 +91,7 @@ class Player
 
     // define version of Song
     String version = 'demo';
-    if(_userServide.user.subscription.canListen())
+    if(_userServide.user.subscription.hasSubscription())
       version = '96';
 
     // get stream link

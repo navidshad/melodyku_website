@@ -146,6 +146,11 @@ dynamic languageStrings = [
     'en'  : 'Top Tracks',
     'fa'  : 'بهترین ها',
   },
+  {
+    'name': 'subscription',
+    'en'  : 'Subscription',
+    'fa'  : 'خرید اشتراک',
+  },
 
   // ========================
   // login form
@@ -376,5 +381,34 @@ dynamic languageStrings = [
     'name': 'playlist',
     'en'  : 'Playlist',
     'fa'  : 'لیست پخش',
+  },
+
+  // ========================
+  // subscription
+  // ======================== 
+  {
+    'name': 'days',
+    'en'  : 'Days',
+    'fa'  : 'روز',
+  },
+  {
+    'name': 'price',
+    'en'  : 'Price',
+    'fa'  : 'قیمت',
+  },
+  {
+    'name': 'offlineAccess',
+    'en'  : 'Offline Accesss',
+    'fa'  : 'استفاده به صورت افلاین',
+  },
+  {
+    'name': 'downloadSongs',
+    'en'  : 'Download Songs',
+    'fa'  : 'دانلود ترانه ها',
+  },
+  {
+    'name': 'multipleQuality',
+    'en'  : 'Multiple Quality',
+    'fa'  : 'کیفیت های مختلف',
   },
 ];
