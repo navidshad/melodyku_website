@@ -278,11 +278,13 @@ class Archive
   }
 
   // stream link
-  Future<String> getStreamLink({String id, String version})
+  Future<String> getStreamLink({String id, String version}) async
   {
     String url = '${link_archive}/static/$version/$id';
     print('getStreamLink(), url: $url');
-    return Future.delayed(Duration(milliseconds: 100), () => url);
+    final result = await _rq.get(url, directResult: true);
+    return result;
+    //return Future.delayed(Duration(milliseconds: 100), () => url);
   }
 
   // favorites

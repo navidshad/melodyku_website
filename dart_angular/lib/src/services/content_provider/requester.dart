@@ -32,7 +32,7 @@ class Requester
     return result;
   }
 
-  Future<dynamic> get(url) async
+  Future<dynamic> get(url, {bool directResult:false}) async
   {
     dynamic result;
 
@@ -40,7 +40,8 @@ class Requester
       String token = _getToken();
       dynamic header = {'token':token};
       Response response = await _http.get(url, headers: header);
-      result = _extractData(response);
+      
+      result = directResult ? response.body : _extractData(response);
 
       //_printRequestStatus(response);
     }

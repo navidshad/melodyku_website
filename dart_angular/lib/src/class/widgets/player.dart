@@ -91,11 +91,12 @@ class Player
 
     // define version of Song
     String version = 'demo';
-    if(_userServide.user.subscription.hasSubscription())
+    if(_userServide.user != null && _userServide.user.subscription.hasSubscription())
       version = '96';
 
     // get stream link
     String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
+    //print('streamLink $streamLink');
     audio.src = streamLink;
 
     play();
