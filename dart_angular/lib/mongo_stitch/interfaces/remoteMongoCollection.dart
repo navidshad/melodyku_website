@@ -14,8 +14,8 @@ abstract class RemoteMongoCollection {
   external RemoteMongoReadOperation               find([dynamic query, dynamic options]);
   external PromiseJsImpl<RemoteInsertManyResult>  insertMany(dynamic documents);
   external PromiseJsImpl<RemoteInsertOneResult>   insertOne(dynamic documents);
-  external PromiseJsImpl<RemoteUpdateResult>      updateMany(dynamic query, dynamic update, [RemoteUpdateOptions updateOptions]);
-  external PromiseJsImpl<RemoteUpdateResult>      updateOne(dynamic query, dynamic update, [RemoteUpdateOptions updateOptions]);
+  external PromiseJsImpl<RemoteUpdateResult>      updateMany(dynamic query, dynamic update, [dynamic updateOptions]);
+  external PromiseJsImpl<RemoteUpdateResult>      updateOne(dynamic query, dynamic update, [dynamic updateOptions]);
 }
 
 @JS()

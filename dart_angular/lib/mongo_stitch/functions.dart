@@ -54,7 +54,13 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 	// other fields
 	fields.forEach((DbField field) 
 		{
-			dynamic value = js.getProperty(jsObject, field.key);
+			dynamic value;
+
+			try {
+				value = js.getProperty(jsObject, field.key);
+			}catch(e){
+				//print('convertToMap forEach ${field.key} is null');
+			}
 
 			//print('convertToMap forEach ${field.key} ${field.dataType} = $value');
 
@@ -78,6 +84,8 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 
 			else if(field.dataType == DataType.int || field.dataType == DataType.float)
 			{
+				if(value == null) value = 0;
+				
 				newObject[field.key] = value;
 			}
 
@@ -121,6 +129,17 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 				}catch(e){
 					print('object field catch | key ${field.key}, value ${value}');
 					newObject[field.key] = convertToMap({}, field.subFields);
+				}
+			}
+
+			// DateTime
+			else if(field.dataType == DataType.dateTime)
+			{
+				try{
+					newObject[field.key] = DateTime.parse(value);
+				}catch(e){
+					print('dateTime field catch | key ${field.key}, value ${value} $e');
+					newObject[field.key] = null;
 				}
 			}
 

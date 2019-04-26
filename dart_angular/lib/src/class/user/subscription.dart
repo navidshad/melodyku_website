@@ -1,5 +1,6 @@
 import 'package:js/js_util.dart' as js;
 
+import 'package:melodyku/src/class/archive/system_schema.dart';
 import 'package:melodyku/src/services/stitch_service.dart';
 import 'package:melodyku/src/class/injector.dart';
 
@@ -8,7 +9,7 @@ class Subscription
 	final String refId;
 
 	String plan;
-	DateTime startIn;
+	DateTime startsIn;
 	DateTime expiresIn;
 
 	StitchService _stitch;
@@ -17,19 +18,22 @@ class Subscription
 	{
 		this._stitch = Injector.get<StitchService>();
 		getUserSubscription();
-
-		expiresIn = DateTime.now().add(Duration(days: 1));
 	}
 
-	void getUserSubscription()
+	void getUserSubscription() async
 	{
 		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection('subscription');
 		dynamic query = js.jsify({'refId': refId});
 		
-		promiseToFuture(collection.find(query).first())
+		promiseToFuture(collection.find(js.jsify({'refId': refId})).first())
 			.then((result) 
 			{
-				
+				Map converted = convertToMap(result, SystemSchema.subscription);
+				print('=== user refId $refId');
+				print('=== user subscription $converted');
+				plan = converted['plan'];
+				startsIn = converted['startsIn'];
+				expiresIn = converted['expiresIn'];
 			})
 			.catchError(_catchError);
 	}
@@ -46,6 +50,7 @@ class Subscription
 			if(difference < 0) key = true;
 		}
 
+		print('hasSubscription $key');
 		return key;
 	}
 

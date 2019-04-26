@@ -14,8 +14,13 @@ class CardTariffComponent
 {
 	LanguageService lang;
 	UserService _userService;
+	SubscriptionService _subService;
 
-	CardTariffComponent(this.lang, this._userService);
+	CardTariffComponent(this.lang, this._userService, this._subService)
+	{
+		if(_userService.user.subscription.hasSubscription())
+			active = false;
+	}
 
 	@Input()
 	Map detail;
@@ -26,9 +31,8 @@ class CardTariffComponent
 	void makePurchase()
 	{
 		if(!active) return;
-
 		active = false;
 
-		
+		_subService.purchaseTariff(detail['_id']);
 	}
 }

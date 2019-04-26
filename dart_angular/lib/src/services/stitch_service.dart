@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 export 'package:melodyku/mongo_stitch/mongo_stitch.dart';
+export 'package:melodyku/src/class/archive/system_schema.dart';
 
 class StitchService 
 {

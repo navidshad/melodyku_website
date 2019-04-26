@@ -76,10 +76,12 @@ class User
     await promiseToFuture(userDB.collection('detail').find(detailQuery).first())
     .then((doc)
     {
-      //print('user detail | $doc');
-      fullname = js.getProperty(doc, 'fullname');
-      permissionId = js.getProperty(doc, 'permissionId');
-      email = js.getProperty(doc, 'email');
+      Map converted = convertToMap(doc, SystemSchema.userDetail);
+      print('user detail | $converted');
+
+      fullname = converted.containsKey('fullname') ? converted['fullname'] : '';
+      permissionId = converted['permissionId'];
+      email = converted['email'];
 
     }).catchError(_catchError);
 
@@ -88,11 +90,14 @@ class User
     await promiseToFuture(stitch.appClient.callFunction('getById', ['user', 'permission', permissionId]))
     .then((doc) 
     {
-      //print('user permission | $doc');
+      print('user permission | $doc');
       dynamic pDetail = convertFromJS(doc);
       _permission = Permission.fromJson(pDetail);
     }).catchError(_catchError);
   }
+
+  void updateSubscription() =>
+    _subscription.getUserSubscription();
 
   void _catchError(error) => print(error);
 }

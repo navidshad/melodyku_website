@@ -64,4 +64,21 @@ class SystemSchema
 		DbField('price', dataType: DataType.int),
 		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
+
+	// user ====================================
+	static List<DbField> userDetail = 
+	[
+		DbField('refId'),
+		DbField('fullname'),
+		DbField('email'),
+		DbField('permissionId'),
+	];
+
+	static List<DbField> subscription = 
+	[
+		DbField('refId'),
+		DbField('plan'),
+		DbField('startsIn', dataType: DataType.dateTime),
+		DbField('expiresIn', dataType: DataType.dateTime),
+	];
 }
