@@ -35,7 +35,7 @@ class Playlist implements SongItem
       }
 
       playlist = Playlist( 
-        id: detail['_id'], 
+        id: detail['_id'].toString(), 
         title: detail['name'], 
         thumbnail: detail['thumbnail'] ?? getRandomCovers(1)[0], 
         list: items );

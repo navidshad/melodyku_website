@@ -17,7 +17,7 @@ import '../../services/urls.dart';
 
 class Song implements SongItem
 {
-  dynamic id;
+  String id;
   ArchiveTypes type;
   bool isLiked = false;
 
@@ -57,7 +57,7 @@ class Song implements SongItem
     Song mFromJson;
     try {
       mFromJson = Song(
-      id: (detail['_id'] != null) ? detail['_id'] : '',
+      id: (detail['_id'] != null) ? detail['_id'].toString() : '',
       title: (detail['title'] != null) ? detail['title'] : '',
       artist: (detail['albumartist'] != null) ? detail['albumartist'] : '',
       album: (detail['album'] != null) ? detail['album'] : '',

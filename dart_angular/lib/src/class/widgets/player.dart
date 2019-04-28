@@ -51,6 +51,10 @@ class Player
     // stop when current was ended
     _audio.onEnded.listen((e) 
     {
+      // tracke ended Song
+      if(_userServide.isLogedIn)
+        _userServide.user.traker.playSong(current.id);
+
       if(isLoop) audio.play();
       else playBtn.clicked(false);
     });
@@ -91,7 +95,7 @@ class Player
 
     // define version of Song
     String version = 'demo';
-    if(_userServide.user != null && _userServide.user.subscription.hasSubscription())
+    if(_userServide.isLogedIn && _userServide.user.subscription.hasSubscription())
       version = '96';
 
     // get stream link

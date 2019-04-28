@@ -46,7 +46,7 @@ class Album implements SongItem
       
       album = Album(
         type        : ArchiveTypes.album,
-        id          : (detail['_id'] != null)         ? detail['_id'] : '',
+        id          : (detail['_id'] != null)         ? detail['_id'].toString() : '',
         artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
         name        : (detail['name'] != null)        ? detail['name'] : '',
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',

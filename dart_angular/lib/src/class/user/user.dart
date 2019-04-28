@@ -1,5 +1,6 @@
 import 'permission.dart';
 import 'subscription.dart';
+import 'activity_tracker.dart';
 import '../types.dart';
 
 import 'package:js/js_util.dart' as js;
@@ -11,9 +12,12 @@ import '../../services/stitch_service.dart';
 class User 
 {
   Permission _permission;
+  ActivityTracker traker;
 
   Subscription _subscription;
   Subscription get subscription => _subscription;
+
+
 
   String id;
   dynamic detailId;
@@ -40,6 +44,7 @@ class User
     else if(getDetail) getData();
 
     _subscription = Subscription(id);
+    traker = ActivityTracker(id);
   }
 
   factory User.fromJson(dynamic detail)

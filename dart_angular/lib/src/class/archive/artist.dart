@@ -28,7 +28,7 @@ class Artist implements SongItem
     Artist artist;
     try {
       artist =  Artist(
-        id: (detail['_id'] != null) ? detail['_id'] : '',
+        id: (detail['_id'] != null) ? detail['_id'].toString() : '',
         name: (detail['name'] != null) ? detail['name'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
         thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
