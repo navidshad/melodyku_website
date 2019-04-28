@@ -29,7 +29,7 @@ class Subscription
 			.then((result) 
 			{
 				Map converted = convertToMap(result, SystemSchema.subscription);
-				print('=== user refId $refId');
+				// print('=== user refId $refId');
 				print('=== user subscription $converted');
 				plan = converted['plan'];
 				startsIn = converted['startsIn'];
@@ -53,6 +53,9 @@ class Subscription
 		print('hasSubscription $key');
 		return key;
 	}
+
+	Duration getDurationLeft() =>
+		expiresIn.difference(DateTime.now());
 
 	void _catchError(error) => print(error);
 }

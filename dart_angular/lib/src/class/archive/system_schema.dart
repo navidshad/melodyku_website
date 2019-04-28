@@ -68,10 +68,11 @@ class SystemSchema
 	// user ====================================
 	static List<DbField> userDetail = 
 	[
-		DbField('refId'),
+		DbField('refId', isHide: true,),
+		DbField('permissionId', isHide: true),
 		DbField('fullname'),
-		DbField('email'),
-		DbField('permissionId'),
+		DbField('email', isDisable: true),
+		
 	];
 
 	static List<DbField> subscription = 

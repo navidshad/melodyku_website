@@ -52,7 +52,6 @@ class DbCollectionItemEditorComponent
 
 	bool viewMode = true;
 	bool isUpdating = false;
-	bool hasCover = true;
 	bool createNew= false;
 	
 	@Input()
@@ -61,7 +60,7 @@ class DbCollectionItemEditorComponent
 		op = options;
 
 		if(options.document != null)	setNewEditable(options.document);
-		if(editable == null && options.id != null) getItem();
+		else if(options.id != null) 	getItem();
 
 		if(op.createNew) changeMode(false);
 
@@ -77,10 +76,10 @@ class DbCollectionItemEditorComponent
 	{
 		//await Future.delayed(Duration(seconds:1));
 
-		print('getting item, ${op.id}');
+		print('getting item, ${op.id.toString()}');
 
 		// get by aggregate
-		await promiseToFuture(_stitch.appClient.callFunction('getById', [op.database, op.collection, op.id]))
+		await promiseToFuture(_stitch.appClient.callFunction('getById', [op.database, op.collection, op.id.toString()]))
 		.then((document) 
 		{
 			// List<String> keies = getKeies(document, removes: ['_id']);
@@ -125,7 +124,7 @@ class DbCollectionItemEditorComponent
 
 	void updateItem() async
 	{
-		
+		isUpdating = true;
 
 		// create update query
 		dynamic query = js.jsify({'_id': editable['_id']});
@@ -152,6 +151,7 @@ class DbCollectionItemEditorComponent
 		.catchError(_catchError);
 
 		isUpdating = false;
+		viewMode = true;
 	}
 
 	void removeItem() async

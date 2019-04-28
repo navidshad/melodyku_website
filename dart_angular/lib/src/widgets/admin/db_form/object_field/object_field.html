@@ -5,37 +5,43 @@
 	<tr *ngFor="let field of fields; let i=index; let last=last"
 			[class.bottom_line]="!last">
 		
-		<td class="key"><label>{{field.title}}</label></td>
+		<td *ngIf= "!field.isHide"
+            class="key"><label>{{field.title}}</label></td>
 
         <!-- edit mode -->
-		<td class="value" *ngIf="!viewMode && object != null">
+		<td class="value" *ngIf="!viewMode && object != null && !field.isHide">
 			
-			<!-- text field -->
-			<input 	*ngIf="field.fieldType == FieldType.text"
-					[(ngModel)]="object[field.key]"
-                	class="input-text input-wide" type="text"
-                    [attr.disable]="field.isDisable">
+			<div *ngIf="field.isDisable">
+                <label>{{object[field.key]}}</label>
+            </div>
 
-            <!-- checkbocx field -->
-            <input 	*ngIf="field.fieldType == FieldType.checkbox"
-            		[(ngModel)]="object[field.key]"
-                	class="w3-radio" type="checkbox">
+            <div *ngIf="!field.isDisable">
+                <!-- text field -->
+    			<input 	*ngIf="field.fieldType == FieldType.text"
+    					[(ngModel)]="object[field.key]"
+                    	class="input-text input-wide" type="text"
+                        [attr.disable]="field.isDisable">
 
-            <!-- select field -->
-            <select-field 	*ngIf="field.fieldType == FieldType.select"
-            				[options]="field.subFields"
-            				[field]="object[field.key]"
-            				(onChange)="object[field.key] = $event"></select-field>
+                <!-- checkbocx field -->
+                <input 	*ngIf="field.fieldType == FieldType.checkbox"
+                		[(ngModel)]="object[field.key]"
+                    	class="w3-radio" type="checkbox">
 
-        	<!-- object field -->
-        	<object-field	*ngIf="field.fieldType == FieldType.object"
-            				[options]="field.subFields"
-            				[(object)]="object[field.key]"></object-field>
+                <!-- select field -->
+                <select-field 	*ngIf="field.fieldType == FieldType.select"
+                				[options]="field.subFields"
+                				[field]="object[field.key]"
+                				(onChange)="object[field.key] = $event"></select-field>
 
+            	<!-- object field -->
+            	<object-field	*ngIf="field.fieldType == FieldType.object"
+                				[options]="field.subFields"
+                				[(object)]="object[field.key]"></object-field>
+            </div>
     	</td>
 
         <!-- view mode -->
-        <td *ngIf="viewMode && object != null">
+        <td *ngIf="viewMode && object != null && !field.isHide">
             
             <!-- text field -->
             <lable  *ngIf="field.fieldType == FieldType.text">

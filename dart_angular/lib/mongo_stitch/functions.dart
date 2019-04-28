@@ -12,8 +12,20 @@ class Objectjs {
 	external static List<dynamic> valus(dynamic object);
 }
 
-enum jsTypes {String, Bool, Int, Double, Object, Array}
+@JS('Date')
+class JSDate{
 
+	external factory JSDate(String strDate);
+
+	external int getFullYear();
+	external int getMonth();
+	external int getDate();
+	external int getHours();
+	external int getMinutes();
+}
+
+
+enum jsTypes {String, Bool, Int, Double, Object, Array}
 dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], List<String>stringObjects = const[]})
 {
 	dynamic newObject = {};
@@ -46,7 +58,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 	//_id field
 	try{
 		dynamic id = js.getProperty(jsObject, '_id');
-		if(id != null) newObject['_id'] = id.toString();
+		if(id != null) newObject['_id'] = id;
 	}catch(e){
 		print('_id catch | $e');
 	}
@@ -136,7 +148,8 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			else if(field.dataType == DataType.dateTime)
 			{
 				try{
-					newObject[field.key] = DateTime.parse(value);
+					JSDate jsDate = value;//JSDate(value.toString());
+					newObject[field.key] = jsDateToDateTime(jsDate);
 				}catch(e){
 					print('dateTime field catch | key ${field.key}, value ${value} $e');
 					newObject[field.key] = null;
@@ -249,4 +262,25 @@ dynamic normalize(dynamic object)
 	});
 
 	return normalized;
+}
+
+Map DateTimeToMap(DateTime date)
+{
+	Map detail = {
+		'year'		: date.year,
+		'monthIndex': date.month,
+		'day'		: date.day,
+		'hours'		: date.hour,
+		'minutes'	: date.minute,
+		'seconds'	: date.second,
+		'milliseconds': date.millisecond,
+	};
+
+	return detail;
+}
+
+DateTime jsDateToDateTime(JSDate jsDate)
+{
+	DateTime dateTime = DateTime(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes());
+	return dateTime;
 }

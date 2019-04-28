@@ -3,7 +3,8 @@ import 'package:angular_router/angular_router.dart';
 import 'package:melodyku/mongo_stitch/field.dart';
 export 'package:melodyku/mongo_stitch/field.dart';
 
-class LinkButton {
+class LinkButton 
+{
 	String title;
 	RouteDefinition route;
 	List<String> parameters;
@@ -53,7 +54,7 @@ class CollectionOptions
 	bool hasNavigator = true;
 	bool hasCover = false;
 
-	String id;
+	dynamic id;
 	dynamic document;
 
 	CollectionOptions({

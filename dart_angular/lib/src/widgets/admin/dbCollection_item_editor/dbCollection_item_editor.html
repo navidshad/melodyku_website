@@ -1,4 +1,4 @@
-<div class="widget-container flex-column"
+<div class="widget-container flex-column flex-center"
 	*ngIf="op != null">
 	
 	<div class="w3-row">
@@ -9,11 +9,11 @@
 			</object-field>
 		</div>
 
-		<div class ="w3-third w3-container" *ngIf="hasCover">
+		<div class ="w3-third w3-container" *ngIf="op.hasCover">
 			<cover-item-editor></cover-item-editor>
 		</div>
 			
-	</div>	
+	</div>
 
 	<div class="options flex-row"
 		*ngIf="!op.createNew">

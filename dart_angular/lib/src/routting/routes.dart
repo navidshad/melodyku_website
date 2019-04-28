@@ -28,6 +28,7 @@ import '../pages/p_archive_upload/archive_upload_page.template.dart' as archive_
 import '../pages/p_downloads/downloads_page.template.dart' as downloads_template;
 import '../pages/p_favorites/favorites_page.template.dart' as favorites_template;
 import '../pages/p_history/history_page.template.dart' as history_template;
+import '../pages/p_profile/profile_page.template.dart' as profile_template;
 import '../pages/p_users/users_page.template.dart' as users_template;
 import '../pages/p_subscription/subscription_page.template.dart' as subscription_template;
 
@@ -149,6 +150,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
                       component: history_template.HistoryPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/history.png',
+  ),
+
+  'profile' : PageDefinition(
+    title         : 'profile',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'profile'),
+                      component: profile_template.ProfilePageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
   ),
 
   'downloads' : PageDefinition(

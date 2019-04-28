@@ -96,7 +96,7 @@ class Player
 
     // get stream link
     String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
-    //print('streamLink $streamLink');
+    print('streamLink $streamLink');
     audio.src = streamLink;
 
     play();

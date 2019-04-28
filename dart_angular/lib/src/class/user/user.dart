@@ -16,11 +16,13 @@ class User
   Subscription get subscription => _subscription;
 
   String id;
+  dynamic detailId;
   String permissionId;
   String fullname;
   String email;
 
-  User(this.id, { 
+  User(id, {
+    this.detailId, 
     bool fullAccess= false, 
     bool getDetail=true,
     this.permissionId,
@@ -28,6 +30,8 @@ class User
     this.email
     })
   {
+    this.id = id.toString();
+
     if(fullAccess) 
     {
       _permission = Permission.fullaccess();
@@ -45,6 +49,7 @@ class User
     try{
       p = User(
       detail['refId'].toString(),
+      detailId: detail['_id'],
       permissionId : detail['permissionId'],
       email : detail['email'],
       fullname : detail['fullname']);
@@ -79,6 +84,7 @@ class User
       Map converted = convertToMap(doc, SystemSchema.userDetail);
       print('user detail | $converted');
 
+      detailId = converted['_id'];
       fullname = converted.containsKey('fullname') ? converted['fullname'] : '';
       permissionId = converted['permissionId'];
       email = converted['email'];
@@ -87,7 +93,7 @@ class User
 
 
     // get permission 
-    await promiseToFuture(stitch.appClient.callFunction('getById', ['user', 'permission', permissionId]))
+    await promiseToFuture(stitch.appClient.callFunction('getById', ['cms', 'permission', permissionId]))
     .then((doc) 
     {
       print('user permission | $doc');

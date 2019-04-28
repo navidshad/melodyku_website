@@ -14,7 +14,7 @@ class SubscriptionService
 
 	SubscriptionService(this._stitch, this._userService);
 
-	Future<Map> getTariffById(String id) async
+	Future<Map> getTariffById(dynamic id) async
 	{
 		Map selectedTariff;
 		List<Map> tempList = await getTariffs();
@@ -26,28 +26,30 @@ class SubscriptionService
 		return selectedTariff;
 	}
 
-	void purchaseTariff(String id) async
+	void purchaseTariff(dynamic id) async
 	{
-		String refId = _userService.user.id;
+		String refId = _userService.user.id.toString();
 		Map tariff = await getTariffById(id);
 		if(tariff == null) return;
 
 		int daysDuration = tariff['days'];
 
-		DateTime startsIn = DateTime.now();
-		DateTime expiresIn = DateTime.now().add(Duration(days: daysDuration));
+		DateTime startsIn = DateTime.now().toUtc();
+		DateTime expiresIn = DateTime.now().add(Duration(days: daysDuration)).toUtc();
 
 		dynamic newUserSubscriptionPlane = {
 			'refId'		: refId,
-			'plane'		: tariff['title'],
-			'startsIn'	: startsIn.toString(),
-			'expiresIn'	: expiresIn.toString(),
+			'plan'		: tariff['title'],
+			'startsIn'	: DateTimeToMap(startsIn),
+			'expiresIn'	: DateTimeToMap(expiresIn),
 		};
 
-		// update user SubscriptionService
-		RemoteMongoCollection coll = _stitch.dbClient.db('user').collection('subscription');
+		dynamic doc = js.jsify(newUserSubscriptionPlane);
 		dynamic query = js.jsify({'refId':refId});
-		promiseToFuture(coll.updateOne(query, js.jsify(newUserSubscriptionPlane)))
+		dynamic dateArrayKeys = js.jsify(['startsIn', 'expiresIn']);
+
+		promiseToFuture(_stitch.appClient
+			.callFunction('useCRUDForDatedObject', ['user', 'subscription', 'update', doc, dateArrayKeys, query]))
 			.then((result) 
 			{
 				print('### tariff ${tariff['title']} has been submitted for user.');

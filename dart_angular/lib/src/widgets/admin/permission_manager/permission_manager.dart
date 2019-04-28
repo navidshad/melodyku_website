@@ -20,7 +20,7 @@ class PermissionManagerComponent
 	{
 		options =  CollectionOptions(
       title: 'Manage Permissions',
-      database: 'user',
+      database: 'cms',
       collection: 'permission',
       allowQuery: false,
       allowAdd: true,

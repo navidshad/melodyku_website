@@ -117,6 +117,11 @@ dynamic languageStrings = [
   // pages
   // ========================
   {
+    'name': 'profile',
+    'en'  : 'Profile',
+    'fa'  : 'پروفایل کاربری',
+  },
+  {
     'name': 'vitrin',
     'en'  : 'Vitrin',
     'fa'  : 'ویترین',
@@ -410,5 +415,30 @@ dynamic languageStrings = [
     'name': 'multipleQuality',
     'en'  : 'Multiple Quality',
     'fa'  : 'کیفیت های مختلف',
+  },
+  {
+    'name': 'subscriptionPlan',
+    'en'  : 'Subscription Plan',
+    'fa'  : 'اشتراک فعال',
+  },
+  {
+    'name': 'daysLeft',
+    'en'  : 'Days Left',
+    'fa'  : 'روز های باقی مانده',
+  },
+  {
+    'name': 'listenlastMonth',
+    'en'  : 'listen last Month',
+    'fa'  : 'شنیده شده های این ماه',
+  },
+  {
+    'name': 'likedLastMonth',
+    'en'  : 'liked Last Month',
+    'fa'  : 'لایک شده های این ماه',
+  },
+  {
+    'name': 'youDontHaveSubscriptionYet',
+    'en'  : "You Don't Have any plan Yet.",
+    'fa'  : 'شما هنوز هیچ اشتراک فعالی ندارید.',
   },
 ];
