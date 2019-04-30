@@ -53,7 +53,7 @@ class Player
     {
       // tracke ended Song
       if(_userServide.isLogedIn)
-        _userServide.user.traker.playSong(current.id);
+        _userServide.user.traker.trackSong(current, action: TrackAction.play);
 
       if(isLoop) audio.play();
       else playBtn.clicked(false);

@@ -26,3 +26,6 @@ export '../services/content_provider/mock_Json.dart';
 export './utility/stream_detail.dart';
 
 export 'injector.dart';
+
+// user
+export './user/activity_tracker.dart';

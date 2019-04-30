@@ -53,7 +53,7 @@ class Album implements SongItem
         description : (detail['description'] != null) ? detail['description'] : '',
         thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
         list        : items,
-        );
+      );
     } 
     catch (e) {
       print('convert album from json $detail');

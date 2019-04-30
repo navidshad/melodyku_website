@@ -18,6 +18,9 @@ import '../../services/urls.dart';
 class Song implements SongItem
 {
   String id;
+  String artistId;
+  String albumId;
+
   ArchiveTypes type;
   bool isLiked = false;
 
@@ -33,6 +36,8 @@ class Song implements SongItem
 
   Song({
     this.id,
+    this.artistId,
+    this.albumId,
     this.title, 
     this.artist, 
     this.album, 
@@ -56,16 +61,20 @@ class Song implements SongItem
 
     Song mFromJson;
     try {
+      //print('Song.fromjson $detail');
+
       mFromJson = Song(
-      id: (detail['_id'] != null) ? detail['_id'].toString() : '',
-      title: (detail['title'] != null) ? detail['title'] : '',
-      artist: (detail['albumartist'] != null) ? detail['albumartist'] : '',
-      album: (detail['album'] != null) ? detail['album'] : '',
-      genre: genre_list,
-      lyric: (detail['lyric'] != null) ? detail['lyric'] : '',
-      year: (detail['year']   != null) ? detail['year'] : null,
-      duration: (detail['duration']   != null) ? detail['duration'] : 0,
-      thumbnail: (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
+      id        : (detail['_id'] != null) ? detail['_id'].toString() : '',
+      artistId  : (detail['artistId'] != null) ? detail['artistId'] : '',
+      albumId   : (detail['albumId'] != null) ? detail['albumId'] : '',
+      title     : (detail['title'] != null) ? detail['title'] : '',
+      artist    : (detail['albumartist'] != null) ? detail['albumartist'] : '',
+      album     : (detail['album'] != null) ? detail['album'] : '',
+      genre     : genre_list,
+      lyric     : (detail['lyric'] != null) ? detail['lyric'] : '',
+      year      : (detail['year']   != null) ? detail['year'] : null,
+      duration  : (detail['duration']   != null) ? detail['duration'] : 0,
+      thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
     );
 
     if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
@@ -157,19 +166,22 @@ class Song implements SongItem
   @override
   Future<bool> getLikeStatus() async
   {
-    Requester rq = Injector.get<Requester>();
+    //Requester rq = Injector.get<Requester>();
     UserService userService = Injector.get<UserService>();
 
-    if(!userService.isLogedIn) return false;
+    // if(!userService.isLogedIn) return false;
 
-    dynamic form = {
-      'userid': userService.user.id,
-      'item': id,
-    };
+    // dynamic form = {
+    //   'userid': userService.user.id,
+    //   'item': id,
+    // };
 
-    dynamic result = await rq.post('${link_api_user}/favorite/check', body: form);
-    isLiked = result['liked'];
+    // dynamic result = await rq.post('${link_api_user}/favorite/check', body: form);
+    // isLiked = result['liked'];
 
+    print('begin to get like status of $id');
+    isLiked = await userService.user.traker.getLikeStatus(id, type: type);
+    print('like status of $id $isLiked');
     return isLiked;
   }
 
@@ -177,17 +189,24 @@ class Song implements SongItem
   Future<bool> like() async
   {
     isLiked = !isLiked;
-    Requester rq = Injector.get<Requester>();
+    // Requester rq = Injector.get<Requester>();
+    // UserService userService = Injector.get<UserService>();
+
+    // dynamic form = {
+    //     'userid': userService.user.id,
+    //     'type': 'media',
+    //     'id': id
+    // };
+
+    // dynamic result = await rq.post('${link_archive}/like', body: form);
+    // isLiked = result['liked'];
+
+    // return isLiked;
     UserService userService = Injector.get<UserService>();
 
-    dynamic form = {
-        'userid': userService.user.id,
-        'type': 'media',
-        'id': id
-    };
+    if(!userService.isLogedIn) return false;
 
-    dynamic result = await rq.post('${link_archive}/like', body: form);
-    isLiked = result['liked'];
+    isLiked = await userService.user.traker.trackSong(this, action: TrackAction.like);
 
     return isLiked;
   }

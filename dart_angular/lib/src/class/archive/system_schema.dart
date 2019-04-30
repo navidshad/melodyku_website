@@ -12,6 +12,7 @@ class SystemSchema
 	static List<DbField> album =
 	[
 		DbField('title'),
+		DbField('albumId', isHide:true),
      	DbField('artist', isDisable: true),
       	DbField('description'),
       	DbField('artistId', isDisable: true),
@@ -20,6 +21,8 @@ class SystemSchema
 
 	static List<DbField> song = 
 	[
+		DbField('artistId', isHide:true),
+		DbField('albumId', isHide:true),
 		DbField('title', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('album', isDisable: true),
 		DbField('artist', isDisable: true),
