@@ -45,6 +45,7 @@ class VitrinPage
 
   void getItems() async 
   {
+  
   // get 
   String p_month_id = '5bfd635ccb6db178f4e4b14e';
   Playlist pl_top10_month = await _contentProvider.archive.playlist_getById(p_month_id);
@@ -53,17 +54,14 @@ class VitrinPage
   print('pl_top10_month ${pl_top10_month.list.length}');
 
   // get forYou list
-  String p_forYou_id = '5ba8f3018f5e0509f0b3d1cc';
-  // Playlist pl_for_you = await _contentProvider.archive.playlist_getById(p_forYou_id);
-  // card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
+  //String p_forYou_id = '5ba8f3018f5e0509f0b3d1cc';
+  Playlist pl_for_you = await _contentProvider.stitchArchive.playlist_getRamdom('برای شما');
+  card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
 
-  //print('pl_for_you ${pl_for_you.list.length}');
 
   // get 15 top media of day
-  String p_day_id = '5ba8a5cf31243004332bd45a';
-  // Playlist pl_top15_day = await _contentProvider.archive.playlist_getById(p_day_id);
-  // listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
-
-  // print('pl_top15_day ${pl_top15_day.list.length}');
+  //String p_day_id = '5ba8a5cf31243004332bd45a';
+  Playlist pl_top15_day = await _contentProvider.stitchArchive.playlist_getRamdom('پیشنهاد های امروز');
+  listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
  }
 }

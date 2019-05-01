@@ -56,8 +56,8 @@ class Song implements SongItem
   {
     List<String> genre_list = [];
 
-    if(detail['genre'] != null)
-      detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
+    // if(detail['genre'] != null)
+    //   detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
 
     Song mFromJson;
     try {

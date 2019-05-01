@@ -86,7 +86,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
 
   'playlists' : PageDefinition(
     title         : 'playlists',
-    position      : MenuPosition.mainMenuDrawer,
+    position      : MenuPosition.none,
     permissionType: PermissionType.customer_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'playlists'),

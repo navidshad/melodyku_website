@@ -20,15 +20,17 @@ class Playlist implements SongItem
 
   Playlist({this.id, this.title, this.list, this.thumbnail});
 
-  factory Playlist.fromjson(dynamic detail)
+  factory Playlist.fromjson(Map detail)
   {
     Playlist playlist;
     try {
       List<Song> items = [];
 
-      if(detail['list'] != null)
+      if(detail.containsKey('list'))
       {
-        detail['list'].forEach((item) { 
+        List songMaps = detail['list'];
+
+        songMaps.forEach((item) { 
           Song newSong = Song.fromjson(item);
           items.add(newSong); 
         });
@@ -36,13 +38,13 @@ class Playlist implements SongItem
 
       playlist = Playlist( 
         id: detail['_id'].toString(), 
-        title: detail['name'], 
-        thumbnail: detail['thumbnail'] ?? getRandomCovers(1)[0], 
+        title: detail['title'], 
+        thumbnail: getRandomCovers(1)[0], 
         list: items );
     } 
     catch (e) {
       print('convert playlist from json');
-      print(e);
+      print('$e | $detail[]');
     }
     return playlist;
   }

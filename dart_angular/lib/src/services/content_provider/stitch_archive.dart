@@ -128,7 +128,7 @@ class StitchArchive
       _stitch.appClient.callFunction('getFromMediaByCustomQuery', ['song', total, page, query]));
 
     if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.album);
+      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.song);
 
     return albumListNavigator;
   }
@@ -143,9 +143,47 @@ class StitchArchive
       _stitch.appClient.callFunction('getFromMediaByCustomQuery', ['song', total, page, query]));
 
     if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.album);
+      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.song);
 
     return albumListNavigator;
+  }
+
+  Future<Playlist> playlist_getRamdom(String title, {int total=15}) async
+  {
+    Playlist playlist;
+
+    dynamic pipeline = js.jsify([
+        {
+          '\$sample': { 'size': total }
+        }
+      ]);
+
+    Map result = await promiseToFuture(
+        _mediaDB.collection('song').aggregate(pipeline).asArray())
+        .then((dynamic songs) 
+        {
+          Map playlistDetail = {
+            'title': title, 
+            'list': [],
+          };
+
+          List list = [];
+          for(int i=0; i < songs.length; i++)
+          {
+            dynamic stitchSong = songs[i];
+            Map mapSong = convertToMap(stitchSong, SystemSchema.song);
+            
+            //Song sognObject = Song.fromjson(mapSong);
+            list.add(mapSong);
+          }
+
+          playlistDetail['list'] = list;
+          return playlistDetail;
+        })
+        .catchError((error) {});
+
+    playlist = Playlist.fromjson(result);
+    return playlist;
   }
 
   // playlist ---------------------------------------------
