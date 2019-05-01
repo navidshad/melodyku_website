@@ -1,8 +1,7 @@
 import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/src/class/archive/system_schema.dart';
-import 'package:melodyku/src/services/stitch_service.dart';
-import 'package:melodyku/src/class/injector.dart';
+import 'package:melodyku/src/services/services.dart';
 
 class Subscription 
 {
@@ -42,12 +41,19 @@ class Subscription
 	{
 		bool key = false;
 
+		// check plan duration
 		if(expiresIn != null)
 		{
 			int difference = DateTime.now().difference(expiresIn).inMinutes;
 			print('=== difference $difference');
 			// future is less than now
 			if(difference < 0) key = true;
+		}
+		// check dailly limitation
+		else {
+			UserService userService = Injector.get<UserService>();
+			int todayPlayCount = userService.user.traker.todayPlayCount;
+			if(todayPlayCount <= 3) key = true;
 		}
 
 		print('hasSubscription $key');

@@ -85,4 +85,11 @@ class SystemSchema
 		DbField('startsIn', dataType: DataType.dateTime),
 		DbField('expiresIn', dataType: DataType.dateTime),
 	];
+
+	static List<DbField> trackedSong = 
+	[
+		DbField('refId'),
+		DbField('songId'),
+		DbField('artistId', dataType: DataType.dateTime),
+	]; 
 }

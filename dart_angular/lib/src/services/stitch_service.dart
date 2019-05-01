@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html';
+import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/mongo_stitch/app_client.dart';
 export 'package:melodyku/mongo_stitch/mongo_stitch.dart';
@@ -23,6 +24,7 @@ class StitchService
     loginAnonymouse();
   }
 
+  // auth methods ===============================
   Future<void> loginAnonymouse()
   {
     if(appClient.auth.user != null) return null;

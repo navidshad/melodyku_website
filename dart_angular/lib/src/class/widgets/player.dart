@@ -51,9 +51,9 @@ class Player
     // stop when current was ended
     _audio.onEnded.listen((e) 
     {
-      // tracke ended Song
+      // tracke played Song
       if(_userServide.isLogedIn)
-        _userServide.user.traker.trackSong(current, action: TrackAction.play);
+        _userServide.user.traker.reportPlayedSong(current);
 
       if(isLoop) audio.play();
       else playBtn.clicked(false);

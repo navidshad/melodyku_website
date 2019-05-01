@@ -6,6 +6,9 @@ import 'package:js/js_util.dart' as js;
 
 import 'field.dart';
 
+// import 'date_time.dart';
+// export 'date_time.dart';
+
 @JS('Object')
 class Objectjs {
 	external static List<String> keys(dynamic object);
@@ -15,13 +18,14 @@ class Objectjs {
 @JS('Date')
 class JSDate{
 
-	external factory JSDate(String strDate);
+	external factory JSDate(int year, int monthIndex, [int day, int hours, int minutes, int seconds]);
 
 	external int getFullYear();
 	external int getMonth();
 	external int getDate();
 	external int getHours();
 	external int getMinutes();
+	external int getSeconds();
 }
 
 
@@ -148,7 +152,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			else if(field.dataType == DataType.dateTime)
 			{
 				try{
-					JSDate jsDate = value;//JSDate(value.toString());
+					JSDate jsDate = value; //JSDate(value.toString());
 					newObject[field.key] = jsDateToDateTime(jsDate);
 				}catch(e){
 					print('dateTime field catch | key ${field.key}, value ${value} $e');
@@ -283,4 +287,12 @@ DateTime jsDateToDateTime(JSDate jsDate)
 {
 	DateTime dateTime = DateTime(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes());
 	return dateTime;
+}
+
+JSDate dateTimeToJSDate(DateTime date)
+{
+	date = date.toUtc();
+	JSDate jsDate = JSDate(date.year, date.month, date.day, date.hour, date.minute, date.second);
+	//print('jsDate ${jsDate.toString()}');
+	return jsDate;
 }

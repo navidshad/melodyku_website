@@ -179,9 +179,7 @@ class Song implements SongItem
     // dynamic result = await rq.post('${link_api_user}/favorite/check', body: form);
     // isLiked = result['liked'];
 
-    print('begin to get like status of $id');
     isLiked = await userService.user.traker.getLikeStatus(id, type: type);
-    print('like status of $id $isLiked');
     return isLiked;
   }
 
@@ -206,7 +204,7 @@ class Song implements SongItem
 
     if(!userService.isLogedIn) return false;
 
-    isLiked = await userService.user.traker.trackSong(this, action: TrackAction.like);
+    isLiked = await userService.user.traker.reportLikedSong(this);
 
     return isLiked;
   }

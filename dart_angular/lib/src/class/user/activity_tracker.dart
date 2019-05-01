@@ -9,6 +9,7 @@ enum TrackAction {play, like}
 class ActivityTracker 
 {
 	StitchService _stitch;
+	RemoteMongoDatabase _userDB;
 	String _userId;
 
 	int _todayPlayCount = 0;
@@ -17,49 +18,71 @@ class ActivityTracker
 	ActivityTracker(this._userId)
 	{
 		_stitch = Injector.get<StitchService>();
+		_userDB = _stitch.dbClient.db('user');
+
+		_getTodayCount();
 	}
 
-	Future<bool> trackSong(Song song, {TrackAction action}) async 
+	Future<void> reportPlayedSong(Song song) async
 	{
-		String collName;
+		String collName = 'song_history';
 
-		if(action == TrackAction.like) 			collName = 'song_favorite';
-		else if (action == TrackAction.play) 	collName = 'song_history';
+		Map recentDoc = {
+			'date' 		: dateTimeToJSDate(DateTime.now()),
+			'songId'	: song.id,
+			'artistId'	: song.artistId,
+			'refId'		: _userId,
+		};
 
+		dynamic doc = js.jsify(recentDoc);
+
+		await promiseToFuture(_userDB.collection(collName).insertOne(doc))
+		.then((result) 
+		{
+			print('a played song has been reported $result');
+			_todayPlayCount++;
+		});
+	}
+
+	Future<bool> reportLikedSong(Song song) async 
+	{
+		String collName = 'song_favorite';
 		bool isTracked = false;
 
 		// check if already added
 		dynamic query = js.jsify({ 'songId': song.id, 'refId': _userId });
 		//print('=== check if already added');
-		int count = await promiseToFuture(_stitch.dbClient.db('user').collection(collName).count(query));
+		int count = await promiseToFuture(_userDB.collection(collName).count(query));
 
-		// added new doc
+		// like
 		if(count == 0)
 		{
 			//print('=== begin to added new doc');
 			Map recentDoc = {
-				'date' 		: DateTimeToMap(DateTime.now().toUtc()),
+				'date' 		: dateTimeToJSDate(DateTime.now()),
 				'songId'	: song.id,
 				'artistId'	: song.artistId,
 				'refId'		: _userId,
 			};
 
 			dynamic doc = js.jsify(recentDoc);
-			dynamic dateArrayKeys = js.jsify(['date']);	
 
-			await promiseToFuture(
-				_stitch.appClient
-					.callFunction('useCRUDForDatedObject', ['user', collName, 'insert', doc, dateArrayKeys])
-			).then((result) {
-				//print('a song has been tracked ${action.toString()}');
+			await promiseToFuture(_userDB.collection(collName).insertOne(doc))
+			.then((result) {
+				print('a song has been liked');
 				isTracked = true;
 			});
 		}
-		else isTracked = true;
 
-		// increase todayPlayCount
-		if(isTracked && action == TrackAction.play)
-			_todayPlayCount++;
+		// unlike
+		else {
+			await promiseToFuture(_userDB.collection(collName).deleteOne(query))
+			.then((result) {
+				isTracked = false;
+				print('a played song has been unliked');
+			})
+			.catchError((error) => isTracked = true);
+		}
 
 		//print('=== tracked song ${song.id} $isTracked');
 		return isTracked;
@@ -73,7 +96,7 @@ class ActivityTracker
 		if(type == ArchiveTypes.media) 
 			collName = 'song_favorite';
 
-		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection(collName);
+		RemoteMongoCollection collection = _userDB.collection(collName);
 
 		dynamic query = js.jsify({
 				'songId': id,
@@ -87,5 +110,32 @@ class ActivityTracker
 		if(count > 0) result = true; 
 
 		return result;
+	}
+
+	Future<int> _getTodayCount() async
+	{
+		print('=== _getTodayCount');
+
+		DateTime from = DateTime.now();
+		from = from.subtract(Duration(hours: from.hour, minutes: from.minute, seconds: from.second));
+
+		dynamic pipeline = js.jsify([
+			{
+				'\$match': {
+					'date': {
+						'\$gte'	: dateTimeToJSDate(from),
+					}
+				}
+			},
+		]);
+
+		await promiseToFuture(_userDB.collection('song_history').aggregate(pipeline).asArray())
+		.then((list) 
+		{
+			_todayPlayCount = list.length; 
+			print('=== _getTodayCount ${_todayPlayCount}');
+		}).catchError((error) {
+			print('=== _getTodayCount $error');
+		});
 	}
 }
