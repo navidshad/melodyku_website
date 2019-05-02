@@ -76,8 +76,7 @@ class StitchArchive
   {
     ResultWithNavigator<Artist> artistListNavigator;
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getAllFromMedia', ['artist', total, page, alphabet]));
+    var result = await _stitch.getAllFromMedia('artist', total, page, alphabet);
 
     if(result != null) 
       artistListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.artist);
@@ -93,8 +92,7 @@ class StitchArchive
 
     dynamic query = js.jsify({'artistId': artistId});
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getFromMediaByCustomQuery', ['album', total, page, query]));
+    var result = await _stitch.getFromMediaByCustomQuery('album', total, page, query);
 
     if(result != null) 
       albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.album);

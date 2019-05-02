@@ -3,11 +3,12 @@ import '../types.dart';
 class Language
 {
   String name;
+  String code;
   String flag;
   Direction direction;
-  dynamic _strings;
+  Map strings;
 
-  Language(this.name, this.flag, this.direction, this._strings);
+  Language({this.code, this.name, this.flag, this.direction, this.strings});
 
   // ask a string
   String getStr(String str)
@@ -15,7 +16,7 @@ class Language
     String string  = '$name-$str';
 
     try {
-      string = _strings[str];
+      string = strings[str];
     } catch (e) {
       print('the $name dosent found');
     }

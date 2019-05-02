@@ -10,6 +10,7 @@ import '../../class/widgets/card.dart';
 
 import '../../widgets/grid_component/grid_component.dart';
 import '../../widgets/slider_rect_component/slider_rect_component.dart';
+import 'package:melodyku/src/widgets/artists_explorer_component/artists_explorer_component.dart';
 
 @Component(
   selector: 'page',
@@ -19,6 +20,7 @@ import '../../widgets/slider_rect_component/slider_rect_component.dart';
     coreDirectives,
     GridComponent,
     SliderRectComponent,
+    ArtistsExplorerComponent,
   ]
   )
 class ArtistsPage 

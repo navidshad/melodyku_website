@@ -80,8 +80,6 @@ class Artist implements SongItem
   T getAsWidget<T>({int itemNumber=1}) {
     T widget;
 
-    Uri thumbnail = Uri(path: getRandomCovers(1)[0]);
-
     Map<String, String> params = {'id':id.toString()};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
 
@@ -89,7 +87,7 @@ class Artist implements SongItem
     {
       widget = Card( name,
           id: id,
-          thumbnail: thumbnail,
+          thumbnail: Uri(path: this.thumbnail),
           titleLink: link,
           type: ArchiveTypes.artist,
           origin: this
@@ -102,7 +100,7 @@ class Artist implements SongItem
           id: id,
           duration: '',
           number: digititemNumber,
-          thumbnail: thumbnail,
+          thumbnail: Uri(path: this.thumbnail),
           titleLink: link,
           type: ArchiveTypes.artist,
           origin: this

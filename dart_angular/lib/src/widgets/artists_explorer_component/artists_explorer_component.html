@@ -1,0 +1,23 @@
+<div class="widget-container">
+	
+	<div class="characters flex-row">
+
+		<div *ngFor="let char of getCharacters()"
+			 (click)="selectChar(char)"
+			 class="character button {{selected == char ? 'selectedChar' : ''}}">
+				<span>{{char.toUpperCase()}}</span>
+			</div>
+	</div>
+
+	<grid-rect
+		[masonry]	="false"
+		[exploreBtn]="true"
+		[playBtn]	="false"
+		[items]		="artistCards">
+		</grid-rect>
+
+	<div class="load-more" *ngIf="couldLoadMore">
+		<div class="btn-sl" (click)="loadNextPage()">more</div>
+	</div>
+
+</div>

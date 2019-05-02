@@ -195,4 +195,15 @@ class StitchService
       return result;
     });
   }
+
+  // stitch functions
+  Future getFromMediaByCustomQuery(String collection, int total, int page, Map customQuery)
+  {
+    dynamic query = js.jsify(customQuery);
+    return promiseToFuture(appClient
+      .callFunction('getFromMediaByCustomQuery', [collection, total, page, query]));
+  }
+
+  Future getAllFromMedia(String collection, int total, int page, String word) =>
+    promiseToFuture(appClient.callFunction('getAllFromMedia', [collection, total, page, word]));
 }

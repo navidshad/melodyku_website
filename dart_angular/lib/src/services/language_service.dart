@@ -37,6 +37,9 @@ class LanguageService
   String getName() =>
     _languageList[_current].name;
 
+  String getCode() =>
+    _languageList[_current].code;
+
   // prepration =================================
   void prepareLanguages()
   {
@@ -50,7 +53,14 @@ class LanguageService
       dynamic strings = extractStringsByCode(ld['code']);
 
       // create lang
-      Language language = Language(ld['name'], ld['flag'], ld['direction'], strings);
+      Language language = Language(
+          code: ld['code'],
+          name: ld['name'], 
+          flag: ld['flag'], 
+          direction: ld['direction'], 
+          strings: strings
+        );
+
       _languageList.add(language);
 
       // get current
