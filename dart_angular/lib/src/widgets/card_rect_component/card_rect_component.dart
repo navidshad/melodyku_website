@@ -1,8 +1,9 @@
 import 'package:angular/angular.dart';
 import '../../class/classes.dart';
 import '../../services/services.dart';
-import '../../services/user_service.dart';
-import '../like_component/like_component.dart';
+
+import 'package:melodyku/src/widgets/like_component/like_component.dart';
+import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 
 @Component(
   selector: 'card-rect',
@@ -12,10 +13,12 @@ import '../like_component/like_component.dart';
     coreDirectives, 
     //ItemMenuComponent
     LikeComponent,
+    MediaCoverComponent,
   ],
 )
 class CardRectComponent
 {
+  Player _player;
   UserService _userService;
   PlayerService _playerService;
 
@@ -28,7 +31,22 @@ class CardRectComponent
   @Input()
   bool playBtn;
 
-  CardRectComponent(this._playerService, this._userService);
+  @Input()
+  int number;
+
+  @Input()
+  bool couldliked;
+
+  int hoverIndex = -1;
+
+  int get selectedIndex {
+    if(_player.current?.id == card.id)
+      return number;
+    else return -1;
+    //return -1;
+  }
+
+  CardRectComponent(this._playerService, this._player, this._userService);
 
   void play()
   {
@@ -42,6 +60,11 @@ class CardRectComponent
 
   bool get isLogedIn => _userService.isLogedIn;
 
-  bool getPlayAccess() => playBtn ?? true;
-  bool getExploreAccess() => exploreBtn ?? false;
+  // bool getPlayAccess() => playBtn ?? true;
+  // bool getExploreAccess() => exploreBtn ?? false;
+
+  // when mose go into
+  void onmouseenter(int i) => hoverIndex = i;
+  // when mose go out from
+  void onmouseleave() => hoverIndex = -1;
 }

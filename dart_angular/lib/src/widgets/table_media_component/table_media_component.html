@@ -16,13 +16,13 @@
         (mouseleave)="onmouseleave()">
 
         <div class='cell index'>
-            <cover-small 
+            <media-cover 
                 [lable]="(i+1).toString()"
                 [id]="song.id"
                 [number]="i"
                 [selectedIndex]="selectedNumber"
                 [hoverIndex]="hoverNumber">
-            </cover-small>
+            </media-cover>
         </div>
 
         <div class='cell'>{{song.title}}</div>

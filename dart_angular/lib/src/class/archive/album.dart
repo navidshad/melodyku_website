@@ -20,12 +20,12 @@ class Album implements SongItem
 
   List<Song> list;
 
-  String name;
+  String title;
   String artist;
   String description;
   String thumbnail;
 
-  Album({this.id, this.artistId, this.type, this.name, this.artist, 
+  Album({this.id, this.artistId, this.type, this.title, this.artist, 
     this.list, this.description, this.thumbnail})
   {
     if(list.length == 0) getSongs();
@@ -48,7 +48,7 @@ class Album implements SongItem
         type        : ArchiveTypes.album,
         id          : (detail['_id'] != null)         ? detail['_id'].toString() : '',
         artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
-        name        : (detail['name'] != null)        ? detail['name'] : '',
+        title        : (detail['title'] != null)        ? detail['title'] : '',
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
         thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
@@ -65,7 +65,6 @@ class Album implements SongItem
 
   void getSongs() async
   {
-    print('album getSongs');
     ContentProvider cp = CI.Injector.get<ContentProvider>();
     ResultWithNavigator<Song> rwn = await cp.stitchArchive.song_getListByAlbum(id);
     list = rwn.list;
@@ -74,7 +73,7 @@ class Album implements SongItem
   dynamic toDynamic()
   {
     return {
-      'name'   : name,
+      'title'   : title,
       'artist' : artist,
       'description' : description,
       'thumbnail'   : thumbnail,
@@ -92,34 +91,30 @@ class Album implements SongItem
     Map<String, String> params = {'id':id.toString()};
     String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
 
-    print('id $id');
-    print('origin $this');
-    print('subtitle $id');
-    print('titleLink $artist');
-    print('titleLink $link');
-
     if(T == Card)
     {
-      widget = Card( name,
+      widget = Card(
+        artist,
+        subtitle: title,
         id: id,
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.album,
         origin: this,
-        subtitle: artist,
         titleLink: link,
       ) as T;
     }
     else if (T == ListItem)
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
-      widget = ListItem(name,
+      widget = ListItem(
+        artist,
+        subtitle: title,
         id: id,
         duration: '',
         number: digititemNumber,
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.album,
         origin: this,
-        subtitle: artist,
         titleLink: link,
       ) as T;
     }
@@ -142,22 +137,26 @@ class Album implements SongItem
 
       if(T == Card)
       {
-        widget = Card<Song>( item.title,
-            id: item.id,
-            thumbnail: Uri(path: item.thumbnail),
-            type: ArchiveTypes.media,
-            origin: item
+        widget = Card<Song>( 
+          item.title,
+          subtitle: item.artist,
+          id: item.id,
+          thumbnail: Uri(path: item.thumbnail),
+          type: ArchiveTypes.media,
+          origin: item
         ) as T;
       }
       else if (T == ListItem)
       {
-        widget = ListItem<Song>(item.title,
-            id: item.id,
-            duration: item.getDuration(),
-            number: itemNumber,
-            thumbnail: Uri(path: item.thumbnail),
-            type: ArchiveTypes.media,
-            origin: item
+        widget = ListItem<Song>(
+          item.title,
+          subtitle: item.artist,
+          id: item.id,
+          duration: item.getDuration(),
+          number: itemNumber,
+          thumbnail: Uri(path: item.thumbnail),
+          type: ArchiveTypes.media,
+          origin: item
         ) as T;
       }
 

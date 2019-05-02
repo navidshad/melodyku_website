@@ -100,6 +100,7 @@ class ArtistsExplorerComponent
 			{
 				Map map = convertToMap(doc, SystemSchema.artist);
 				Artist artist = Artist.fromjson(map);
+				//print(artist.toDynamic());
 				artistCards.add(artist.getAsWidget<Card>());
 			});
 

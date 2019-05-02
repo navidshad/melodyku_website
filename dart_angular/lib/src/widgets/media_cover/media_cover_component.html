@@ -1,9 +1,9 @@
-<div class="cover">
+<div class="cover flex-column flex-center {{isBig != null && isBig ? 'big' : 'small'}}">
 
     <img class="background" *ngIf="thumbnail != null" src="{{thumbnail ?? ''}}">
 
-    <span class="backElement"
-        *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</span>
+    <div class="backElement"
+        *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
 
     <div class="overlay
         {{(thumbnail != null) ? 'blueback' : ''}}

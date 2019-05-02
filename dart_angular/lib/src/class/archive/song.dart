@@ -68,7 +68,7 @@ class Song implements SongItem
       artistId  : (detail['artistId'] != null) ? detail['artistId'] : '',
       albumId   : (detail['albumId'] != null) ? detail['albumId'] : '',
       title     : (detail['title'] != null) ? detail['title'] : '',
-      artist    : (detail['albumartist'] != null) ? detail['albumartist'] : '',
+      artist    : (detail['artist'] != null) ? detail['artist'] : '',
       album     : (detail['album'] != null) ? detail['album'] : '',
       genre     : genre_list,
       lyric     : (detail['lyric'] != null) ? detail['lyric'] : '',
@@ -92,7 +92,7 @@ class Song implements SongItem
     return {
       '_id'         : id,
       'title'       : title,
-      'albumartist' : artist,
+      'artist'      : artist,
       'album'       : album,
       'year'        : year,
       'genre'       : genre,
@@ -130,8 +130,8 @@ class Song implements SongItem
     if(T == Card)
     {
       widget = Card( 
-        title,
-        subtitle: artist,
+        artist,
+        subtitle: title,
         id: id,
         thumbnail: Uri(path: thumbnail),
         type: ArchiveTypes.media,
@@ -143,8 +143,8 @@ class Song implements SongItem
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
-        title,
-        subtitle: artist,
+        artist,
+        subtitle: title,
         id: id,
         duration: getDuration(),
         number: digititemNumber,

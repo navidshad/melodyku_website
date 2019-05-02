@@ -5,18 +5,15 @@ import '../../services/services.dart';
 import '../../class/archive/song.dart';
 
 @Component(
-  selector: 'cover-small',
-  templateUrl: 'cover_small_component.html',
-  styleUrls: [ 'cover_small_component.scss.css' ],
+  selector: 'media-cover',
+  templateUrl: 'media_cover_component.html',
+  styleUrls: [ 'media_cover_component.scss.css' ],
   directives: [
     coreDirectives,
   ]
 )
-class CoverSmallComponent 
+class MediaCoverComponent 
 {
-  @Input()
-  String id;
-
   @Input()
   String lable;
   
@@ -40,6 +37,9 @@ class CoverSmallComponent
 
   @Input()
   bool playBtn;
+
+  @Input()
+  bool isBig;
 
   bool getPlayAccess() => playBtn ?? true;
   bool getExploreAccess() => exploreBtn ?? false;

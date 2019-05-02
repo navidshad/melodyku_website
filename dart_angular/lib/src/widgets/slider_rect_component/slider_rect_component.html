@@ -7,10 +7,12 @@
 
     <div class='thumbs' id="thumbs" 
     extractor (onExtract)="getSliderElement($event)">
-        <card-rect class="item" *ngFor="let item of items" 
+        <card-rect class="item" *ngFor="let item of items; let i=index" 
             [card]="item"
+            [number]='i'
             [exploreBtn]="exploreBtn"
-            [playBtn]="playBtn">
+            [playBtn]="playBtn"
+            [couldliked]="couldliked">
         </card-rect>
     </div>
 

@@ -33,6 +33,9 @@ class SliderRectComponent
   @Input()
   bool playBtn;
 
+  @Input()
+  bool couldliked;
+
   void next() 
   {
     //move += itemSize;

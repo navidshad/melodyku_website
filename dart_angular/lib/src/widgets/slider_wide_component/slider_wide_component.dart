@@ -22,6 +22,9 @@ class sliderWideComponent
   @Input()
   List<Card> items;
 
+  @Input()
+  bool couldliked;
+
   void next() => move += itemSize;
   void prev() => move -= itemSize;
   String moveSlider() => "translateX(${move}px)";

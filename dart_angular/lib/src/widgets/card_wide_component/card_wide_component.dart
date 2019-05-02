@@ -3,8 +3,8 @@ import 'package:angular/angular.dart';
 import '../../class/classes.dart';
 import '../../services/services.dart';
 
-import '../like_component/like_component.dart';
-import '../cover_small/cover_small_component.dart';
+import 'package:melodyku/src/widgets/like_component/like_component.dart';
+import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 
 @Component(
   selector: 'card-wide',
@@ -13,8 +13,8 @@ import '../cover_small/cover_small_component.dart';
   directives: [
     coreDirectives,
     LikeComponent,
-    CoverSmallComponent,
-    ]
+    MediaCoverComponent,
+  ]
 )
 class CardWideComponent 
 {

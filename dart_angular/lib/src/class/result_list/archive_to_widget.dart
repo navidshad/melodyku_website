@@ -33,7 +33,7 @@ class ArchiveToWidget
           Album item = list[i] as Album;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
-            Card( item.name, 
+            Card( item.title, 
                   id: item.id,
                   thumbnail: Uri(path: item.thumbnail),
                   type: ArchiveTypes.album,
@@ -105,7 +105,7 @@ class ArchiveToWidget
           Album item = list[i] as Album;
           item.thumbnail = getRandomCovers(1)[0];
           tempList.add(
-            ListItem( item.name, 
+            ListItem( item.title, 
                   id: item.id,
                   number: itemNumber,
                   thumbnail: Uri(path: item.thumbnail),

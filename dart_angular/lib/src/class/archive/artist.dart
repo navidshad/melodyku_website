@@ -85,25 +85,27 @@ class Artist implements SongItem
 
     if(T == Card)
     {
-      widget = Card( name,
-          id: id,
-          thumbnail: Uri(path: this.thumbnail),
-          titleLink: link,
-          type: ArchiveTypes.artist,
-          origin: this
+      widget = Card( 
+        name,
+        id: id,
+        thumbnail: Uri(path: this.thumbnail),
+        titleLink: link,
+        type: ArchiveTypes.artist,
+        origin: this
       ) as T;
     }
     else if (T == ListItem)
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
-      widget = ListItem(name,
-          id: id,
-          duration: '',
-          number: digititemNumber,
-          thumbnail: Uri(path: this.thumbnail),
-          titleLink: link,
-          type: ArchiveTypes.artist,
-          origin: this
+      widget = ListItem(
+        name,
+        id: id,
+        duration: '',
+        number: digititemNumber,
+        thumbnail: Uri(path: this.thumbnail),
+        titleLink: link,
+        type: ArchiveTypes.artist,
+        origin: this
       ) as T;
     }
 

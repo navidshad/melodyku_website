@@ -28,4 +28,7 @@ class GridComponent
 
   @Input()
   bool playBtn;
+
+  @Input()
+  bool couldliked;
 }

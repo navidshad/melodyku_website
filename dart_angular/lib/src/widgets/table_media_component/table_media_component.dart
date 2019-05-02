@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
 import '../../services/services.dart';
 import '../../services/language_service.dart';
 
-import '../cover_small/cover_small_component.dart';
+import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 import '../../class/classes.dart';
 
 @Component(
@@ -13,7 +13,7 @@ import '../../class/classes.dart';
   styleUrls: ['table_media_component.scss.css'],
   directives: [
     coreDirectives,
-    CoverSmallComponent,
+    MediaCoverComponent,
   ]
 )
 class TableSong
@@ -45,10 +45,7 @@ class TableSong
   }
 
   // when mose go into
-  void onmouseenter(int i) {
-    print('onmouseenter');
-    hoverNumber = i;
-  }
+  void onmouseenter(int i) => hoverNumber = i;
   // when mose go out from
   void onmouseleave() => hoverNumber = -1;
 }

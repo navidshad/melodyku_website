@@ -10,16 +10,15 @@
             <div *ngIf="numerical" class="number">{{item.number}}</div>
     
             <div class="cover-container">
-                <cover-small 
+                <media-cover 
                     [thumbnail]="item.thumbnail.toString()"
                     [titleLink]="item.titleLink.toString()"
-                    [id]="item.id"
                     [number]="number"
                     [selectedIndex]="selectedIndex"
                     [hoverIndex]="hoverIndex"
                     [exploreBtn]="exploreBtn"
                     [playBtn]="playBtn">
-                </cover-small>
+                </media-cover>
             </div>
         
             <div class="titles">

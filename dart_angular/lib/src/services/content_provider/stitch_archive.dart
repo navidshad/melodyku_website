@@ -72,78 +72,63 @@ class StitchArchive
   }
 
   // artist -----------------------------------------------
-  Future<ResultWithNavigator<Artist>> artist_getList(int page, {int total=15, String alphabet}) async
+  Future<ResultWithNavigator<Artist>> artist_getList(int page, {int total=15}) async
   {
-    ResultWithNavigator<Artist> artistListNavigator;
+    ResultWithNavigator navigator = ResultWithNavigator<Artist>(perPage: total);
 
-    var result = await _stitch.getAllFromMedia('artist', total, page, alphabet);
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
 
-    if(result != null) 
-      artistListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.artist);
-    else _handleError('artist_getList result null');
-
-    return artistListNavigator;
+    return navigator;
   }
 
   // album ------------------------------------------------
   Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
-    ResultWithNavigator<Album> albumListNavigator;
+    print('album_getListByArtist begin to get');
+    Map query = {'artistId': artistId};
 
-    dynamic query = js.jsify({'artistId': artistId});
+    ResultWithNavigator navigator = ResultWithNavigator<Album>(customQuery: query, perPage: total);
 
-    var result = await _stitch.getFromMediaByCustomQuery('album', total, page, query);
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
 
-    if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.album);
-    else _handleError('album_getListByArtist result null | $artistId');
-
-    return albumListNavigator;
+    return navigator;
   }
 
-  Future<ResultWithNavigator<Album>> album_getList(int page, {int total=15, String alphabet}) async
+  Future<ResultWithNavigator<Album>> album_getList(int page, {int total=15}) async
   {
-    ResultWithNavigator<Album> albumListNavigator;
+    ResultWithNavigator navigator = ResultWithNavigator<Album>(perPage: total);
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getAllFromMedia', ['album', total, page, alphabet]));
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
 
-    if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.album);
-    else _handleError('album_getList result null');
-
-    return albumListNavigator;
+    return navigator;
   }
 
   // song ------------------------------------------------
   Future<ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
-    ResultWithNavigator<Song> albumListNavigator;
+    Map query = {'artistId': artistId};
 
-    dynamic query = js.jsify({'artistId': artistId});
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getFromMediaByCustomQuery', ['song', total, page, query]));
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
 
-    if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.song);
-
-    return albumListNavigator;
+    return navigator;
   }
 
   Future<ResultWithNavigator<Song>> song_getListByAlbum(String albumId, {int page=1, int total=15}) async
   {
-    ResultWithNavigator<Song> albumListNavigator;
+    Map query = {'albumId': albumId};
 
-    dynamic query = js.jsify({'albumId': albumId});
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getFromMediaByCustomQuery', ['song', total, page, query]));
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
 
-    if(result != null) 
-      albumListNavigator = ResultWithNavigator.fromMongoStitchResult(result, SystemSchema.song);
-
-    return albumListNavigator;
+    return navigator;
   }
 
   Future<Playlist> playlist_getRamdom(String title, {int total=15}) async
