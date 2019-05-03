@@ -6,7 +6,7 @@ import 'package:melodyku/src/widgets/card_tariff_component/card_tariff_component
 @Component(
 	selector: 'subscription_plans',
 	templateUrl: 'subscription_plans_component.html',
-	styleUrls: ['subscription_plans_component.scss.css'],
+	styleUrls: ['subscription_plans_component.css'],
 	directives: [
 		coreDirectives,
 		CardTariffComponent,

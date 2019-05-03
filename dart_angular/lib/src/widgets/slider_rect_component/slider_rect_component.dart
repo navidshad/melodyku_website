@@ -8,7 +8,7 @@ import '../../directives/directives.dart';
 @Component(
   selector: 'slider-rect',
   templateUrl: 'slider_rect_component.html',
-  styleUrls: [ 'slider_rect_component.scss.css' ],
+  styleUrls: [ 'slider_rect_component.css' ],
   directives: [ 
     coreDirectives,
     CardRectComponent,

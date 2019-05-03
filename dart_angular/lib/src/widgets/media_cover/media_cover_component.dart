@@ -7,7 +7,7 @@ import '../../class/archive/song.dart';
 @Component(
   selector: 'media-cover',
   templateUrl: 'media_cover_component.html',
-  styleUrls: [ 'media_cover_component.scss.css' ],
+  styleUrls: [ 'media_cover_component.css' ],
   directives: [
     coreDirectives,
   ]

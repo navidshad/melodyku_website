@@ -6,7 +6,7 @@ import '../../class/page/page.dart';
 @Component(
   selector: 'page',
   templateUrl: 'downloads_page.html',
-  styleUrls: [ 'downloads_page.scss.css' ],
+  styleUrls: [ 'downloads_page.css' ],
   )
 class DownloadsPage 
 {

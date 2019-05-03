@@ -15,7 +15,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 @Component(
 	selector: 'medai-lang-settings',
 	templateUrl: 'media_language_settings.html',
-	styleUrls: ['media_language_settings.scss.css'],
+	styleUrls: ['media_language_settings.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,

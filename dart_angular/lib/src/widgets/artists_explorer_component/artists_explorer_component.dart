@@ -10,7 +10,7 @@ import 'characters.dart';
 @Component(
 	selector: 'artist-explorer',
 	templateUrl: 'artists_explorer_component.html',
-	styleUrls: ['artists_explorer_component.scss.css'],
+	styleUrls: ['artists_explorer_component.css'],
 	directives: [
 		coreDirectives,
 		GridComponent,

@@ -7,7 +7,7 @@ import '../../class/classes.dart';
 @Component(
   selector: 'page',
   templateUrl: 'favorites_page.html',
-  styleUrls: [ 'favorites_page.scss.css' ],
+  styleUrls: [ 'favorites_page.css' ],
   directives: [
     ListWideComponent
   ],

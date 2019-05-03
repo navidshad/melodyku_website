@@ -5,7 +5,7 @@ import 'package:melodyku/src/services/services.dart';
 @Component(
 	selector:'user-activity-detail',
 	templateUrl: 'user_activity_detail.html',
-	styleUrls: ['user_activity_detail.scss.css'],
+	styleUrls: ['user_activity_detail.css'],
 	directives: [
 		coreDirectives,
 	],

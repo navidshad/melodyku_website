@@ -6,7 +6,7 @@ import '../../class/classes.dart';
 @Component(
   selector: 'grid-rect',
   templateUrl: 'grid_component.html',
-  styleUrls: [ 'grid_component.scss.css' ],
+  styleUrls: [ 'grid_component.css' ],
   directives: [
     coreDirectives,
     CardRectComponent,

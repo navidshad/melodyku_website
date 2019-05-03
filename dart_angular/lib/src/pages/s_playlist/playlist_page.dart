@@ -11,7 +11,7 @@ import '../../widgets/album_single_wrapper_component/album_single_wrapper_compon
 @Component(
   selector: 'page',
   templateUrl: 'playlist_page.html',
-  styleUrls: [ 'playlist_page.scss.css' ],
+  styleUrls: [ 'playlist_page.css' ],
   directives: [
     coreDirectives,
     AlbumSingleWrapperComponent,

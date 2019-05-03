@@ -6,7 +6,7 @@ import '../../class/page/page.dart';
 @Component(
   selector: 'page',
   templateUrl: 'history_page.html',
-  styleUrls: [ 'history_page.scss.css' ],
+  styleUrls: [ 'history_page.css' ],
   )
 class HistoryPage 
 {

@@ -6,7 +6,7 @@ import '../../services/services.dart';
 @Component(
   selector: 'item-menu', 
   templateUrl: 'item_menu_component.html',
-  styleUrls: ['item_menu_component.scss.css']
+  styleUrls: ['item_menu_component.css']
 )
 class ItemMenuComponent
 {

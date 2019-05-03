@@ -11,7 +11,7 @@ import '../../db_form/select_field/select_field.dart';
 @Component(
 	selector:'object-field',
 	templateUrl: 'object_field.html',
-	styleUrls: ['object_field.scss.css'],
+	styleUrls: ['object_field.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,

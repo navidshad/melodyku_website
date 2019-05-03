@@ -6,7 +6,7 @@ import '../dbCollection_table_editor/dbCollection_table_editor.dart';
 @Component(
 	selector: 'permission-manager',
 	templateUrl: 'permission_manager.html',
-	styleUrls: ['permission_manager.scss.css'],
+	styleUrls: ['permission_manager.css'],
 	directives: [
 		coreDirectives,
 		DbCollectionTableEditorComponent

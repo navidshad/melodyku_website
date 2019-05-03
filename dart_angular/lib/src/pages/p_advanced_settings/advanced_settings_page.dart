@@ -11,7 +11,7 @@ import '../../widgets/admin/tariff_manager/tariff_manager.dart';
 @Component(
   selector: 'page',
   templateUrl: 'advanced_settings_page.html',
-  styleUrls: [ 'advanced_settings_page.scss.css' ],
+  styleUrls: [ 'advanced_settings_page.css' ],
   directives: [
     mediaLanguageSettingsComponent,
     DbCollectionTableEditorComponent,

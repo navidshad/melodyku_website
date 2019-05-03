@@ -7,7 +7,7 @@ import 'package:melodyku/src/widgets/subscription_plans_component/subscription_p
 @Component(
   selector: 'page',
   templateUrl: 'subscription_page.html',
-  styleUrls: [ 'subscription_page.scss.css' ],
+  styleUrls: [ 'subscription_page.css' ],
   directives: [
     coreDirectives,
     SubscriptionPlansComponent,

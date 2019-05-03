@@ -22,7 +22,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 @Component(
 	selector: 'db-collection-table-editor',
 	templateUrl: 'dbCollection_table_editor.html',
-	styleUrls: ['dbCollection_table_editor.scss.css'],
+	styleUrls: ['dbCollection_table_editor.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,

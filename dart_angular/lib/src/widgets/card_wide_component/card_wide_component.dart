@@ -9,7 +9,7 @@ import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 @Component(
   selector: 'card-wide',
   templateUrl: 'card_wide_component.html',
-  styleUrls: ['card_wide_component.scss.css'],
+  styleUrls: ['card_wide_component.css'],
   directives: [
     coreDirectives,
     LikeComponent,

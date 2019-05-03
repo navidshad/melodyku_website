@@ -5,7 +5,7 @@ import 'package:melodyku/src/services/services.dart';
 @Component(
 	selector: 'card_tariff',
 	templateUrl: 'card_tariff_component.html',
-	styleUrls: ['card_tariff_component.scss.css'],
+	styleUrls: ['card_tariff_component.css'],
 	directives: [
 		coreDirectives,
 	]

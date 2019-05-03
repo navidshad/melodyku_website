@@ -6,7 +6,7 @@ import '../../class/page/page.dart';
 @Component(
   selector: 'page',
   templateUrl: 'archive_convert_page.html',
-  styleUrls: [ 'archive_convert_page.scss.css' ],
+  styleUrls: [ 'archive_convert_page.css' ],
   )
 class ArchiveConvertPage 
 {

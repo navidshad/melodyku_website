@@ -10,7 +10,7 @@ import '../../../../class/utility/collection_options.dart';
 @Component(
 	selector:'select-field',
 	templateUrl: 'select_field.html',
-	styleUrls: ['select_field.scss.css'],
+	styleUrls: ['select_field.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,

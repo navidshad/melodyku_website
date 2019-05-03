@@ -10,7 +10,7 @@ import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.
 @Component(
   selector: 'page',
   templateUrl: 'archive_categories_page.html',
-  styleUrls: [ 'archive_categories_page.scss.css' ],
+  styleUrls: [ 'archive_categories_page.css' ],
   directives: [
     coreDirectives,
     DbCollectionTableEditorComponent

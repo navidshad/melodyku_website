@@ -10,7 +10,7 @@ import '../../widgets/table_media_component/table_media_component.dart';
 @Component(
   selector: 'album-single-wrapper',
   templateUrl: 'album_single_wrapper_component.html',
-  styleUrls: ['album_single_wrapper_component.scss.css'],
+  styleUrls: ['album_single_wrapper_component.css'],
   directives: [
     coreDirectives,
     TableSong

@@ -8,7 +8,7 @@ import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 @Component(
   selector: 'card-rect',
   templateUrl: 'card_rect_component.html',
-  styleUrls: ['card_rect_component.scss.css'],
+  styleUrls: ['card_rect_component.css'],
   directives: [
     coreDirectives, 
     //ItemMenuComponent

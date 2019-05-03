@@ -21,10 +21,10 @@ import '../../widgets/translate_btn_component/translate_btn_component.dart';
   selector: 'app-shell',
   templateUrl: 'app_shell_component.html',
   styleUrls: [
-    'app_shell_component.scss.css',
-    'drawer.scss.css',
-    'header.scss.css',
-    'profile.scss.css',
+    'app_shell_component.css',
+    'drawer.css',
+    'header.css',
+    'profile.css',
   ],
   directives: [
     coreDirectives, 

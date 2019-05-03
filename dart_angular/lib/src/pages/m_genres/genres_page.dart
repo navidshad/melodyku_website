@@ -7,7 +7,7 @@ import '../../class/types.dart';
 @Component(
   selector: 'page',
   templateUrl: 'genres_page.html',
-  styleUrls: [ 'genres_page.scss.css' ],
+  styleUrls: [ 'genres_page.css' ],
   )
 class GenresPage 
 {

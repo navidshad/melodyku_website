@@ -10,7 +10,7 @@ import '../../widgets/admin/user_manager/user_manager.dart';
 @Component(
   selector: 'page',
   templateUrl: 'users_page.html',
-  styleUrls: [ 'users_page.scss.css' ],
+  styleUrls: [ 'users_page.css' ],
   directives: [
     PermissionManagerComponent,
     UserManagerComponent,

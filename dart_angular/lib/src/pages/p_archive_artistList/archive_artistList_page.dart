@@ -12,7 +12,7 @@ import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.da
 @Component(
   selector: 'page',
   templateUrl: 'archive_artistList_page.html',
-  styleUrls: [ 'archive_artistList_page.scss.css' ],
+  styleUrls: [ 'archive_artistList_page.css' ],
   directives: [
     coreDirectives,
     DbCollectionTableEditorComponent,

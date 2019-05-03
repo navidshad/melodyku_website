@@ -7,7 +7,7 @@ import 'package:melodyku/src/widgets/admin/cover_item_editor/cover_item_editor.d
 @Component(
 	selector:'profile-editor',
 	templateUrl: 'profile_editor.html',
-	styleUrls: ['profile_editor.scss.css'],
+	styleUrls: ['profile_editor.css'],
 	directives: [
 		coreDirectives,
 		CoverItemEditor,

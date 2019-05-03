@@ -6,7 +6,7 @@ import '../../class/classes.dart';
 @Component(
   selector:'list-wide',
   templateUrl: 'list_wide_component.html',
-  styleUrls: ['list_wide_component.scss.css'],
+  styleUrls: ['list_wide_component.css'],
   directives: [ 
     coreDirectives,
     CardWideComponent,

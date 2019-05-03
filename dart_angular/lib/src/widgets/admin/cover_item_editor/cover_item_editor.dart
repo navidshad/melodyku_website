@@ -20,7 +20,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 @Component(
 	selector: 'cover-item-editor',
 	templateUrl: 'cover_item_editor.html',
-	styleUrls: ['cover_item_editor.scss.css'],
+	styleUrls: ['cover_item_editor.css'],
 	directives: [
 		coreDirectives,
 		ElementExtractorDirective,

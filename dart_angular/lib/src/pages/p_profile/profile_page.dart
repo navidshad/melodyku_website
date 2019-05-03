@@ -9,7 +9,7 @@ import 'package:melodyku/src/widgets/user/user_activity_detail/user_activity_det
 @Component(
   selector: 'page',
   templateUrl: 'profile_page.html',
-  styleUrls: [ 'profile_page.scss.css' ],
+  styleUrls: [ 'profile_page.css' ],
   directives: [
     ProfileEditor,
     UserActivityDetail,

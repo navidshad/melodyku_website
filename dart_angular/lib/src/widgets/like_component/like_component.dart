@@ -4,7 +4,7 @@ import 'dart:async';
 @Component(
   selector: 'like',
   templateUrl: 'like_component.html',
-  styleUrls: ['like_component.scss.css']
+  styleUrls: ['like_component.css']
 )
 class LikeComponent 
 {

@@ -17,7 +17,7 @@ import '../../widgets/grid_component/grid_component.dart';
 @Component(
   selector: 'page',
   templateUrl: 'top_tracks_page.html',
-  styleUrls: [ 'top_tracks_page.scss.css' ],
+  styleUrls: [ 'top_tracks_page.css' ],
   directives: [
     ListWideComponent,
     SliderRectComponent,

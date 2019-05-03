@@ -6,7 +6,7 @@ import '../../class/page/page.dart';
 @Component(
   selector: 'page',
   templateUrl: 'archive_upload_page.html',
-  styleUrls: [ 'archive_upload_page.scss.css' ],
+  styleUrls: [ 'archive_upload_page.css' ],
   )
 class ArchiveUploadPage 
 {

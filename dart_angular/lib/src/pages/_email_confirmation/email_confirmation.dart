@@ -16,7 +16,7 @@ import '../../directives/ElementExtractorDirective.dart';
 @Component(
 	selector: 'page',
 	templateUrl: 'email_confirmation.html',
-	styleUrls: [ 'email_confirmation.scss.css' ],
+	styleUrls: [ 'email_confirmation.css' ],
 	directives: [
 		coreDirectives,
 		ElementExtractorDirective,

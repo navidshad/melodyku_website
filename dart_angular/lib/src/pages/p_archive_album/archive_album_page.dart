@@ -17,7 +17,7 @@ import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.da
 @Component(
   selector: 'page',
   templateUrl: 'archive_album_page.html',
-  styleUrls: [ 'archive_album_page.scss.css' ],
+  styleUrls: [ 'archive_album_page.css' ],
   directives: [
     coreDirectives,
     DbCollectionTableEditorComponent,

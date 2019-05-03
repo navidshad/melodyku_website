@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import 'package:angular_components/angular_components.dart';
+//import 'package:angular_components/angular_components.dart';
 
 import 'src/services/stitch_service.dart';
 import 'src/services/services.dart';
@@ -12,7 +12,7 @@ import './src/class/injector.dart' as CI;
 @Component(
   selector: 'my-app',
   styleUrls: [
-    'app_component.scss.css'
+    'app_component.css'
   ],
   templateUrl: 'app_component.html',
   encapsulation: ViewEncapsulation.None,
@@ -32,19 +32,17 @@ import './src/class/injector.dart' as CI;
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
     // player needs material-provider for seeker bar
-    materialProviders,
+    //materialProviders,
     ClassProvider(Player),
   ],
 )
 class AppComponent
 {
-  //bool hasRedirect = true;
-
+  
   AppComponent( StitchService stitch,
     UserService us, Requester rq, ContentProvider cp, MessageService ms, 
     LanguageService lang, SubscriptionService subScription)
   {
-    //checkRedirect();
 
     // register this userService into Injectory.
     CI.Injector.register(CI.InjectorMember('StitchService', stitch));
@@ -58,25 +56,4 @@ class AppComponent
     // login with last session
     us.loginWithLastSession();
   }
-
-  // void checkRedirect()
-  // {
-  //   print('checkRedirect ${window.location}');
-
-  //   String url = window.location.toString();
-  //   String redirect;
-    
-  //   String rPattern = '?redirect=';
-  //   if(url.contains(rPattern))
-  //     redirect = url.split(rPattern)[1];
-    
-  //   if(redirect != null)
-  //   {
-  //     redirect = redirect.replaceAll('&', '/');
-  //     redirect = redirect.replaceAll('=', '/');
-
-  //     window.location.replace('/#${redirect}');
-  //   }
-  //   else hasRedirect = false;
-  // }
 }

@@ -13,7 +13,7 @@ import '../../class/modal/modal.dart';
 @Component(
   selector: 'login-form',
   templateUrl: 'login_form_component.html',
-  styleUrls: ['login_form_component.scss.css'],
+  styleUrls: ['login_form_component.css'],
   directives: [
     coreDirectives,
     ElementExtractorDirective,

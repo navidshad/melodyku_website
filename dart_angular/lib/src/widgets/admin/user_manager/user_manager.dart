@@ -12,7 +12,7 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 @Component(
 	selector: 'user-manager',
 	templateUrl: 'user_manager.html',
-	styleUrls: ['user_manager.scss.css'],
+	styleUrls: ['user_manager.css'],
 	directives: [
 		coreDirectives,
 		DbCollectionTableEditorComponent

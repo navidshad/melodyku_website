@@ -10,7 +10,7 @@ import '../../class/classes.dart';
 @Component(
   selector: 'table-media',
   templateUrl: 'table_media_component.html',
-  styleUrls: ['table_media_component.scss.css'],
+  styleUrls: ['table_media_component.css'],
   directives: [
     coreDirectives,
     MediaCoverComponent,

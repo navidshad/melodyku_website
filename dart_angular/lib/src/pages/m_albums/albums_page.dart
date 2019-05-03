@@ -16,7 +16,7 @@ import '../../widgets/grid_component/grid_component.dart';
 @Component(
   selector: 'page',
   templateUrl: 'albums_page.html',
-  styleUrls: [ 'albums_page.scss.css' ],
+  styleUrls: [ 'albums_page.css' ],
   directives: [
     coreDirectives,
     ListWideComponent,

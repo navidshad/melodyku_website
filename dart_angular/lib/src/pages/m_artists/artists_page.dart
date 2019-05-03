@@ -15,7 +15,7 @@ import 'package:melodyku/src/widgets/artists_explorer_component/artists_explorer
 @Component(
   selector: 'page',
   templateUrl: 'artists_page.html',
-  styleUrls: [ 'artists_page.scss.css' ],
+  styleUrls: [ 'artists_page.css' ],
   directives: [
     coreDirectives,
     GridComponent,

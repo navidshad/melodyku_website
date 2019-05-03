@@ -8,7 +8,7 @@ import '../../directives/ElementExtractorDirective.dart';
 @Component(
   selector: 'translate-btn',
   templateUrl: 'translate_btn_component.html',
-  styleUrls: ['translate_btn_component.scss.css'],
+  styleUrls: ['translate_btn_component.css'],
   directives: [
     coreDirectives, 
     formDirectives,

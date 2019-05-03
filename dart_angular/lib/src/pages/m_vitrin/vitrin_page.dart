@@ -9,7 +9,7 @@ import '../../class/types.dart';
 @Component(
   selector: 'page',
   templateUrl: 'vitrin_page.html',
-  styleUrls: [ 'vitrin_page.scss.css' ],
+  styleUrls: [ 'vitrin_page.css' ],
   directives: [
     SliderRectComponent,
     ListWideComponent,

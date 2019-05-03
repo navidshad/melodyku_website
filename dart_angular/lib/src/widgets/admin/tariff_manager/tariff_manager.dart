@@ -6,7 +6,7 @@ import '../dbCollection_table_editor/dbCollection_table_editor.dart';
 @Component(
 	selector: 'tariff-manager',
 	templateUrl: 'tariff_manager.html',
-	styleUrls: ['tariff_manager.scss.css'],
+	styleUrls: ['tariff_manager.css'],
 	directives: [
 		coreDirectives,
 		DbCollectionTableEditorComponent

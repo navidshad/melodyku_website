@@ -17,7 +17,7 @@ import '../../directives/ElementExtractorDirective.dart';
 @Component(
   selector: 'page',
   templateUrl: 'password_reset.html',
-  styleUrls: [ 'password_reset.scss.css' ],
+  styleUrls: [ 'password_reset.css' ],
   directives: [
     coreDirectives,
     ElementExtractorDirective,
