@@ -38,7 +38,7 @@ class ArtistsExplorerComponent
 
 	List<String> getCharacters()
 	{
-		List<String> list = characters[lang.getCode()] as List<String>;
+		List<String> list = characters['en'/*lang.getCode()*/] as List<String>;
 		return list;
 	}
 

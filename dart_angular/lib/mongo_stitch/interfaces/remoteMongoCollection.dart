@@ -8,7 +8,7 @@ abstract class RemoteMongoCollection {
   external String get namespace;
 
   external RemoteMongoReadOperation               aggregate(dynamic pipeline);
-  external PromiseJsImpl<int>                     count([dynamic query, RemoteCountOptions options]);
+  external PromiseJsImpl<int>                     count([dynamic query, dynamic options]);
   external PromiseJsImpl<RemoteDeleteResult>      deleteMany(dynamic query);
   external PromiseJsImpl<RemoteDeleteResult>      deleteOne(dynamic query);
   external RemoteMongoReadOperation               find([dynamic query, dynamic options]);
@@ -47,10 +47,10 @@ class RemoteCountOptions {
 
 @JS()
 class RemoteFindOptions {
-  external factory RemoteFindOptions({int limit, dynamic projection, dynamic sort});
+  external factory RemoteFindOptions(int limit, dynamic projection, dynamic sort);
 }
 
 @JS()
 class RemoteUpdateOptions {
-  external factory RemoteUpdateOptions({bool upsert});
+  external factory RemoteUpdateOptions([bool upsert]);
 }

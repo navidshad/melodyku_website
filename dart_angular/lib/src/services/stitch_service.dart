@@ -32,8 +32,8 @@ class StitchService
     Completer completer = Completer();
 
     //get user list
-    //List users = appClient.auth.user listUsers(); //.forEach((u) => print('old user ' +  u.id));
-    //print('users ${appClient.auth.user}');
+    //List users = appClient.auth.listUsers(); //.forEach((u) => print('old user ' +  u.id));
+    print('users ${appClient.auth.user}');
 
     promiseToFuture(appClient.auth.loginWithCredential(AnonymousCredential())).then((newUser) 
     {
