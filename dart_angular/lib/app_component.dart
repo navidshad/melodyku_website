@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-//import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/angular_components.dart';
 
 import 'src/services/stitch_service.dart';
 import 'src/services/services.dart';
@@ -32,7 +32,7 @@ import './src/class/injector.dart' as CI;
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
     // player needs material-provider for seeker bar
-    //materialProviders,
+    materialProviders,
     ClassProvider(Player),
   ],
 )

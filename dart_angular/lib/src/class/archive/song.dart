@@ -77,7 +77,7 @@ class Song implements SongItem
       thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
     );
 
-    if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
+    //if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
 
     } catch (e) {
       print('convert Song from json ${json.encode(detail)}');
@@ -179,7 +179,9 @@ class Song implements SongItem
     // dynamic result = await rq.post('${link_api_user}/favorite/check', body: form);
     // isLiked = result['liked'];
 
-    isLiked = await userService.user.traker.getLikeStatus(id, type: type);
+    if(userService.isLogedIn)
+      isLiked = await userService.user.traker.getLikeStatus(id, type: type);
+    
     return isLiked;
   }
 

@@ -1,8 +1,8 @@
 @import '../../styles/colors';
 @import '../../styles/effects';
 
-//@import 'package:angular_components/css/material/material';
-//@import 'package:angular_components/material_slider/mixins';
+@import 'package:angular_components/css/material/material';
+@import 'package:angular_components/material_slider/mixins';
 
 $btn_sl: 20px;
 $btn_md: 32px;
@@ -10,8 +10,8 @@ $btn_bg: 45px;
 $playerHeight: 85px;
 
 :host{
-    //@include slider-thumb-color('material-slider.slider-length', darken($lightblue-color, 20%));
-    //@include slider-track-color('material-slider.slider-length', $lightblue-color, $white-color);
+    @include slider-thumb-color('material-slider.slider-length', darken($lightblue-color, 20%));
+    @include slider-track-color('material-slider.slider-length', $lightblue-color, $white-color);
 }
 
 // extendable -----------------------------------

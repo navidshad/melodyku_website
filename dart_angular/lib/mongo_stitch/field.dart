@@ -39,6 +39,7 @@ class DbField {
 
   void setDefaultFields()
   {
+  	//fieldType =FieldType.text;
     switch(dataType)
     {
       case DataType.string:   fieldType =FieldType.text; break;
@@ -48,6 +49,7 @@ class DbField {
       case DataType.object:   fieldType =FieldType.object; break;
       case DataType.array_string: fieldType =FieldType.select; break;
       case DataType.array_object: fieldType =FieldType.select; break;
+      case DataType.dateTime: fieldType =FieldType.text; break;
     }
   }
 

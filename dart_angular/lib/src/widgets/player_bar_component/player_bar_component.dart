@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'package:angular/angular.dart';
-//import 'package:angular_components/material_slider/material_slider.dart';
+import 'package:angular_components/material_slider/material_slider.dart';
 
 import '../../services/services.dart';
 import '../../class/classes.dart';
@@ -13,7 +13,7 @@ import '../../pips/pips.dart';
   selector: 'player-bar',
   directives: [
     coreDirectives,
-    //MaterialSliderComponent,
+    MaterialSliderComponent,
     ElementExtractorDirective,
     CardWideComponent,
   ],

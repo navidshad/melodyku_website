@@ -9,6 +9,8 @@ import 'package:melodyku/app_component.template.dart' as ng;
 import 'main.template.dart' as self;
 import 'package:melodyku/src/services/language_service.dart';
 
+import 'package:melodyku/mongo_stitch/js_interop.dart';
+
 @GenerateInjector([
   routerProvidersHash, // You can use routerProviders in production
   ClassProvider(Client, useClass: BrowserClient),
@@ -18,6 +20,7 @@ final InjectorFactory injector = self.injector$Injector;
 
 void main() 
 {
+	log('make log form js');
   runApp(ng.AppComponentNgFactory, createInjector: injector);
 
   // register PWA ServiceWorker for offline caching.

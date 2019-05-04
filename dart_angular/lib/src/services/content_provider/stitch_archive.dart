@@ -23,28 +23,8 @@ class StitchArchive
   // methods
   Future<dynamic> getItemByID<T>(String id) async
   {
-    String collectioName;
-    List<DbField> dbFields = [];
-
-    switch(T)
-    {
-      case Artist: 
-        collectioName = 'artist'; 
-        dbFields = SystemSchema.artist;
-        break;
-      case Album: 
-        collectioName = 'album'; 
-        dbFields = SystemSchema.album;
-        break;
-      case Song: 
-        collectioName = 'song'; 
-        dbFields = SystemSchema.song;
-        break;
-      case Playlist: 
-        collectioName = 'playlist'; 
-        dbFields = SystemSchema.album;
-        break;
-    }
+    String collectioName = ResultWithNavigator.getCollection<T>();
+    List<DbField> dbFields = ResultWithNavigator.getDbFields<T>();
 
     RemoteMongoCollection collection = _mediaDB.collection(collectioName);
 
@@ -58,15 +38,7 @@ class StitchArchive
     }
 
     Map convertedToMap = convertToMap(result, dbFields);
-
-    T item;
-    switch(T)
-    {
-      case Artist:    item = Artist.fromjson(convertedToMap) as T; break;
-      case Song:      item = Song.fromjson(convertedToMap) as T; break;
-      case Album:     item = Album.fromjson(convertedToMap) as T; break;
-      case Playlist:  item = Playlist.fromjson(convertedToMap) as T; break;
-    }
+    T item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap);
 
     return item;
   }

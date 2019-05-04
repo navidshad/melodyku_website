@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:html';
+//import 'dart:html';
 import 'package:js/js_util.dart' as js;
 
-import 'package:melodyku/mongo_stitch/app_client.dart';
+import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
+
 export 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 export 'package:melodyku/src/class/archive/system_schema.dart';
 
@@ -17,7 +18,9 @@ class StitchService
 
   StitchService()
   {
+    log('log StitchService constructor');
     print('StitchService constructor');
+    //appClient = initializeDefaultAppClientByHelper(app_id);
     appClient = initializeDefaultAppClient(app_id);
     dbClient = appClient.getServiceClient(remoteMongoClientFactory, _serviceName);
 

@@ -1,32 +1,8 @@
-@JS()
-library main;
-
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js;
 
 import 'field.dart';
-
-// import 'date_time.dart';
-// export 'date_time.dart';
-
-@JS('Object')
-class Objectjs {
-	external static List<String> keys(dynamic object);
-	external static List<dynamic> valus(dynamic object);
-}
-
-@JS('Date')
-class JSDate{
-
-	external factory JSDate(int year, int monthIndex, [int day, int hours, int minutes, int seconds]);
-
-	external int getFullYear();
-	external int getMonth();
-	external int getDate();
-	external int getHours();
-	external int getMinutes();
-	external int getSeconds();
-}
+import 'js_interop.dart';
 
 
 enum jsTypes {String, Bool, Int, Double, Object, Array}

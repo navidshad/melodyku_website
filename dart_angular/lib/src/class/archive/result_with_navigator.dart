@@ -31,62 +31,44 @@ class ResultWithNavigator<T>
   {
     _perPage = perPage;
 
-    String coll = _getCollection<T>();
+    String coll = getCollection<T>();
     //print('ResultWithNavigator collection $coll');
     _collection = Injector.get<StitchService>().dbClient.db('media').collection(coll);
   }
 
-  List<T> _generateListOfItems<T>(List rawItems)
+  static createItemFromDoc<T>(Map doc)
   {
-    List<T> items = [];
+    T item;
 
-    //print('rawItems length ${rawItems.length}');
+    if(T == Artist)       item = Artist.fromjson(doc) as T;
+    else if(T == Album)   item = Album.fromjson(doc) as T;
+    else if(T == Song)    item = Song.fromjson(doc) as T;
 
-    switch(T)
-    {
-      case Artist: rawItems.forEach((artistObject) 
-        => items.add(Artist.fromjson(artistObject) as T)); break;
-      
-      case Album: rawItems.forEach((albumObject) 
-        => items.add(Album.fromjson(albumObject) as T)); break;
-      
-      case Song: rawItems.forEach((songObject) 
-        => items.add(Song.fromjson(songObject) as T)); break;
-
-      // case Playlist: rawItems.forEach((playlistObject) 
-      //   => items.add(Playlist.fromjson(playlistObject) as T)); break;
-    }
-
-    //print('items length ${items.length}');
-    return items;
+    return item;
   }
 
-  List<DbField> _getDbFields<T>()
+  static List<DbField> getDbFields<T>()
   {
     List<DbField> list = [];
 
-    switch(T)
-    {
-      case Artist:  list = SystemSchema.artist;   break;
-      case Album:   list = SystemSchema.album;    break;
-      case Song:    list = SystemSchema.song;     break;
-      //case Playlist:list = SystemSchema.; break;
-    }
+    if(T == Artist)       list = SystemSchema.artist;
+    else if(T == Album)   list = SystemSchema.album;
+    else if(T == Song)    list = SystemSchema.song;
+    //else if(T == Playlist) list = SystemSchema.artist;
 
     return list;
   }
 
-  String _getCollection<T>()
+  static String getCollection<T>()
   {
     String collection = '';
 
-    switch(T)
-    {
-      case Artist:  collection = 'artist'; break;
-      case Album:   collection = 'album'; break;
-      case Song:    collection = 'song'; break;
-      case Playlist:collection = 'playlist'; break;
-    }
+    if(T == Artist)       collection = 'artist';
+    else if(T == Album)   collection = 'album';
+    else if(T == Song)    collection = 'song';
+    else if(T == Playlist) collection = 'playlist';
+
+    print('=== _getCollection $T');
 
     return collection;
   }
@@ -151,10 +133,12 @@ class ResultWithNavigator<T>
       _collection.aggregate(js.jsify(artistsPipeline)).asArray())
       .catchError(_handleError);
 
-    List covertedDocs = artistDocs.map((doc) =>
-        convertToMap(doc, _getDbFields<T>())).toList();
-
-    list = _generateListOfItems<T>(covertedDocs);
+    list = [];
+    artistDocs.forEach((doc) 
+    {
+      Map maped = convertToMap(doc, getDbFields<T>());
+      list.add(createItemFromDoc<T>(maped));
+    });
 
     if(_current < navigatorDetail['pages']) 
       hasMore = true;
