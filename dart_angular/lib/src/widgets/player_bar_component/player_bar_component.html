@@ -54,7 +54,7 @@
             (mousedown)="player.onSeekingSlider()"
             (mouseup)="player.onSeekingSliderDone()"
             (mousemove)="player.onSliderValueChange()"
-            *ngIf="player.audio != null"
+            *ngIf="player.hasSong"
             [(value)]="player.currentTime"
             [min]="0.0"
             [step]="1.0"

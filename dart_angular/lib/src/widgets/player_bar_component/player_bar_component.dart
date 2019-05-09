@@ -50,7 +50,7 @@ class PlayerBareComponent implements OnInit
       isVisible = detail.visible;
       print('type : ${detail.type} | object: ${detail.object}');
       
-      if(detail.type == ArchiveTypes.media) 
+      if(detail.type == ArchiveTypes.media)
       {
         print('playing media');
         player.playTrack(detail.object);

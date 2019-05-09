@@ -24,13 +24,14 @@ class Player
     addListeners();
   }
 
+  bool hasSong = false;
   bool seeking = false;
   bool isShuffle = false;
   bool isLoop = false;
 
   double currentTime = 0.0;
   set(double timeValue) => currentTime = num.parse(timeValue.toString());
-  double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 60.0;
+  double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 1;
 
   // constructor
   Player(this._contentProvider)
@@ -93,6 +94,9 @@ class Player
     current = track;
     audio.currentTime = 0;
 
+    hasSong = false;
+    await Future.delayed(Duration(milliseconds: 200));
+
     // define version of Song
     String version = 'demo';
     if(_userServide.isLogedIn && _userServide.user.subscription.hasSubscription())
@@ -105,6 +109,7 @@ class Player
     audio.src = streamLink;
 
     play();
+    hasSong = true;
   }
 
   // playlisy method ----------------------------
@@ -146,7 +151,7 @@ class Player
       if(current.id == _list[i].id) currentIndex = i;
 
     // play next
-    if(currentIndex < _list.length)
+    if(currentIndex < _list.length-1)
     {
       Song newTrack = _list[currentIndex+1];
       playTrack(newTrack);
