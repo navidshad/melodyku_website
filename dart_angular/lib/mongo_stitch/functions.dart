@@ -1,5 +1,7 @@
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js;
+import 'dart:convert';
+
 
 import 'field.dart';
 import 'js_interop.dart';
@@ -51,7 +53,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			try {
 				value = js.getProperty(jsObject, field.key);
 			}catch(e){
-				//print('convertToMap forEach ${field.key} is null');
+				print('convertToMap forEach ${field.key} is null');
 			}
 
 			//print('convertToMap forEach ${field.key} ${field.dataType} = $value');
@@ -71,7 +73,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 					try{
 						newObject[field.key] = bool.fromEnvironment(value.toString());
 					}catch(e){
-						print('bool array catch | key ${field.key}, value ${value.runtimeType}');
+						print('bool catch | key ${field.key}, value ${value}');
 						newObject[field.key] = false;
 					}
 				}

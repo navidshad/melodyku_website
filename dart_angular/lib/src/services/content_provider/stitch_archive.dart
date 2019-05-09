@@ -38,7 +38,7 @@ class StitchArchive
     }
 
     Map convertedToMap = convertToMap(result, dbFields);
-    T item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap);
+    T item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap, dontGetSongs: false);
 
     return item;
   }
@@ -79,6 +79,16 @@ class StitchArchive
   }
 
   // song ------------------------------------------------
+  Future<ResultWithNavigator<Song>> song_getList({int page=1, int total=15}) async
+  {
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(perPage: total);
+
+    await navigator.initialize();
+    await navigator.loadNextPage(page);
+
+    return navigator;
+  }
+
   Future<ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
     Map query = {'artistId': artistId};
@@ -107,37 +117,44 @@ class StitchArchive
   {
     Playlist playlist;
 
-    dynamic pipeline = js.jsify([
-        {
-          '\$sample': { 'size': total }
-        }
-      ]);
+    Map playlistDetail = {
+      'title': title, 
+      'list': [],
+    };
+    int page = randomRange(0, 1100);
 
-    Map result = await promiseToFuture(
-        _mediaDB.collection('song').aggregate(pipeline).asArray())
-        .then((dynamic songs) 
-        {
-          Map playlistDetail = {
-            'title': title, 
-            'list': [],
-          };
+    ResultWithNavigator<Song> navigator = await song_getList(page: page);
 
-          List list = [];
-          for(int i=0; i < songs.length; i++)
-          {
-            dynamic stitchSong = songs[i];
-            Map mapSong = convertToMap(stitchSong, SystemSchema.song);
+    playlist = Playlist.fromjson(playlistDetail);
+    playlist.list = navigator.list;
+    
+    // dynamic pipeline = js.jsify([
+    //     {
+    //       '\$sample': { 'size': total }
+    //     }
+    //   ]);
+
+    // Map result = await promiseToFuture(
+    //     _mediaDB.collection('song').aggregate(pipeline).asArray())
+    //     .then((dynamic songs) 
+    //     {
+          
+
+    //       List list = [];
+    //       for(int i=0; i < songs.length; i++)
+    //       {
+    //         dynamic stitchSong = songs[i];
+    //         Map mapSong = convertToMap(stitchSong, SystemSchema.song);
             
-            //Song sognObject = Song.fromjson(mapSong);
-            list.add(mapSong);
-          }
+    //         //Song sognObject = Song.fromjson(mapSong);
+    //         list.add(mapSong);
+    //       }
 
-          playlistDetail['list'] = list;
-          return playlistDetail;
-        })
-        .catchError((error) {});
+    //       playlistDetail['list'] = list;
+    //       return playlistDetail;
+    //     })
+    //     .catchError((error) {});
 
-    playlist = Playlist.fromjson(result);
     return playlist;
   }
 

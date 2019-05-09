@@ -26,12 +26,12 @@ class Album implements SongItem
   String thumbnail;
 
   Album({this.id, this.artistId, this.type, this.title, this.artist, 
-    this.list, this.description, this.thumbnail})
+    this.list, this.description, this.thumbnail, bool dontGetSongs=false})
   {
-    if(list.length == 0) getSongs();
+    if(!dontGetSongs) getSongs();
   }
 
-  factory Album.fromjson(Map detail)
+  factory Album.fromjson(Map detail, {bool dontGetSongs})
   {
     Album album;
     try {
@@ -45,10 +45,11 @@ class Album implements SongItem
       }
       
       album = Album(
+        dontGetSongs: dontGetSongs,
         type        : ArchiveTypes.album,
         id          : (detail['_id'] != null)         ? detail['_id'].toString() : '',
         artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
-        title        : (detail['title'] != null)        ? detail['title'] : '',
+        title       : (detail['title'] != null)        ? detail['title'] : '',
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
         thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],

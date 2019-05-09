@@ -19,6 +19,14 @@ class SystemSchema
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
+	static List<DbField> song_version = 
+	[
+		DbField('refId'),
+		DbField('isOriginal', dataType: DataType.bool),
+		DbField('size', dataType: DataType.int),
+		DbField('bitrate', dataType: DataType.int)
+	];
+
 	static List<DbField> song = 
 	[
 		DbField('artistId', isHide:true),
@@ -29,15 +37,8 @@ class SystemSchema
 		DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
+		DbField('versions', isHide:true),
 		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
-	];
-
-	static List<DbField> song_version = 
-	[
-		DbField('refId'),
-		DbField('isOriginal', dataType: DataType.bool),
-		DbField('size', dataType: DataType.float),
-		DbField('bitrate', dataType: DataType.int)
 	];
 
 	static List<DbField> result_artists = 

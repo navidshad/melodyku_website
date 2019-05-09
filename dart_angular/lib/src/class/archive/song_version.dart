@@ -3,7 +3,7 @@ class SongVersion
 	String id;
 	String refId;
 	bool isOriginal;
-	double size;
+	int size;
 	int bitrate;
 
 	SongVersion({this.id, this.refId, this.bitrate, this.isOriginal, this.size});

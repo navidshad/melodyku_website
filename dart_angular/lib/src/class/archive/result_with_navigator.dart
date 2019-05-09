@@ -11,13 +11,14 @@ import 'package:melodyku/src/services/services.dart';
 
 class ResultWithNavigator<T>
 {
+  StitchService _stitch;
   RemoteMongoCollection _collection;
 
   int _pages    = 0;
   int _total    = 0;
   
   int _perPage;
-  int _current;
+  int _current = 0;
 
   bool hasMore;
 
@@ -33,15 +34,16 @@ class ResultWithNavigator<T>
 
     String coll = getCollection<T>();
     //print('ResultWithNavigator collection $coll');
-    _collection = Injector.get<StitchService>().dbClient.db('media').collection(coll);
+    _stitch = Injector.get<StitchService>();
+    _collection = _stitch.dbClient.db('media').collection(coll);
   }
 
-  static createItemFromDoc<T>(Map doc)
+  static createItemFromDoc<T>(Map doc, {dontGetSongs= true})
   {
     T item;
 
     if(T == Artist)       item = Artist.fromjson(doc) as T;
-    else if(T == Album)   item = Album.fromjson(doc) as T;
+    else if(T == Album)   item = Album.fromjson(doc, dontGetSongs: dontGetSongs) as T;
     else if(T == Song)    item = Song.fromjson(doc) as T;
 
     return item;
@@ -68,7 +70,7 @@ class ResultWithNavigator<T>
     else if(T == Song)    collection = 'song';
     else if(T == Playlist) collection = 'playlist';
 
-    print('=== _getCollection $T');
+    //print('=== _getCollection $T');
 
     return collection;
   }
@@ -104,11 +106,11 @@ class ResultWithNavigator<T>
     List countPipeline = _getMainStages();
     countPipeline.add({ "\$count": "count" });
 
-    _total = await promiseToFuture(_collection.aggregate(js.jsify(countPipeline)).first())
-      .then((result) {
-        int value = result != null ? js.getProperty(result, 'count') : 0;
-        return value;
-      });
+    // _total = await promiseToFuture(_collection.aggregate(js.jsify(countPipeline)).first())
+    //   .then((result) {
+    //     int value = result != null ? js.getProperty(result, 'count') : 0;
+    //     return value;
+    //   });
   }
 
   Future<List<T>> loadNextPage([int goto]) async
@@ -116,31 +118,39 @@ class ResultWithNavigator<T>
     if(goto != null) _current = goto;
     else _current += 1;
 
-    Map navigatorDetail = getNavigatorDetail(total: _total, page: _current, perPage: _perPage);
+    // Map navigatorDetail = getNavigatorDetail(total: _total, page: _current, perPage: _perPage);
 
-    List artistsPipeline = _getMainStages();
-    artistsPipeline.addAll([
-        {
-          '\$skip' : navigatorDetail['from']
-        },
+    // List artistsPipeline = _getMainStages();
+    // artistsPipeline.addAll([
+    //     {
+    //       '\$skip' : navigatorDetail['from']
+    //     },
 
-        {
-          '\$limit': navigatorDetail['to']
-        }
-      ]);
+    //     {
+    //       '\$limit': navigatorDetail['to']
+    //     }
+    //   ]);
 
-    dynamic artistDocs = await promiseToFuture(
-      _collection.aggregate(js.jsify(artistsPipeline)).asArray())
+    // dynamic artistDocs = await promiseToFuture(
+    //   _collection.aggregate(js.jsify(artistsPipeline)).asArray())
+    //   .catchError(_handleError);
+
+    String coll = getCollection<T>();
+    var result = await promiseToFuture(
+      _stitch.appClient.callFunction('getFromMediaByCustomQuery', [coll, _perPage, _current, customQuery]))
       .catchError(_handleError);
 
+    _pages = js.getProperty(result, 'pages');
+    dynamic docs = js.getProperty(result, 'list');
+
     list = [];
-    artistDocs.forEach((doc) 
+    docs.forEach((doc) 
     {
       Map maped = convertToMap(doc, getDbFields<T>());
       list.add(createItemFromDoc<T>(maped));
     });
 
-    if(_current < navigatorDetail['pages']) 
+    if(_current < _pages) 
       hasMore = true;
     else hasMore = false;
 

@@ -48,19 +48,24 @@ class Song implements SongItem
     this.lyric,
     this.duration,
     this.thumbnail,
+    this.versions,
   })
   {
     type = ArchiveTypes.media;
     getLikeStatus();
-    _getVersions();
+    //_getVersions();
   }
 
-  factory Song.fromjson(dynamic detail)
+  factory Song.fromjson(Map detail)
   {
     List<String> genre_list = [];
+    List<SongVersion> versions = [];
 
     // if(detail['genre'] != null)
     //   detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
+
+    if(detail.containsKey('versions'))
+      versions = Song.createVersions(detail['versions']);
 
     Song mFromJson;
     try {
@@ -78,6 +83,7 @@ class Song implements SongItem
       year      : (detail['year']   != null) ? detail['year'] : null,
       duration  : (detail['duration']   != null) ? detail['duration'] : 0,
       thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
+      versions  : versions,
     );
 
     //if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
@@ -88,6 +94,27 @@ class Song implements SongItem
     }
 
     return mFromJson;
+  }
+
+  static List<SongVersion> createVersions(String json)
+  {
+    List docs = [];
+
+    try{
+      docs = jsonDecode(json);
+    }catch(e) {
+      print('createVersions $json $e');
+    };
+
+    List<SongVersion> versions = [];
+    for(int i=0; i < docs.length; i++)
+      {
+        dynamic doc = docs[i];
+        SongVersion v = SongVersion.createFromMap(doc);
+        if(v != null) versions.add(v);
+      }
+
+    return versions;
   }
 
   dynamic toDynamic()
@@ -120,25 +147,6 @@ class Song implements SongItem
     if(hours > 0) durationStr += '$hours : ';
 
     return durationStr;
-  }
-
-  void _getVersions()
-  {
-    StitchService stitch = Injector.get<StitchService>();
-    RemoteMongoCollection coll = stitch.dbClient.db('media').collection('version_song');
-    dynamic query = js.jsify({ 'refId': id });
-
-    promiseToFuture(coll.find(query).asArray())
-      .then((dynamic versionDocs) 
-      {
-        for(int i=0; i < versionDocs.length; i++)
-        {
-          dynamic doc = versionDocs[i];
-          Map converted = convertToMap(doc, SystemSchema.song_version);
-          SongVersion v = SongVersion.createFromMap(converted);
-          if(v != null) versions.add(v);
-        }
-      });
   }
 
   @override
