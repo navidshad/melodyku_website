@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:melodyku/src/class/archive/media_item.dart';
+import 'package:js/js_util.dart' as js;
 
 import '../injector.dart';
-import '../../services/content_provider/requester.dart';
-import '../../services/user_service.dart';
+import '../../services/services.dart';
+
 
 import '../classes.dart';
 
 import 'media_item.dart';
+import 'song_version.dart';
 import '../types.dart';
 import '../widgets/card.dart';
 import '../widgets/list_item.dart';
-
-import '../../services/urls.dart';
 
 class Song implements SongItem
 {
@@ -32,7 +32,9 @@ class Song implements SongItem
   String thumbnail;
 
   int year;
-  int duration;
+  double duration;
+
+  List<SongVersion> versions = [];
 
   Song({
     this.id,
@@ -50,6 +52,7 @@ class Song implements SongItem
   {
     type = ArchiveTypes.media;
     getLikeStatus();
+    _getVersions();
   }
 
   factory Song.fromjson(dynamic detail)
@@ -102,21 +105,40 @@ class Song implements SongItem
     };
   }
 
-  String getDuration([num customLength])
+  String getDuration()
   {
-    int length = 0;
-    if(customLength != null && !customLength.isNaN) length = customLength.toInt();
-    else if(duration != null) length = duration;
+    int length = duration.floor() ?? 0;
+
+    //if(length > 0) length = (length / 10);
 
     int hours = (length / 3600).floor();
     int minutes = (length % 3600 / 60).floor();
     int seconds =(length % 3600 % 60).floor();
 
     String durationStr = '';
+    durationStr += '$seconds : $minutes';
     if(hours > 0) durationStr += '$hours : ';
-    durationStr += '$minutes : $seconds';
 
     return durationStr;
+  }
+
+  void _getVersions()
+  {
+    StitchService stitch = Injector.get<StitchService>();
+    RemoteMongoCollection coll = stitch.dbClient.db('media').collection('version_song');
+    dynamic query = js.jsify({ 'refId': id });
+
+    promiseToFuture(coll.find(query).asArray())
+      .then((dynamic versionDocs) 
+      {
+        for(int i=0; i < versionDocs.length; i++)
+        {
+          dynamic doc = versionDocs[i];
+          Map converted = convertToMap(doc, SystemSchema.song_version);
+          SongVersion v = SongVersion.createFromMap(converted);
+          if(v != null) versions.add(v);
+        }
+      });
   }
 
   @override

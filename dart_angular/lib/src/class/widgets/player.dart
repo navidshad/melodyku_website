@@ -99,8 +99,9 @@ class Player
       version = '96';
 
     // get stream link
-    String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
-    print('streamLink $streamLink');
+    //String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
+    String streamLink = await _contentProvider.archive.getDownloadLink(current);
+    print('streamLink $streamLink , duration ${current.duration}');
     audio.src = streamLink;
 
     play();

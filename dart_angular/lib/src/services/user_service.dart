@@ -38,6 +38,8 @@ class UserService
   {
     if(_stitch.user == null) return;
 
+    print('loginWithLastSession');
+
     String pName = _stitch.user.loggedInProviderName;
 
     print('pName $pName');

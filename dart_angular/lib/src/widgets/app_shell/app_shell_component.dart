@@ -10,7 +10,7 @@ import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
 import '../../widgets/login_form_component/login_form_component.dart';
 import '../../class/classes.dart';
-import '../../services/user_service.dart';
+import '../../services/services.dart';
 import '../../services/message_service.dart';
 import '../../class/utility/stream_detail.dart';
 import '../../services/language_service.dart';
@@ -43,6 +43,7 @@ class AppShellComponent
   LanguageService lang;
   PageRoutes pageRoutes;
   UserService _userService;
+  StitchService _stitch;
   MessageService _messageService;
   bool isDrawerOpen = false;
   Drawer drawerMenu;
@@ -54,7 +55,7 @@ class AppShellComponent
   bool hasRedirect = true;
 
   // constructor ================================
-  AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
+  AppShellComponent(this._stitch, this._userService, this._messageService, this.lang, this.pageRoutes)
   {
     CI.Injector.register(CI.InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
@@ -94,6 +95,7 @@ class AppShellComponent
 
   // user =======================================
   bool get isLogedIn => _userService.isLogedIn;
+  bool get isFirstLoggined => _stitch.user != null ? true : false;
   User get user => _userService.user;
 
   void logout() async 

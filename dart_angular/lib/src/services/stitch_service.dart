@@ -31,22 +31,17 @@ class StitchService
   Future<void> loginAnonymouse()
   {
     if(appClient.auth.user != null) return null;
-
-    Completer completer = Completer();
-
     //get user list
     //List users = appClient.auth.listUsers(); //.forEach((u) => print('old user ' +  u.id));
     print('users ${appClient.auth.user}');
 
-    promiseToFuture(appClient.auth.loginWithCredential(AnonymousCredential())).then((newUser) 
-    {
-      print('user logined with Anonymouse');
-      print(user.id);
-      completer.complete();
-    });
-
-    return completer.future;
-  }
+    return promiseToFuture(appClient.auth.loginWithCredential(AnonymousCredential()))
+      .then((newUser) 
+      {
+        print('user logined with Anonymouse');
+        print(user.id);
+      });
+    }
 
   Future<dynamic> loginWithEmailPassword(String email, String password)
   {

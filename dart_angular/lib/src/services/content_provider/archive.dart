@@ -287,6 +287,25 @@ class Archive
     //return Future.delayed(Duration(milliseconds: 100), () => url);
   }
 
+  // get download link
+  Future<String> getDownloadLink(Song song) async
+  {
+    // String url = '${link_archive}/static/$version/$id';
+    // print('getStreamLink(), url: $url');
+    // final result = await _rq.get(url, directResult: true);
+    // return result;
+    //return Future.delayed(Duration(milliseconds: 100), () => url);
+
+    // get orginal version
+    int bitrate;
+    song.versions.forEach((SongVersion) {
+      if(SongVersion.isOriginal) bitrate = SongVersion.bitrate;
+      });
+
+    Uri link = Uri.http(dataMelodyku, 'music/${song.artist} ${song.artistId}/${song.album} ${song.albumId}/${song.title} ${bitrate}.mp3');
+    return link.toString();
+  }
+
   // favorites
   Future<Playlist> favorites_getList({int total=50, int page=1}) async
   {

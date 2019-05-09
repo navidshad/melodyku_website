@@ -34,7 +34,7 @@
         </header>
         
         <!-- page -->
-        <div class="content-body">
+        <div class="content-body" *ngIf="isFirstLoggined">
             <router-outlet [routes]="pageRoutes.getAll()" ></router-outlet>
         </div>
 

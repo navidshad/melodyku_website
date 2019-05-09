@@ -66,19 +66,27 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			// bool field
 			else if(field.dataType == DataType.bool) 
 			{
-				try{
-					newObject[field.key] = bool.fromEnvironment(value.toString());
-				}catch(e){
-					print('bool array catch | key ${field.key}, value ${value}');
-					newObject[field.key] = false;
+				if(value.runtimeType == bool) newObject[field.key] = value;
+				else {
+					try{
+						newObject[field.key] = bool.fromEnvironment(value.toString());
+					}catch(e){
+						print('bool array catch | key ${field.key}, value ${value.runtimeType}');
+						newObject[field.key] = false;
+					}
 				}
 			}
 
 			else if(field.dataType == DataType.int || field.dataType == DataType.float)
 			{
 				if(value == null) value = 0;
-				
-				newObject[field.key] = value;
+				num n = value;
+
+				if(field.dataType == DataType.int)
+					newObject[field.key] = n.toInt();
+					
+				else if(field.dataType == DataType.float)
+					newObject[field.key] = n.toDouble();
 			}
 
 			// string array

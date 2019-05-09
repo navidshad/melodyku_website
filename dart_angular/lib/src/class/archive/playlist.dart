@@ -60,7 +60,7 @@ class Playlist implements SongItem
 
   String getDuration()
   {
-    int length = 0;
+    double length = 0;
     list.forEach((media){ length += media.duration; });
 
     int hours = (length / 3600).floor();
