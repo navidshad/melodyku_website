@@ -53,7 +53,6 @@ class Song implements SongItem
   {
     type = ArchiveTypes.media;
     getLikeStatus();
-    //_getVersions();
   }
 
   factory Song.fromjson(Map detail)
