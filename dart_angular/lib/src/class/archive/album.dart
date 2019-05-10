@@ -18,7 +18,7 @@ class Album implements SongItem
   String artistId;
   ArchiveTypes type;
 
-  List<Song> list;
+  ResultWithNavigator<Song> songNavigator;
 
   String title;
   String artist;
@@ -26,7 +26,7 @@ class Album implements SongItem
   String thumbnail;
 
   Album({this.id, this.artistId, this.type, this.title, this.artist, 
-    this.list, this.description, this.thumbnail, bool dontGetSongs=false})
+    this.description, this.thumbnail, bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
   }
@@ -49,11 +49,10 @@ class Album implements SongItem
         type        : ArchiveTypes.album,
         id          : (detail['_id'] != null)         ? detail['_id'].toString() : '',
         artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
-        title       : (detail['title'] != null)        ? detail['title'] : '',
+        title       : (detail['title'] != null)       ? detail['title'] : '',
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
         thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
-        list        : items,
       );
     } 
     catch (e) {
@@ -67,8 +66,7 @@ class Album implements SongItem
   void getSongs() async
   {
     ContentProvider cp = CI.Injector.get<ContentProvider>();
-    ResultWithNavigator<Song> rwn = await cp.stitchArchive.song_getListByAlbum(id);
-    list = rwn.list;
+    songNavigator = await cp.stitchArchive.song_getListByAlbum(id);
   }
 
   dynamic toDynamic()
@@ -130,7 +128,7 @@ class Album implements SongItem
 
     for(int i=0; i < total; i++)
     {
-      Song item = list[i];
+      Song item = songNavigator.list[i];
       item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 

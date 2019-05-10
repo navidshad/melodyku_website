@@ -23,13 +23,15 @@ class StitchArchive
   // methods
   Future<dynamic> getItemByID<T>(String id) async
   {
+    //print('getItemByID');
     String collectioName = ResultWithNavigator.getCollection<T>();
     List<DbField> dbFields = ResultWithNavigator.getDbFields<T>();
 
     RemoteMongoCollection collection = _mediaDB.collection(collectioName);
 
     var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getById', ['media', collectioName, id]));
+      _stitch.appClient.callFunction('getById', ['media', collectioName, id]))
+      .catchError(_handleError);
 
     if(result == null)
     {
@@ -37,6 +39,7 @@ class StitchArchive
       return null;
     }
 
+    //print('getItemByID begin to convertedToMap');
     Map convertedToMap = convertToMap(result, dbFields);
     T item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap, dontGetSongs: false);
 

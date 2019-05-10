@@ -25,15 +25,15 @@ class TableSong
 
   TableSong(this.lang, this._playerService, this._player);
 
-  @Input()
-  List<Song> items;
+  @Input('songNavigator')
+  ResultWithNavigator<Song> navigator;
 
   int hoverNumber = -1;
 
   int get selectedNumber {
     int selected = -1;
-    for(int i =0; i < items.length; i++) {
-      if(_player.current?.id == items[i].id) 
+    for(int i =0; i < navigator.list.length; i++) {
+      if(_player.current?.id == navigator.list[i].id) 
         selected = i;
     };
 
@@ -41,7 +41,7 @@ class TableSong
   }
 
   void play(int i) {
-    _playerService.play(StreamDetail_Player(true, items[i].type, items[i]));
+    _playerService.play(StreamDetail_Player(true, navigator.list[i].type, navigator.list[i]));
   }
 
   // when mose go into

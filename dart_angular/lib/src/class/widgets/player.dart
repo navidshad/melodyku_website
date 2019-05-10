@@ -105,7 +105,7 @@ class Player
     // get stream link
     //String streamLink = await _contentProvider.archive.getStreamLink(id: track.id, version: version);
     String streamLink = await _contentProvider.archive.getDownloadLink(current);
-    print('streamLink $streamLink , duration ${current.duration}');
+    //print('streamLink $streamLink , duration ${current.duration}');
     audio.src = streamLink;
 
     play();
@@ -125,7 +125,6 @@ class Player
     bool isAdded = false;
 
     _list.forEach((item) { 
-      print('forEach | ${item}');
       if(track.id == item.id) 
         isAdded = true; 
     });
@@ -134,7 +133,7 @@ class Player
       _list.add(track);
       listItems.add(track.getAsWidget<ListItem>());
     }
-    print('added a media to list | ${track.id}');
+    //print('added a media to list | ${track.id}');
   }
 
   void next() 

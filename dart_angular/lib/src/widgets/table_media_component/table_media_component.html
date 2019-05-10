@@ -1,4 +1,4 @@
-<div class='table' *ngIf="items != null">
+<div class='table' *ngIf="navigator != null">
     <div class='row header'>
         <div class='cell index'>#</div>
         <div class='cell'>{{lang.getStr("songTitle")}}</div>
@@ -9,7 +9,7 @@
 
     <div class="_line"></div>
 
-    <div *ngFor="let song of items; let i=index"
+    <div *ngFor="let song of navigator.list; let i=index"
         class="row body {{selectedNumber == i ? 'selected':''}}" 
         (click)="play(i)"
         (mouseenter)="onmouseenter(i)"

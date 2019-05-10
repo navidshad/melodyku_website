@@ -31,7 +31,7 @@ class ArtistPage implements OnActivate
   ContentProvider _contentProvider;
 
   Artist artist;
-  List<Song> topList = [];
+  ResultWithNavigator<Song> topListNavigator;
   List<Card> albums = [];
 
   // constructor ==================================
@@ -55,8 +55,7 @@ class ArtistPage implements OnActivate
     artist = await _contentProvider.stitchArchive.getItemByID<Artist>(id);
 
     // get 10 song of artist
-    ResultWithNavigator rSong = await _contentProvider.stitchArchive.song_getListByArtist(artist.id, page: 1, total: 10);
-    topList = rSong.list;
+    topListNavigator = await _contentProvider.stitchArchive.song_getListByArtist(artist.id, page: 1, total: 10);
 
     // get albums
     ResultWithNavigator rAlbums = await _contentProvider.stitchArchive.album_getListByArtist(artist.id);

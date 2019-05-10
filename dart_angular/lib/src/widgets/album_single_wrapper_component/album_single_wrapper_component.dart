@@ -35,5 +35,5 @@ class AlbumSingleWrapperComponent
   String thumbnail;
 
   @Input()
-  List<Song> medias;
+  ResultWithNavigator<Song> songNavigator;
 }

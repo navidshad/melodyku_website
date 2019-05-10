@@ -46,6 +46,8 @@ class ResultWithNavigator<T>
     else if(T == Album)   item = Album.fromjson(doc, dontGetSongs: dontGetSongs) as T;
     else if(T == Song)    item = Song.fromjson(doc) as T;
 
+    //print('=== createItemFromDoc T == Song ${(T == Song)}');
+
     return item;
   }
 
@@ -58,6 +60,7 @@ class ResultWithNavigator<T>
     else if(T == Song)    list = SystemSchema.song;
     //else if(T == Playlist) list = SystemSchema.artist;
 
+    //print('=== getDbFields ${list.length}');
     return list;
   }
 
@@ -70,7 +73,7 @@ class ResultWithNavigator<T>
     else if(T == Song)    collection = 'song';
     else if(T == Playlist) collection = 'playlist';
 
-    //print('=== _getCollection $T');
+    //print('=== _getCollection $collection');
 
     return collection;
   }
@@ -118,26 +121,12 @@ class ResultWithNavigator<T>
     if(goto != null) _current = goto;
     else _current += 1;
 
-    // Map navigatorDetail = getNavigatorDetail(total: _total, page: _current, perPage: _perPage);
-
-    // List artistsPipeline = _getMainStages();
-    // artistsPipeline.addAll([
-    //     {
-    //       '\$skip' : navigatorDetail['from']
-    //     },
-
-    //     {
-    //       '\$limit': navigatorDetail['to']
-    //     }
-    //   ]);
-
-    // dynamic artistDocs = await promiseToFuture(
-    //   _collection.aggregate(js.jsify(artistsPipeline)).asArray())
-    //   .catchError(_handleError);
-
     String coll = getCollection<T>();
+    dynamic argumants = js.jsify(
+        [coll, _perPage, _current, customQuery]
+      );
     var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getFromMediaByCustomQuery', [coll, _perPage, _current, customQuery]))
+      _stitch.appClient.callFunction('getFromMediaByCustomQuery', argumants))
       .catchError(_handleError);
 
     _pages = js.getProperty(result, 'pages');
@@ -154,6 +143,7 @@ class ResultWithNavigator<T>
       hasMore = true;
     else hasMore = false;
 
+    print('loadNextPage list ${list.length}');
     return list;
   }
 
