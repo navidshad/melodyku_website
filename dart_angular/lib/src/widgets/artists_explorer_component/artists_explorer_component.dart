@@ -45,6 +45,7 @@ class ArtistsExplorerComponent
 	void selectChar(String char)
 	{
 		selected = char;
+		_page = 0;
 		getArtists();
 		artistCards = [];
 	}
