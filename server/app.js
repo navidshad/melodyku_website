@@ -16,7 +16,7 @@ let option = {
     // if it would be true, app doesn't listen to port,
     // and a raw app object with all routers will be returned.
     // this option is for virtual host middlewares
-    dontlisten: false,
+    dontlisten: true,
  
     // collecting other services from subfolders
     otherSrvice: [
@@ -63,7 +63,7 @@ function Init(app, otherSrvice)
     app.use(koaBody());
 
     // serve static
-    let staticFolder_angularApp = '../dart_angular/build';
+    let staticFolder_angularApp = '../build';
     let staticFolder = './static';
     app.use(koaStatic(staticFolder_angularApp));
     app.use(koaStatic(staticFolder));
@@ -72,7 +72,21 @@ function Init(app, otherSrvice)
 function AfterInit(app, otherSrvice) {
   // do something
 }
- 
-modularRest.createRest(option).then(app => {
+
+// hosts
+let http = require('http');
+let steryo = require('./../../bot/app.js');
+let hostess = require('vhostess')();
+
+modularRest.createRest(option).then(koaApp => 
+{
     // do something
+  http.createServer(hostess).listen(80);
+  hostess.use('melodyku.com', koaApp.callback());
+  hostess.use('steryo.melodyku.com', steryo.app);
+  hostess.use(function (req, res) {
+    res.statusCode = 404
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+    res.end('subdomain needed')
+  });
 });

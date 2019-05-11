@@ -12,6 +12,7 @@
     "@koa/cors": "^2.2.2",
     "koa-body": "^4.0.4",
     "koa-static": "^5.0.0",
-    "modular-rest": "^1.0.6"
+    "modular-rest": "^1.0.6",
+    "vhostess": "^1.0.0"
   }
 }
