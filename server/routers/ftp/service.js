@@ -13,19 +13,12 @@ function connect()
   
   rootDir = '/' + user;
   
-  return client.connect({host: host, user: user, password: pass})
-  .then(function (serverMessage) {
-    console.log('Server message: '+serverMessage);
-    //return client.list(rootDir);
-  }).then(function (list) {
-    //console.log('Directory listing:');
-    //console.dir(list);
-  });
-  
   client.on('error', function(e) 
   {
     console.log('on error', e);
   });
+
+  return client.connect({host: host, user: user, password: pass}).then();
 }
 
 async function createSubdir(sublist)
