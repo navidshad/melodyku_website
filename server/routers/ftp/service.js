@@ -28,14 +28,14 @@ async function createSubdir(sublist)
   let currentPath = rootDir;
   for (var i = 0; i < sublist.length; i++) {
     var dir = sublist[i];
-    currentPath += `${dir}`;
+    currentPath += `/${dir}`;
     
     await client.mkdir(dir).then().catch((e) => {
-      console.log(`could not create ${dir}`, e);
+      //console.log(`could not create ${dir}`, e);
     });
     
     await client.cwd(currentPath).then().catch((e) => {
-      console.log(`could not goto ${dir}`, e);
+      //console.log(`could not goto ${currentPath}`, e);
     });
   }
   
@@ -46,11 +46,8 @@ async function put(input, destPath)
 {
   await client.cwd(rootDir).then().catch(e => console.log(`could not goto ${rootDir}`, e));
   
-  await client.put(input, destPath)
-    .then(() => {
-      //console.log(destPath, ' | has been uploaded.');
-    })
-    .catch(e => console.log(`could not create ${destPath} | ${e} | ${destPath}`));
+  return client.put(input, destPath)
+    .catch(e => `could not create ${destPath} | ${e} | ${destPath}`);
 }
 
 module.exports.name = name;

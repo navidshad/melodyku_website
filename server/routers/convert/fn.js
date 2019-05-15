@@ -96,7 +96,7 @@ function uploadToFTP(song, preset, filePath)
     return new Promise( async (done, reject) => 
     {
         // create directories
-        let dir = path.join(global.config.ftp_convert_dir, song.artistId);
+        let dir = `${global.config.ftp_convert_dir}/${song.artistId}`;
         await ftp.createSubdir(dir.split('/'))
             .catch(e => reject(`could not create ${dir} | ${e}`));
 
@@ -193,7 +193,7 @@ async function convert(song, preset)
         let newVersions = await addNewVersion(song.versions, versionBaseDetail, preset.title);
 
         //upload to ftp
-        await uploadToFTP(song, preset, outpath);
+        await uploadToFTP(song, preset, outpath).catch(reject);
 
         // update song
         let songColl = global.services.stitch.getCollection('media', 'song');
