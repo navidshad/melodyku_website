@@ -1,24 +1,23 @@
 const PromiseFtp = require('promise-ftp');
 let client = new PromiseFtp();
+var colog = require('colog');
+
 let name = 'ftp';
 let path = require('path');
 
 let rootDir;
 
-function connect()
+async function connect()
 {
   let host = global.config.ftp_host;
   let user = global.config.ftp_user;
   let pass = global.config.ftp_pass;
   
   rootDir = '/' + user;
-  
-  client.on('error', function(e) 
-  {
-    console.log('on error', e);
-  });
 
-  return client.connect({host: host, user: user, password: pass}).then();
+  return client.connect({host: host, user: user, password: pass})
+    .then(user => colog.info('- ftp has been connected'))
+    .catch(err => colog.error(err) );
 }
 
 async function createSubdir(sublist)
