@@ -12,11 +12,11 @@ module.exports.main = convert;
 convert.post('/list', async (ctx) => 
 {
     let body = ctx.request.body;
-    var bitrate = parseInt(body.bitrate);
+    var preset = body.preset;
     var page = parseInt(body.page);
     var total = parseInt(body.total);
     
-    var result = await fn.getlist(total, page, bitrate)
+    var result = await fn.getlist(total, page, preset)
         .then(songs => {
             return toolkit.reply('s', {'d': songs});
         })

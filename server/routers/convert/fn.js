@@ -3,13 +3,13 @@ const mm = require('music-metadata');
 const fs = require('fs');
 const path = require('path');
 
-async function getlist(total, page, bitrate)
+async function getlist(total, page, presetTitle)
 {
     let songColl = global.services.stitch.getCollection('media', 'song');
     let mainpipeLine = [ 
         { 
             "$match" : {
-                "versions.bitrate" : bitrate
+                "versions.title" : { $ne: presetTitle }
             }
         },
     ];
