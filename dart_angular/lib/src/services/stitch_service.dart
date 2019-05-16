@@ -36,7 +36,6 @@ class StitchService
     print('users ${appClient.auth.user}');
 
     return promiseToFuture(loginAnonymouseByHelper(appClient))
-    //return promiseToFuture(appClient.auth.loginWithCredential(AnonymousCredential()))
       .then((newUser) 
       {
         print('user logined with Anonymouse');

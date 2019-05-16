@@ -2,12 +2,16 @@ import 'package:angular/angular.dart';
 
 import '../../services/services.dart';
 import '../../class/page/page.dart';
+import 'package:melodyku/src/widgets/admin/converter_component/converter_component.dart';
 
 @Component(
   selector: 'page',
   templateUrl: 'archive_convert_page.html',
   styleUrls: [ 'archive_convert_page.css' ],
-  )
+  directives: [
+    ConverterComponent,
+  ]
+)
 class ArchiveConvertPage 
 {
   Page _page;

@@ -1,0 +1,54 @@
+<div class="widget-container">
+	<div class="w3-row">
+
+		<!-- shell -->
+		<div class="w3-third w3-container shell">
+			<ul id="shell"></ul>
+		</div>
+
+		<!-- table -->
+		<div class="w3-twothird w3-container">
+
+			<div class="table-div">
+				<div class='row header'>
+			        <div class='cell index'>#</div>
+			        <div class='cell'>{{lang.getStr("songTitle")}}</div>
+			        <div class='cell album'>{{lang.getStr("album")}}</div>
+			        <div class='cell'>{{lang.getStr("artist")}}</div>
+			    </div>
+
+			    <div class="_line"></div>
+
+			    <div *ngFor="let song of navigator.list; let i=index"
+			        class="row body">
+
+			        <div class='cell index'>
+			            <span>{{i}}</span>
+			        </div>
+
+			        <div class='cell'>{{song.title}}</div>
+			        <div class='cell album'>{{song.album}}</div>
+			        <div class='cell'>{{song.artist}}</div>
+			    </div>
+			</div>
+
+			<div class="controller flex-row flex-center">
+				<!-- buttons -->
+				<div class="btn-sl {{isConverting ? 'btn-selected-noAction' : ''}}" (click)="convertAll()">Convert All</div>
+
+				<div class="btn-sl {{isConverting ? '' : 'btn-disabled'}}" (click)="stop()">Stop</div>
+
+				<!-- preset selector -->
+				<div>
+					<select-field 
+						[field]="selectedPreset"
+						[options]="presets"
+						(onChange)="onSelectPreset($event)">
+					</select-field>
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+</div>

@@ -78,6 +78,14 @@ class SystemSchema
 		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
+	static List<DbField> convert_preset =
+	[
+		DbField('title'),
+		DbField('type'),
+		DbField('input'),
+		DbField('output'),
+	];
+
 	// user ====================================
 	static List<DbField> userDetail = 
 	[

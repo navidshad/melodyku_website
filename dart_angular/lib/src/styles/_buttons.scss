@@ -87,7 +87,14 @@ $selectedBtn : #ff4fea;
 .btn-selected {
     background: $selectedBtn;
 }
-
 .btn-selected:hover {
+    background-color: darken($selectedBtn, 20);
+}
+
+.btn-selected-noAction {
+    background-color: darken($selectedBtn, 20);
+    cursor: wait;
+}
+.btn-selected-noAction:hover {
     background-color: darken($selectedBtn, 20);
 }
