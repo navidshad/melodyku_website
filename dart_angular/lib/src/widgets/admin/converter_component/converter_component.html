@@ -32,6 +32,8 @@
 			    </div>
 			</div>
 
+			<div class="_line"></div>
+
 			<div class="controller flex-row flex-center">
 				<!-- buttons -->
 				<div class="btn-sl {{isConverting ? 'btn-selected-noAction' : ''}}" (click)="convertAll()">Convert All</div>
@@ -39,7 +41,7 @@
 				<div class="btn-sl {{isConverting ? '' : 'btn-disabled'}}" (click)="stop()">Stop</div>
 
 				<!-- preset selector -->
-				<div>
+				<div class='preset'>
 					<select-field 
 						[field]="selectedPreset"
 						[options]="presets"

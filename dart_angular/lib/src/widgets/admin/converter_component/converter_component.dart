@@ -26,7 +26,7 @@ class ConverterComponent
 
 	ConverterComponent(this.lang, this._stitch)
 	{
-		navigator = ResultWithNavigator<Song>();
+		navigator = ResultWithNavigator<Song>(perPage: 10);
 		_getPresets();
 	}
 
@@ -60,6 +60,8 @@ class ConverterComponent
 
 	void onSelectPreset(String title)
 	{
-
+		Map query = { 'versions.title': { '\$ne': title } };
+		navigator.customQuery = query;
+		navigator.loadNextPage(1);
 	}
 }
