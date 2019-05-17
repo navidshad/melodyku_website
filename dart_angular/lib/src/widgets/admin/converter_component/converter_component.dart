@@ -83,10 +83,7 @@ class ConverterComponent
 		});
 
 		socket.on('getConverterStatus', (result) => isConverting = result['isConverting']);
-		socket.on('onConvertReport', (msg) {
-				logs.add(msg);
-				logs = logs.reversed.toList();
-			});
+		socket.on('onConvertReport', (msg) => logs.add(msg));
 	}
 
 	void clearLog() => logs = [];
