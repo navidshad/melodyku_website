@@ -42,7 +42,7 @@ class LoginFormComponent
   {
     window.onKeyPress.listen((KeyboardEvent e)
     {
-      if(e.key == 'k') activeForm = (activeForm != 'apikey') ? 'apikey' : 'login';
+      //if(e.key == 'k') activeForm = (activeForm != 'apikey') ? 'apikey' : 'login';
     });
   }
 
