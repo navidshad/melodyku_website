@@ -40,17 +40,27 @@ class SubscriptionService
 		dynamic newUserSubscriptionPlane = {
 			'refId'		: refId,
 			'plan'		: tariff['title'],
-			'startsIn'	: DateTimeToMap(startsIn),
-			'expiresIn'	: DateTimeToMap(expiresIn),
+			'startsIn'	: dateTimeToJSDate(startsIn),
+			'expiresIn'	: dateTimeToJSDate(expiresIn),
 		};
 
-		dynamic doc = js.jsify(newUserSubscriptionPlane);
+		dynamic doc = js.jsify({ '\$set': newUserSubscriptionPlane});
 		dynamic query = js.jsify({'refId':refId});
 		dynamic dateArrayKeys = js.jsify(['startsIn', 'expiresIn']);
 
-		promiseToFuture(_stitch.appClient
-			.callFunction('useCRUDForDatedObject', ['user', 'subscription', 'update', doc, dateArrayKeys, query]))
-			.then((result) 
+		// promiseToFuture(_stitch.appClient
+		// 	.callFunction('useCRUDForDatedObject', ['user', 'subscription', 'update', doc, dateArrayKeys, query]))
+		// 	.then((result) 
+		// 	{
+		// 		print('### tariff ${tariff['title']} has been submitted for user.');
+		// 		_userService.user.updateSubscription();
+		// 	})
+		// 	.catchError(_catchError);
+
+		RemoteMongoCollection coll = _stitch.dbClient.db('user').collection('subscription');
+		promiseToFuture(
+			coll.updateOne(query, doc, js.jsify({ 'upsert': true })))
+			.then((result)
 			{
 				print('### tariff ${tariff['title']} has been submitted for user.');
 				_userService.user.updateSubscription();

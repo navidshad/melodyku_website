@@ -32,7 +32,7 @@ class Subscription
 				print('=== user subscription $converted');
 				plan = converted['plan'];
 				startsIn = converted['startsIn'];
-				expiresIn = converted['expiresIn'];
+				expiresIn = converted['expiresIn'] ?? DateTime.now();
 			})
 			.catchError(_catchError);
 	}
