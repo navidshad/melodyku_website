@@ -6,7 +6,6 @@ import '../../class/page/page.dart';
 import '../../class/types.dart';
 import '../../class/utility/math.dart';
 
-import '../../class/result_list/result_song.dart';
 import '../../class/widgets/card.dart';
 import '../../class/widgets/list_item.dart';
 
@@ -53,25 +52,25 @@ class TopTracksPage
   void getContent() async 
   {
 
-    Result_Song rSong_top15 = await _contentProvider.archive
-      .media_getAll(randomRange(0, 50), total: 15);
+    // Result_Song rSong_top15 = await _contentProvider.archive
+    //   .media_getAll(randomRange(0, 50), total: 15);
 
-    rSong_top15.list.forEach((song) {
-      top15Songs.add(song.getAsWidget<ListItem>());
-    });
+    // rSong_top15.list.forEach((song) {
+    //   top15Songs.add(song.getAsWidget<ListItem>());
+    // });
 
-    Result_Song rSong_allTime = await _contentProvider.archive
-      .media_getAll(randomRange(0, 50), total: 10);
+    // Result_Song rSong_allTime = await _contentProvider.archive
+    //   .media_getAll(randomRange(0, 50), total: 10);
 
-    rSong_allTime.list.forEach((song) {
-      topOfAllTime.add(song.getAsWidget<Card>());
-    });
+    // rSong_allTime.list.forEach((song) {
+    //   topOfAllTime.add(song.getAsWidget<Card>());
+    // });
 
-    Result_Song rSong_last = await _contentProvider.archive
-      .media_getAll(randomRange(0, 50), total: 20);
+    // Result_Song rSong_last = await _contentProvider.archive
+    //   .media_getAll(randomRange(0, 50), total: 20);
 
-    rSong_last.list.forEach((song) {
-      lastSongs.add(song.getAsWidget<Card>());
-    });      
+    // rSong_last.list.forEach((song) {
+    //   lastSongs.add(song.getAsWidget<Card>());
+    // });      
   }
 }

@@ -162,7 +162,7 @@ class StitchArchive
   }
 
   // playlist ---------------------------------------------
-  Future<Result_Playlist> playlist_getList() async
+  Future<ResultWithNavigator> playlist_getList() async
   {
     // String url = '${link_archive}/playlist/all';
     // print('playlist_getList(), url: $url');

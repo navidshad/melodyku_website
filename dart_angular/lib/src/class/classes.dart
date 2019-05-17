@@ -6,11 +6,7 @@ export 'archive/album.dart';
 export 'archive/song.dart';
 export 'archive/playlist.dart';
 export 'archive/result_with_navigator.dart';
-export 'result_list/result_list.dart';
 export './archive/archive_item.dart';
-
-// result list
-export './result_list/result_list.dart';
 
 // widgets
 export 'widgets/card.dart';

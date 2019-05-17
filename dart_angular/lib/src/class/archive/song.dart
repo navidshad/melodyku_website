@@ -5,6 +5,7 @@ import 'package:js/js_util.dart' as js;
 
 import '../injector.dart';
 import '../../services/services.dart';
+import '../../services/urls.dart';
 
 
 import '../classes.dart';
@@ -32,9 +33,10 @@ class Song implements SongItem
   String thumbnail;
 
   int year;
-  double duration;
+  double duration, size;
+  int bitrate;
 
-  List<SongVersion> versions = [];
+  List<Map> versions = [];
 
   Song({
     this.id,
@@ -47,6 +49,8 @@ class Song implements SongItem
     this.genre,
     this.lyric,
     this.duration,
+    this.bitrate,
+    this.size,
     this.thumbnail,
     this.versions,
   })
@@ -63,9 +67,6 @@ class Song implements SongItem
     // if(detail['genre'] != null)
     //   detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
 
-    if(detail.containsKey('versions'))
-      versions = Song.createVersions(detail['versions']);
-
     Song mFromJson;
     try {
       //print('Song.fromjson $detail');
@@ -81,8 +82,10 @@ class Song implements SongItem
       lyric     : (detail['lyric'] != null) ? detail['lyric'] : '',
       year      : (detail['year']   != null) ? detail['year'] : null,
       duration  : (detail['duration']   != null) ? detail['duration'] : 0,
+      bitrate   : (detail['bitrate']   != null) ? detail['bitrate'] : 0,
+      size      : (detail['size']   != null) ? detail['size'] : 0,
       thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
-      versions  : versions,
+      versions  : detail['versions'],
     );
 
     //if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
@@ -95,40 +98,29 @@ class Song implements SongItem
     return mFromJson;
   }
 
-  static List<SongVersion> createVersions(String json)
+  String getStreamLink(String version)
   {
-    List docs = [];
+    String cBitrate;
+    String path = '';
+    String root = '';
 
-    try{
-      docs = jsonDecode(json);
-    }catch(e) {
-      print('createVersions $json $e');
-    };
+    if(version == 'original')
+    {
+      root = 'music';
+      cBitrate = bitrate.toString();
+    }
 
-    List<SongVersion> versions = [];
-    for(int i=0; i < docs.length; i++)
-      {
-        dynamic doc = docs[i];
-        SongVersion v = SongVersion.createFromMap(doc);
-        if(v != null) versions.add(v);
-      }
+    else {
+      root = 'music_converted';
+      versions.forEach((Map SongVersion) {
+        if(SongVersion['title'] == version)
+          cBitrate = SongVersion['title'];
+      });
+    }
 
-    return versions;
-  }
-
-  dynamic toDynamic()
-  {
-    return {
-      '_id'         : id,
-      'title'       : title,
-      'artist'      : artist,
-      'album'       : album,
-      'year'        : year,
-      'genre'       : genre,
-      'lyric'       : lyric,
-      'duration'    : duration,
-      'thumbnail'   : thumbnail,
-    };
+    path = '$root/$artistId/$id ${cBitrate}.mp3';
+    Uri link = Uri.http(dataMelodyku, path);
+    return link.toString();
   }
 
   String getDuration()

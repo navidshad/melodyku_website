@@ -45,6 +45,6 @@ class PlaylistPage implements OnActivate
     final id = current.parameters['id'];
 
     // get album
-    playlist = await _contentProvider.archive.playlist_getById(id);
+    //playlist = await _contentProvider.archive.playlist_getById(id);
   }
 }

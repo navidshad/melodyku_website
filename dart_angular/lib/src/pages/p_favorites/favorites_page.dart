@@ -37,7 +37,7 @@ class FavoritesPage implements OnInit
   void getItems() async 
   {
     // get 
-    Playlist pl_favorites = await _contentProvider.archive.favorites_getList();
-    listItems_favorites = pl_favorites.getChildsAsWidgets<ListItem>(total: 50);
+    // Playlist pl_favorites = await _contentProvider.archive.favorites_getList();
+    // listItems_favorites = pl_favorites.getChildsAsWidgets<ListItem>(total: 50);
   }
 }
