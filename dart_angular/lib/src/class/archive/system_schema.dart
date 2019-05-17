@@ -86,6 +86,18 @@ class SystemSchema
 		DbField('output'),
 	];
 
+	static List<DbField> permission =
+	[
+		DbField('title'),
+		DbField('isDefault', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('advanced_settings', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('categorizing', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('archive_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('customer_access', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('quality_management', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('user_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	];
+
 	// user ====================================
 	static List<DbField> userDetail = 
 	[

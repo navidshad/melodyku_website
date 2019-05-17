@@ -102,7 +102,7 @@ class User
     .then((doc) 
     {
       print('user permission | $doc');
-      dynamic pDetail = convertFromJS(doc);
+      dynamic pDetail = convertToMap(doc, SystemSchema.permission);
       _permission = Permission.fromJson(pDetail);
     }).catchError(_catchError);
   }

@@ -1,6 +1,8 @@
 import 'package:angular/angular.dart';
 import 'dart:html';
 
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:melodyku/src/services/services.dart';
 import 'package:melodyku/src/class/classes.dart';
 import 'package:melodyku/src/widgets/admin/db_form/select_field/select_field.dart';
@@ -18,9 +20,11 @@ class ConverterComponent
 {
 	LanguageService lang;
 	StitchService _stitch;
+	IO.Socket socket;
 
 	ResultWithNavigator<Song> navigator;
 	List<DbField> presets = [];
+	List<String> logs = [];
 	String selectedPreset;
 	bool isConverting = false;
 
@@ -28,6 +32,7 @@ class ConverterComponent
 	{
 		navigator = ResultWithNavigator<Song>(perPage: 10);
 		_getPresets();
+		connectToSocket();
 	}
 
 	void _getPresets() async
@@ -46,9 +51,10 @@ class ConverterComponent
 
 	void convertAll()
 	{
-		if(isConverting) return;
+		if(isConverting || selectedPreset == null) return;
 
 		isConverting = true;
+		socket.emit('convertAll', selectedPreset);
 	}
 
 	void stop()
@@ -56,12 +62,32 @@ class ConverterComponent
 		if(!isConverting) return;
 
 		isConverting = false;
+		socket.emit('stopConvert');
 	}
 
 	void onSelectPreset(String title)
 	{
+		selectedPreset = title;
 		Map query = { 'versions.title': { '\$ne': title } };
 		navigator.customQuery = query;
 		navigator.loadNextPage(1);
 	}
+
+	void connectToSocket()
+	{
+		String orgine = window.location.origin.toString();
+		socket = IO.io(orgine);
+		socket.on('connect', (_) {
+		  print('connected to socket');
+		  socket.emit('getConverterStatus');
+		});
+
+		socket.on('getConverterStatus', (result) => isConverting = result['isConverting']);
+		socket.on('onConvertReport', (msg) {
+				logs.add(msg);
+				logs = logs.reversed.toList();
+			});
+	}
+
+	void clearLog() => logs = [];
 }
