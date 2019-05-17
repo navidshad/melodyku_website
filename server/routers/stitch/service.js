@@ -13,11 +13,14 @@ const{
 
 let configDetail = global.config;
 
-const stitchClient = Stitch.initializeDefaultAppClient(configDetail.stitch_appid);
-const mongoClient = stitchClient.getServiceClient(RemoteMongoClient.factory, configDetail.stitch_service);
+let stitchClient;
+let mongoClient;
 
 function login()
 {
+  stitchClient = Stitch.initializeDefaultAppClient(configDetail.stitch_appid);
+  mongoClient = stitchClient.getServiceClient(RemoteMongoClient.factory, configDetail.stitch_service);
+  
   let credential = new ServerApiKeyCredential(configDetail.stitch_api_key);
   return stitchClient.auth.loginWithCredential(credential)
     .then(user => colog.info('- stitch_db has been connected'))

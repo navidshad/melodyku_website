@@ -58,7 +58,7 @@ async function convertAll(presetTitle)
 
 		await converter.prepareToCovertBySong(song, presetTitle)
 			.then(r => {
-				broadCaseReportToUsers(`${i} ${presetTitle} | ${song.title} | ${song.artist}`);
+				broadCaseReportToUsers(`${i} ${presetTitle} | ${song.artist} | ${song.title}`);
 			})
 			.catch(e => { 
 				console.log(e); 
