@@ -14,12 +14,12 @@ let option = {
     onBeforInit: BeforInit, // befor anything
     onInit: Init,           // after collecting routers
     //onAfterInit: AfterInit, // affter launch server
-    port: 100,
+    port: global.config.port,
  
     // if it would be true, app doesn't listen to port,
     // and a raw app object with all routers will be returned.
     // this option is for virtual host middlewares
-    dontlisten: false,
+    dontlisten: true,
  
     // collecting other services from subfolders
     otherSrvice: [
@@ -57,10 +57,12 @@ function Init(app, otherSrvice)
     global.services = otherSrvice['service'];
 
     // serve static
-    let staticFolder_angularApp = '../build';
+    let staticFolder_angularApp = '../dart_angular/build';
     let staticFolder = './static';
+    let socket_client = './node_modules/socket.io-client/dist';
     app.use(koaStatic(staticFolder_angularApp));
     app.use(koaStatic(staticFolder));
+    app.use(koaStatic(socket_client));
 
     //home url
     let home = new Router();
@@ -77,21 +79,38 @@ let hostess = require('vhostess')();
 
 function setupVHost(koaApp) 
 {
-    http.createServer(hostess).listen(100);
-    hostess.use(global.config.domain_melodyku, koaApp.callback());
-    hostess.use(global.config.domain_steryo, steryo.app);
+    let port = global.config.port;
+    let server = http.createServer(hostess).listen(port);
+
+    global.io = require('socket.io').listen(server);
     
+    hostess.use(global.config.domain_melodyku, koaApp.callback());
+    //hostess.use(global.config.domain_steryo, steryo.app);
+    
+    // 404 
     hostess.use(function (req, res) {
       res.statusCode = 404
       res.setHeader('Content-Type', 'text/plain; charset=utf-8')
       res.end('subdomain needed')
+    });
+
+    // socket connection
+    global.io.on('connection', client => 
+    {
+        console.log('someone connected');
+        client.on('event', data => { /* … */ });
+        client.on('disconnect', () => { 
+            console.log('someone disconnected');
+        });
+
+        global.services.converter.initializConverterSockets(client);
     });
 }
 
 modularRest.createRest(option).then(async koaApp => 
 {   
     // run virtual host
-    //setupVHost(koaApp);
+    setupVHost(koaApp);
 
     // connect to stitch
     await global.services.stitch.login();

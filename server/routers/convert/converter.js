@@ -3,52 +3,6 @@ const mm = require('music-metadata');
 const fs = require('fs');
 const path = require('path');
 
-async function getlist(total, page, presetTitle)
-{
-    let songColl = global.services.stitch.getCollection('media', 'song');
-    let mainpipeLine = [ 
-        { 
-            "$match" : {
-                "versions.title" : { $ne: presetTitle }
-            }
-        },
-    ];
-
-    let countPipeLine = mainpipeLine.concat([
-        { $count: 'count' }
-    ]);
-
-    var countAggregateResult = await songColl.aggregate(countPipeLine).asArray().then();
-    let count = countAggregateResult[0]['count'];
-
-    let perPage = total;
-    let navigator = tools.createNavigator(count, perPage, page);
-
-    let pagePipeLine = mainpipeLine.concat([
-        { 
-            "$skip" : navigator.from
-        }, 
-        { 
-            "$limit" : perPage,
-        },
-        { 
-            "$project" : {
-                "_id" : {
-                    "$toString" : "$_id"
-                }, 
-                "title" : "$title", 
-                "album" : "$album", 
-                "artist" : "$artist"
-            }
-        }
-    ]);
-
-    return songColl.aggregate(pagePipeLine).asArray()
-        .then((songs) => {
-            return {'pages': navigator.pages, 'page': navigator.page, 'list': songs};
-        });
-}
-
 function Command(command)
 {
     var cp = require('child_process');
@@ -65,7 +19,7 @@ function Command(command)
     });
 }
 
-function addNewVersion(versions, baseDetail, presetTitle)
+function addNewVersion(versions=[], baseDetail, presetTitle)
 {
     baseDetail.title = presetTitle;
 
@@ -130,13 +84,7 @@ async function getFileDetail(filePath)
 
 function getlinkOfOrginalSong(song)
 {
-    let bitrate;
-
-    song.versions.forEach(version => {
-        if(version.isOriginal) bitrate = version.bitrate;
-    })
-
-    let link = `${global.config.domain_data}/${song.artistId}/${song.albumId}/${song._id} ${bitrate}.mp3`;
+    let link = `${global.config.domain_data}/${song.artistId}/${song._id} ${song.bitrate}.mp3`;
     return link;
 }
 
@@ -154,6 +102,20 @@ function prepareToCovert(id, presetTitle)
 
         if(!song) reject(`the ${id} doesn't found`);
         else await convert(song, preset).then(done).catch(reject);
+    });
+}
+
+function prepareToCovertBySong(song, presetTitle)
+{
+    return new Promise( async (done, reject) => 
+    {
+        console.log('begine to convert by song');
+        let presetColl = global.services.stitch.getCollection('cms', 'convert_preset');
+        var preset = await presetColl.findOne({'title':presetTitle}).then();
+        if(!preset) reject(`the preset ${presetTitle} dosent found.`);
+
+        if(!song) reject(`the song is null`);
+        else convert(song, preset).then(done).catch(reject);
     });
 }
 
@@ -210,5 +172,6 @@ async function convert(song, preset)
 }
 
 module.exports = {
-    getlist, prepareToCovert,
+    prepareToCovert,
+    prepareToCovertBySong,
 }
