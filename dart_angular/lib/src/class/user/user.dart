@@ -86,6 +86,10 @@ class User
     await promiseToFuture(userDB.collection('detail').find(detailQuery).first())
     .then((doc)
     {
+      // reget data, this is for first login affter registeration.
+      // because user data is created affter first login.
+      if(doc == null) getData();
+
       Map converted = convertToMap(doc, SystemSchema.userDetail);
       print('user detail | $converted');
 

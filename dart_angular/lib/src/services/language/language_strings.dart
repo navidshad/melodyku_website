@@ -176,6 +176,11 @@ dynamic languageStrings = [
     'fa'  : 'درخواست تغییر رمز',
   },
   {
+    'name': 'getConfirmation',
+    'en'  : 'resend confirmation',
+    'fa'  : 'دریافت تائیدیه ایمیل',
+  },
+  {
     'name': 'resetLinkSent',
     'en'  : 'reset link has been sent to your email, check it out, please',
     'fa'  : 'لینک بازناشی رمز به ایمیل شما ارسال شد.',

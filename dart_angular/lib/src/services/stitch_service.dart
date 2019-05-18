@@ -58,6 +58,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -79,6 +80,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -99,6 +101,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -123,6 +126,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -138,12 +142,14 @@ class StitchService
     return promiseToFuture(emailPassClient.resendConfirmationEmail(email))
     .then((msg)
     {
+      log(msg);
       print('confirmation email was sent | $msg');
       result['done'] = true;
       result['message'] = msg;
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -165,6 +171,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });
@@ -189,6 +196,7 @@ class StitchService
       return result;
     })
     .catchError((error){
+      log(error);
       result['message'] = error.toString();
       return result;
     });

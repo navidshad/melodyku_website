@@ -45,3 +45,8 @@ class JSDate{
 
 @JS('console.log')
 external void log(dynamic input);
+
+@JS('JSON')
+class JSON {
+	external static String stringfy(jsObject);
+}
