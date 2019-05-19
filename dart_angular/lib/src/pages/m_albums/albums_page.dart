@@ -7,7 +7,6 @@ import '../../class/utility/math.dart';
 
 import '../../class/archive/result_with_navigator.dart';
 import '../../class/widgets/card.dart';
-import '../../class/widgets/list_item.dart';
 
 import '../../widgets/list_wide_component/list_wide_component.dart';
 import '../../widgets/slider_rect_component/slider_rect_component.dart';
@@ -19,7 +18,6 @@ import '../../widgets/grid_component/grid_component.dart';
   styleUrls: [ 'albums_page.css' ],
   directives: [
     coreDirectives,
-    ListWideComponent,
     SliderRectComponent,
     GridComponent,
   ]
@@ -34,7 +32,7 @@ class AlbumsPage
 
   List<Card> featuredAlbums = [];
   List<Card> lastAlbums = [];
-  List<ListItem> top15albums = [];
+  List<Card> top15albums = [];
 
   // constructor ==================================
   AlbumsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -63,7 +61,7 @@ class AlbumsPage
       .album_getList(randomRange(0, 50), total: 15);
 
     ralbums_tops.list.forEach((album) {
-      top15albums.add(album.getAsWidget<ListItem>());
+      top15albums.add(album.getAsWidget<Card>());
     });
 
     ResultWithNavigator ralbums_Lasts = await _contentProvider.stitchArchive
