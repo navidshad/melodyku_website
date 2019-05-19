@@ -26,6 +26,8 @@ class PlayerBareComponent implements OnInit
   bool isVisible = true;
   bool isQueueVisible = false;
   PlayerService _playerService;
+  LanguageService lang;
+  SubscriptionService _subscriptionService;
   Player player;
 
   // controller buttons
@@ -38,7 +40,7 @@ class PlayerBareComponent implements OnInit
   Song get current => player.current;
   
 
-  PlayerBareComponent(this._playerService, this.player);
+  PlayerBareComponent(this._playerService, this.player, this.lang, this._subscriptionService);
   void ngOnInit() => addListeners();
 
   // methods
@@ -124,5 +126,14 @@ class PlayerBareComponent implements OnInit
   //   ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);
 
   String isitCurrentPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
+
+  void buy() =>
+    _subscriptionService.goToSubscriptionPage();
+
+  bool isNeedWarning()
+  {
+    if(player.version == 'demo' && player.isPlaying) return true;
+    else return false;
+  }
 }
 

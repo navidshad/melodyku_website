@@ -58,6 +58,20 @@ dynamic languageStrings = [
     'en'  : 'Submit',
     'fa'  : 'ثبت',
   },
+  {
+    'name': 'moreDetail',
+    'en'  : 'more detail',
+    'fa'  : 'جزئیات بیشتر'
+  },
+
+  // ========================
+  // warnings
+  // ========================
+  {
+    'name': 'warningPlayingDemo',
+    'en'  : 'playing demo version of this song.',
+    'fa'  : 'در حال پخش نسخه دمو این ترانه',
+  },
 
   // ========================
   // common lables
@@ -396,6 +410,11 @@ dynamic languageStrings = [
   // ========================
   // subscription
   // ======================== 
+  {
+    'name': 'buySubscription',
+    'en'  : 'Get a Subscription',
+    'fa'  : 'خرید اشتراک'
+  },
   {
     'name': 'days',
     'en'  : 'Days',

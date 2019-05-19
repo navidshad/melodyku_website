@@ -1,4 +1,5 @@
 export 'types.dart';
+export 'navigator.dart';
 
 // archive
 export 'archive/artist.dart';

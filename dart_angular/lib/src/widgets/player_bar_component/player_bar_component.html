@@ -1,5 +1,12 @@
 <div class="container" *ngIf="isVisible">
 
+    <div class="warning" *ngIf="isNeedWarning()">
+        <p>
+            <span>{{lang.getStr('warningPlayingDemo')}} | </span>
+            <span class="buy pointer" (click)="buy()">{{lang.getStr('buySubscription')}}</span>
+        </p>
+    </div>
+
     <div [class]="getQueueClass()">
         <h4>لیست پخش</h4>
 

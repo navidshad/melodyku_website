@@ -15,6 +15,7 @@ class Player
   //List<>
 
   Song current;
+  String version;
   ImageButton playBtn;
 
   AudioElement _audio;
@@ -24,6 +25,7 @@ class Player
     addListeners();
   }
 
+  bool isPlaying = false;
   bool hasSong = false;
   bool seeking = false;
   bool isShuffle = false;
@@ -46,18 +48,24 @@ class Player
   {
     // update slider
     _audio.onTimeUpdate.listen((e) {
+      isPlaying = true;
       //print('seeking: $seeking');
       if(!seeking) currentTime = audio.currentTime.toInt().toDouble();
     });
     // stop when current was ended
     _audio.onEnded.listen((e) 
     {
+      isPlaying = false;
       // tracke played Song
       if(_userServide.isLogedIn)
         _userServide.user.traker.reportPlayedSong(current);
 
       if(isLoop) audio.play();
       else playBtn.clicked(false);
+    });
+
+    _audio.onPause.listen((e) {
+      isPlaying = false;
     });
   }
   void onSeekingSlider() => seeking = true;
@@ -98,7 +106,7 @@ class Player
     await Future.delayed(Duration(milliseconds: 200));
 
     // define version of Song
-    String version = 'demo';
+    version = 'demo';
     if(_userServide.isLogedIn && _userServide.user.subscription.hasSubscription())
       version = 'original';
 

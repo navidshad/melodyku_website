@@ -4,15 +4,17 @@ import 'dart:html';
 import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/src/services/services.dart';
+import 'package:melodyku/src/class/navigator.dart';
 import 'package:melodyku/src/class/archive/system_schema.dart';
 
 class SubscriptionService
 {
 	StitchService _stitch;
 	UserService _userService;
+	ModalService _modalService;
 	List<Map> _tariffs = [];
 
-	SubscriptionService(this._stitch, this._userService);
+	SubscriptionService(this._stitch, this._userService, this._modalService);
 
 	Future<Map> getTariffById(dynamic id) async
 	{
@@ -86,6 +88,12 @@ class SubscriptionService
 		}
 
 		return _tariffs;
+	}
+
+	void goToSubscriptionPage()
+	{
+		if(!_userService.isLogedIn) _modalService.show('login');
+		else Navigator.gotTo('subscription');
 	}
 
 	void _catchError(error) => print(error);
