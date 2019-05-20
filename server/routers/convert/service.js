@@ -3,6 +3,7 @@ let name = 'converter';
 let io;
 let isConverting = false;
 let askToStop = false;
+let tools = require('modular-rest-toolkit');
 
 function initializConverterSockets(SocketClient)
 {
@@ -51,25 +52,27 @@ async function convertAll(presetTitle)
 		];
 
 		let song = await songColl.aggregate(pipeLine).first()
-			.catch(e => { 
+			.catch(async e => { 
 				console.log(e); 
-				i--; 
+				await tools.sleep(1000);
+				i--;
 			});
 
 		await converter.prepareToCovertBySong(song, presetTitle)
 			.then(r => {
 				broadCaseReportToUsers(`${i} ${presetTitle} | ${song.artist} | ${song.title}`);
 			})
-			.catch(e => { 
+			.catch(async e => { 
 				console.log(e); 
-				i--; 
+				await tools.sleep(1000);
+				i--;
 			});
 
 		if(askToStop) {
-			break;
 			askToStop = false;
 			isConverting = false;
 			broadCaseStatusToUsers();
+			break;
 		}
 	}
 
