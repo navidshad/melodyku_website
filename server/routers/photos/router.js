@@ -28,7 +28,6 @@ photos.post('/upload', async (ctx) =>
             }); 
     }
 
-    console.log(result);
     ctx.body = result;
 });
 

@@ -7,11 +7,11 @@ function uploadPhotos(type, id, file)
     {
         // create directory
         let dir = `${rootDir}/${type}`;
-        await ftp.createSubdir(dir).catch(reject);
+        await ftp.createSubdir(dir.split('/')).catch(reject);
 
         // upload file
         let destPath = `${dir}/${id}.jpg`;
-        ftp.put(file).then(done).catch(reject);
+        ftp.put(file.path, destPath).then(done).catch(reject);
     });
 }
 

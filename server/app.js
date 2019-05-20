@@ -50,8 +50,10 @@ function BeforInit(app)
     // do something
     // set cors 
     app.use(cors());
+  
     // body parser
-    app.use(koaBody());
+    let option = { multipart: true, };
+    app.use(koaBody(option));
 }
 
 function Init(app, otherSrvice)
@@ -83,7 +85,6 @@ function setupVHost(koaApp)
     global.io = require('socket.io').listen(server);
     
     hostess.use(global.config.domain_steryo, steryo.app);
-    //console.log('steryo app', global.config.domain_steryo, steryo);
     hostess.use(global.config.domain_melodyku, koaApp.callback());
     
     // 404 
