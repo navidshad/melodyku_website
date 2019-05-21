@@ -20,18 +20,20 @@ class Artist implements SongItem
   String name;
   String description;
   String thumbnail;
+  String imgStamp;
 
-  Artist({this.id, this.name, this.description, this.thumbnail});
+  Artist({this.id, this.name, this.description, this.imgStamp, this.thumbnail});
 
   factory Artist.fromjson(dynamic detail)
   {
     Artist artist;
     try {
       artist =  Artist(
-        id: (detail['_id'] != null) ? detail['_id'].toString() : '',
-        name: (detail['name'] != null) ? detail['name'] : '',
+        id        : (detail['_id'] != null) ? detail['_id'].toString() : '',
+        name      : (detail['name'] != null) ? detail['name'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
-        thumbnail: (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
+        imgStamp  : (detail['imgStamp'] != null) ? detail['imgStamp'] : '',
+        thumbnail : (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
         );
     } 
     catch (e) {

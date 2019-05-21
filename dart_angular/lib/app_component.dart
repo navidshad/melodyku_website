@@ -24,6 +24,7 @@ import './src/class/injector.dart' as CI;
   ],
   providers: const [
     ClassProvider(StitchService),
+    ClassProvider(LanguageService),
     ClassProvider(MessageService),
     ClassProvider(UserService),
     ClassProvider(Requester),

@@ -5,10 +5,10 @@ import '../user_service.dart';
 
 class Requester
 {
-  Client _http;
+  Client http;
   UserService _userService;
 
-  Requester(this._http, this._userService);
+  Requester(this.http, this._userService);
 
   Future<dynamic> post(url, {dynamic body}) async
   {
@@ -19,7 +19,7 @@ class Requester
       String token = _getToken();
       dynamic header = {'token':token};
 
-      Response response = await _http.post(url, body: form, headers: header);
+      Response response = await http.post(url, body: form, headers: header);
       result = _extractData(response);
 
       //_printRequestStatus(response, sentBody: body);
@@ -39,7 +39,7 @@ class Requester
     try {
       String token = _getToken();
       dynamic header = {'token':token};
-      Response response = await _http.get(url, headers: header);
+      Response response = await http.get(url, headers: header);
       
       result = directResult ? response.body : _extractData(response);
 
@@ -55,11 +55,10 @@ class Requester
 
   String _getToken() {
     //print('_userService.token ${_userService.token}');
-    return _userService.token ?? 'none';
+    return 'none';
   }
-    
 
-  _printRequestStatus(Response response, {sentBody})
+  void _printRequestStatus(Response response, {sentBody})
   {
     String url = response.request.url.toString();
     String method = response.request.method;

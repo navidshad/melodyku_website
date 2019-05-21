@@ -36,6 +36,8 @@ class Song implements SongItem
   double duration, size;
   int bitrate;
 
+  String imgStamp;
+
   List<Map> versions = [];
 
   Song({
@@ -53,6 +55,7 @@ class Song implements SongItem
     this.size,
     this.thumbnail,
     this.versions,
+    this.imgStamp
   })
   {
     type = ArchiveTypes.media;
@@ -84,6 +87,7 @@ class Song implements SongItem
       duration  : (detail['duration']   != null) ? detail['duration'] : 0,
       bitrate   : (detail['bitrate']   != null) ? detail['bitrate'] : 0,
       size      : (detail['size']   != null) ? detail['size'] : 0,
+      imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
       thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
       versions  : detail['versions'],
     );

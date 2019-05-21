@@ -24,6 +24,7 @@ class User
   String permissionId;
   String fullname;
   String email;
+  String imgStamp;
 
   User(id, {
     this.detailId, 
@@ -31,7 +32,8 @@ class User
     bool getDetail=true,
     this.permissionId,
     this.fullname,
-    this.email
+    this.email,
+    this.imgStamp,
     })
   {
     this.id = id.toString();
@@ -53,11 +55,13 @@ class User
 
     try{
       p = User(
-      detail['refId'].toString(),
-      detailId: detail['_id'],
-      permissionId : detail['permissionId'],
-      email : detail['email'],
-      fullname : detail['fullname']);
+        detail['refId'].toString(),
+        detailId: detail['_id'],
+        permissionId : detail['permissionId'],
+        email : detail['email'],
+        fullname : detail['fullname'],
+        imgStamp : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
+      );
     }
     catch(e){
       print('User.fromJson | $e');

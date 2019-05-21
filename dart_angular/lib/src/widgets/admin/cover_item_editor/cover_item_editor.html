@@ -1,9 +1,11 @@
 <div class="wrapper flex-column flex-center">
 	<div class="cover-md">
-		<img class="background" src="" alt="">
+		<img class="background" src="{{link}}" alt="">
 	</div>
 	<div class="options flex-row">
-		<div class="btn-sl">select</div>
-		<div class="btn-sl">upload</div>
+		<form #form enctype="multipart/form-data">
+	    	<input class="btn-sl" type="file" #upload name='image'>
+			<div class="btn-sl" (click)="uploadFiles(form)">upload {{progress}}</div>
+	  	</form>
 	</div>
 </div>

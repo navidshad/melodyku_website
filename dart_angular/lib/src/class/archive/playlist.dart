@@ -17,8 +17,9 @@ class Playlist implements SongItem
   String title;
   List<Song> list;
   String thumbnail;
+  String imgStamp;
 
-  Playlist({this.id, this.title, this.list, this.thumbnail});
+  Playlist({this.id, this.title, this.list, this.thumbnail, this.imgStamp});
 
   factory Playlist.fromjson(Map detail)
   {
@@ -37,10 +38,12 @@ class Playlist implements SongItem
       }
 
       playlist = Playlist( 
-        id: detail['_id'].toString(), 
-        title: detail['title'], 
-        thumbnail: getRandomCovers(1)[0], 
-        list: items );
+        id        : detail['_id'].toString(), 
+        title     : detail['title'], 
+        thumbnail : getRandomCovers(1)[0], 
+        imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
+        list      : items 
+        );
     } 
     catch (e) {
       print('convert playlist from json');

@@ -24,9 +24,10 @@ class Album implements SongItem
   String artist;
   String description;
   String thumbnail;
+  String imgStamp;
 
   Album({this.id, this.artistId, this.type, this.title, this.artist, 
-    this.description, this.thumbnail, bool dontGetSongs=false})
+    this.description, this.imgStamp, this.thumbnail, bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
   }
@@ -52,6 +53,7 @@ class Album implements SongItem
         title       : (detail['title'] != null)       ? detail['title'] : '',
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
+        imgStamp    : (detail['imgStamp']   != null)  ? detail['imgStamp'] : '',
         thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
       );
     } 

@@ -10,13 +10,18 @@
     </div> -->
 
     <div class ="w3-third w3-container">
-        <cover-item-editor></cover-item-editor>
+        <cover-item-editor 
+            [type]="type" 
+            [id]="id"
+            [imgStamp]="imgStamp">
+            </cover-item-editor>
     </div>
 
     <div>
         <db-collection-item-editor 
         [options]="options"
-        (onChanged)="onUpdated()"></db-collection-item-editor>
+        (onChanged)="onUpdated()">
+        </db-collection-item-editor>
     </div>
 
 </div>

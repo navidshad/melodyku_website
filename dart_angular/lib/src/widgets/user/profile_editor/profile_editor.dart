@@ -19,6 +19,10 @@ class ProfileEditor
 	UserService _userService;
 	CollectionOptions options;
 
+	String id;
+  	String type;
+  	String imgStamp;
+
 	ProfileEditor(this._userService)
 	{
 		print('_userService.user.detailId ${_userService.user.detailId}');
@@ -31,6 +35,10 @@ class ProfileEditor
 			dbFields: SystemSchema.userDetail,
 			hasCover: false,
 		);
+
+		id = _userService.user.id;
+		imgStamp = _userService.user.imgStamp;
+    	type = 'user';
 	}
 
 	void onUpdated() =>

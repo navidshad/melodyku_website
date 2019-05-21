@@ -1,14 +1,20 @@
+import 'dart:html';
 import '../class/utility/language.dart';
 import './language/language_strings.dart';
+import './stitch_service.dart';
 
 class LanguageService 
 {
   int _current;
   List<Language> _languageList;
+  List<Map> languageDocs = [];
+  StitchService _stitch;
 
-  LanguageService() {
+  LanguageService(this._stitch) 
+  {
     _languageList = List<Language>();
     prepareLanguages();
+    getLanguages();
   }
 
   // base methods ===============================
@@ -85,5 +91,19 @@ class LanguageService
 
     // return
     return extracted;
+  }
+
+  void getLanguages() async
+  {
+    promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
+      .then((list) 
+      {
+          print('prepareOptions got languages ${list.length}');
+          list.forEach((jsDoc) 
+          {
+              Map doc = convertToMap(jsDoc, SystemSchema.language);
+              languageDocs.add(doc);
+          });
+      });
   }
 }

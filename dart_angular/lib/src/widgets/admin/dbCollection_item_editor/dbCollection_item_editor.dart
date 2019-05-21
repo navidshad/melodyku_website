@@ -45,7 +45,10 @@ class DbCollectionItemEditorComponent
 	StitchService _stitch;
 	RemoteMongoCollection _collection;
 
-	DbCollectionItemEditorComponent(this._stitch, this._modalService);
+	DbCollectionItemEditorComponent(this._stitch, this._modalService)
+	{
+		print('DbCollectionItemEditorComponent constructor');
+	}
 
 	dynamic editable;
 	CollectionOptions op;
@@ -57,6 +60,7 @@ class DbCollectionItemEditorComponent
 	@Input()
 	void set options(CollectionOptions options)
 	{
+		print('=== begin to get options');
 		op = options;
 
 		if(options.document != null)	setNewEditable(options.document);
@@ -65,6 +69,7 @@ class DbCollectionItemEditorComponent
 		if(op.createNew) changeMode(false);
 
 		_collection = _stitch.dbClient.db(op.database).collection(op.collection);
+		print('=== end to get options');
 	}
 
 	@Output()

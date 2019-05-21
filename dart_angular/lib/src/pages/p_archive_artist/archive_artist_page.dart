@@ -64,28 +64,14 @@ class ArchiveArtistPage implements OnActivate
     
     List<DbField> languages = [];
 
-    await promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
-    .then((languageDocs) 
-    {
-      languageDocs.forEach((language) 
-      {
-          DbField sField = DbField(language.code.toString(), customTitle: language.title);
-          languages.add(sField);
-      });
-
-      singleOptions = CollectionOptions(
-        hasCover: true,
-        title:"detail",
-        database: 'media',
-        collection:"artist",
-        id:artistID,
-        dbFields: [
-          DbField('name'),
-          DbField('local_title',  subFields: languages, dataType: DataType.object, fieldType: FieldType.object)
-        ]
-      );
-
-    }).catchError(_catchError);
+    singleOptions = CollectionOptions(
+      hasCover: true,
+      title:"detail",
+      database: 'media',
+      collection:"artist",
+      id:artistID,
+      dbFields: SystemSchema.artist,
+    );
 
 
     AlbumTableOptions = CollectionOptions(
@@ -94,13 +80,7 @@ class ArchiveArtistPage implements OnActivate
       collection: 'album',
       query: {'artistId': artistID},
       allowUpdate: false,
-      dbFields: [
-        DbField('title'),
-        DbField('artist', isDisable: true),
-        DbField('description'),
-        DbField('artistId', isDisable: true),
-        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object),
-      ],
+      dbFields: SystemSchema.album,
 
       linkButtons: <LinkButton>[
         LinkButton(

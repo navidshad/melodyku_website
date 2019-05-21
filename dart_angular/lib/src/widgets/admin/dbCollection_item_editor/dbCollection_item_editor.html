@@ -1,16 +1,20 @@
 <div class="widget-container flex-column flex-center"
 	*ngIf="op != null">
 	
-	<div class="w3-row">
+	<div class="w3-row" *ngIf="editable != null">
 
-		<div class="detail w3-twothird w3-container text-left {{isUpdating ? 'no-opacity' : ''}}" >
+		<div class="detail w3-twothird w3-container text-left {{isUpdating ? 'no-opacity' : ''}}">
 			<object-field 
 				[options]="op.dbFields" [(object)]="editable" [viewMode]="viewMode">
 			</object-field>
 		</div>
 
 		<div class ="w3-third w3-container" *ngIf="op.hasCover">
-			<cover-item-editor></cover-item-editor>
+			<cover-item-editor 
+				[type]="op.collection"
+				[id]="editable['_id'].toString()"
+				[imgStamp]="editable['imgStamp']">
+				</cover-item-editor>
 		</div>
 			
 	</div>

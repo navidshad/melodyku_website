@@ -6,12 +6,14 @@ class SystemSchema
 	static List<DbField> artist = 
 	[
 		DbField('name'),
+		DbField('imgStamp', isHide:true),
         DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
 	static List<DbField> album =
 	[
 		DbField('title'),
+		DbField('imgStamp', isHide:true),
 		DbField('albumId', isHide:true),
      	DbField('artist', isDisable: true),
       	DbField('description'),
@@ -40,7 +42,8 @@ class SystemSchema
 		DbField('size', dataType: DataType.float, isHide:true),
 		DbField('bitrate', dataType: DataType.int, isHide:true),
 		DbField('versions', isHide:true, dataType: DataType.array_object, subFields: song_version),
-		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
+		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+		DbField('imgStamp', isHide:true),
 	];
 
 	static List<DbField> result_artists = 
@@ -69,9 +72,18 @@ class SystemSchema
 	// 	DbField('pages', dataType: DataType.string, fieldType: FieldType.text),
 	// 	DbField('current', isDisable: true),
 	// 	DbField('list', dataType: DataType.array_object, subFields: ArchiveSchema.song),
+	//  DbField('imgStamp', isHide:true),
 	// ];
 
 	// CMS ======================================
+	static List<DbField> language = 
+	[
+		DbField('title'),
+		DbField('title_en'),
+		DbField('code'),
+		DbField('isDefault', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	];
+
 	static List<DbField> tariff = 
 	[
 		DbField('title'),
@@ -107,7 +119,7 @@ class SystemSchema
 		DbField('permissionId', isHide: true),
 		DbField('fullname'),
 		DbField('email', isDisable: true),
-		
+		DbField('imgStamp', isHide:true),		
 	];
 
 	static List<DbField> subscription = 

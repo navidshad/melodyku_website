@@ -62,72 +62,23 @@ class ArchiveAlbumPage implements OnActivate
   {
     print('album prepareOptions');
 
-    await promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
-    .then((languageDocs) 
-    {
-      languageDocs.forEach((language) 
-      {
-        DbField sField = DbField(language.code.toString(), customTitle: language.title);
-        languages.add(sField);
-      });
+    albumEditorOptions = CollectionOptions(
+      hasCover: true,
+      title:"detail",
+      database: "media",
+      collection:"album",
+      id:albumID,
+      dbFields: SystemSchema.album,
+    );
 
-      albumEditorOptions = CollectionOptions(
-        hasCover: true,
-        title:"detail",
-        database: "media",
-        collection:"album",
-        id:albumID,
-        dbFields: [
-          DbField('title'),
-          DbField('artist', isDisable: true),
-          DbField('description'),
-          DbField('artistId', isDisable: true),
-          DbField('local_title', subFields: languages,
-            dataType: DataType.object, fieldType: FieldType.object),
-        ],
-      );
-
-      songOptions = CollectionOptions(
-        hasCover: true,
-        title:"songs",
-        database: 'media',
-        collection:"song",
-        query: {'albumId': albumID},
-        dbFields: [
-          DbField('title', dataType: DataType.string, fieldType: FieldType.text),
-          DbField('album', isDisable: true),
-          DbField('artist', isDisable: true),
-          DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
-          DbField('year', dataType: DataType.int, fieldType: FieldType.text),
-          DbField('local_title', subFields: languages,
-            dataType: DataType.object, fieldType: FieldType.object),
-        ]
-      ); 
-
-    }).catchError(_catchError);
-
-    // dynamic songQuery = js.jsify({'albumId': albumID});
-    // promiseToFuture(_stitch.dbClient.db('media').collection('song').find(songQuery).asArray())
-    // .then((songs) 
-    // {
-    //   print('songs ${songs.length}');
-    //   songs.forEach((song) 
-    //   {
-    //     CollectionOptions songOption = CollectionOptions(
-    //       title:"detail",
-    //       collection:"song",
-    //       document: song,
-    //       fields: ['title', 'album', 'artist', 'genre', 'year', 'local_title'],
-    //       stringObjects: ['local_title'],
-    //       types: {
-    //         'local_title': languages
-    //       }
-    //     ); 
-
-    //     songsEditorOption.add(songOption);
-    //   });
-
-    // }).catchError(_catchError);
+    songOptions = CollectionOptions(
+      hasCover: true,
+      title:"songs",
+      database: 'media',
+      collection:"song",
+      query: {'albumId': albumID},
+      dbFields: SystemSchema.song,
+    );
   }
 
   void _catchError(Error) => print(Error);

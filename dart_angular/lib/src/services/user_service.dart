@@ -19,7 +19,6 @@ class UserService
   MessageService _messageService;
   StitchService _stitch;
   BrowserClient _http;
-  String _token;
 
   User user;
   //User get user => user;
@@ -31,8 +30,6 @@ class UserService
     print('an instance of userService being created');
     _http = BrowserClient();
   }
-
-  String get token => _token;
 
   void loginWithLastSession()
   {

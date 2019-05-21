@@ -32,5 +32,7 @@ class ProfilePage
       permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'profile');
+
+    
   }
 }

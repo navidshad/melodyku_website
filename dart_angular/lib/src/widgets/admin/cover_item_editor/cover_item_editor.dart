@@ -1,21 +1,9 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
-import 'dart:convert';
 
-import 'package:js/js_util.dart' as js;
+import '../../../services/services.dart';
 
-import '../../../services/stitch_service.dart';
-import '../../../services/modal_service.dart';
-
-import '../../../class/modal/modal.dart';
-
-import '../../../class/utility/collection_options.dart';
-export '../../../class/utility/collection_options.dart';
-
-import '../../../directives/ElementExtractorDirective.dart';
-
-import 'package:melodyku/mongo_stitch/app_client.dart';
 
 @Component(
 	selector: 'cover-item-editor',
@@ -23,20 +11,68 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 	styleUrls: ['cover_item_editor.css'],
 	directives: [
 		coreDirectives,
-		ElementExtractorDirective,
 		formDirectives,
 	]
 )
-class CoverItemEditor
+class CoverItemEditor implements OnInit
 {
-	ModalService _modalService;
-  	Modal modal;
+	ContentProvider _contentProvider;
 
-	StitchService _stitch;
-	RemoteMongoCollection _collection;
+	CoverItemEditor(this._contentProvider);
 
-	CoverItemEditor(this._stitch, this._modalService)
+	void ngOnInit() async
 	{
-		
+		print('ngOnInit');
+		if(type == null || id == null) return;
+
+		link = await _contentProvider.getImage(type: type, id: id, imgStamp: imgStamp);
 	}
+
+	String link = '';
+
+	@Input()
+	String type;
+
+	@Input()
+	String id;
+
+	@Input()
+	String imgStamp;
+
+	String progress = '';
+  	void uploadFiles(form) 
+  	{
+	    FormData formData = new FormData(form);
+
+	    formData.append('type', type);
+	    formData.append('id', id);
+
+	    print('$type $id');
+
+	    //String link = '${window.location.origin}/image/upload';
+	    String link = 'http://steryo.melodyku.com/image/upload';
+
+		final request = new HttpRequest();
+	    request.open('POST', link);
+
+	    request.upload.onProgress
+	    	.listen((ProgressEvent e) {
+      			progress = (e.loaded*100/e.total).toInt().toString() + '%';
+    		});
+
+	    request.onLoad
+	    	.listen((result) async {
+    			print('image has been uploaded $result');
+    			progress = '';
+    			link = await _contentProvider.getImage(type: type, id: id);
+    		});
+
+	    request.onError
+	    	.listen((error) {
+    			print('image upload has error $error');
+    			progress = '';
+    		});
+
+	    request.send(formData);
+  	}
 }
