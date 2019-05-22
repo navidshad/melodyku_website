@@ -51,8 +51,7 @@ class CoverItemEditor implements OnInit
 	Stream get onChanged => eventController.stream;
 
 	void getNewLink(){
-		_contentProvider.getImage(type: type, id: id, imgStamp: stamp)
-			.then((newLink) => link = newLink);
+		link = _contentProvider.getImage(type: type, id: id, imgStamp: stamp);
 	}
 
 	String progress = '';
@@ -68,8 +67,8 @@ class CoverItemEditor implements OnInit
 
 	    print('$type $id');
 
-	    String link = '${window.location.origin}/image/upload';
-	    //String link = 'http://steryo.melodyku.com/image/upload';
+	    //String link = '${window.location.origin}/image/upload';
+	    String link = 'http://steryo.melodyku.com/image/upload';
 
 		final request = new HttpRequest();
 	    request.open('POST', link);
@@ -108,8 +107,8 @@ class CoverItemEditor implements OnInit
   		formData.append('type', type);
 	    formData.append('id', id);
 
-	    String link = '${window.location.origin}/image/upload';
-		//String link = 'http://steryo.melodyku.com/image/remove';
+	    //String link = '${window.location.origin}/image/upload';
+		String link = 'http://steryo.melodyku.com/image/remove';
 
 	    final request = new HttpRequest();
 	    request.open('POST', link);

@@ -3,6 +3,7 @@ import 'dart:async';
 import '../classes.dart';
 
 import '../injector.dart' as CI;
+import '../../services/services.dart';
 import '../../routting/routes.dart';
 
 import 'media_item.dart';
@@ -19,7 +20,11 @@ class Playlist implements SongItem
   String thumbnail;
   String imgStamp;
 
-  Playlist({this.id, this.title, this.list, this.thumbnail, this.imgStamp});
+  Playlist({this.id, this.title, this.list, this.thumbnail, this.imgStamp})
+  {
+    // get thumbnail link
+    thumbnail = Injector.get<ContentProvider>().getImage(type:'playlist', id:id, imgStamp:imgStamp);
+  }
 
   factory Playlist.fromjson(Map detail)
   {
@@ -40,7 +45,6 @@ class Playlist implements SongItem
       playlist = Playlist( 
         id        : detail['_id'].toString(), 
         title     : detail['title'], 
-        thumbnail : getRandomCovers(1)[0], 
         imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
         list      : items 
         );
@@ -78,7 +82,7 @@ class Playlist implements SongItem
   }
 
   @override
-  String get link => '/#playlist/$id';
+  String get link => '/#/playlist/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -126,7 +130,6 @@ class Playlist implements SongItem
     for(int i=0; i < totalTemp; i++)
     {
       Song item = list[i];
-      item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
       T widget;

@@ -2,7 +2,7 @@ import 'package:melodyku/src/class/archive/media_item.dart';
 import 'dart:async';
 
 import '../injector.dart' as CI;
-import '../../services/content_provider/content_provider.dart';
+import '../../services/services.dart';
 import '../../routting/routes.dart';
 
 import '../classes.dart';
@@ -30,6 +30,9 @@ class Album implements SongItem
     this.description, this.imgStamp, this.thumbnail, bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
+
+    // get thumbnail link
+    thumbnail = Injector.get<ContentProvider>().getImage(type:'album', id:id, imgStamp:imgStamp);
   }
 
   factory Album.fromjson(Map detail, {bool dontGetSongs})
@@ -54,7 +57,6 @@ class Album implements SongItem
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
         imgStamp    : (detail['imgStamp']   != null)  ? detail['imgStamp'] : '',
-        thumbnail   : (detail['thumbnail'] != null)   ? detail['thumbnail'] : getRandomCovers(1)[0],
       );
     } 
     catch (e) {
@@ -82,7 +84,7 @@ class Album implements SongItem
   }
 
   @override
-  String get link => '/#album/$id';
+  String get link => '/#/album/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -90,7 +92,7 @@ class Album implements SongItem
     T widget;
 
     Map<String, String> params = {'id':id.toString()};
-    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
+    String link = '#/${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
 
     if(T == Card)
     {

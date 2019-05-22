@@ -60,6 +60,9 @@ class Song implements SongItem
   {
     type = ArchiveTypes.media;
     getLikeStatus();
+
+    // get thumbnail link
+    thumbnail = Injector.get<ContentProvider>().getImage(type:'song', id:id, imgStamp:imgStamp);
   }
 
   factory Song.fromjson(Map detail)
@@ -88,7 +91,6 @@ class Song implements SongItem
       bitrate   : (detail['bitrate']   != null) ? detail['bitrate'] : 0,
       size      : (detail['size']   != null) ? detail['size'] : 0,
       imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
-      thumbnail : (detail['thumbnail']   != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
       versions  : detail['versions'],
     );
 

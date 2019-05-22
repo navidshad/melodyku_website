@@ -4,6 +4,7 @@ import 'dart:async';
 import '../classes.dart';
 
 import '../injector.dart' as CI;
+import '../../services/services.dart';
 import '../../routting/routes.dart';
 
 import 'media_item.dart';
@@ -22,7 +23,11 @@ class Artist implements SongItem
   String thumbnail;
   String imgStamp;
 
-  Artist({this.id, this.name, this.description, this.imgStamp, this.thumbnail});
+  Artist({this.id, this.name, this.description, this.imgStamp, this.thumbnail})
+  {
+    // get thumbnail link
+    thumbnail = Injector.get<ContentProvider>().getImage(type:'artist', id:id, imgStamp:imgStamp);
+  }
 
   factory Artist.fromjson(dynamic detail)
   {
@@ -33,7 +38,6 @@ class Artist implements SongItem
         name      : (detail['name'] != null) ? detail['name'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
         imgStamp  : (detail['imgStamp'] != null) ? detail['imgStamp'] : '',
-        thumbnail : (detail['thumbnail'] != null) ? detail['thumbnail'] : getRandomCovers(1)[0],
         );
     } 
     catch (e) {
@@ -53,7 +57,7 @@ class Artist implements SongItem
   }
 
   @override
-  String get link => '/#artist/$id';
+  String get link => '/#/artist/$id';
 
   @override
   Future<bool> getLikeStatus() {
@@ -90,7 +94,7 @@ class Artist implements SongItem
       widget = Card( 
         name,
         id: id,
-        thumbnail: Uri(path: this.thumbnail),
+        thumbnail: Uri(path: thumbnail),
         titleLink: link,
         type: ArchiveTypes.artist,
         origin: this
@@ -104,7 +108,7 @@ class Artist implements SongItem
         id: id,
         duration: '',
         number: digititemNumber,
-        thumbnail: Uri(path: this.thumbnail),
+        thumbnail: Uri(path: thumbnail),
         titleLink: link,
         type: ArchiveTypes.artist,
         origin: this

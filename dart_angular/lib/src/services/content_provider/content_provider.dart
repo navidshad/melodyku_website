@@ -22,23 +22,16 @@ class ContentProvider
 		//print('ContentProvider constructor, $stitchArchive');
 	}
 
-	Future<String> getImage({String type, String id, String imgStamp}) async
+	String getImage({String type, String id, String imgStamp})
 	{
-		String link = '/';
+		String link = '';
 
-		Uri imageLink = Uri.http(dataMelodyku, 'images/$type/$id-$imgStamp.jpg');
-		
-		link = imageLink.toString();
+		if(imgStamp.length > 0)
+		{
+			Uri imageLink = Uri.http(dataMelodyku, 'images/$type/$id-$imgStamp.jpg');
+			link = imageLink.toString();
+		}
 
-		// await requester.http.get(imageLink)
-		// 	.then((Response response) 
-		// 	{
-		// 		print('getImage status code ${response.statusCode}');
-		// 		if(response.statusCode == 200)
-		// 			link = imageLink.toString();
-		// 	})
-		// 	.catchError((error) => print('getImage error $error'));
-		
 		return link;
 	}
 }
