@@ -5,6 +5,7 @@ const {
     Stitch,
     ServerApiKeyCredential,
     RemoteMongoClient,
+    BSON,
 } = require('mongodb-stitch-server-sdk');
 
 const{ 
@@ -32,9 +33,15 @@ function getCollection(db, coll)
   return mongoClient.db(db).collection(coll);
 }
 
+function objectId(stringId)
+{
+  return new BSON.ObjectId(stringId);
+}
+
 module.exports.name = name;
 module.exports.stitchClient = stitchClient;
 module.exports.mongoClient = mongoClient;
 module.exports.login = login;
 module.exports.getCollection = getCollection;
+module.exports.objectId = objectId;
 module.exports.fn = require('./stitch_functions');
