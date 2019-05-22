@@ -11,7 +11,7 @@ class ListItem<T>
     String number;
 
     String titleLink;
-    Uri thumbnail;
+    String thumbnail;
 
     T origin;
     ArchiveTypes type;

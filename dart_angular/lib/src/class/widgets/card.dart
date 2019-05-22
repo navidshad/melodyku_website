@@ -8,7 +8,7 @@ class Card<T>
   String subtitle;
   
   String titleLink;
-  Uri thumbnail;
+  String thumbnail;
 
   T origin;
   ArchiveTypes type;

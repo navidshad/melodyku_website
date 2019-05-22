@@ -82,7 +82,7 @@ class Playlist implements SongItem
   }
 
   @override
-  String get link => '/#/playlist/$id';
+  String get link => 'playlist/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -90,13 +90,13 @@ class Playlist implements SongItem
     T widget;
 
     Map<String, String> params = {'id':id};
-    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('playlist', params)}';
+    String link = '${CI.Injector.get<PageRoutes>().getRouterUrl('playlist', params)}';
     
     if(T == Card)
     {
       widget = Card( title,
           id: id,
-          thumbnail: Uri(path: thumbnail),
+          thumbnail: thumbnail,
           titleLink: link,
           type: ArchiveTypes.playlist,
           origin: this
@@ -109,7 +109,7 @@ class Playlist implements SongItem
           id: id,
           duration: '',
           number: digititemNumber,
-          thumbnail: Uri(path: thumbnail),
+          thumbnail: thumbnail,
           titleLink: link,
           type: ArchiveTypes.playlist,
           origin: this
@@ -141,7 +141,7 @@ class Playlist implements SongItem
           item.title,
           subtitle: item.artist,
           id: item.id,
-          thumbnail: Uri(path: item.thumbnail),
+          thumbnail: thumbnail,
           type: ArchiveTypes.media,
           origin: item
         ) as T;
@@ -155,7 +155,7 @@ class Playlist implements SongItem
           id: item.id,
           duration: item.getDuration(),
           number: itemNumber,
-          thumbnail: Uri(path: item.thumbnail),
+          thumbnail: thumbnail,
           type: ArchiveTypes.media,
           origin: item
         ) as T;

@@ -8,4 +8,10 @@ class Navigator
 		String newPath = '#${url.path}';
 		window.location.replace(newPath);
 	}
+
+	static goToRawPath(String path)
+	{
+		String newPath = '#${path}';
+		window.location.replace(newPath);
+	}
 }

@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:angular/angular.dart';
 
-import '../../services/services.dart';
-import '../../class/archive/song.dart';
+import '../../class/navigator.dart';
 
 @Component(
   selector: 'media-cover',
@@ -43,4 +41,13 @@ class MediaCoverComponent
 
   bool getPlayAccess() => playBtn ?? true;
   bool getExploreAccess() => exploreBtn ?? false;
+  bool getCoverAccess() => (thumbnail != null && thumbnail.length > 10) ? true : false;
+
+  void explore()
+  {
+    if(!getExploreAccess()) return;
+
+    print(titleLink);
+    Navigator.goToRawPath(titleLink);
+  }
 }

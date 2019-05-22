@@ -147,7 +147,7 @@ class Song implements SongItem
   }
 
   @override
-  String get link => '/#media/$id';
+  String get link => 'media/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -160,7 +160,7 @@ class Song implements SongItem
         artist,
         subtitle: title,
         id: id,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         type: ArchiveTypes.media,
         origin: this
       ) as T;
@@ -175,7 +175,7 @@ class Song implements SongItem
         id: id,
         duration: getDuration(),
         number: digititemNumber,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         type: ArchiveTypes.media,
         origin: this
       ) as T;

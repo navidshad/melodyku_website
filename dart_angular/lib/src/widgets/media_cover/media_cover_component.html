@@ -1,8 +1,8 @@
-<div class="cover flex-column flex-center {{isBig != null && isBig ? 'big' : 'small'}}">
-    <!-- <a href="{{titleLink}}"> -->
+<div class="cover flex-column flex-center {{isBig != null && isBig ? 'big' : 'small'}}"
+     (click)="explore()">
 
         <!-- cover image -->
-        <img class="background" *ngIf="thumbnail.length > 0" src="{{thumbnail}}">
+        <img class="background" *ngIf="getCoverAccess()" src="{{thumbnail}}">
 
         <div class="backElement"
             *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
@@ -28,5 +28,4 @@
                 <img class="cover-icon" src="/assets/svg/icon_link_rounded.svg">
             </div>
         </div>
-    <!-- </a> -->
 </div>

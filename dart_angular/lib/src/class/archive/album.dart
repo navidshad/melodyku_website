@@ -39,15 +39,6 @@ class Album implements SongItem
   {
     Album album;
     try {
-
-      List<Song> items = [];
-
-      if(detail.containsKey('songs'))
-      {
-        detail['songs'].forEach((item) 
-        { items.add(Song.fromjson(item)); });
-      }
-      
       album = Album(
         dontGetSongs: dontGetSongs,
         type        : ArchiveTypes.album,
@@ -71,6 +62,16 @@ class Album implements SongItem
   {
     ContentProvider cp = CI.Injector.get<ContentProvider>();
     songNavigator = await cp.stitchArchive.song_getListByAlbum(id);
+    injectAlbumCover();
+  }
+
+  void injectAlbumCover()
+  {
+    songNavigator.list.forEach((song) 
+    {
+        if(song.thumbnail == null || song.thumbnail?.length == 0)
+          song.thumbnail = thumbnail;
+    });
   }
 
   dynamic toDynamic()
@@ -84,7 +85,7 @@ class Album implements SongItem
   }
 
   @override
-  String get link => '/#/album/$id';
+  String get link => 'album/$id';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -92,7 +93,7 @@ class Album implements SongItem
     T widget;
 
     Map<String, String> params = {'id':id.toString()};
-    String link = '#/${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
+    String link = '${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
 
     if(T == Card)
     {
@@ -100,7 +101,7 @@ class Album implements SongItem
         artist,
         subtitle: title,
         id: id,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         type: ArchiveTypes.album,
         origin: this,
         titleLink: link,
@@ -115,7 +116,7 @@ class Album implements SongItem
         id: id,
         duration: '',
         number: digititemNumber,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         type: ArchiveTypes.album,
         origin: this,
         titleLink: link,
@@ -144,7 +145,7 @@ class Album implements SongItem
           item.title,
           subtitle: item.artist,
           id: item.id,
-          thumbnail: Uri(path: item.thumbnail),
+          thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
           origin: item
         ) as T;
@@ -157,7 +158,7 @@ class Album implements SongItem
           id: item.id,
           duration: item.getDuration(),
           number: itemNumber,
-          thumbnail: Uri(path: item.thumbnail),
+          thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
           origin: item
         ) as T;

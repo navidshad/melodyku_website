@@ -57,7 +57,7 @@ class Artist implements SongItem
   }
 
   @override
-  String get link => '/#/artist/$id';
+  String get link => 'artist/$id';
 
   @override
   Future<bool> getLikeStatus() {
@@ -87,14 +87,14 @@ class Artist implements SongItem
     T widget;
 
     Map<String, String> params = {'id':id.toString()};
-    String link = '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
+    String link = '${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
 
     if(T == Card)
     {
       widget = Card( 
         name,
         id: id,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         titleLink: link,
         type: ArchiveTypes.artist,
         origin: this
@@ -108,7 +108,7 @@ class Artist implements SongItem
         id: id,
         duration: '',
         number: digititemNumber,
-        thumbnail: Uri(path: thumbnail),
+        thumbnail: thumbnail,
         titleLink: link,
         type: ArchiveTypes.artist,
         origin: this
