@@ -1,30 +1,32 @@
 <div class="cover flex-column flex-center {{isBig != null && isBig ? 'big' : 'small'}}">
+    <!-- <a href="{{titleLink}}"> -->
 
-    <img class="background" *ngIf="thumbnail != null" src="{{thumbnail ?? ''}}">
+        <!-- cover image -->
+        <img class="background" *ngIf="thumbnail.length > 0" src="{{thumbnail}}">
 
-    <div class="backElement"
-        *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
+        <div class="backElement"
+            *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
 
-    <div class="overlay
-        {{(thumbnail != null) ? 'blueback' : ''}}
-        {{(number == hoverIndex) ? 'shown' : ''}}
-        {{(number == selectedIndex) ? 'shown' : ''}}">
-        <!-- blue overlay -->
-    </div>
-
-    <div class="icon-container
-        {{(number == hoverIndex) ? 'shown' : ''}}
-        {{(number == selectedIndex) ? 'shown' : ''}}">
-
-        <div *ngIf="getPlayAccess()">
-            <img *ngIf="number != selectedIndex" class="cover-icon" src="/assets/imgs/icons/play.png">
-            <img *ngIf="number == selectedIndex" class="cover-icon" src="/assets/imgs/icons/isPlaying.png">
+        <div class="overlay
+            {{(thumbnail != null) ? 'blueback' : ''}}
+            {{(number == hoverIndex) ? 'shown' : ''}}
+            {{(number == selectedIndex) ? 'shown' : ''}}">
+            <!-- blue overlay -->
         </div>
 
-        <div *ngIf="getExploreAccess()">
-            <a href="{{titleLink}}">
+        <!-- Icon -->
+        <div class="icon-container
+            {{(number == hoverIndex) ? 'shown' : ''}}
+            {{(number == selectedIndex) ? 'shown' : ''}}">
+
+            <div *ngIf="getPlayAccess()">
+                <img *ngIf="number != selectedIndex" class="cover-icon" src="/assets/imgs/icons/play.png">
+                <img *ngIf="number == selectedIndex" class="cover-icon" src="/assets/imgs/icons/isPlaying.png">
+            </div>
+
+            <div *ngIf="getExploreAccess()">
                 <img class="cover-icon" src="/assets/svg/icon_link_rounded.svg">
-            </a>
+            </div>
         </div>
-    </div>
+    <!-- </a> -->
 </div>

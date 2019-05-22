@@ -24,7 +24,7 @@ class ContentProvider
 
 	String getImage({String type, String id, String imgStamp})
 	{
-		String link = '';
+		String link;
 
 		if(imgStamp.length > 0)
 		{
