@@ -98,12 +98,9 @@ class DbCollectionItemEditorComponent
 	}
 
 	void setNewEditable(dynamic doc) {
-		//editable = convertFromJS(doc, stringArrays: stringArrays, stringObjects: stringObjects);
-		//editable = convertFromJS(doc);
+		log(doc);
 		editable = convertToMap(doc, op.dbFields);
-		//id = editable['_id'].toString();
-
-		//print('editable $editable');
+		op.id = editable['_id'];
 	}
 
 	void createItem() async 

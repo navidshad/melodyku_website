@@ -13,7 +13,8 @@
 			<cover-item-editor 
 				[type]="op.collection"
 				[id]="editable['_id'].toString()"
-				[imgStamp]="editable['imgStamp']">
+				[imgStamp]="editable['imgStamp']"
+				(onChanged)="getItem()">
 				</cover-item-editor>
 		</div>
 			

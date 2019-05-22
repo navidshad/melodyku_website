@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
+import 'dart:async';
 
 import '../../../services/services.dart';
 
@@ -16,6 +17,7 @@ import '../../../services/services.dart';
 )
 class CoverItemEditor implements OnInit
 {
+	final eventController = StreamController<bool>();
 	ContentProvider _contentProvider;
 
 	CoverItemEditor(this._contentProvider);
@@ -25,10 +27,12 @@ class CoverItemEditor implements OnInit
 		print('ngOnInit');
 		if(type == null || id == null) return;
 
-		link = await _contentProvider.getImage(type: type, id: id, imgStamp: imgStamp);
+		getNewLink();
 	}
 
+	String stamp;
 	String link = '';
+	bool isUploading = false;
 
 	@Input()
 	String type;
@@ -37,11 +41,26 @@ class CoverItemEditor implements OnInit
 	String id;
 
 	@Input()
-	String imgStamp;
+	void set imgStamp(String value)
+	{
+		stamp = value;
+		getNewLink();
+	}
+
+	@Output()
+	Stream get onChanged => eventController.stream;
+
+	void getNewLink(){
+		_contentProvider.getImage(type: type, id: id, imgStamp: stamp)
+			.then((newLink) => link = newLink);
+	}
 
 	String progress = '';
   	void uploadFiles(form) 
   	{
+  		if(isUploading) return;
+
+  		isUploading = true;
 	    FormData formData = new FormData(form);
 
 	    formData.append('type', type);
@@ -49,8 +68,8 @@ class CoverItemEditor implements OnInit
 
 	    print('$type $id');
 
-	    //String link = '${window.location.origin}/image/upload';
-	    String link = 'http://steryo.melodyku.com/image/upload';
+	    String link = '${window.location.origin}/image/upload';
+	    //String link = 'http://steryo.melodyku.com/image/upload';
 
 		final request = new HttpRequest();
 	    request.open('POST', link);
@@ -64,13 +83,48 @@ class CoverItemEditor implements OnInit
 	    	.listen((result) async {
     			print('image has been uploaded $result');
     			progress = '';
-    			link = await _contentProvider.getImage(type: type, id: id);
+    			eventController.add(true);
+    			isUploading = false;
     		});
 
 	    request.onError
 	    	.listen((error) {
     			print('image upload has error $error');
     			progress = '';
+    			isUploading = false;
+    		});
+
+	    request.send(formData);
+  	}
+
+  	void removeImage()
+  	{
+  		if(isUploading) return;
+
+  		isUploading = true;
+
+  		FormData formData = new FormData();
+
+  		formData.append('type', type);
+	    formData.append('id', id);
+
+	    String link = '${window.location.origin}/image/upload';
+		//String link = 'http://steryo.melodyku.com/image/remove';
+
+	    final request = new HttpRequest();
+	    request.open('POST', link);
+
+	    request.onLoadEnd
+	    	.listen((result) async {
+    			print('image has been removed $result');
+    			eventController.add(true);
+    			isUploading = false;
+    		});
+
+	    request.onError
+	    	.listen((error) {
+    			print('image remover has error $error');
+    			isUploading = false;
     		});
 
 	    request.send(formData);

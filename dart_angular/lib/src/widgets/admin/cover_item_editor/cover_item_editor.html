@@ -4,8 +4,18 @@
 	</div>
 	<div class="options flex-row">
 		<form #form enctype="multipart/form-data">
-	    	<input class="btn-sl" type="file" #upload name='image'>
-			<div class="btn-sl" (click)="uploadFiles(form)">upload {{progress}}</div>
+
+	    	<input class="btn-sl pick" type="file" #upload name='image'>
+			
+	    	<div class="flex-row flex-center">
+				<div class="btn-sl {{isUploading ? 'btn-disabled': ''}}" 
+					 (click)="uploadFiles(form)">upload {{progress}}</div>
+					 
+				<div class="btn-close {{isUploading ? 'btn-disabled': ''}}" 
+					 (click)="removeImage()">
+					<img src="/assets/svg/icon_close.svg">
+				</div>
+			</div>
 	  	</form>
 	</div>
 </div>
