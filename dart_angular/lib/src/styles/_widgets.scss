@@ -1,4 +1,3 @@
-$h_hieghtDevide: 60px;
 .widget-title{
     color: $lightblue-color;
     margin-bottom: 20px;
@@ -11,18 +10,18 @@ $h_hieghtDevide: 60px;
 }
 
 .widget-container{
-    margin: $h_hieghtDevide 0px;
+    margin: 40px 0px 60px 0px;
 }
 
 .widget-container-fill{
 	background-color: $menu-color;
     padding: 20px;
-    margin: $h_hieghtDevide 20%;
+    margin: 40px 0px 60px 0px;
 }
 
 @media all and (max-width: 425px)
 {
-    $h_hieghtDevide_m: 20px;
+    $h_hieghtDevide_m: 0px 0px 20px 0px;
     
     .widget-container{
         margin: $h_hieghtDevide_m;
@@ -30,5 +29,18 @@ $h_hieghtDevide: 60px;
 
 	.widget-container-fill{
     	margin: $h_hieghtDevide_m;	
+    }
+}
+
+@media screen and (max-width: 375px) 
+{
+    $h_hieghtDevide_m: 0px 0px 10px 0px;
+    
+    .widget-container{
+        margin: $h_hieghtDevide_m;
+    }
+
+    .widget-container-fill{
+        margin: $h_hieghtDevide_m;  
     }
 }

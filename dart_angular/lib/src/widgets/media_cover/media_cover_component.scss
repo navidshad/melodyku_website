@@ -35,10 +35,11 @@
     width: 50px;
     height: 50px;
 }
-.big {
-    width: 240px;
-    height: 240px;
-}
+
+// .big {
+//     width: 240px;
+//     height: 240px;
+// }
 
 .cover {
     position: relative;
@@ -47,6 +48,8 @@
     overflow: hidden;
 
     cursor: pointer;
+
+    box-shadow: 1px 1px 10px 0px #00000045;
 
     .overlay {
         @include overlay_card;
@@ -93,8 +96,16 @@
         height: 40px;
     }
     
-    .big {
-        width: 220px;
-        height: 220px;
-    }
+    // .big {
+    //     width: 160px;
+    //     height: 160px;
+    // }
+}
+
+@media screen and (max-width: 375px) 
+{
+    // .big {
+    //     width: 120px;
+    //     height: 120px;
+    // }
 }

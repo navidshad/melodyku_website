@@ -8,6 +8,7 @@ a{
 .card {
     //margin: 10px;
     @include unselectable;
+    height: auto;
 }
 
 .card:hover{
@@ -21,46 +22,18 @@ a{
     margin-top: 15px;
 }
 
-.title{
-    font-size: 16px;
+@media screen and (max-width: 479px) 
+{
+    // .card {
+    //     width: 160px;
+    //     height: 160px;
+    // }
 }
 
-.subtitle{
-    font-size: 14px;
+@media screen and (max-width: 375px) 
+{
+    // .card {
+    //     width: 120px;
+    //     height: 120px;
+    // }
 }
-
-// .more {
-//     position: relative;
-//     bottom: 60px;
-//     //left: 0px;
-// }
-
-// .cover {
-//     border-radius: 10px;
-//     overflow: hidden;
-
-//     .overlay {
-//         @include overlay_card;
-//         background: $hoverGradient;
-    
-//         // display: flex;
-//         // flex-direction: column;
-//         // align-items: center;
-//         // justify-content: center;
-
-//         img {
-//             width: 40px;
-//             height: auto;
-//         }
-//     }
-    
-//     .overlay:hover{
-//         opacity: 100;
-//     }
-// }
-
-// $boxsize: 240px;
-// .box {
-//     width: $boxsize;
-//     height: $boxsize;
-// }

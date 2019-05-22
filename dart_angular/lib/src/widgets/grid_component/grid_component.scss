@@ -21,3 +21,10 @@ $boxsize: 200px;
 		justify-content: center;
 	}
 }
+
+@media screen and (max-width: 375px) 
+{
+    .grid-item{
+		margin: 25px 5px;
+	}
+}

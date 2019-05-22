@@ -3,19 +3,19 @@
 }
 
 .content-body{
-    padding: 0px 80px;
+    padding: 0px 60px;
 }
 
 
 /* SMARTPHONES PORTRAIT */
 @media only screen and (max-width: 375px) 
 {
-    .content-body {
-        padding: 0px 10px;
-    }
+    // .content-body {
+    //     padding: 0px 10px;
+    // }
 }
 
-@media only screen and (min-width: 425px) 
+@media only screen and (max-width: 425px) 
 {
     .content-body {
         padding: 0px 20px;
@@ -23,16 +23,16 @@
 }
 
 /* TABLETS PORTRAIT */
-@media only screen and (min-width: 768px)
+@media only screen and (max-width: 768px)
 {
     .content-body {
-        padding: 0px 40px;
+        padding: 0px 30px;
     }
 }
 
 
 /* TABLET LANDSCAPE / DESKTOP */
-@media only screen and (min-width: 1024px) 
+@media only screen and (max-width: 1024px) 
 {
 
 
