@@ -15,6 +15,17 @@
     position: absolute;
 }
 
+.pattern {
+
+    background-color: black;
+
+    img{
+        opacity: 0.6;
+        background-repeat: repeat;
+        min-width: 100%;
+    }
+}
+
 .icon-container{
     position: absolute;
     transition: all ease 0.5s;

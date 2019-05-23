@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 import './requester.dart';
 export './requester.dart';
 
+import './assets.dart';
+import 'package:melodyku/src/class/utility/math.dart';
 import '../../services/stitch_service.dart';
 import '../urls.dart';
 
@@ -33,5 +35,11 @@ class ContentProvider
 		}
 
 		return link;
+	}
+
+	String getRandomPatterns()
+	{
+	  String pattern = patterns[randomRange(1, patterns.length)];
+	  return pattern;
 	}
 }

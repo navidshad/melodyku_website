@@ -29,3 +29,15 @@ String injectZero(int total, int number)
   digit += number.toString();
   return digit;
 }
+
+String getRandomColor()
+{
+  // String hex = '#' + (Random.se * 16777215).floor().toString();
+  // return hex;
+  Random random = new Random();
+  int length = 6;
+  String chars = '0123456789ABCDEF';
+  String hex = '#';
+  while(length-- > 0) hex += chars[(random.nextInt(16)) | 0];
+  return hex;
+}

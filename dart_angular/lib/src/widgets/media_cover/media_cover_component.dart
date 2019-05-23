@@ -1,6 +1,8 @@
 import 'package:angular/angular.dart';
 
 import '../../class/navigator.dart';
+import 'package:melodyku/src/class/utility/math.dart';
+import 'package:melodyku/src/services/services.dart';
 
 @Component(
   selector: 'media-cover',
@@ -12,6 +14,17 @@ import '../../class/navigator.dart';
 )
 class MediaCoverComponent 
 {
+  ContentProvider _contentProvider;
+
+  MediaCoverComponent(this._contentProvider)
+  {
+    randomColor = getRandomColor();
+    randomPattern = _contentProvider.getRandomPatterns();
+  }
+
+  String randomColor;
+  String randomPattern;
+
   @Input()
   String lable;
   

@@ -4,6 +4,11 @@
         <!-- cover image -->
         <img class="background" *ngIf="getCoverAccess()" src="{{thumbnail}}">
 
+        <!-- random colored cover -->
+        <div class="background pattern" *ngIf="!getCoverAccess()">
+            <img src="{{randomPattern}}">
+        </div>
+
         <div class="backElement"
             *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
 
@@ -21,7 +26,7 @@
 
             <div *ngIf="getPlayAccess()">
                 <img *ngIf="number != selectedIndex" class="cover-icon" src="/assets/imgs/icons/play.png">
-                <img *ngIf="number == selectedIndex" class="cover-icon" src="/assets/imgs/icons/isPlaying.png">
+                <img *ngIf="number == selectedIndex" class="cover-icon" src="/assets/svg/equalizer01.svg">
             </div>
 
             <div *ngIf="getExploreAccess()">

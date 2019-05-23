@@ -134,7 +134,6 @@ class Album implements SongItem
     for(int i=0; i < total; i++)
     {
       Song item = songNavigator.list[i];
-      item.thumbnail = getRandomCovers(1)[0];
       String itemNumber = getDigitStyle(i+1, 2);
 
       T widget;
