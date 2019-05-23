@@ -25,30 +25,6 @@
     }
 }
 
-img {
-    width: 100%;
-    height: auto;
-}
-
-.cover {
-    border-radius: 10px;
-    overflow: hidden;
-
-    .overlay {
-        @include overlay_card;
-        background: $hoverGradient;
-
-        img {
-            width: 40px;
-            height: auto;
-        }
-    }
-    
-    .overlay:hover{
-        opacity: 100;
-    }
-}
-
 $boxsize: 240px;
 .box {
     width: $boxsize;
@@ -65,10 +41,6 @@ $boxsize: 240px;
 
 @media all and (max-width: 425px)
 {
-    .cover {
-        margin-bottom: 20px;
-    }
-
     .detail {
         align-items: center;
         text-align: center;

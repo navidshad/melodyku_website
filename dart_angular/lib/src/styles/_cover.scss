@@ -5,9 +5,18 @@
     border-radius: 10px; 
 }
 
-.cover_big {
+.cover_fix {
     width: 240px;
     height: 240px;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.cover_big {
+    @extend .cover_fix;
 }
 
 @media screen and (max-width: 768px) 
