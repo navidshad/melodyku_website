@@ -1,5 +1,10 @@
 // @import 'colors';
 
+.cover-bordered {
+    border: 1px solid grey;
+    border-radius: 10px; 
+}
+
 .cover_big {
     width: 240px;
     height: 240px;

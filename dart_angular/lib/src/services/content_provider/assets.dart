@@ -17,4 +17,11 @@ List<String> patterns = [
   'assets/imgs/patterns/14.png',
   'assets/imgs/patterns/15.png',
   'assets/imgs/patterns/16.png',
+  'assets/imgs/patterns/17.png',
+  'assets/imgs/patterns/18.png',
+  'assets/imgs/patterns/19.png',
+  'assets/imgs/patterns/22.png',
+  'assets/imgs/patterns/23.png',
+  'assets/imgs/patterns/24.png',
+  'assets/imgs/patterns/25.png',
 ];

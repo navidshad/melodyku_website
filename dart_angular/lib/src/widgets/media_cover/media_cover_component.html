@@ -1,6 +1,11 @@
 <div class="cover flex-column flex-center {{isBig != null && isBig ? 'cover_big' : 'small'}}"
      (click)="explore()">
 
+        <!-- lable -->
+        <div class="backElement"
+            *ngIf="lable != null && number != selectedIndex && number != hoverIndex">
+        {{lable}}</div>
+
         <!-- cover image -->
         <img class="background" *ngIf="getCoverAccess()" src="{{thumbnail}}">
 
@@ -9,11 +14,8 @@
             <img src="{{randomPattern}}">
         </div>
 
-        <div class="backElement"
-            *ngIf="lable != null && number != selectedIndex && number != hoverIndex">{{lable}}</div>
-
         <div class="overlay
-            {{(thumbnail != null) ? 'blueback' : ''}}
+            {{(!getCoverAccess()) ? 'blueback' : ''}}
             {{(number == hoverIndex) ? 'shown' : ''}}
             {{(number == selectedIndex) ? 'shown' : ''}}">
             <!-- blue overlay -->
