@@ -25,7 +25,7 @@ class PlayerBareComponent implements OnInit
 {
   bool isVisible = true;
   bool isQueueVisible = false;
-  PlayerService _playerService;
+  //PlayerService _playerService;
   LanguageService lang;
   SubscriptionService _subscriptionService;
   Player player;
@@ -40,25 +40,25 @@ class PlayerBareComponent implements OnInit
   Song get current => player.current;
   
 
-  PlayerBareComponent(this._playerService, this.player, this.lang, this._subscriptionService);
-  void ngOnInit() => addListeners();
+  PlayerBareComponent(this.player, this.lang, this._subscriptionService);
 
+  void ngOnInit(){}// => addListeners();
   // methods
-  void addListeners()
-  { 
-    print('addListeners player');
-    _playerService.modalStream.listen((StreamDetail_Player detail)
-    {
-      isVisible = detail.visible;
-      print('type : ${detail.type} | object: ${detail.object}');
+  // void addListeners()
+  // { 
+  //   print('addListeners player');
+  //   _playerService.modalStream.listen((StreamDetail_Player detail)
+  //   {
+  //     isVisible = detail.visible;
+  //     print('type : ${detail.type} | object: ${detail.object}');
       
-      if(detail.type == ArchiveTypes.media)
-      {
-        print('playing media');
-        player.playTrack(detail.object);
-      }
-    });
-  }
+  //     if(detail.type == ArchiveTypes.media)
+  //     {
+  //       print('playing media');
+  //       player.playTrack(detail.object);
+  //     }
+  //   });
+  // }
 
   void getElement(Element el)
   {

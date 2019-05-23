@@ -5,9 +5,10 @@
     border-radius: 10px; 
 }
 
-.cover_fix {
+.big {
     width: 240px;
     height: 240px;
+    overflow: hidden;
 
     img {
         width: 100%;
@@ -15,8 +16,14 @@
     }
 }
 
+.cover_fix {
+   @extend .big; 
+   max-width: 240px;
+   min-width: 240px;
+}
+
 .cover_big {
-    @extend .cover_fix;
+    @extend .big;
 }
 
 @media screen and (max-width: 768px) 

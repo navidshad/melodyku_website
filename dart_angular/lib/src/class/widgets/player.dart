@@ -44,7 +44,7 @@ class Player
   }
 
   // events -------------------------------------
-  addListeners()
+  void addListeners()
   {
     // update slider
     _audio.onTimeUpdate.listen((e) {
@@ -90,7 +90,7 @@ class Player
     }
   }
 
-  void playTrack(Song track) async
+  void playByTrack(Song track) async
   {
     //add to Queue
     add(track);
@@ -117,6 +117,13 @@ class Player
 
     play();
     hasSong = true;
+  }
+
+  void playByList(List<Song> list)
+  {
+    _list = list;
+    listItems = list.map((song) => song.getAsWidget<ListItem>()).toList();
+    playByTrack(list[0]);
   }
 
   // playlisy method ----------------------------
@@ -160,7 +167,7 @@ class Player
     if(currentIndex < _list.length-1)
     {
       Song newTrack = _list[currentIndex+1];
-      playTrack(newTrack);
+      playByTrack(newTrack);
     }
   }
 
@@ -181,14 +188,13 @@ class Player
     if(currentIndex > 0)
     {
       Song newTrack = _list[currentIndex-1];
-      playTrack(newTrack);
+      playByTrack(newTrack);
     }
   }
 
   void playShuffle()
   {
     Song newTrack = _list[randomRange(0, _list.length-1)];
-    playTrack(newTrack);
-    //_list = _list.map((f) => f);
+    playByTrack(newTrack);
   }
 }

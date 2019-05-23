@@ -150,11 +150,17 @@ $tempBorder: 0px solid white;
 .queue {
     border: $tempBorder;
 
-    flex-basis: 200px;
-    flex-grow: 1;
-    flex-shrink: 2;
+    flex-shrink: 1;
+    min-width: 50px;
+    max-width: 70px;
+
+    transition: all 0.5s;
 
     @extend .flex-row;
+
+    img{
+        width: 20px;
+    }
 }
 
 .time-line-small {
@@ -277,11 +283,12 @@ $tempBorder: 0px solid white;
 }
 
 // media queries --------------------------------
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) 
+{
     /* start of medium tablet styles */
-    .queue {
-        display: none;
-    }
+    // .queue {
+    //     display: none;
+    // }
 
     .background, .bar {
         height: 60px;
@@ -319,10 +326,14 @@ $tempBorder: 0px solid white;
     }
 }
 
-@media screen and (max-width: 479px) {
-    /* start of phone styles */
-    .option-btns {
-        display: none;
+@media screen and (max-width: 479px) 
+{
+    .play-btns {
+        transform: scale(0.8);
+    }
+
+    .option-btns, .play-btns{
+        flex-basis: 50px;
     }
 
     .media-detail {
@@ -331,9 +342,24 @@ $tempBorder: 0px solid white;
 
     .current{
         padding: 0px 5px;
+        max-width: 115px;
 
+        .cover {
+            display: none;
+        }
         .title{
             margin: 0px 5px;
+        }
+    }
+
+    .queue-container{
+        width: 100%;
+    }
+
+    .queue-list > div {
+        .close {
+            margin: 10px;
+            transform: translateX(0px);
         }
     }
 }

@@ -3,6 +3,7 @@ import 'package:angular_components/angular_components.dart';
 
 import 'src/services/stitch_service.dart';
 import 'src/services/services.dart';
+import 'src/class/widgets/player.dart';
 
 import 'src/widgets/widgets.dart';
 
@@ -29,12 +30,12 @@ import './src/class/injector.dart' as CI;
     ClassProvider(UserService),
     ClassProvider(Requester),
     ClassProvider(ContentProvider),
-    ClassProvider(PlayerService),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),
+    ClassProvider(PlayerService),
   ],
 )
 class AppComponent

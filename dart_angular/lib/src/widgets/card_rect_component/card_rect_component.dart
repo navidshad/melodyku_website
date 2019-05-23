@@ -50,7 +50,8 @@ class CardRectComponent
 
   void play()
   {
-    _playerService.play(StreamDetail_Player(true, card.type, card.origin));
+    if(card.type == ArchiveTypes.media)
+      _playerService.play(card.origin);
   }
 
   void like()

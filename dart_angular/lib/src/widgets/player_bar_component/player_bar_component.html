@@ -1,5 +1,6 @@
 <div class="container" *ngIf="isVisible">
 
+    <!-- warning -->
     <div class="warning" *ngIf="isNeedWarning()">
         <p>
             <span>{{lang.getStr('warningPlayingDemo')}} | </span>
@@ -7,6 +8,7 @@
         </p>
     </div>
 
+    <!-- queue body -->
     <div [class]="getQueueClass()">
         <h4>لیست پخش</h4>
 
@@ -20,20 +22,23 @@
                     [duration]='false'>
                 </card-wide>
 
-                <button class="btn-sl close" (click)="player.remove(item.id)">
+                <div class="btn-close close" (click)="player.remove(item.id)">
                     <img src="/assets/svg/icon_close.svg" width="10" height="10">
-                </button>
+                </div>
 
             </div>  
 
         </div>
     </div>
 
+    <!-- grandiend background -->
     <div class="background">
         <div>bar</div>
     </div>
 
     <div class="bar">
+
+        <!-- media detail -->
         <div class="media-detail">
             <div class="current" *ngIf="current != null">
                 <div class="cover">
@@ -44,18 +49,16 @@
                     <h5>{{current.artist}}</h5>
                 </div>
             </div>
-
-            <!-- <div class="like" (click)="like()">
-                <img src="{{iconpath}}">
-            </div> -->
         </div>
 
+        <!-- play buttons -->
         <div class="play-btns">
             <img class="next" extractor (onExtract)="getElement($event)" id="next">
             <img class="play" extractor (onExtract)="getElement($event)" id="play">
             <img class="pre" extractor (onExtract)="getElement($event)" id="previous">
         </div>
 
+        <!-- main timeline -->
         <div class="time-line">
             <material-slider class="slider-length" 
             (mousedown)="player.onSeekingSlider()"
@@ -73,15 +76,19 @@
             </div>
         </div>
 
+        <!-- play options -->
         <div class="option-btns">
             <img extractor (onExtract)="getElement($event)" id="repeat">
             <img extractor (onExtract)="getElement($event)" id="shuffle">
         </div>
-        <div class="queue">
-            <button class="btn-sl" (click)="SwitchQueue()">لیست پخش</button>
+
+        <!-- queue button -->
+        <div class="queue {{isQueueVisible ? 'rotate-half' : ''}}" (click)="SwitchQueue()">
+            <img src="assets/svg/icon_list.svg">
         </div>
     </div>
 
+    <!-- small timeline -->
     <div class="time-line-small">
         <material-slider class="slider-length" 
         (mousedown)="player.onSeekingSlider()"

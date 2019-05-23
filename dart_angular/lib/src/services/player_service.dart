@@ -1,19 +1,14 @@
-import 'dart:async';
-import '../class/utility/stream_detail.dart';
-
-export '../class/widgets/player.dart';
+import 'package:melodyku/src/class/classes.dart';
 
 class PlayerService 
 {
-  Stream<StreamDetail_Player> modalStream;
-  StreamController<StreamDetail_Player> _modalStreamController;
+ 	Player _player;
 
-  PlayerService()
+  PlayerService(this._player)
   {
-    _modalStreamController = StreamController();
-    modalStream = _modalStreamController.stream;
+
   }
 
-  void play(StreamDetail_Player detail) =>
-    _modalStreamController.add(detail);
+  void play(Song song)  => _player.playByTrack(song);
+  void playByList(List<Song> list) => _player.playByList(list);
 }

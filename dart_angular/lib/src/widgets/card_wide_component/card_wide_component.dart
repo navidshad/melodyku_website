@@ -54,7 +54,8 @@ class CardWideComponent
   CardWideComponent(this._playerService, this._player, this._userService);
 
   void play() {
-    _playerService.play(StreamDetail_Player(true, item.type, item.origin));
+    if(item.type == ArchiveTypes.media)
+      _playerService.play(item.origin);
   }
 
   void like()

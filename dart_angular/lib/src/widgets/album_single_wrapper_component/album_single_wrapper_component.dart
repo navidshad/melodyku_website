@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'dart:html';
 
-import '../../services/language_service.dart';
+import '../../services/services.dart';
 import '../widgets.dart';
 import '../../class/classes.dart';
 
@@ -19,8 +19,9 @@ import '../../widgets/table_media_component/table_media_component.dart';
 class AlbumSingleWrapperComponent
 {
   LanguageService lang;
+  PlayerService _playerService;
 
-  AlbumSingleWrapperComponent(this.lang);
+  AlbumSingleWrapperComponent(this.lang, this._playerService);
 
   @Input()
   String title;
@@ -36,4 +37,8 @@ class AlbumSingleWrapperComponent
 
   @Input()
   ResultWithNavigator<Song> songNavigator;
+
+  void playAll() =>
+    _playerService.playByList(songNavigator.list);
+
 }

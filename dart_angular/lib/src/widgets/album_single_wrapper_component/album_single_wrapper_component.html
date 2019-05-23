@@ -11,7 +11,7 @@
 
         <div *ngIf="detail != null"><P>{{detail}}</P></div>
 
-        <div class="btn-md">{{lang.getStr('playAll')}}</div>
+        <div class="btn-md" (click)="playAll()">{{lang.getStr('playAll')}}</div>
     </div>
 </div>
 

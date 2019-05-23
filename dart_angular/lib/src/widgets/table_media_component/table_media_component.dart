@@ -41,7 +41,7 @@ class TableSong
   }
 
   void play(int i) {
-    _playerService.play(StreamDetail_Player(true, navigator.list[i].type, navigator.list[i]));
+    _playerService.play(navigator.list[i]);
   }
 
   // when mose go into
