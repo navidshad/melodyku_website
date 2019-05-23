@@ -12,7 +12,7 @@
 
 .detail {
     margin: 0px 30px;
-
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -41,7 +41,12 @@ $boxsize: 240px;
 
 @media all and (max-width: 425px)
 {
+    .header-wrappe{
+        margin: 10px 0px;
+    }
+
     .detail {
+        margin: 20px 0px 0px 0px;
         align-items: center;
         text-align: center;
         
@@ -53,4 +58,9 @@ $boxsize: 240px;
             font-size: 20px;
         }
     }
+}
+
+@media screen and (max-width: 375px) 
+{
+
 }

@@ -98,3 +98,33 @@ $selectedBtn : #ff4fea;
 .btn-selected-noAction:hover {
     background-color: darken($selectedBtn, 20);
 }
+
+@media screen and (max-width: 479px) 
+{
+
+}
+
+@media screen and (max-width: 375px) 
+{
+    .btn-sl-x {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+
+    .btn-sl {
+        font-size: 12px;
+        padding: 5px 15px;
+    }
+
+    .btn-md {
+        background: $lightblue-color;
+        font-size: 18px;
+        padding: 5px 20px;
+    }
+
+    .btn-bg {
+        background: $lightblue-color;
+        font-size: 25px;
+        padding: 5px 20px;
+    }
+}

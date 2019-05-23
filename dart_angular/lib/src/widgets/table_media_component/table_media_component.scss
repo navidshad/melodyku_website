@@ -13,4 +13,23 @@
     .index{
         width: 15%;
     }
+
+    .title{
+    	width: 60%;
+    }
+
+    .artist {
+    	width: 35%;
+    }
+}
+
+@media screen and (max-width: 375px) 
+{
+    .artist {
+        display: none;
+    }
+
+    .title{
+    	width: 85%;
+    }
 }

@@ -1,9 +1,9 @@
 <div class='table-div' *ngIf="navigator != null">
     <div class='row header'>
         <div class='cell index'>#</div>
-        <div class='cell'>{{lang.getStr("songTitle")}}</div>
+        <div class='cell title'>{{lang.getStr("songTitle")}}</div>
         <div class='cell album'>{{lang.getStr("album")}}</div>
-        <div class='cell'>{{lang.getStr("artist")}}</div>
+        <div class='cell artist'>{{lang.getStr("artist")}}</div>
         <div class='cell duration'>{{lang.getStr("duration")}}</div>
     </div>
 
@@ -26,9 +26,9 @@
             </media-cover>
         </div>
 
-        <div class='cell'>{{song.title}}</div>
-        <div class='cell album'>{{song.album}}</div>
-        <div class='cell'>{{song.artist}}</div>
-        <div class='cell duration'>{{song.getDuration()}}</div>
+        <div class='cell title subtitle'>{{song.title}}</div>
+        <div class='cell album subtitle'>{{song.album}}</div>
+        <div class='cell artist subtitle'>{{song.artist}}</div>
+        <div class='cell duration subtitle'>{{song.getDuration()}}</div>
     </div>
 </div>

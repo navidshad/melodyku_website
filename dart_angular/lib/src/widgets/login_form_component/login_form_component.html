@@ -2,7 +2,7 @@
 
     <div class="modal-card text-center text-normal">
 
-        <div class="w3-row modal-content">
+        <div class="w3-row modal-content body">
             <!-- logo -->
             <div class="w3-container w3-half">
                 <img class="logo w3-image" src="/assets/imgs/logo.png">
@@ -27,8 +27,8 @@
 
                         <!-- email -->
                         <div *ngIf="activeForm != 'apikey'" class="w3-row w3-section group">
-                            <div class="w3-col" style="width:50px">
-                                <img src="/assets/svg/icon_email.svg" alt="">
+                            <div class="w3-col icon" style="width:50px">
+                                <img src="/assets/svg/icon_email.svg">
                             </div>
                             <div class="w3-rest w3-mobile">
                                 <input [(ngModel)]="email" 
@@ -39,7 +39,7 @@
                         <!-- password -->
                         <div *ngIf="activeForm == 'login' || activeForm == 'register'"
                             class="w3-row w3-section group">
-                            <div class="w3-col" style="width:50px">
+                            <div class="w3-col icon" style="width:50px">
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
