@@ -53,7 +53,8 @@ async function convertAll(presetTitle)
 
 		let song = await songColl.aggregate(pipeLine).first()
 			.catch(async e => { 
-				console.log(e); 
+				console.log(e);
+        broadCaseReportToUsers(`${i} get song error | ${e}`);
 				await tools.sleep(1000);
 				i--;
 			});
@@ -64,6 +65,7 @@ async function convertAll(presetTitle)
 			})
 			.catch(async e => { 
 				console.log(e); 
+        broadCaseReportToUsers(`${i} get song error | ${e}`);
 				await tools.sleep(1000);
 				i--;
 			});

@@ -50,8 +50,17 @@ async function put(input, destPath)
     .catch(e => `could not create ${destPath} | ${e} | ${destPath}`);
 }
 
+async function deleteFile(path)
+{
+  await client.cwd(rootDir).then().catch(e => console.log(`could not goto ${rootDir}`, e));
+  
+  return client.delete(path)
+    .catch(e => `could not delete ${path} | ${e} | ${path}`);
+}
+
 module.exports.name = name;
 module.exports.connect = connect;
 module.exports.client = client;
 module.exports.createSubdir = createSubdir;
 module.exports.put = put;
+module.exports.delete = deleteFile;
