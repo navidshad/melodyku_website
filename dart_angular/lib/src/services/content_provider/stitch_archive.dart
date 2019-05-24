@@ -51,8 +51,7 @@ class StitchArchive
   {
     ResultWithNavigator navigator = ResultWithNavigator<Artist>(perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
@@ -65,8 +64,7 @@ class StitchArchive
 
     ResultWithNavigator navigator = ResultWithNavigator<Album>(customQuery: query, perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
@@ -75,8 +73,7 @@ class StitchArchive
   {
     ResultWithNavigator navigator = ResultWithNavigator<Album>(perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
@@ -86,8 +83,7 @@ class StitchArchive
   {
     ResultWithNavigator navigator = ResultWithNavigator<Song>(perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
@@ -98,8 +94,7 @@ class StitchArchive
 
     ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
@@ -110,8 +105,7 @@ class StitchArchive
 
     ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
-    await navigator.initialize();
-    await navigator.loadNextPage(page);
+    await navigator.loadNextPage(goto: page);
 
     return navigator;
   }

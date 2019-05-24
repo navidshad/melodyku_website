@@ -52,14 +52,6 @@
     cursor: pointer;
 }
 
-.text-normal {
-    line-height: normal;
-}
-
-.text-center {
-    text-align: center;
-}
-
 .none {
     display: none;
 }
@@ -92,4 +84,8 @@
 
 .full-wide{
     width: 100%;
+}
+
+.margin-h-20{
+    margin: 20px auto;
 }

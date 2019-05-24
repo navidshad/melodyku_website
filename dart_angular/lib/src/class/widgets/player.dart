@@ -61,7 +61,11 @@ class Player
         _userServide.user.traker.reportPlayedSong(current);
 
       if(isLoop) audio.play();
-      else playBtn.clicked(false);
+      else {
+        playBtn.clicked(false);
+        // next track
+        next();
+      }
     });
 
     _audio.onPause.listen((e) {

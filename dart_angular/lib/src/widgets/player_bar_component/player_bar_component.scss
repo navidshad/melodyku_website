@@ -172,10 +172,9 @@ $tempBorder: 0px solid white;
 
 .current {
     padding-right: 10px;
-
+    overflow: hidden;
     display: flex;
     flex-direction: row;
-    //flex-flow: row-reverse;
 
     $coversize: 70px;
     .cover {
@@ -324,6 +323,17 @@ $tempBorder: 0px solid white;
         height: 30px;
         background: #000000d9;
     }
+
+    .queue-container{
+        width: 100%;
+    }
+
+    .queue-list > div {
+        .close {
+            margin: 10px;
+            transform: translateX(0px);
+        }
+    }
 }
 
 @media screen and (max-width: 479px) 
@@ -349,17 +359,6 @@ $tempBorder: 0px solid white;
         }
         .title{
             margin: 0px 5px;
-        }
-    }
-
-    .queue-container{
-        width: 100%;
-    }
-
-    .queue-list > div {
-        .close {
-            margin: 10px;
-            transform: translateX(0px);
         }
     }
 }

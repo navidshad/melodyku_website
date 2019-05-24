@@ -1,28 +1,27 @@
 import 'package:angular/angular.dart';
-import '../../widgets/widgets.dart';
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/classes.dart';
+import 'package:melodyku/src/widgets/table_media_component/table_media_component.dart';
+import 'package:melodyku/src/services/services.dart';
+import 'package:melodyku/src/class/page/page.dart';
+import 'package:melodyku/src/class/classes.dart';
 
 @Component(
   selector: 'page',
   templateUrl: 'favorites_page.html',
   styleUrls: [ 'favorites_page.css' ],
-  directives: [
-    ListWideComponent
-  ],
+  directives: [ TableSong ],
   )
-class FavoritesPage implements OnInit
+class FavoritesPage
 {
   Page _page;
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  ContentProvider _contentProvider;
-  List<ListItem> listItems_favorites;
+  PlayerService _playerService;
+
+  ResultWithNavigator<Song> songNavigator;
 
   // constructor ==================================
-  FavoritesPage(this._contentProvider, this._messageService, this._userservice)
+  FavoritesPage(this.lang, this._messageService, this._userservice, this._playerService)
   {
     _page = Page(
       userService: _userservice, 
@@ -30,14 +29,11 @@ class FavoritesPage implements OnInit
       permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'favorites');
+
+    songNavigator = ResultWithNavigator(getType: GetType.favorites);
+    songNavigator.loadNextPage();
   }
 
-  // OnInit -
-  void ngOnInit() => getItems();
-  void getItems() async 
-  {
-    // get 
-    // Playlist pl_favorites = await _contentProvider.archive.favorites_getList();
-    // listItems_favorites = pl_favorites.getChildsAsWidgets<ListItem>(total: 50);
-  }
+  void playAll() =>
+    _playerService.playByList(songNavigator.list);
 }

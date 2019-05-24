@@ -8,6 +8,7 @@ import 'playlist.dart';
 
 import 'package:melodyku/src/services/services.dart';
 
+enum GetType {mediaItems, favorites, history}
 
 class ResultWithNavigator<T>
 {
@@ -22,13 +23,16 @@ class ResultWithNavigator<T>
 
   bool hasMore;
 
+  GetType getType;
   Map _query;
   Map customQuery;
+  Map customSort;
   String regexPattern;
 
-  List<T> list;
+  List<T> list = [];
 
-  ResultWithNavigator({this.regexPattern, this.customQuery, int perPage=20})
+  ResultWithNavigator({this.getType = GetType.mediaItems, 
+    this.regexPattern, this.customQuery, this.customSort, int perPage=20})
   {
     _perPage = perPage;
 
@@ -103,36 +107,49 @@ class ResultWithNavigator<T>
     return stages;
   }
 
-  Future<void> initialize() async
+  dynamic getMethod()
   {
-    // get count ============================
-    List countPipeline = _getMainStages();
-    countPipeline.add({ "\$count": "count" });
+    dynamic method;
+    dynamic argumants = [];
 
-    // _total = await promiseToFuture(_collection.aggregate(js.jsify(countPipeline)).first())
-    //   .then((result) {
-    //     int value = result != null ? js.getProperty(result, 'count') : 0;
-    //     return value;
-    //   });
+    // get mediaItems
+    if(getType == GetType.mediaItems)
+    {
+      String coll = getCollection<T>();
+      argumants = js.jsify([coll, _perPage, _current, customQuery, customSort]);
+      method = _stitch.appClient.callFunction('getFromMediaByCustomQuery', argumants);
+    }
+
+    // get favorites
+    else if (getType == GetType.favorites)
+    {
+      argumants = js.jsify(['song_favorite', _perPage, _current]);
+      method = _stitch.appClient.callFunction('getUserSongs', argumants);
+    }
+
+    // get history
+    else if (getType == GetType.history)
+    {
+      argumants = js.jsify(['song_history', _perPage, _current]);
+      method = _stitch.appClient.callFunction('getUserSongs', argumants);
+    }
+
+    return method;
   }
 
-  Future<List<T>> loadNextPage([int goto]) async
+  Future<List<T>> loadNextPage({int goto, bool resetList=false}) async
   {
     if(goto != null) _current = goto;
     else _current += 1;
-
-    String coll = getCollection<T>();
-    dynamic argumants = js.jsify(
-        [coll, _perPage, _current, customQuery]
-      );
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getFromMediaByCustomQuery', argumants))
+    
+    var result = await promiseToFuture(getMethod())
       .catchError(_handleError);
 
     _pages = js.getProperty(result, 'pages');
     dynamic docs = js.getProperty(result, 'list');
 
-    list = [];
+    if(resetList) list = [];
+
     docs.forEach((doc) 
     {
       Map maped = convertToMap(doc, getDbFields<T>());
@@ -143,7 +160,7 @@ class ResultWithNavigator<T>
       hasMore = true;
     else hasMore = false;
 
-    print('loadNextPage list ${list.length}');
+    //print('loadNextPage list ${list.length}');
     return list;
   }
 

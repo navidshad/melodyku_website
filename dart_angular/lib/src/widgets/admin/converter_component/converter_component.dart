@@ -70,7 +70,7 @@ class ConverterComponent
 		selectedPreset = title;
 		Map query = { 'versions.title': { '\$ne': title } };
 		navigator.customQuery = query;
-		navigator.loadNextPage(1);
+		navigator.loadNextPage(goto:1);
 	}
 
 	void connectToSocket()

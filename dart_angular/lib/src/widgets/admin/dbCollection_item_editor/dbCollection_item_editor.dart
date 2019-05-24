@@ -50,7 +50,7 @@ class DbCollectionItemEditorComponent
 		print('DbCollectionItemEditorComponent constructor');
 	}
 
-	dynamic editable;
+	Map editable;
 	CollectionOptions op;
 
 	bool viewMode = true;
@@ -131,14 +131,11 @@ class DbCollectionItemEditorComponent
 		// create update query
 		dynamic query = js.jsify({'_id': editable['_id']});
 
-		// remove id memebr
-		editable = deleteDynamicMembers(editable, ['_id']);
+		// remove id
+		editable.remove('_id');
 
-		// normaliz
-		editable = normalize(editable);
-
-		//print('updating $editable');
-
+		print('updating $editable');
+		
 		// create update option
 		dynamic update = js.jsify({ '\$set': editable });
 

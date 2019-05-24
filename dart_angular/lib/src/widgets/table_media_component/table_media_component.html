@@ -31,4 +31,11 @@
         <div class='cell artist subtitle'>{{song.artist}}</div>
         <div class='cell duration subtitle'>{{song.getDuration()}}</div>
     </div>
+
+    <div class="load-more" *ngIf="navigator.hasMore">
+        <div class="btn-sl margin-h-20" 
+            *ngIf="getAccessToShowMore()"
+            (click)="navigator.loadNextPage()">
+            {{lang.getStr('more')}}</div>
+    </div>
 </div>

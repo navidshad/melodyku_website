@@ -14,10 +14,10 @@
 		[exploreBtn]="true"
 		[playBtn]	="false"
 		[items]		="artistCards">
-		</grid-rect>
+	</grid-rect>
 
 	<div class="load-more" *ngIf="couldLoadMore">
-		<div class="btn-sl" (click)="loadNextPage()">more</div>
+		<div class="btn-sl margin-h-20" (click)="loadNextPage()">{{lang.getStr('more')}}</div>
 	</div>
 
 </div>

@@ -63,6 +63,11 @@ dynamic languageStrings = [
     'en'  : 'more detail',
     'fa'  : 'جزئیات بیشتر'
   },
+  {
+    'name': 'more',
+    'en'  : 'More',
+    'fa'  : 'بیشتر'
+  },
 
   // ========================
   // warnings

@@ -6,6 +6,14 @@
     font-size: 14px;
 }
 
+.text-normal {
+    line-height: normal;
+}
+
+.text-center {
+    text-align: center;
+}
+
 @media screen and (max-width: 479px) 
 {
     // .card {

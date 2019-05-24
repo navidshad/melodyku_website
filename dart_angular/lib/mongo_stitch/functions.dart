@@ -1,10 +1,10 @@
-import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js;
-import 'dart:convert';
-
+import 'js_interop.dart';
 
 import 'field.dart';
-import 'js_interop.dart';
+import 'package:melodyku/src/class/injector.dart';
+import 'package:melodyku/src/services/services.dart';
+
 
 
 enum jsTypes {String, Bool, Int, Double, Object, Array}
@@ -55,6 +55,10 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			}catch(e){
 				print('convertToMap forEach ${field.key} is null');
 			}
+
+			// inject language fields
+			if(field.key == 'local_title')
+				field.subFields = Injector.get<LanguageService>().getLanguageFiels();
 
 			//print('convertToMap forEach ${field.key} ${field.dataType} = $value');
 
@@ -152,25 +156,6 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 	return newObject;
 }
 
-dynamic deleteDynamicMembers(dynamic object, List<String> members)
-{
-	dynamic jsObject = js.jsify(object);
-	dynamic newObject = {};
-
-	Objectjs.keys(jsObject).forEach((key) 
-	{
-		bool isValid = true;
-
-		members.forEach((member) {
-			if(key == member) isValid = false;
-		});
-
-		if(isValid) newObject[key] = object[key];
-	});
-
-	return newObject;
-}
-
 Map<String, String> dynamicToMapString(dynamic object)
 {
 	dynamic jsObject = js.jsify(object);
@@ -181,24 +166,6 @@ Map<String, String> dynamicToMapString(dynamic object)
 	});
 
 	return newMap;
-}
-
-List<String> getKeies(dynamic jsObject, {List<String> removes = const []})
-{
-	List<String> keies = [];
-
-	Objectjs.keys(jsObject).forEach((key) 
-	{
-		bool isValid = true;
-
-		removes.forEach((member) {
-			if(key == member) isValid = false;
-		});
-
-		if(isValid) keies.add(key);
-	});
-
-	return keies;
 }
 
 Map getNavigatorDetail({int total=10, int page=1, int perPage=5})
@@ -214,44 +181,6 @@ Map getNavigatorDetail({int total=10, int page=1, int perPage=5})
 
 	Map result = {'pages': _total_pages, 'from':from, 'to':perPage};
 	return result;
-}
-
-dynamic normalize(dynamic object)
-{
-	dynamic normalized = {};
-
-	getKeies(js.jsify(object)).forEach((key) 
-	{
-		//print('key $key');
-
-		// _id
-		if(key == '_id') normalized[key] = object[key];
-
-		// normalizing field and specify the type of it
-		// bool
-		else if(object[key] == 'true' && object[key] == 'false')
-			normalized[key] = bool.fromEnvironment(object[key]);
-		// int
-		else if (int.tryParse(object[key].toString()) != null)
-			normalized[key] = int.tryParse(object[key].toString());
-		// double
-		else if (double.tryParse(object[key].toString()) != null)
-			normalized[key] = double.tryParse(object[key].toString());
-
-		// json form
-		else normalized[key] = object[key];
-		// else {
-		// 	try{
-		// 		String jsonString = json.encode(object[key]);
-		// 		normalized[key] = json.decode(jsonString);
-		// 	}
-		// 	catch(e){
-		// 		normalized[key] = object[key];
-		// 	}
-		// }
-	});
-
-	return normalized;
 }
 
 Map DateTimeToMap(DateTime date)

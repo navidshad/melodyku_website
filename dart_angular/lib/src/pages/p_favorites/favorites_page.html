@@ -1,4 +1,7 @@
-<list-wide  [title]="'علاقمندی ها'" 
-            [numerical]="true"
-            [items]="listItems_favorites">
-        </list-wide>
+<div class='widget-container'>
+	<div class="btn-sl margin-h-20" (click)="playAll()">{{lang.getStr('playAll')}}</div>
+	<table-media 
+		[songNavigator]="songNavigator"
+		[hideMore]="false">
+		</table-media>
+</div>

@@ -18,14 +18,6 @@ class LanguageService
   }
 
   // base methods ===============================
-  List<dynamic> get languageList
-  {
-    List langs = List();
-    _languageList.forEach((Language lang) 
-      => langs.add(lang.getDetail()));
-    return langs;
-  }
-
   int get current => _current;
 
   void switchTo(int index) => 
@@ -105,5 +97,23 @@ class LanguageService
               languageDocs.add(doc);
           });
       });
+  }
+
+  List<DbField> getLanguageFiels()
+  {
+    List<DbField> list = [];
+
+    languageDocs.forEach((mapDoc) =>
+        list.add( DbField(mapDoc['code']) ));
+
+    return list;
+  }
+
+  List<dynamic> getLanguageMaps()
+  {
+    List<Map> langs = [];
+    _languageList.forEach((Language lang) 
+      => langs.add(lang.getDetail()));
+    return langs;
   }
 }

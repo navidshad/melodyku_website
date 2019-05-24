@@ -21,12 +21,16 @@ class TableSong
   PlayerService _playerService;
   Player _player;
   LanguageService lang;
+  
   String title = '';
 
   TableSong(this.lang, this._playerService, this._player);
 
   @Input('songNavigator')
   ResultWithNavigator<Song> navigator;
+
+  @Input()
+  bool hideMore;
 
   int hoverNumber = -1;
 
@@ -48,4 +52,14 @@ class TableSong
   void onmouseenter(int i) => hoverNumber = i;
   // when mose go out from
   void onmouseleave() => hoverNumber = -1;
+
+  bool getAccessToShowMore()
+  {
+    bool key = true;
+
+    if(hideMore != null) 
+      key = !hideMore;
+
+    return key;
+  }
 }
