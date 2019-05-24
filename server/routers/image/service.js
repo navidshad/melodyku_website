@@ -79,7 +79,7 @@ function removePhoto(type, id)
         // delete if exists
         await removeOldImage(type, id, dir).catch(reject);
         // update timeStamp to be ''
-        await updateTimeStamp(type, id, '').catch(reject);
+        await updateTimeStamp(type, id, '').then(done).catch(reject);
     });
 }
 

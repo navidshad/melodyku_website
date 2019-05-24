@@ -47,9 +47,19 @@ let option = {
 
 function BeforInit(app)
 {
-    // do something
     // set cors 
-    app.use(cors());
+    let corsOptions = {
+        origin: (ctx) => {
+          const requestOrigin = ctx.accept.headers.origin;
+          let whitelist = ['http://localhost', 'http://steryo.melodyku.com', 'http://melodyku.com'];
+          
+          if (!whitelist.includes(requestOrigin))
+              return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
+          
+          return requestOrigin;
+        }
+    };
+    app.use(cors(corsOptions));
   
     // body parser
     let option = { multipart: true, };
@@ -68,7 +78,7 @@ function Init(app, otherSrvice)
     let staticFolder = './static';
     app.use(koaStatic(staticFolder_angularApp));
     app.use(koaStatic(staticFolder));
-
+  
     //home url
     let home = new Router();
     home.get('/', (ctx) => {
