@@ -1,7 +1,8 @@
 <div  #shell>
 
     <!-- drawer background -->
-    <div class="drawer-plane" #plane (click)="closeDrawers()"></div>
+    <div class="drawer-plane" #plane (click)="closeDrawers()">
+    </div>
 
     <!-- mainContent -->
     <div class="main-content" id="mainContent">
@@ -44,7 +45,8 @@
     <!-- end mainContent -->
 
     <!-- drawer_main menu -->
-    <div extractor (onExtract)="setupMenuDrawer(shell)"
+    <div extractor 
+        (onExtract)="setupMenuDrawer(shell)"
         class="drawer" id="drawerMainMenu">
 
         <div>
@@ -71,7 +73,7 @@
 
     <!-- drawer profile menu -->
     <div *ngIf="isLogedIn" 
-        class="drawer" id="drawerProfile">
+        class="drawer flex-column flex-center" id="drawerProfile">
 
         <div *ngIf="user != null" class="info text-center">
             <div class="avatar">
@@ -94,9 +96,7 @@
             </li>
         </ul>
 
-        <div class="w3-center">
-            <button class="btn-sl" (click)="logout()">{{lang.getStr('logout')}}</button>
-        </div>
+        <div class="btn-sl" (click)="logout()">{{lang.getStr('logout')}}</div>
 
     </div>
 </div>

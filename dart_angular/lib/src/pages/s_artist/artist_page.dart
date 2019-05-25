@@ -56,6 +56,7 @@ class ArtistPage implements OnActivate
 
     // get 10 song of artist
     topListNavigator = await _contentProvider.stitchArchive.song_getListByArtist(artist.id, page: 1, total: 10);
+    topListNavigator.hasMore = false;
 
     // get albums
     ResultWithNavigator rAlbums = await _contentProvider.stitchArchive.album_getListByArtist(artist.id);

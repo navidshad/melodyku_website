@@ -16,7 +16,7 @@
 
     margin: 5px;
     width: auto;
-    height: auto;
+    height: fit-content;
 
     transition: all ease 0.5s;
     text-decoration-line: none;
@@ -99,6 +99,11 @@ $selectedBtn : #ff4fea;
 }
 .btn-selected-noAction:hover {
     background-color: darken($selectedBtn, 20);
+}
+
+.play-all::after{
+    content: "►";
+    margin: 0px 5px;
 }
 
 @media screen and (max-width: 479px) 

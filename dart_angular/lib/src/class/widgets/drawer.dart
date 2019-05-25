@@ -32,7 +32,6 @@ class Drawer {
     el_drawer.style.width     = "${width}px";
     el_drawer.style.position  = "fixed";
     el_drawer.style.top       = "0";
-    el_drawer.style.overflowX = "hidden";
     el_drawer.style.transition = "0.5s";
 
     //direction

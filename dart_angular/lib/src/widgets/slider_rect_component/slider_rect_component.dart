@@ -2,8 +2,9 @@ import 'package:angular/angular.dart';
 import 'dart:html';
 
 import '../widgets.dart';
-import '../../class/classes.dart';
-import '../../directives/directives.dart';
+import 'package:melodyku/src/class/classes.dart';
+import 'package:melodyku/src/services/services.dart';
+import 'package:melodyku/src/directives/directives.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -20,6 +21,11 @@ class SliderRectComponent
   Element slider;
   int height = 250;
   int itemSize = 210;
+
+  LanguageService lang;
+  PlayerService _playerService;
+
+  SliderRectComponent(this.lang, this._playerService);
   
   @Input()
   String title;
@@ -51,4 +57,10 @@ class SliderRectComponent
   }
 
   void getSliderElement(Element el) => slider = el;
+
+  void playAll() {
+    List<Song> list = [];
+    items.forEach((card) => list.add(card.origin as Song));
+    _playerService.playByList(list);
+  }
 }

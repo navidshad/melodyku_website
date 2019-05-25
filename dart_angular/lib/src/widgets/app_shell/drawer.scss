@@ -7,22 +7,13 @@
     background-color: $menu-color;
 
     z-index: 3;
-    
-    // height: 100%; /* 100% Full-height */
-    // width: $menu_width; /* 0 width - change this with JavaScript */
-    // position: fixed; /* Stay in place */
-    // z-index: 1; /* Stay on top */
-    // top: 0; /* Stay at the top */
-    // right: -100px;
-    // overflow-x: hidden; /* Disable horizontal scroll */
-    // transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
 .drawer-plane{
     height: 100%; /* 100% Full-height */
     width: 100%; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    z-index: 3; /* Stay on top */
     top: 0; /* Stay at the top */
     background-color: #111; /* Black*/
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */  
@@ -38,6 +29,8 @@
 {
     list-style: none;
     padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .d-menu-item
     {

@@ -1,7 +1,4 @@
 <div class="header-wrappe">
-    <!-- <div class="cover_fix cover-bordered">
-        <img [attr.src]="thumbnail">
-    </div> -->
 
     <media-cover 
         [isBig]="true"
@@ -18,7 +15,7 @@
 
         <div *ngIf="detail != null"><P>{{detail}}</P></div>
 
-        <div class="btn-md" (click)="playAll()">{{lang.getStr('playAll')}}</div>
+        <div class="btn-md play-all" (click)="playAll()">{{lang.getStr('playAll')}}</div>
     </div>
 </div>
 
