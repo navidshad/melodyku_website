@@ -4,6 +4,7 @@
     background: $menu-color;
     height: 50px;
     padding: 0px 10px;
+    box-shadow: -20px 0px 10px 10px #080b1f52;
 
     position: fixed;
     width: 100%;
@@ -17,10 +18,15 @@
 
 
 
-.title[dir="rtl"]{
-    float: right;
-    right: 80px;
-    left: auto;
+// .title[dir="rtl"]{
+//     float: right;
+//     right: 80px;
+//     left: auto;
+// }
+.header-title{
+    h3{
+        font-size: 24px;
+    }
 }
 
 .menu-btn {
@@ -44,5 +50,25 @@
 
     .push{
         display: none;
+    }
+}
+
+@media only screen and (max-width: 375px) 
+{
+    .bar {
+        height: 35px;
+    }
+
+    .menu-btn {
+        img {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    .header-title{
+        h3{
+            font-size: 20px;
+        }
     }
 }

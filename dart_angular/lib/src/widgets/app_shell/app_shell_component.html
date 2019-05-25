@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="titlebar">
+            <div class="header-title">
                 <h3>{{titleBar}}</h3>
             </div>
 
@@ -30,7 +30,7 @@
                     <img src="/assets/svg/icon_user_m.svg">
                 </div>
                 
-                <button *ngIf="!isLogedIn" class="btn-sl" (click)="openlogin()">{{lang.getStr('loginRegister')}}</button>
+                <div *ngIf="!isLogedIn" class="btn-sl" (click)="openlogin()">{{lang.getStr('loginRegister')}}</div>
             </div>
 
         </header>

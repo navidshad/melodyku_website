@@ -5,6 +5,7 @@
     //@include material-item-background($menu-color);
     padding-top: 2rem;
     background-color: $menu-color;
+    box-shadow: 7px -3px 10px 0px #080b1f;
 
     z-index: 3;
 }
@@ -73,4 +74,18 @@
     .item-right-text {
         padding: 0px 50px;
     }
+}
+
+@media only screen and (max-width: 425px) 
+{
+    // .menu-group
+    // {
+    //     .d-menu-item {
+    //         font-size: 12px;
+
+    //         img {
+    //             width: 18px;
+    //         }
+    //     }
+    // }
 }

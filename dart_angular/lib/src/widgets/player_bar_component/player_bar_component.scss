@@ -7,7 +7,7 @@
 $btn_sl: 20px;
 $btn_md: 32px;
 $btn_bg: 45px;
-$playerHeight: 85px;
+$playerHeight: 60px;
 
 :host{
     @include slider-thumb-color('material-slider.slider-length', darken($lightblue-color, 20%));
@@ -40,6 +40,7 @@ $playerHeight: 85px;
     background-color: $back-color;
     opacity: 0.95;
     padding: 0px 30px;
+    box-shadow: 0px -5px 10px 0px #080b1f;
 
     z-index: 2;
 
@@ -78,7 +79,7 @@ $playerHeight: 85px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    justify-items: center;
+    align-items: center;
     
     z-index: 2;
 }
@@ -86,8 +87,9 @@ $playerHeight: 85px;
 $tempBorder: 0px solid white;
 .media-detail {
     background-color: $lightblue-color;
-    //border-radius: 10px 0px 0px 10px;
-    flex-basis: 300px;
+    height: 100%;
+    max-width: 300px;
+    width: fit-content;
     flex-grow: 1;
     flex-shrink: 1;
 
@@ -124,7 +126,7 @@ $tempBorder: 0px solid white;
     flex-basis: 300px;
     flex-grow: 1;
     flex-shrink: 1;
-    padding-top: 27px;
+    //padding-top: 27px;
 
     .time-current{
         float: left;
@@ -171,19 +173,21 @@ $tempBorder: 0px solid white;
     display: none;
     direction: ltr;
     width: 100%;
+    z-index: 2;
 }
 
 .current {
-    padding-right: 10px;
+    //padding-right: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
+    justify-content: end;
 
-    $coversize: 70px;
+    $coversize: 60px;
     .cover {
         width: $coversize;
         height: $coversize;
-        border-radius: 5px;
+        //border-radius: 5px;
         overflow: hidden;
         background-color: darken($lightblue-color, 20%);
 

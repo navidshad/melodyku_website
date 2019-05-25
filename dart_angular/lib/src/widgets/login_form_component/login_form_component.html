@@ -62,29 +62,29 @@
 
                     <div class="">
                         <!-- login -->
-                        <button *ngIf="activeForm == 'login'"  
+                        <div *ngIf="activeForm == 'login'"  
                             class="btn-sl w3-mobile" 
-                            (click)="login()">{{lang.getStr('login')}}</button>
+                            (click)="login()">{{lang.getStr('login')}}</div>
 
                         <!-- reset password -->
-                        <button *ngIf="activeForm == 'resetPassword'"  
+                        <div *ngIf="activeForm == 'resetPassword'"  
                             class="btn-sl w3-mobile" 
-                            (click)="sendResetLink()">{{lang.getStr('getResetLink')}}</button>
+                            (click)="sendResetLink()">{{lang.getStr('getResetLink')}}</div>
 
                         <!-- resend email confirmation -->
-                        <button *ngIf="activeForm == 'confirmation'"  
+                        <div *ngIf="activeForm == 'confirmation'"  
                             class="btn-sl w3-mobile" 
-                            (click)="sendEmailConfirmation()">{{lang.getStr('getConfirmation')}}</button>
+                            (click)="sendEmailConfirmation()">{{lang.getStr('getConfirmation')}}</div>
 
                         <!-- register -->
-                        <button *ngIf="activeForm == 'register'"
+                        <div *ngIf="activeForm == 'register'"
                             class="btn-sl w3-mobile" 
-                            (click)="register()">{{lang.getStr('register')}}</button>
+                            (click)="register()">{{lang.getStr('register')}}</div>
 
                         <!-- login with APIKEY -->
-                        <button *ngIf="activeForm == 'apikey'"  
+                        <div *ngIf="activeForm == 'apikey'"  
                             class="btn-sl w3-mobile" 
-                            (click)="loginWithAPIKey()">{{lang.getStr('login')}}</button>
+                            (click)="loginWithAPIKey()">{{lang.getStr('login')}}</div>
 
                         <ul class="alternatives">
                             <li class="pointer" *ngIf="activeForm == 'login'"

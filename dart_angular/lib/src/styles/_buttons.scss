@@ -17,6 +17,7 @@
     margin: 5px;
     width: auto;
     height: fit-content;
+    min-height: 25px;
 
     transition: all ease 0.5s;
     text-decoration-line: none;
@@ -106,12 +107,7 @@ $selectedBtn : #ff4fea;
     margin: 0px 5px;
 }
 
-@media screen and (max-width: 479px) 
-{
-
-}
-
-@media screen and (max-width: 375px) 
+@media screen and (max-width: 425px) 
 {
     .btn-sl-x {
         font-size: 10px;
@@ -134,4 +130,9 @@ $selectedBtn : #ff4fea;
         font-size: 25px;
         padding: 5px 20px;
     }
+}
+
+@media screen and (max-width: 375px) 
+{
+    
 }
