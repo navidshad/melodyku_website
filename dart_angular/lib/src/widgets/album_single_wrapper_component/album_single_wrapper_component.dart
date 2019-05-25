@@ -6,6 +6,7 @@ import '../widgets.dart';
 import '../../class/classes.dart';
 
 import '../../widgets/table_media_component/table_media_component.dart';
+import 'package:melodyku/src/widgets/media_cover/media_cover_component.dart';
 
 @Component(
   selector: 'album-single-wrapper',
@@ -13,7 +14,8 @@ import '../../widgets/table_media_component/table_media_component.dart';
   styleUrls: ['album_single_wrapper_component.css'],
   directives: [
     coreDirectives,
-    TableSong
+    TableSong,
+    MediaCoverComponent
   ]
 )
 class AlbumSingleWrapperComponent

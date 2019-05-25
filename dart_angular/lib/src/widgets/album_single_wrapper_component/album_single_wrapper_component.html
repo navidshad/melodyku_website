@@ -1,7 +1,14 @@
 <div class="header-wrappe">
-    <div class="cover_fix cover-bordered">
+    <!-- <div class="cover_fix cover-bordered">
         <img [attr.src]="thumbnail">
-    </div>
+    </div> -->
+
+    <media-cover 
+        [isBig]="true"
+        [thumbnail]="thumbnail"
+        [playBtn]="false"
+        [exploreBtn]="false">
+    </media-cover>
 
     <div class="detail">
         <div>

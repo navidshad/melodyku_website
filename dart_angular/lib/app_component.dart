@@ -28,7 +28,7 @@ import './src/class/injector.dart' as CI;
     ClassProvider(LanguageService),
     ClassProvider(MessageService),
     ClassProvider(UserService),
-    ClassProvider(Requester),
+    //ClassProvider(Requester),
     ClassProvider(ContentProvider),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
@@ -42,7 +42,7 @@ class AppComponent
 {
   
   AppComponent( StitchService stitch,
-    UserService us, Requester rq, ContentProvider cp, MessageService ms, 
+    UserService us, ContentProvider cp, MessageService ms, 
     LanguageService lang, SubscriptionService subScription)
   {
 
@@ -50,7 +50,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('StitchService', stitch));
     CI.Injector.register(CI.InjectorMember('LanguageService', lang));
     CI.Injector.register(CI.InjectorMember('UserService', us));
-    CI.Injector.register(CI.InjectorMember('Requester', rq));
+    //CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));

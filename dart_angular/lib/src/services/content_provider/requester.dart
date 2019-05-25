@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html';
 import 'package:http/http.dart';
 import '../user_service.dart';
 
@@ -16,8 +17,7 @@ class Requester
     dynamic result;
 
     try {
-      String token = _getToken();
-      dynamic header = {'token':token};
+      Map<String, String> header = {'orgine': 'localhost:8080'/*window.location.origin*/};
 
       Response response = await http.post(url, body: form, headers: header);
       result = _extractData(response);

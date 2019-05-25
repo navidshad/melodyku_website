@@ -40,7 +40,10 @@ class PlayerBareComponent implements OnInit
   Song get current => player.current;
   
 
-  PlayerBareComponent(this.player, this.lang, this._subscriptionService);
+  PlayerBareComponent(this.player, this.lang, this._subscriptionService)
+  {
+    player.audio = AudioElement();
+  }
 
   void ngOnInit(){}// => addListeners();
   // methods

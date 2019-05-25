@@ -16,10 +16,10 @@ class ContentProvider
   	StitchArchive stitchArchive;
 	Requester requester;
 
-	ContentProvider(this.requester, StitchService stitch)
+	ContentProvider(StitchService stitch)
 	{
 		stitchArchive = StitchArchive(stitch);
-		archive = Archive(requester);
+		//archive = Archive(requester);
 
 		//print('ContentProvider constructor, $stitchArchive');
 	}

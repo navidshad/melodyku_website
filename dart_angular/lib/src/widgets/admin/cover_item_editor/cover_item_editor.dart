@@ -1,9 +1,11 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
+import 'package:http/http.dart';
 import 'dart:async';
 
 import '../../../services/services.dart';
+import 'package:melodyku/src/class/injector.dart' as CI;
 
 
 @Component(
@@ -32,6 +34,7 @@ class CoverItemEditor implements OnInit
 
 	String stamp;
 	String link = '';
+	String progress = '';
 	bool isUploading = false;
 
 	@Input()
@@ -54,7 +57,6 @@ class CoverItemEditor implements OnInit
 		link = _contentProvider.getImage(type: type, id: id, imgStamp: stamp);
 	}
 
-	String progress = '';
   	void uploadFiles(form) 
   	{
   		if(isUploading) return;
@@ -67,11 +69,12 @@ class CoverItemEditor implements OnInit
 
 	    print('$type $id');
 
-	    //String link = '${window.location.origin}/image/upload';
-	    String link = 'http://steryo.melodyku.com/image/upload';
+	    String link = '${window.location.origin}/image/upload';
+	    //String link = 'http://steryo.melodyku.com/image/upload';
 
 		final request = new HttpRequest();
 	    request.open('POST', link);
+	    request.setRequestHeader('orgine', window.location.origin);
 
 	    request.upload.onProgress
 	    	.listen((ProgressEvent e) {
@@ -107,25 +110,41 @@ class CoverItemEditor implements OnInit
   		formData.append('type', type);
 	    formData.append('id', id);
 
-	    //String link = '${window.location.origin}/image/upload';
-		String link = 'http://steryo.melodyku.com/image/remove';
+	    String link = '${window.location.origin}/image/remove';
+		//String link = 'http://steryo.melodyku.com/image/remove';
+		
+		Map body = {'type': type, 'id':id};
+		Map<String, String> header = {'orgine': 'localhost:8080'/*window.location.origin*/};
+		Client http = Client();
+		http.post(link, body: body, headers: header)
+			.then((body) {
+				print('image has been removed $body');
+				eventController.add(true);
+				isUploading = false;
+			})
+			.catchError((err) {
+				print('image remover has error $err');
+				isUploading = false;
+			});
 
-	    final request = new HttpRequest();
-	    request.open('POST', link);
+	    // final request = new HttpRequest();
+	    // request.open('POST', link);
+	    // request.setRequestHeader('orgine', window.location.origin);
+	    // //request.setRequestHeader('Content-Type', 'multipart/form-data');
 
-	    request.onLoadEnd
-	    	.listen((result) async {
-    			print('image has been removed $result');
-    			eventController.add(true);
-    			isUploading = false;
-    		});
+	    // request.onLoadEnd
+	    // 	.listen((result) async {
+    	// 		print('image has been removed $result');
+    	// 		eventController.add(true);
+    	// 		isUploading = false;
+    	// 	});
 
-	    request.onError
-	    	.listen((error) {
-    			print('image remover has error $error');
-    			isUploading = false;
-    		});
+	    // request.onError
+	    // 	.listen((error) {
+    	// 		print('image remover has error $error');
+    	// 		isUploading = false;
+    	// 	});
 
-	    request.send(formData);
+	    // request.send(formData);
   	}
 }
