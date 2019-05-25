@@ -5,6 +5,8 @@
     //@include material-item-background($menu-color);
     padding-top: 2rem;
     background-color: $menu-color;
+
+    z-index: 3;
     
     // height: 100%; /* 100% Full-height */
     // width: $menu_width; /* 0 width - change this with JavaScript */

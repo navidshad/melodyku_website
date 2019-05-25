@@ -1,6 +1,6 @@
 <div class="modal-base" extractor (onExtract)="getElement($event)">
 
-    <div class="modal-card text-center text-normal">
+    <div class="modal-card modal-card-noBackground text-center text-normal">
 
         <div class="w3-row modal-content body">
             <!-- logo -->
@@ -31,7 +31,7 @@
                                 <img src="/assets/svg/icon_email.svg">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input [(ngModel)]="email" 
+                                <input dir="ltr" [(ngModel)]="email" 
                                     class="w3-input w3-round" name="email" type="text" placeholder="{{lang.getStr('email')}}">
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <img src="/assets/svg/icon_lock.svg" alt="">
                             </div>
                             <div class="w3-rest w3-mobile">
-                                <input [(ngModel)]="password"
+                                <input dir="ltr" [(ngModel)]="password"
                                     class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}">
                             </div>
                         </div>
@@ -63,27 +63,27 @@
                     <div class="">
                         <!-- login -->
                         <button *ngIf="activeForm == 'login'"  
-                            class="btn-sl border-white w3-mobile" 
+                            class="btn-sl w3-mobile" 
                             (click)="login()">{{lang.getStr('login')}}</button>
 
                         <!-- reset password -->
                         <button *ngIf="activeForm == 'resetPassword'"  
-                            class="btn-sl border-white w3-mobile" 
+                            class="btn-sl w3-mobile" 
                             (click)="sendResetLink()">{{lang.getStr('getResetLink')}}</button>
 
                         <!-- resend email confirmation -->
                         <button *ngIf="activeForm == 'confirmation'"  
-                            class="btn-sl border-white w3-mobile" 
+                            class="btn-sl w3-mobile" 
                             (click)="sendEmailConfirmation()">{{lang.getStr('getConfirmation')}}</button>
 
                         <!-- register -->
                         <button *ngIf="activeForm == 'register'"
-                            class="btn-sl border-white w3-mobile" 
+                            class="btn-sl w3-mobile" 
                             (click)="register()">{{lang.getStr('register')}}</button>
 
                         <!-- login with APIKEY -->
                         <button *ngIf="activeForm == 'apikey'"  
-                            class="btn-sl border-white w3-mobile" 
+                            class="btn-sl w3-mobile" 
                             (click)="loginWithAPIKey()">{{lang.getStr('login')}}</button>
 
                         <ul class="alternatives">

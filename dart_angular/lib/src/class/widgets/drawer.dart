@@ -31,7 +31,6 @@ class Drawer {
     el_drawer.style.height    = "100%";
     el_drawer.style.width     = "${width}px";
     el_drawer.style.position  = "fixed";
-    el_drawer.style.zIndex    = "1";
     el_drawer.style.top       = "0";
     el_drawer.style.overflowX = "hidden";
     el_drawer.style.transition = "0.5s";
@@ -57,7 +56,6 @@ class Drawer {
   {
     //print('doOpenClose');
     pushing = false;
-    el_drawer.style.zIndex = "2";
 
     // switcher
     if(isDrawerOpen) close();

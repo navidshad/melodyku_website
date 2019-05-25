@@ -86,7 +86,7 @@ $playerHeight: 85px;
 $tempBorder: 0px solid white;
 .media-detail {
     background-color: $lightblue-color;
-    border-radius: 10px 0px 0px 10px;
+    //border-radius: 10px 0px 0px 10px;
     flex-basis: 300px;
     flex-grow: 1;
     flex-shrink: 1;
@@ -295,7 +295,7 @@ $tempBorder: 0px solid white;
     // }
 
     .background, .bar {
-        height: 60px;
+        height: 40px;
     }
 
     .time-line {
@@ -304,7 +304,7 @@ $tempBorder: 0px solid white;
 
     .time-line-small {
         display: block;
-        transform: translateY(-45px);
+        transform: translateY(-25px);
     }
 
     .current{
@@ -324,7 +324,7 @@ $tempBorder: 0px solid white;
     }
 
     .warning{
-        bottom: 60px;
+        bottom: 40px;
         height: 30px;
         background: #000000d9;
     }
