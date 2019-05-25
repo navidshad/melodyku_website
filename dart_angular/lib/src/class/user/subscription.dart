@@ -24,12 +24,10 @@ class Subscription
 		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection('subscription');
 		dynamic query = js.jsify({'refId': refId});
 		
-		promiseToFuture(collection.find(js.jsify({'refId': refId})).first())
+		promiseToFuture(collection.find(query).first())
 			.then((result) 
 			{
 				Map converted = convertToMap(result, SystemSchema.subscription);
-				// print('=== user refId $refId');
-				print('=== user subscription $converted');
 				plan = converted['plan'];
 				startsIn = converted['startsIn'];
 				expiresIn = converted['expiresIn'] ?? DateTime.now();
@@ -45,7 +43,7 @@ class Subscription
 		if(expiresIn != null)
 		{
 			int difference = DateTime.now().difference(expiresIn).inMinutes;
-			print('=== difference $difference');
+			//print('=== difference $difference');
 			// future is less than now
 			if(difference < 0) key = true;
 		}
@@ -56,7 +54,6 @@ class Subscription
 			if(todayPlayCount <= 3) key = true;
 		}
 
-		print('hasSubscription $key');
 		return key;
 	}
 

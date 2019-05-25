@@ -20,12 +20,18 @@
     }
 }
 
-$columnGap: 10px;
 .card {
+    align-items: center;
+    justify-content: space-between;
+}
+
+$columnGap: 10px;
+.detail {
     display: flex;
     align-content: space-between;
     align-items: center;
     padding: 10px 0px;
+    width: 90%;
 }
 
 .number {

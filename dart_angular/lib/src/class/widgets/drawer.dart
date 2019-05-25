@@ -27,7 +27,7 @@ class Drawer {
 
   void setupStyle()
   {
-    print('setupStyle');
+    //print('setupStyle');
     el_drawer.style.height    = "100%";
     el_drawer.style.width     = "${width}px";
     el_drawer.style.position  = "fixed";
@@ -55,7 +55,7 @@ class Drawer {
 
   void doOpenClose()
   {
-    print('doOpenClose');
+    //print('doOpenClose');
     pushing = false;
     el_drawer.style.zIndex = "2";
 
@@ -66,7 +66,7 @@ class Drawer {
 
   void doOpenCloseWithPushing()
   {
-    print('doOpenCloseWithPushing');
+    //print('doOpenCloseWithPushing');
     pushing = true;
     el_drawer.style.zIndex = "0";
 
@@ -102,7 +102,7 @@ class Drawer {
   
   void _changeStyleForOpenClose(String drawer, String main)
   {
-    print('_changeStyleForOpenClose $direction');
+    //print('_changeStyleForOpenClose $direction');
     switch(direction)
     {
       case 'right':

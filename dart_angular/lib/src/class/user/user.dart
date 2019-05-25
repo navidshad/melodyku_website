@@ -79,8 +79,6 @@ class User
 
   void getData() async
   {
-    print('begin to get user detail');
-
     StitchService stitch = CI.Injector.get<StitchService>();
     RemoteMongoDatabase userDB = stitch.dbClient.db('user');
 
@@ -95,7 +93,7 @@ class User
       if(doc == null) getData();
 
       Map converted = convertToMap(doc, SystemSchema.userDetail);
-      print('user detail | $converted');
+      //print('user detail | $converted');
 
       detailId = converted['_id'];
       fullname = converted.containsKey('fullname') ? converted['fullname'] : '';
@@ -109,7 +107,7 @@ class User
     await promiseToFuture(stitch.appClient.callFunction('getById', ['cms', 'permission', permissionId]))
     .then((doc) 
     {
-      print('user permission | $doc');
+      //print('user permission | $doc');
       dynamic pDetail = convertToMap(doc, SystemSchema.permission);
       _permission = Permission.fromJson(pDetail);
     }).catchError(_catchError);

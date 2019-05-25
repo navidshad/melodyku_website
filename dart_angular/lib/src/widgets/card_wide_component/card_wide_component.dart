@@ -60,6 +60,7 @@ class CardWideComponent
 
   void like()
   {
+    print('linking');
     item.origin.like();
   }
 

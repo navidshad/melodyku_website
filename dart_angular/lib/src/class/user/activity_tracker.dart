@@ -133,7 +133,7 @@ class ActivityTracker
 		.then((list) 
 		{
 			_todayPlayCount = list.length; 
-			print('=== _getTodayCount ${_todayPlayCount}');
+			//print('=== _getTodayCount ${_todayPlayCount}');
 		}).catchError((error) {
 			print('=== _getTodayCount $error');
 		});

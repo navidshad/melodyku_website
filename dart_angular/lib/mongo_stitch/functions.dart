@@ -53,7 +53,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			try {
 				value = js.getProperty(jsObject, field.key);
 			}catch(e){
-				print('convertToMap forEach ${field.key} is null');
+				//print('convertToMap forEach ${field.key} is null');
 			}
 
 			// inject language fields
@@ -77,7 +77,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 					try{
 						newObject[field.key] = bool.fromEnvironment(value.toString());
 					}catch(e){
-						print('bool catch | key ${field.key}, value ${value}');
+						//print('bool catch | key ${field.key}, value ${value}');
 						newObject[field.key] = false;
 					}
 				}
@@ -104,7 +104,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 					value.forEach((element) 
 						=> stringArray.add(element.toString()));
 				}catch(e){
-					print('string array catch | key ${field.key}, value ${value}');
+					//print('string array catch | key ${field.key}, value ${value}');
 				}
 
 				newObject[field.key] = stringArray;
@@ -121,7 +121,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 						objectArray.add(newMember);
 					});
 				}catch(e){
-					print('object array catch | key ${field.key}, value ${value}');
+					//print('object array catch | key ${field.key}, value ${value}');
 				}
 
 				newObject[field.key] = objectArray;
@@ -133,7 +133,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 				try{
 					newObject[field.key] = convertToMap(value, field.subFields);
 				}catch(e){
-					print('object field catch | key ${field.key}, value ${value}');
+					//print('object field catch | key ${field.key}, value ${value}');
 					newObject[field.key] = convertToMap({}, field.subFields);
 				}
 			}
@@ -145,7 +145,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 					JSDate jsDate = value; //JSDate(value.toString());
 					newObject[field.key] = jsDateToDateTime(jsDate);
 				}catch(e){
-					print('dateTime field catch | key ${field.key}, value ${value} $e');
+					//print('dateTime field catch | key ${field.key}, value ${value} $e');
 					newObject[field.key] = null;
 				}
 			}

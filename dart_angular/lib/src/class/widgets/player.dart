@@ -116,7 +116,7 @@ class Player
 
     // get stream link
     String streamLink = await current.getStreamLink(version);
-    print('streamLink $streamLink , duration ${current.duration}');
+    //print('streamLink $streamLink , duration ${current.duration}');
     audio.src = streamLink;
 
     play();

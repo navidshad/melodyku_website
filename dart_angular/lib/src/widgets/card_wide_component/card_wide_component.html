@@ -1,51 +1,56 @@
-<div class="card-container pointer"
-    (mouseenter)="onmouseenter(number)"
-    (mouseleave)="onmouseleave()"
-    (click)="play()">
+<div class="card-container"
+    >
 
-    <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null">
+    <!-- <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null"> -->
         
-        <div class="card" [class.not-numerical]="!numerical">
+        <div class="card flex-row" [class.not-numerical]="!numerical">
 
-            <div *ngIf="numerical" class="number">{{item.number}}</div>
+            <div class="detail pointer" 
+                [class.not-numerical]="!numerical" 
+                (click)="play()"
+                (mouseenter)="onmouseenter(number)"
+                (mouseleave)="onmouseleave()">
+
+                <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-            <div class="cover-container">
-                <media-cover 
-                    [thumbnail]="item.thumbnail.toString()"
-                    [titleLink]="item.titleLink.toString()"
-                    [number]="number"
-                    [selectedIndex]="selectedIndex"
-                    [hoverIndex]="hoverIndex"
-                    [exploreBtn]="exploreBtn"
-                    [playBtn]="playBtn">
-                </media-cover>
+                <div class="cover-container">
+                    <media-cover 
+                        [thumbnail]="item.thumbnail.toString()"
+                        [titleLink]="item.titleLink.toString()"
+                        [number]="number"
+                        [selectedIndex]="selectedIndex"
+                        [hoverIndex]="hoverIndex"
+                        [exploreBtn]="exploreBtn"
+                        [playBtn]="playBtn">
+                    </media-cover>
+                </div>
+            
+                <div class="titles">
+                    <p>
+                        <span class="title">{{item.title}}</span><br>
+                        <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
+                    </p>
+                </div>
+            
+                <div class="length" *ngIf="duration">
+                    <span>{{item.duration}}</span>
+                </div>
             </div>
-        
-            <div class="titles">
-                <p>
-                    <span class="title">{{item.title}}</span><br>
-                    <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
-                </p>
-            </div>
-        
-            <div class="length" *ngIf="duration">
-                <span>{{item.duration}}</span>
-            </div>
+            
         
             <div *ngIf="isLogedIn" class="more">
                 
                 <div>
                     <like class='like-btn'
-                    *ngIf="item != null" (onlike)="like()" [isLiked]="item.origin.isLiked"></like>
+                        *ngIf="item != null" 
+                        (onlike)="like()"
+                        [isLiked]="item.origin.isLiked"></like>
                 </div>
                 
-                <!-- <a href="#">
-                    <img class="play" src="/assets/imgs/icons/more.png">
-                </a> -->
             </div>
         
         </div>
         
         <div class="bottom-line"></div>
-    </a>
+    <!-- </a> -->
 </div>
