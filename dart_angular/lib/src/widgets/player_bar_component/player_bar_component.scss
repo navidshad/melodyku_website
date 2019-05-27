@@ -56,7 +56,7 @@ $playerHeight: 60px;
     color: white;
     width: 100%;
     background: #00000050;
-    bottom: 85px;
+    bottom: $playerHeight;
     height: 22px;
 
     P{
@@ -190,7 +190,8 @@ $tempBorder: 0px solid white;
         //border-radius: 5px;
         overflow: hidden;
         background-color: darken($lightblue-color, 20%);
-
+        box-shadow: -4px 0px 6px 0px darken($lightblue-color, 20%);
+        
         img {
             width: 100%;
             height: 100%;

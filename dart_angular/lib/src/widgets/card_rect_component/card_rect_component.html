@@ -6,8 +6,8 @@
         (click)="play()">
 
         <media-cover 
-            [thumbnail]="card.thumbnail.toString()"
-            [titleLink]="card.titleLink.toString()"
+            [thumbnail]="card.thumbnail"
+            [titleLink]="card.titleLink"
             [number]="number"
             [selectedIndex]="selectedIndex"
             [hoverIndex]="hoverIndex"
@@ -21,7 +21,9 @@
     
         <div class="full-wide">
             <span class="title">{{card.title}}</span><br>
-            <span class="subtitle" *ngIf="card.subtitle != null">{{card.subtitle}}</span>
+            <a href="{{card.subtitleLink}}">
+                <span class="subtitle" *ngIf="card.subtitle != null">{{card.subtitle}}</span>
+            </a>
         </div>
 
         <div *ngIf="couldliked != null">

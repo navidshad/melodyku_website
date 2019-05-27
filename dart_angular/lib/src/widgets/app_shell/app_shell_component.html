@@ -78,7 +78,7 @@
         <div *ngIf="user != null" class="info text-center">
             <div class="avatar">
                 <a href="/#/profile">
-                    <img src="/assets/imgs/profile.jpg" alt="">
+                    <img src="{{user.getImage()}}" alt="">
                 </a>
             </div>
             {{user.fullname}}

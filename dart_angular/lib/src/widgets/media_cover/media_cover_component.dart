@@ -54,7 +54,10 @@ class MediaCoverComponent
 
   bool getPlayAccess() => playBtn ?? true;
   bool getExploreAccess() => exploreBtn ?? false;
-  bool getCoverAccess() => (thumbnail != null && thumbnail.length > 10) ? true : false;
+  bool getCoverAccess() {
+    //print('cover thumbnail ${thumbnail}');
+    return (thumbnail != null && thumbnail.length > 10) ? true : false;
+  }
 
   void explore()
   {

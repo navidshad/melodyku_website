@@ -21,7 +21,6 @@ class ProfileEditor
 
 	String id;
   	String type;
-  	String imgStamp;
 
 	ProfileEditor(this._userService)
 	{
@@ -37,10 +36,11 @@ class ProfileEditor
 		);
 
 		id = _userService.user.id;
-		imgStamp = _userService.user.imgStamp;
     	type = 'user';
 	}
 
 	void onUpdated() =>
 		_userService.user.getData();
+
+	String get imgStamp => _userService.user.imgStamp;
 }

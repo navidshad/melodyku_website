@@ -46,7 +46,7 @@
                 </div>
                 <div class="title">
                     <h4>{{current.title}}</h4>
-                    <h5>{{current.artist}}</h5>
+                    <h5><a href="{{current.list_artist}}">{{current.artist}}</a></h5>
                 </div>
             </div>
         </div>
@@ -92,8 +92,11 @@
     <div class="time-line-small">
         <material-slider class="slider-length" 
         (mousedown)="player.onSeekingSlider()"
+        (touchstart)="player.onSeekingSlider()"
         (mouseup)="player.onSeekingSliderDone()"
+        (touchend)="player.onSeekingSliderDone()"
         (mousemove)="player.onSliderValueChange()"
+        (touchmove)="player.onSliderValueChange()"
         *ngIf="player.audio != null"
         [(value)]="player.currentTime"
         [min]="0.0"

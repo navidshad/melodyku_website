@@ -21,7 +21,7 @@ import '../../pips/pips.dart';
   templateUrl: 'player_bar_component.html',
   styleUrls: ['player_bar_component.css'],
 )
-class PlayerBareComponent implements OnInit
+class PlayerBareComponent
 {
   bool isVisible = true;
   bool isQueueVisible = false;
@@ -44,24 +44,6 @@ class PlayerBareComponent implements OnInit
   {
     player.audio = AudioElement();
   }
-
-  void ngOnInit(){}// => addListeners();
-  // methods
-  // void addListeners()
-  // { 
-  //   print('addListeners player');
-  //   _playerService.modalStream.listen((StreamDetail_Player detail)
-  //   {
-  //     isVisible = detail.visible;
-  //     print('type : ${detail.type} | object: ${detail.object}');
-      
-  //     if(detail.type == ArchiveTypes.media)
-  //     {
-  //       print('playing media');
-  //       player.playTrack(detail.object);
-  //     }
-  //   });
-  // }
 
   void getElement(Element el)
   {
@@ -124,9 +106,6 @@ class PlayerBareComponent implements OnInit
 
   String getQueueClass() => 
     (isQueueVisible) ? 'queue-container queue-swipup' : 'queue-container queue-swipdown';
-
-  // List<ListItem> get queueList => 
-  //   ArchiveToWidget.toItemList(player.list, ArchiveTypes.media);
 
   String isitCurrentPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
 
