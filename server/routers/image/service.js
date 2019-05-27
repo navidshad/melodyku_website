@@ -17,6 +17,17 @@ function updateTimeStamp(type, id, time)
   
   let query = {_id: objectid};
   if(type == 'user') query = {refId: id};
+    
+  // update related items in other collection
+  if(type == 'artist')
+    {
+        getCollction('album').updateMany({artistId: id}, { $set: { imgStamp_artist: time} }).then();
+        getCollction('song').updateMany({artistId: id}, { $set: { imgStamp_artist: time} }).then();
+    }
+  else if(type == 'album')
+    {
+        getCollction('song').updateMany({albumId: id}, { $set: { imgStamp_album: time} }).then();
+    }
   
   return coll.updateOne(query, update)
     .then((r) => { return time; });
@@ -79,7 +90,7 @@ function removePhoto(type, id)
         // delete if exists
         await removeOldImage(type, id, dir).catch(reject);
         // update timeStamp to be ''
-        await updateTimeStamp(type, id, '').then(done).catch(reject);
+        await updateTimeStamp(type, id, null).then(done).catch(reject);
     });
 }
 
