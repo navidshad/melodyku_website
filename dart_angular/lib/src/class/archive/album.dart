@@ -25,14 +25,19 @@ class Album implements SongItem
   String description;
   String thumbnail;
   String imgStamp;
+  String imgStamp_artist;
 
   Album({this.id, this.artistId, this.type, this.title, this.artist, 
-    this.description, this.imgStamp, this.thumbnail, bool dontGetSongs=false})
+    this.description, this.imgStamp, this.imgStamp_artist, 
+    this.thumbnail, bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
 
     // get thumbnail link
-    thumbnail = Injector.get<ContentProvider>().getImage(type:'album', id:id, imgStamp:imgStamp);
+    thumbnail = Injector.get<ContentProvider>()
+      .getImage(type:'album', id:id, imgStamp:imgStamp, 
+      imgStamp_artist: imgStamp_artist,
+      artistId: artistId);
   }
 
   factory Album.fromjson(Map detail, {bool dontGetSongs})
@@ -48,6 +53,7 @@ class Album implements SongItem
         artist      : (detail['artist'] != null)      ? detail['artist'] : '',
         description : (detail['description'] != null) ? detail['description'] : '',
         imgStamp    : (detail['imgStamp']   != null)  ? detail['imgStamp'] : '',
+        imgStamp_artist    : (detail['imgStamp_artist']   != null)  ? detail['imgStamp_artist'] : '',
       );
     } 
     catch (e) {
@@ -62,17 +68,17 @@ class Album implements SongItem
   {
     ContentProvider cp = CI.Injector.get<ContentProvider>();
     songNavigator = await cp.stitchArchive.song_getListByAlbum(id);
-    injectAlbumCover();
+    //injectAlbumCover();
   }
 
-  void injectAlbumCover()
-  {
-    songNavigator.list.forEach((song) 
-    {
-        if(song.thumbnail == null || song.thumbnail?.length == 0)
-          song.thumbnail = thumbnail;
-    });
-  }
+  // void injectAlbumCover()
+  // {
+  //   songNavigator.list.forEach((song) 
+  //   {
+  //       if(song.thumbnail == null || song.thumbnail?.length == 0)
+  //         song.thumbnail = thumbnail;
+  //   });
+  // }
 
   dynamic toDynamic()
   {
@@ -85,26 +91,25 @@ class Album implements SongItem
   }
 
   @override
-  String get link => 'album/$id';
+  String get link => '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', {'id': id})}';
+  String get list_artist => '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
   {
     T widget;
 
-    Map<String, String> params = {'id':id.toString()};
-    String link = '${CI.Injector.get<PageRoutes>().getRouterUrl('album', params)}';
-
     if(T == Card)
     {
       widget = Card(
-        artist,
-        subtitle: title,
+        title,
+        subtitle: artist,
         id: id,
         thumbnail: thumbnail,
         type: ArchiveTypes.album,
         origin: this,
         titleLink: link,
+        subtitleLink: list_artist,
       ) as T;
     }
     else if (T == ListItem)

@@ -372,5 +372,5 @@ class PageRoutes
     return list;
   }
 
-  String getRouterUrl (name, [Map params]) => pageDefinitions[name].route.toUrl(params);
+  String getRouterUrl (name, [Map<String, String> params]) => pageDefinitions[name].route.toUrl(params);
 }

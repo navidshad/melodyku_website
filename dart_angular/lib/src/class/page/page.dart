@@ -45,6 +45,6 @@ class Page
 
   static void goToHome()
   {
-    window.location.replace('/#');
+    window.location.replace('/');
   }
 }

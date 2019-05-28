@@ -26,7 +26,8 @@ class Artist implements SongItem
   Artist({this.id, this.name, this.description, this.imgStamp, this.thumbnail})
   {
     // get thumbnail link
-    thumbnail = Injector.get<ContentProvider>().getImage(type:'artist', id:id, imgStamp:imgStamp);
+    thumbnail = Injector.get<ContentProvider>()
+      .getImage(type:'artist', id:id, imgStamp:imgStamp);
   }
 
   factory Artist.fromjson(dynamic detail)
@@ -57,7 +58,7 @@ class Artist implements SongItem
   }
 
   @override
-  String get link => 'artist/$id';
+  String get link => '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', {'id': id})}';
 
   @override
   Future<bool> getLikeStatus() {
@@ -85,9 +86,6 @@ class Artist implements SongItem
   @override
   T getAsWidget<T>({int itemNumber=1}) {
     T widget;
-
-    Map<String, String> params = {'id':id.toString()};
-    String link = '${CI.Injector.get<PageRoutes>().getRouterUrl('artist', params)}';
 
     if(T == Card)
     {

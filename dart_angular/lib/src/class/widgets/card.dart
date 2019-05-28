@@ -8,6 +8,7 @@ class Card<T>
   String subtitle;
   
   String titleLink;
+  String subtitleLink;
   String thumbnail;
 
   T origin;
@@ -17,6 +18,7 @@ class Card<T>
     { 
       this.id,
       this.subtitle, 
+      this.subtitleLink,
       this.titleLink, 
       this.thumbnail , 
       this.origin,

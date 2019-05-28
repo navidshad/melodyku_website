@@ -10,7 +10,9 @@
     <div class="detail">
         <div>
             <h1>{{title}}</h1>
-            <h3 *ngIf="subtitle != null">{{subtitle}}</h3>
+            <h3 *ngIf="subtitle != null">
+                <a href="{{subtitle_link}}">{{subtitle}}</a>
+            </h3>
         </div>
 
         <div *ngIf="detail != null"><P>{{detail}}</P></div>

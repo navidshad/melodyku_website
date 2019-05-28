@@ -11,7 +11,6 @@ class Navigator
 
 	static goToRawPath(String path)
 	{
-		String newPath = '#${path}';
-		window.location.replace(newPath);
+		window.location.replace(path);
 	}
 }

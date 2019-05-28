@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:melodyku/src/class/archive/media_item.dart';
 import 'package:js/js_util.dart' as js;
 
+import '../injector.dart' as CI;
+import '../../routting/routes.dart';
+
 import '../injector.dart';
 import '../../services/services.dart';
 import '../../services/urls.dart';
@@ -37,6 +40,9 @@ class Song implements SongItem
   int bitrate;
 
   String imgStamp;
+  String imgStamp_album;
+  String imgStamp_artist;
+
 
   List<Map> versions = [];
 
@@ -55,14 +61,19 @@ class Song implements SongItem
     this.size,
     this.thumbnail,
     this.versions,
-    this.imgStamp
+    this.imgStamp,
+    this.imgStamp_album,
+    this.imgStamp_artist
   })
   {
     type = ArchiveTypes.media;
     getLikeStatus();
 
     // get thumbnail link
-    thumbnail = Injector.get<ContentProvider>().getImage(type:'song', id:id, imgStamp:imgStamp);
+    this.thumbnail = Injector.get<ContentProvider>().
+      getImage(type:'song', id:id, imgStamp:imgStamp, 
+        imgStamp_album: imgStamp_album, imgStamp_artist: imgStamp_artist,
+        albumId: albumId, artistId: artistId);
   }
 
   factory Song.fromjson(Map detail)
@@ -91,6 +102,8 @@ class Song implements SongItem
       bitrate   : (detail['bitrate']   != null) ? detail['bitrate'] : 0,
       size      : (detail['size']   != null) ? detail['size'] : 0,
       imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
+      imgStamp_album  : (detail['imgStamp_album']   != null) ? detail['imgStamp_album'] : '',
+      imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
       versions  : detail['versions'],
     );
 
@@ -147,7 +160,9 @@ class Song implements SongItem
   }
 
   @override
-  String get link => 'media/$id';
+  String get link => '#${CI.Injector.get<PageRoutes>().getRouterUrl('song', {'id': id})}';
+  String get list_album => '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
+  String get list_artist => '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -157,8 +172,9 @@ class Song implements SongItem
     if(T == Card)
     {
       widget = Card( 
-        artist,
-        subtitle: title,
+        title,
+        subtitle: artist,
+        subtitleLink: list_artist,
         id: id,
         thumbnail: thumbnail,
         type: ArchiveTypes.media,

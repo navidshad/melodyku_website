@@ -32,6 +32,9 @@ class AlbumSingleWrapperComponent
   String subtitle;
 
   @Input()
+  String subtitle_link;
+
+  @Input()
   String detail;
 
   @Input()

@@ -79,6 +79,7 @@ class Player
   }
   void onSliderValueChange() {
     if(seeking) audio.currentTime = currentTime;
+    print('onSliderValueChange');
   }
 
   // play methods -------------------------------
@@ -173,6 +174,7 @@ class Player
       Song newTrack = _list[currentIndex+1];
       playByTrack(newTrack);
     }
+    else current = null;
   }
 
   void previous() 

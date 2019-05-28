@@ -7,7 +7,7 @@ import 'package:js/js_util.dart' as js;
 import 'dart:html';
 
 import 'package:melodyku/src/class/injector.dart' as CI;
-import '../../services/stitch_service.dart';
+import '../../services/services.dart';
 
 class User 
 {
@@ -49,26 +49,28 @@ class User
     traker = ActivityTracker(id);
   }
 
-  factory User.fromJson(dynamic detail)
-  {
-    User p;
+  // factory User.fromJson(Map detail)
+  // {
+  //   User p;
 
-    try{
-      p = User(
-        detail['refId'].toString(),
-        detailId: detail['_id'],
-        permissionId : detail['permissionId'],
-        email : detail['email'],
-        fullname : detail['fullname'],
-        imgStamp : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
-      );
-    }
-    catch(e){
-      print('User.fromJson | $e');
-    }
+  //   print('user $detail');
 
-    return p;
-  }
+  //   try{
+  //     p = User(
+  //       detail['refId'].toString(),
+  //       detailId: detail['_id'],
+  //       permissionId : detail['permissionId'],
+  //       email : detail['email'],
+  //       fullname : detail['fullname'],
+  //       imgStamp : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
+  //     );
+  //   }
+  //   catch(e){
+  //     print('User.fromJson | $e');
+  //   }
+
+  //   return p;
+  // }
 
   bool hasAccess(PermissionType type) 
   {
@@ -99,6 +101,7 @@ class User
       fullname = converted.containsKey('fullname') ? converted['fullname'] : '';
       permissionId = converted['permissionId'];
       email = converted['email'];
+      imgStamp = converted['imgStamp'];
 
     }).catchError(_catchError);
 
@@ -111,6 +114,16 @@ class User
       dynamic pDetail = convertToMap(doc, SystemSchema.permission);
       _permission = Permission.fromJson(pDetail);
     }).catchError(_catchError);
+  }
+
+  String getImage()
+  {
+    String link = '/assets/svg/icon_user.svg';
+
+    if(imgStamp != null && imgStamp.length > 10)
+      link = CI.Injector.get<ContentProvider>().getImage(type: 'user', id: id, imgStamp: imgStamp);
+
+    return link;
   }
 
   void updateSubscription() =>

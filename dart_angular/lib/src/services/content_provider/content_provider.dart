@@ -24,15 +24,30 @@ class ContentProvider
 		//print('ContentProvider constructor, $stitchArchive');
 	}
 
-	String getImage({String type, String id, String imgStamp})
+	String getImage({
+		String type='', String id, String imgStamp='',
+		String imgStamp_album='', String imgStamp_artist='',
+		String albumId='', String artistId=''})
 	{
 		String link;
 
-		if(imgStamp.length > 0)
+		if(imgStamp.length > 10)
 		{
 			Uri imageLink = Uri.http(dataMelodyku, 'images/$type/$id-$imgStamp.jpg');
 			link = imageLink.toString();
 		}
+		else if(imgStamp_album.length > 10)
+		{
+			Uri imageLink = Uri.http(dataMelodyku, 'images/album/$albumId-$imgStamp_album.jpg');
+			link = imageLink.toString();
+		}
+		else if(imgStamp_artist.length > 10)
+		{
+			Uri imageLink = Uri.http(dataMelodyku, 'images/artist/$artistId-$imgStamp_artist.jpg');
+			link = imageLink.toString();
+		}
+
+		//print('$type, $imgStamp, $imgStamp_album, $imgStamp_artist \n$link');
 
 		return link;
 	}
