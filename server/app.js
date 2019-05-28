@@ -51,7 +51,7 @@ function BeforInit(app)
     let corsOptions = {
         origin: (ctx) => {
           const requestOrigin = ctx.accept.headers.origin;
-          let whitelist = ['http://localhost', 'http://steryo.melodyku.com', 'http://melodyku.com'];
+          let whitelist = ['http://localhost', 'http://localhost:8080', 'http://steryo.melodyku.com', 'http://melodyku.com'];
           
           if (!whitelist.includes(requestOrigin))
               return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
