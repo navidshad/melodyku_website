@@ -8,35 +8,43 @@ let stream = new Router();
 let name = 'stream';
 
 // register a song to has stream access
-stream.get('/rg', (ctx) => 
-{
-    let query = ctx.query;
+// stream.get('/rg', (ctx) => 
+// {
+//     let query = ctx.query;
 
-    // validate
-    let bodyValidate = tools.validateObject(query, 'ui si');
+//     // validate
+//     let bodyValidate = tools.validateObject(query, 'ui si');
 
-    let result;
-    if(!bodyValidate.isValid)
-        result = tools.reply('f', {'e': bodyValidate.requires, 'm': 'required fields dosnt exist.'});
+//     let result;
+//     if(!bodyValidate.isValid)
+//         result = tools.reply('f', {'e': bodyValidate.requires, 'm': 'required fields dosnt exist.'});
 
-    else {
-        let songId = query.si;
-        let userId = query.ui;
-        let stamp = service.registerSoungId(userId);
-        result = tools.reply('s', {'d': {'stamp':stamp}});
-    }
+//     else {
+//         let songId = query.si;
+//         let userId = query.ui;
+//         let stamp = service.registerSoungId(userId, ctx.header);
+//         result = tools.reply('s', {'d': {'stamp':stamp}});
+//     }
 
-    ctx.body = result;
-});
+//     //console.log(ctx.header);
+
+//     ctx.body = result;
+// });
 
 stream.get('/', async (ctx) => 
 {
     let query = ctx.query;
 
     // validate
-    let bodyValidate = tools.validateObject(query, 'ai si br ui st org');
+    let bodyValidate = tools.validateObject(query, 'ai si br org');
 
     if(!bodyValidate.isValid){
+        ctx.throw(404);
+        return;
+    }
+
+    let hasStreamAccess = (ctx.header['range']) ? true : false;
+    if(!hasStreamAccess) {
         ctx.throw(404);
         return;
     }
@@ -46,16 +54,7 @@ stream.get('/', async (ctx) =>
     let artistId = query.ai;
     let songId = query.si;
     let bitrate = query.br;
-    let userId = query.ui;
-    let stamp = query.st;
     let isOrginal = query.org;
-
-    let hasStreamAccess = service.hasAccess(userId, stamp);
-
-    if(!hasStreamAccess) {
-        ctx.status = 404;
-        return;
-    }
 
     let rootDir = global.config.ftp_convert_dir;
     if(isOrginal == 'true')
