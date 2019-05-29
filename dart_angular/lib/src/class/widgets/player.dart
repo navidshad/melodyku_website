@@ -79,7 +79,7 @@ class Player
   }
   void onSliderValueChange() {
     if(seeking) audio.currentTime = currentTime;
-    print('onSliderValueChange');
+    //print('onSliderValueChange');
   }
 
   // play methods -------------------------------
@@ -116,7 +116,7 @@ class Player
       version = 'original';
 
     // get stream link
-    String streamLink = await current.getStreamLink(version);
+    String streamLink = await current.getStreamLink(version, _userServide.user.id);
     //print('streamLink $streamLink , duration ${current.duration}');
     audio.src = streamLink;
 

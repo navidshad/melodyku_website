@@ -92,7 +92,7 @@ class Album implements SongItem
 
   @override
   String get link => '#${CI.Injector.get<PageRoutes>().getRouterUrl('album', {'id': id})}';
-  String get list_artist => '#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
+  String get link_artist => "#${CI.Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}";
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -109,7 +109,7 @@ class Album implements SongItem
         type: ArchiveTypes.album,
         origin: this,
         titleLink: link,
-        subtitleLink: list_artist,
+        subtitleLink: link_artist,
       ) as T;
     }
     else if (T == ListItem)

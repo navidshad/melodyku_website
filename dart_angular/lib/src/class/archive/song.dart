@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:melodyku/src/class/archive/media_item.dart';
 import 'package:js/js_util.dart' as js;
+import 'package:http/http.dart';
 
 import '../injector.dart' as CI;
 import '../../routting/routes.dart';
@@ -117,28 +118,37 @@ class Song implements SongItem
     return mFromJson;
   }
 
-  String getStreamLink(String version)
+  Future<String> getStreamLink(String version, String userid) async
   {
     String cBitrate;
-    String path = '';
-    String root = '';
+    bool isOrginal = false;
 
     if(version == 'original')
     {
-      root = 'music';
       cBitrate = bitrate.toString();
+      isOrginal = true;
     }
 
     else {
-      root = 'music_converted';
       versions.forEach((Map SongVersion) {
         if(SongVersion['title'] == version)
           cBitrate = SongVersion['title'];
       });
     }
 
-    path = '$root/$artistId/$id ${cBitrate}.mp3';
-    Uri link = Uri.http(dataMelodyku, path);
+    // register song for streaming
+    String stamp = '';
+    Client http = Client();
+    Response rs = await http.get('${window.location.origin}/stream/rg?si=$id&ui=$userid');
+
+    Map body = jsonDecode(rs.body);
+    if(body['status'] == 'success')
+      stamp = body['data']['stamp'].toString();
+
+    // create stream link
+    Uri link = Uri.http(window.location.host, 'stream', 
+      {'ai': artistId, 'si': id, 'br': cBitrate, 'ui': userid, 'st': stamp, 'org': isOrginal.toString()});
+
     return link.toString();
   }
 
