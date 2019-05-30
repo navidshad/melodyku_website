@@ -136,15 +136,6 @@ class Song implements SongItem
       });
     }
 
-    // register song for streaming
-    // String stamp = '';
-    // Client http = Client();
-    // Response rs = await http.get('${window.location.origin}/stream/rg?si=$id&ui=$userid');
-
-    // Map body = jsonDecode(rs.body);
-    // if(body['status'] == 'success')
-    //   stamp = body['data']['stamp'].toString();
-
     // create stream link
     Uri link = Uri.http(window.location.host, 'stream', 
       {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()});

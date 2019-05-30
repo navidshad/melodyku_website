@@ -118,39 +118,30 @@ class StitchArchive
       'title': title, 
       'list': [],
     };
-    int page = randomRange(0, 1100);
-
-    ResultWithNavigator<Song> navigator = await song_getList(page: page);
 
     playlist = Playlist.fromjson(playlistDetail);
-    playlist.list = navigator.list;
     
-    // dynamic pipeline = js.jsify([
-    //     {
-    //       '\$sample': { 'size': total }
-    //     }
-    //   ]);
+    // int page = randomRange(0, 1100);
+    // ResultWithNavigator<Song> navigator = await song_getList(page: page);
+    // playlist.list = navigator.list;
 
-    // Map result = await promiseToFuture(
-    //     _mediaDB.collection('song').aggregate(pipeline).asArray())
-    //     .then((dynamic songs) 
-    //     {
-          
+    dynamic pipeLine = js.jsify([
+        {
+          '\$sample': {'size': total}
+        }
+      ]);
 
-    //       List list = [];
-    //       for(int i=0; i < songs.length; i++)
-    //       {
-    //         dynamic stitchSong = songs[i];
-    //         Map mapSong = convertToMap(stitchSong, SystemSchema.song);
-            
-    //         //Song sognObject = Song.fromjson(mapSong);
-    //         list.add(mapSong);
-    //       }
+    RemoteMongoCollection coll = _stitch.dbClient.db('media').collection('song');
 
-    //       playlistDetail['list'] = list;
-    //       return playlistDetail;
-    //     })
-    //     .catchError((error) {});
+    await promiseToFuture(coll.aggregate(pipeLine).asArray())
+      .then((docs) 
+      {
+        docs.forEach((doc) {
+          Map converted = convertToMap(doc, SystemSchema.song);
+          Song song = Song.fromjson(converted);
+          playlist.list.add(song);
+        });
+      }).catchError(_handleError);
 
     return playlist;
   }
