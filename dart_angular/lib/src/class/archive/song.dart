@@ -118,7 +118,7 @@ class Song implements SongItem
     return mFromJson;
   }
 
-  Future<String> getStreamLink(String version, String userid) async
+  Future<String> getStreamLink(String version) async
   {
     String cBitrate;
     bool isOrginal = false;

@@ -21,14 +21,14 @@ class Page
     print('.: the $title page loaded :.');
   }
 
-  void checkAccess()
+  void checkAccess() async
   {
     if(!needLogedIn) return;
 
     bool hasAccess = false;
 
     try {
-      hasAccess = userService.user.hasAccess(permissionType);
+      hasAccess = await userService.user.hasAccess(permissionType);
     }
     catch(e) {
       print("you don't have permission for this page, it will go to main page.");

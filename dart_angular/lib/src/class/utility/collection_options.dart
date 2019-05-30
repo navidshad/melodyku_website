@@ -68,4 +68,11 @@ class CollectionOptions
 		this.hasNavigator=true, 
 		this.hasCover 	 = false,	
 	});
+
+	List<DbField> getValidFields()
+	{
+		List<DbField> list = [];
+		dbFields.forEach((DbField f) { if(!f.isHide) list.add(f); });
+		return list;
+	}
 }

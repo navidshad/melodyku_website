@@ -73,6 +73,16 @@ class AppShellComponent
   bool get isFirstLoggined => _stitch.user != null ? true : false;
   User get user => _userService.user;
 
+  bool get allowLoadShell {
+    bool key  = false;
+
+    if(!isLogedIn) key = true;
+    else if(user != null && user.isLoadedData)
+      key = true;
+      
+    return key;
+  }
+
   void logout() async 
   {
     await closeDrawers();

@@ -6,19 +6,18 @@ class SystemSchema
 	static List<DbField> artist = 
 	[
 		DbField('name'),
-		DbField('imgStamp', isHide:true),
+		DbField('imgStamp', isDisable:true),
         DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
 	static List<DbField> album =
 	[
 		DbField('title'),
-		DbField('imgStamp', isHide:true),
+		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_artist', isHide:true),
-		DbField('albumId', isHide:true),
+		DbField('artistId', isHide: true),
      	DbField('artist', isDisable: true),
       	DbField('description'),
-      	DbField('artistId', isDisable: true),
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
 	];
 
@@ -44,7 +43,7 @@ class SystemSchema
 		DbField('bitrate', dataType: DataType.int, isHide:true),
 		DbField('versions', isHide:true, dataType: DataType.array_object, subFields: song_version),
 		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
-		DbField('imgStamp', isHide:true),
+		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_album', isHide:true),
 		DbField('imgStamp_artist', isHide:true),
 	];

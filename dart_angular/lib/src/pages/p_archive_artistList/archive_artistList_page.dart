@@ -49,9 +49,7 @@ class ArchiveArtistListPage
         allowRemove: false,
         hasCover: false,
         
-        dbFields: [
-          DbField('name', dataType: DataType.string),
-        ],
+        dbFields: SystemSchema.artist,
 
         linkButtons: [
           LinkButton(

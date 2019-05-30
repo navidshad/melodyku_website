@@ -24,7 +24,7 @@
 		<table class="w3-table w3-centered w3-hoverable">
 			<!-- header -->
 			<tr class="table-header">
-				<th *ngFor="let field of options.dbFields; let i=index">
+				<th *ngFor="let field of options.getValidFields(); let i=index">
 					{{field.title.toUpperCase()}}
 				</th>
 				<th>OPTION</th>
@@ -33,7 +33,7 @@
 			<!-- rows -->
 			<tr class="table-row" *ngFor="let item of list; let i=index">
 
-				<td *ngFor="let field of options.dbFields; let i=index">
+				<td *ngFor="let field of options.getValidFields(); let i=index">
 					{{item[field.key]}}
 				</td>
 

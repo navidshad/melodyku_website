@@ -88,15 +88,16 @@ class UserService
     return result;
   }
 
-  void logout()
+  void logout() async
   {
-    _stitch.appClient.auth.logout();
-    _stitch.loginAnonymouse();
+    await promiseToFuture(_stitch.appClient.auth.logout())
+      .then((r) 
+      {
+        user = null;
+        isLogedIn = false;
 
-    user = null;
-    isLogedIn = false;
-
-    Page.goToHome();
+        Page.goToHome();
+      });
   }
 
   Future<dynamic> register(String email, String password) async

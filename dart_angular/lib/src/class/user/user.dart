@@ -17,8 +17,6 @@ class User
   Subscription _subscription;
   Subscription get subscription => _subscription;
 
-
-
   String id;
   dynamic detailId;
   String permissionId;
@@ -77,6 +75,12 @@ class User
     bool access = false;
     if(_permission != null) access = _permission.hasAccess(type);
     return access;
+  }
+
+  bool get isLoadedData {
+    if(_permission != null && subscription != null)
+      return true;
+    else return false;
   }
 
   void getData() async
