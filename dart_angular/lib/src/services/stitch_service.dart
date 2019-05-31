@@ -202,6 +202,30 @@ class StitchService
     });
   }
 
-  // stitch functions
+  // Queue Requester
+  List<int> _queueNumbers = [];
+  Future requestByQueue(Future request) async
+  {
+    // register a number for this rquest
+    int stamp = DateTime.now().millisecondsSinceEpoch;
+    _queueNumbers.add(stamp);
 
+    print('request stamp registered $stamp');
+
+    // waite untile the index of it's stamp get 0;
+    await Future.doWhile(() async
+    { 
+        await Future.delayed(Duration(milliseconds: 100));
+        
+        if(_queueNumbers.indexOf(stamp) <= 0) return false;
+        else return true;
+    });
+
+    // waite for performing request ans remove stamp
+    return await request
+      .whenComplete(() {
+         _queueNumbers.remove(stamp);
+         print('request of $stamp get done');
+      });
+  }
 }

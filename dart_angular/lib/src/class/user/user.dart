@@ -91,7 +91,9 @@ class User
     //get detail
     dynamic detailQuery = js.jsify({'refId': id});
 
-    await promiseToFuture(userDB.collection('detail').find(detailQuery).first())
+    Future userDetailRequest = promiseToFuture(userDB.collection('detail').find(detailQuery).first());
+    
+    await stitch.requestByQueue(userDetailRequest)
     .then((doc)
     {
       // reget data, this is for first login affter registeration.
@@ -111,7 +113,8 @@ class User
 
 
     // get permission 
-    await promiseToFuture(stitch.appClient.callFunction('getById', ['cms', 'permission', permissionId]))
+    Future permissionRequest = promiseToFuture(stitch.appClient.callFunction('getById', ['cms', 'permission', permissionId]));
+    await stitch.requestByQueue(permissionRequest)
     .then((doc) 
     {
       //print('user permission | $doc');

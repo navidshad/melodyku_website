@@ -29,9 +29,10 @@ class StitchArchive
 
     RemoteMongoCollection collection = _mediaDB.collection(collectioName);
 
-    var result = await promiseToFuture(
-      _stitch.appClient.callFunction('getById', ['media', collectioName, id]))
-      .catchError(_handleError);
+    Future request = promiseToFuture(
+      _stitch.appClient.callFunction('getById', ['media', collectioName, id]));
+      
+    var result = await _stitch.requestByQueue(request).catchError(_handleError);
 
     if(result == null)
     {
@@ -120,10 +121,6 @@ class StitchArchive
     };
 
     playlist = Playlist.fromjson(playlistDetail);
-    
-    // int page = randomRange(0, 1100);
-    // ResultWithNavigator<Song> navigator = await song_getList(page: page);
-    // playlist.list = navigator.list;
 
     dynamic pipeLine = js.jsify([
         {
@@ -133,7 +130,9 @@ class StitchArchive
 
     RemoteMongoCollection coll = _stitch.dbClient.db('media').collection('song');
 
-    await promiseToFuture(coll.aggregate(pipeLine).asArray())
+    Future request = promiseToFuture(coll.aggregate(pipeLine).asArray());
+      
+    await _stitch.requestByQueue(request)
       .then((docs) 
       {
         docs.forEach((doc) {

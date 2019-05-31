@@ -24,7 +24,9 @@ class Subscription
 		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection('subscription');
 		dynamic query = js.jsify({'refId': refId});
 		
-		promiseToFuture(collection.find(query).first())
+		Future request = promiseToFuture(collection.find(query).first());
+
+		_stitch.requestByQueue(request)
 			.then((result) 
 			{
 				Map converted = convertToMap(result, SystemSchema.subscription);

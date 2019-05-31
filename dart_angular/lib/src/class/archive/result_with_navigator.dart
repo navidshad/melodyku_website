@@ -142,7 +142,9 @@ class ResultWithNavigator<T>
     if(goto != null) _current = goto;
     else _current += 1;
     
-    var result = await promiseToFuture(getMethod())
+    Future request = promiseToFuture(getMethod());
+
+    var result = await _stitch.requestByQueue(request)
       .catchError(_handleError);
 
     _pages = js.getProperty(result, 'pages');
