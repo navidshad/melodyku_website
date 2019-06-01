@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>ملودیکو</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
     <script>
       // WARNING: DO NOT set the <base href> like this in production!
       // Details: https://webdev.dartlang.org/angular/guide/router
@@ -14,9 +15,20 @@
     </script>
     <script src="/assets/js/stitch.js"></script>
     <script src="/assets/js/stitch_helper.js"></script>
-    <title>ملودیکو</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/assets/js/install.js"></script>
+
+    <!-- CODELAB: Add link rel manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- CODELAB: Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Melodyku">
+    <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+    <!-- CODELAB: Add description here -->
+    <meta name="description" content="a middle-east music stream service.">
+    <!-- CODELAB: Add meta theme-color -->
+    <meta name="theme-color" content="#15182b" />
+    
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -31,5 +43,17 @@
         <div><img class="loading-svg" src="/assets/svg/loading.svg"></div>
       </div>
     </my-app>
+
+    <script>
+      // Register service worker.
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service_worker.js')
+              .then((reg) => {
+                console.log('Service worker registered.', reg);
+              });
+        });
+      }
+    </script>
   </body>
 </html>

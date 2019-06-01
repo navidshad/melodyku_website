@@ -36,11 +36,7 @@
     @include hoverShadow()
 }
 
-// .overlay_card {
-//     @include overlay_card();
-// }
-
-.rotate-half{
+.rotate-half {
     transform: rotate(180deg);
 }
 

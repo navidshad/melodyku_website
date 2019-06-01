@@ -39,6 +39,11 @@ dynamic languageStrings = [
   // common
   // ========================
   {
+    'name': 'install',
+    'en'  : 'Install',
+    'fa'  : 'نصب'
+  },
+  {
     'name': 'apply',
     'en'  : 'Apply',
     'fa'  : 'اعمال کردن',
@@ -76,6 +81,11 @@ dynamic languageStrings = [
     'name': 'warningPlayingDemo',
     'en'  : 'playing demo version of this song.',
     'fa'  : 'در حال پخش نسخه دمو این ترانه',
+  },
+  {
+    'name': 'install_warning',
+    'en'  : 'you can install Melodyku app on your device only by one click.',
+    'fa'  : 'ملودیکو را بر روی دستگاه خود داشته باشید.'
   },
 
   // ========================

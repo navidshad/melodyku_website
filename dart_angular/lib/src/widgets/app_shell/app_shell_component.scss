@@ -6,19 +6,40 @@
     padding: 50px 60px 0px 60px;
 }
 
+.install_warning{
+    color: #eaeaea;
+    width: 100%;
+    background: #000000d4;
+    position: fixed;
+    margin-top: 50px;
+    padding: 0px 10px;
+
+    .button{
+        color: #eaeaea;
+        border-color: #eaeaea;
+        border-radius: 20px;
+        padding: 3px 15px;
+        margin: 0px 15px;
+    }
+}
+
 
 /* SMARTPHONES PORTRAIT */
 @media only screen and (max-width: 375px) 
 {
-    // .content-body {
-    //     padding: 0px 10px;
-    // }
+    .install_warning{
+        margin-top: 35px;
+    }
 }
 
 @media only screen and (max-width: 425px) 
 {
     .content-body {
         padding: 50px 20px 0px 20px;
+    }
+
+    .install_warning{
+        font-size: 12px
     }
 }
 

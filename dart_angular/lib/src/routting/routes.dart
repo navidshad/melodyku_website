@@ -165,7 +165,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
 
   'downloads' : PageDefinition(
     title         : 'downloads',
-    position      : MenuPosition.profileDrawer,
+    position      : MenuPosition.none,
     permissionType: PermissionType.customer_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'downloads'),

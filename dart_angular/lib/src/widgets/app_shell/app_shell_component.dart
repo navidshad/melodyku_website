@@ -5,6 +5,7 @@ import 'dart:async';
 
 import '../../class/injector.dart' as CI;
 import '../../class/navigator.dart';
+import '../../class/app_intaller.dart' as installer;
 
 import '../../routting/routes.dart';
 import '../../directives/ElementExtractorDirective.dart';
@@ -45,6 +46,7 @@ class AppShellComponent
   UserService _userService;
   StitchService _stitch;
   MessageService _messageService;
+
   bool isDrawerOpen = false;
   Drawer drawerMenu;
   Drawer drawerProfile;
@@ -68,10 +70,14 @@ class AppShellComponent
       _titleBar = message.detail['title'];
   }
 
+  bool get isInstalled => installer.getInstallStatus();
+  void installApp() => installer.installPWA();
+
   // user =======================================
   bool get isLogedIn => _userService.isLogedIn;
   bool get isFirstLoggined => _stitch.user != null ? true : false;
   User get user => _userService.user;
+  
 
   bool get allowLoadShell {
     bool key  = false;
