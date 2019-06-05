@@ -1,14 +1,11 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
-import 'src/services/stitch_service.dart';
-import 'src/services/services.dart';
-import 'src/class/widgets/player.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/core/widgets/player.dart';
 
-import 'src/widgets/widgets.dart';
-
-import './src/services/content_provider/requester.dart';
-import './src/class/injector.dart' as CI;
+import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/core/injector.dart' as CI;
 
 @Component(
   selector: 'my-app',

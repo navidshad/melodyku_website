@@ -1,36 +1,17 @@
+/// {@nodoc}
+library mongo_utilities;
+
 import 'package:js/js_util.dart' as js;
 import 'js_interop.dart';
 
 import 'field.dart';
-import 'package:melodyku/src/class/injector.dart';
-import 'package:melodyku/src/services/services.dart';
+import 'package:melodyku/core/injector.dart';
+import 'package:melodyku/services/services.dart';
 
 
-
-enum jsTypes {String, Bool, Int, Double, Object, Array}
-dynamic convertFromJS(dynamic jsObject, {List<String> stringArrays = const[], List<String>stringObjects = const[]})
-{
-	dynamic newObject = {};
-
-	Objectjs.keys(jsObject).forEach((key) 
-	{
-		dynamic value = js.getProperty(jsObject, key);
-
-		bool isObject = false;
-		stringObjects.forEach((field) {
-			if(field == key) isObject = true;
-		});
-
-		if(isObject) 
-		 	newObject[key] = convertFromJS(value, stringArrays: stringArrays, stringObjects: stringObjects);
-
-		// else newObject[key] = value;
-		else newObject[key] = value;
-	});
-
-	return newObject;
-}
-
+/// convert a js object into dart Map by providing an schema.
+/// 
+/// {@category mongo_stitch}
 Map convertToMap(dynamic jsObject, List<DbField> customFields)
 {
 
@@ -156,18 +137,9 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 	return newObject;
 }
 
-Map<String, String> dynamicToMapString(dynamic object)
-{
-	dynamic jsObject = js.jsify(object);
-	Map<String, String> newMap = {};
-
-	Objectjs.keys(jsObject).forEach((key) {
-		newMap[key] = js.getProperty(jsObject, key);
-	});
-
-	return newMap;
-}
-
+/// create a navigator detail for page navigation.
+/// 
+/// {@category mongo_stitch}
 Map getNavigatorDetail({int total=10, int page=1, int perPage=5})
 {
 	int _total_pages = (total/perPage).ceil();
@@ -183,27 +155,18 @@ Map getNavigatorDetail({int total=10, int page=1, int perPage=5})
 	return result;
 }
 
-Map DateTimeToMap(DateTime date)
-{
-	Map detail = {
-		'year'		: date.year,
-		'monthIndex': date.month,
-		'day'		: date.day,
-		'hours'		: date.hour,
-		'minutes'	: date.minute,
-		'seconds'	: date.second,
-		'milliseconds': date.millisecond,
-	};
-
-	return detail;
-}
-
+/// convert a js Date into DateTime
+/// 
+/// {@category mongo_stitch}
 DateTime jsDateToDateTime(JSDate jsDate)
 {
 	DateTime dateTime = DateTime(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes());
 	return dateTime;
 }
 
+/// convert a DateTime object into js Date.
+/// 
+/// {@category mongo_stitch}
 JSDate dateTimeToJSDate(DateTime date)
 {
 	date = date.toUtc();

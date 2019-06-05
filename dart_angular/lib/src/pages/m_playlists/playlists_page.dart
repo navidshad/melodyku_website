@@ -1,16 +1,9 @@
 import 'package:angular/angular.dart';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-
-import '../../class/archive/playlist.dart';
-import '../../class/widgets/card.dart';
-import '../../class/widgets/list_item.dart';
-
-import '../../widgets/list_wide_component/list_wide_component.dart';
-import '../../widgets/slider_rect_component/slider_rect_component.dart';
-import '../../widgets/grid_component/grid_component.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

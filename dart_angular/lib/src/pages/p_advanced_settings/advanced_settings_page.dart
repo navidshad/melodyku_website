@@ -1,12 +1,9 @@
 import 'package:angular/angular.dart';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-
-import '../../widgets/admin/media_language_settings/media_language_settings.dart';
-import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
-import '../../widgets/admin/tariff_manager/tariff_manager.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

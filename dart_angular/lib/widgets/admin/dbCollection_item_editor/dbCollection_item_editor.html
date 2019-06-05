@@ -1,0 +1,37 @@
+<div class="widget-container flex-column flex-center"
+	*ngIf="op != null">
+	
+	<div class="w3-row" *ngIf="editable != null">
+
+		<div class="detail w3-twothird w3-container text-left {{isUpdating ? 'no-opacity' : ''}}">
+			<object-field 
+				[options]="op.dbFields"
+				[showHidenField]="op.showHidenField"
+				[(object)]="editable" 
+				[viewMode]="viewMode">
+			</object-field>
+		</div>
+
+		<div class ="w3-third w3-container" *ngIf="op.hasCover">
+			<cover-item-editor 
+				[type]="op.collection"
+				[id]="editable['_id'].toString()"
+				[imgStamp]="editable['imgStamp']"
+				(onChanged)="getItem()">
+				</cover-item-editor>
+		</div>
+			
+	</div>
+
+	<div class="options flex-row"
+		*ngIf="!op.createNew">
+		<div class="btn-sl {{!viewMode ? 'btn-selected' : ''}}" (click)="changeMode()">edite</div>
+		<div class="btn-sl {{viewMode ? 'btn-disabled' : ''}}" (click)="updateItem()">save</div>
+	</div>
+
+	<div class="options flex-row"
+		*ngIf="op.createNew">
+		<div class="btn-sl {{!viewMode ? 'btn-selected' : ''}}" (click)="createItem()">create</div>
+	</div>
+
+</div>

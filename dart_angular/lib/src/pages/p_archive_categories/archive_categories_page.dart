@@ -1,11 +1,10 @@
 import 'package:angular/angular.dart';
 import 'dart:html';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-
-import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',
@@ -50,10 +49,10 @@ class ArchiveCategoriesPage
     {
       clusters.forEach((doc) 
       {
-        dynamic converted = convertFromJS(doc, stringObjects: ['local_title']);
-        DbField field = DbField(
-          converted['title'], strvalue: converted['_id'].toString());
-        clusterFilds.add(field);
+        // dynamic converted = convertFromJS(doc, stringObjects: ['local_title']);
+        // DbField field = DbField(
+        //   converted['title'], strvalue: converted['_id'].toString());
+        // clusterFilds.add(field);
       });
 
     }).catchError((error) => print(error));

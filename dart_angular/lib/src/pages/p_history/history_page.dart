@@ -1,8 +1,10 @@
 import 'package:angular/angular.dart';
-import 'package:melodyku/src/widgets/table_media_component/table_media_component.dart';
-import 'package:melodyku/src/class/classes.dart';
-import 'package:melodyku/src/services/services.dart';
-import 'package:melodyku/src/class/page/page.dart';
+
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/archive/archive.dart';
 
 @Component(
   selector: 'page',

@@ -1,5 +1,11 @@
+/// {@nodoc}
+library mongo_field;
+
 enum FieldType {text, textbox, checkbox, select, object}
+
+
 enum DataType {string, bool, int, float, object, array_string, array_object, dateTime}
+
 
 class DbField {
   	

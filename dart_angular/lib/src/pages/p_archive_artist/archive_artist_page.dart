@@ -1,19 +1,10 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'dart:html';
-
-import '../../services/services.dart';
-import '../../services/stitch_service.dart';
-
-import '../../routting/routes.dart';
-
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-import '../../class/utility/collection_options.dart';
-
-import '../../widgets/admin/dbCollection_table_editor/dbCollection_table_editor.dart';
-import '../../widgets/admin/dbCollection_item_editor/dbCollection_item_editor.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

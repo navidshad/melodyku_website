@@ -1,10 +1,9 @@
 import 'package:angular/angular.dart';
 
-import 'package:melodyku/src/services/services.dart';
-import 'package:melodyku/src/class/page/page.dart';
-
-import 'package:melodyku/src/widgets/user/profile_editor/profile_editor.dart';
-import 'package:melodyku/src/widgets/user/user_activity_detail/user_activity_detail.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

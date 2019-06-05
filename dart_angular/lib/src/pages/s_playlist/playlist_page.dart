@@ -1,12 +1,11 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-import '../../class/archive/playlist.dart';
-
-import '../../widgets/album_single_wrapper_component/album_single_wrapper_component.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/archive/archive.dart';
 
 @Component(
   selector: 'page',

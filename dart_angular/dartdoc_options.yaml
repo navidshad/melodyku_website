@@ -1,0 +1,21 @@
+dartdoc:
+  categories: 
+    "mongo_stitch":
+      #markdown: doc/mongo_stitch.md
+      name: Mongo Stitch
+    "media":
+      #markdown: doc/media.md
+      name: Media
+  categoryOrder: ["media", "mongo_stitch"]
+  exclude: ['dart:html', 'dart:async', 'dart:convert', 'angular', 'angular_components', 'angular_router', 'angular_forms', 'http', 'js', 'socket_io_client', 'service_worker']
+  #examplePathPrefix: 'subdir/with/examples'
+  #includeExternal: ['bin/unusually_located_library.dart']
+  #linkTo:
+    #url: "https://my.dartdocumentationsite.org/dev/%v%"
+  showUndocumentedCategories: true
+  ignore:
+    - ambiguous-doc-reference
+  errors:
+    - unresolved-doc-reference
+  warnings:
+    - tool-error

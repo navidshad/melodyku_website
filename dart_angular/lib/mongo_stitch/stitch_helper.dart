@@ -1,3 +1,4 @@
+/// {@nodoc}
 @JS()
 library stitch_helper;
 

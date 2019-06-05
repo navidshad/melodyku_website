@@ -1,11 +1,9 @@
 import 'package:angular/angular.dart';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-
-import '../../widgets/admin/permission_manager/permission_manager.dart';
-import '../../widgets/admin/user_manager/user_manager.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

@@ -1,8 +1,9 @@
 import 'package:angular/angular.dart';
 
-import '../../services/services.dart';
-import '../../class/page/page.dart';
-import 'package:melodyku/src/widgets/admin/converter_component/converter_component.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',

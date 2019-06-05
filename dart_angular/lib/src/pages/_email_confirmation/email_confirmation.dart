@@ -4,14 +4,10 @@ import 'package:angular_router/angular_router.dart';
 import 'dart:html';
 import 'dart:async';
 
-import '../../services/services.dart';
-import '../../services/stitch_service.dart';
-import '../../services/modal_service.dart';
-
-import '../../class/page/page.dart';
-import '../../class/types.dart';
-
-import '../../directives/ElementExtractorDirective.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/page/page.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
 	selector: 'page',
