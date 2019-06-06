@@ -42,7 +42,7 @@ class ArtistsExplorerComponent
 
 	List<String> getCharacters()
 	{
-		List<String> list = characters['en'/*lang.getCode()*/] as List<String>;
+		List<String> list = characters[lang.getCode()] as List<String>;
 		return list;
 	}
 
@@ -57,7 +57,12 @@ class ArtistsExplorerComponent
 	Map getMatchStage()
 	{
 		return {
-			'\$match': { 'name': { '\$regex': '^$selected' } }
+			'\$match': {
+				'\$or' : [
+					{ 'local_title.${lang.getCode()}': { '\$regex': '^$selected' } },
+					{ 'name': { '\$regex': '^$selected' } },
+				]
+			}
 		};
 	}
 

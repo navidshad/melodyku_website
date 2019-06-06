@@ -29,7 +29,6 @@ import 'package:melodyku/core/injector.dart' as CI;
     ElementExtractorDirective,
     LoginFormComponent,
     TranslateBtnComponent,
-    
   ],
   providers: [
     ClassProvider(PageRoutes),
@@ -78,10 +77,14 @@ class AppShellComponent
   bool get allowLoadShell {
     bool key  = false;
 
+    // check user data
     if(!isLogedIn) key = true;
     else if(user != null && user.isLoadedData)
       key = true;
-      
+
+    // check Language
+    key = lang.loaded;
+
     return key;
   }
 
@@ -120,7 +123,7 @@ class AppShellComponent
       openOnInitialied: true);
   }
 
-  void setupProfileDrawer(Element shell)
+  void setupmainMenu_second(Element shell)
   {
     Element mainContent = shell.querySelector('#mainContent');
     Element planeEl = shell.querySelector('.drawer-plane');

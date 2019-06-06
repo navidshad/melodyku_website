@@ -197,7 +197,10 @@ class DbCollectionTableEditorComponent
 
 	void removeItem(Map item) async
 	{
-		//print('deleting ${editable['_id']}');
+		// confirm operation by user
+		bool confirmation = window.confirm('are you sure that you want to remove this item?');
+
+		if(!confirmation) return;
 
 		// create remove query
 		dynamic query = js.jsify({'_id': item['_id']});

@@ -23,6 +23,8 @@ class AdvancedSettingsPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
+  CollectionOptions optionsLanguages;
+
   // constructor ==================================
   AdvancedSettingsPage(this._contentProvider, this._messageService, this._userservice)
   {
@@ -33,5 +35,12 @@ class AdvancedSettingsPage
       needLogedIn: true,
       title: 'advanced_settings'
     );
+
+    optionsLanguages = CollectionOptions(
+        title: 'Manage Languages',
+        database: 'cms',
+        collection: 'language_config',
+        dbFields: SystemSchema.language
+      );
   }
 }

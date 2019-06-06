@@ -16,13 +16,15 @@ class Language
   // ask a string
   String getStr(String str)
   {
-    String string  = '$name-$str';
+    String string  = '';
 
     try {
       string = strings[str];
     } catch (e) {
       print('the $name dosent found');
     }
+
+    if(string == null || string.length == 0) string  = str;
 
     return string;
   }

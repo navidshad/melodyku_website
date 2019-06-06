@@ -12,7 +12,7 @@ dynamic language_detail_List = [
   },
   {
     'name'      :'فارسی',
-    'code'      :'fa',
+    'code'      :'fa_IR',
     'direction' :Direction.rtl,
     'flag'      :'',
     'default'   :true,
@@ -35,7 +35,7 @@ dynamic languageStrings = [
   // {
   //   'name': '',
   //   'en'  : '',
-  //   'fa'  : '',
+  //   'fa_IR'  : '',
   // },
   
   // ========================
@@ -44,37 +44,37 @@ dynamic languageStrings = [
   {
     'name': 'install',
     'en'  : 'Install',
-    'fa'  : 'نصب'
+    'fa_IR'  : 'نصب'
   },
   {
     'name': 'apply',
     'en'  : 'Apply',
-    'fa'  : 'اعمال کردن',
+    'fa_IR'  : 'اعمال کردن',
   },
   {
     'name': 'logout',
     'en'  : 'Logout',
-    'fa'  : 'خروج',
+    'fa_IR'  : 'خروج',
   },
   {
     'name': 'playAll',
     'en'  : 'Play All',
-    'fa'  : 'گوش دادن',
+    'fa_IR'  : 'گوش دادن',
   },
   {
     'name': 'submit',
     'en'  : 'Submit',
-    'fa'  : 'ثبت',
+    'fa_IR'  : 'ثبت',
   },
   {
     'name': 'moreDetail',
     'en'  : 'more detail',
-    'fa'  : 'جزئیات بیشتر'
+    'fa_IR'  : 'جزئیات بیشتر'
   },
   {
     'name': 'more',
     'en'  : 'More',
-    'fa'  : 'بیشتر'
+    'fa_IR'  : 'بیشتر'
   },
 
   // ========================
@@ -83,12 +83,12 @@ dynamic languageStrings = [
   {
     'name': 'warningPlayingDemo',
     'en'  : 'playing demo version of this song.',
-    'fa'  : 'در حال پخش نسخه دمو این ترانه',
+    'fa_IR'  : 'در حال پخش نسخه دمو این ترانه',
   },
   {
     'name': 'install_warning',
     'en'  : 'you can install Melodyku app on your device only by one click.',
-    'fa'  : 'ملودیکو را بر روی دستگاه خود داشته باشید.'
+    'fa_IR'  : 'ملودیکو را بر روی دستگاه خود داشته باشید.'
   },
 
   // ========================
@@ -97,52 +97,52 @@ dynamic languageStrings = [
   {
     'name': 'featuredArtists',
     'en'  : 'Featured Artists ',
-    'fa'  : 'خواننده های ویژه',
+    'fa_IR'  : 'خواننده های ویژه',
   },
   {
     'name': 'featuredAlbums',
     'en'  : 'Featured Albums',
-    'fa'  : 'آلبوم های ویژه',
+    'fa_IR'  : 'آلبوم های ویژه',
   },
   {
     'name': 'featuredSongs',
     'en'  : 'Featured Songs',
-    'fa'  : 'ترانه های ویژه',
+    'fa_IR'  : 'ترانه های ویژه',
   },
   {
     'name': 'bestAllTime',
     'en'  : 'Best Of All The Time',
-    'fa'  : 'برترین های تاریخ',
+    'fa_IR'  : 'برترین های تاریخ',
   },
   {
     'name': 'lasts',
     'en'  : 'Lasts',
-    'fa'  : 'آخرین ها',
+    'fa_IR'  : 'آخرین ها',
   },
   {
     'name': 'forYou',
     'en'  : 'For You',
-    'fa'  : 'برای شما',
+    'fa_IR'  : 'برای شما',
   },
   {
     'name': 'day',
     'en'  : 'Best Of The Day',
-    'fa'  : 'پیشنهاد های امروز',
+    'fa_IR'  : 'پیشنهاد های امروز',
   },
   {
     'name': 'week',
     'en'  : 'Best Of The Week',
-    'fa'  : 'پیشنهاد های هفته',
+    'fa_IR'  : 'پیشنهاد های هفته',
   },
   {
     'name': 'random',
     'en'  : 'Random',
-    'fa'  : 'پیشنهاد های تصادفی',
+    'fa_IR'  : 'پیشنهاد های تصادفی',
   },
   {
     'name': 'otherPlaylist',
     'en'  : 'Other Playlist',
-    'fa'  : 'دیگر لیست ها',
+    'fa_IR'  : 'دیگر لیست ها',
   },
 
   // ========================
@@ -151,42 +151,42 @@ dynamic languageStrings = [
   {
     'name': 'profile',
     'en'  : 'Profile',
-    'fa'  : 'پروفایل کاربری',
+    'fa_IR'  : 'پروفایل کاربری',
   },
   {
     'name': 'vitrin',
     'en'  : 'Vitrin',
-    'fa'  : 'ویترین',
+    'fa_IR'  : 'ویترین',
   },
   {
     'name': 'albums',
     'en'  : 'Albums',
-    'fa'  : 'آلبوم ها',
+    'fa_IR'  : 'آلبوم ها',
   },
   {
     'name': 'playlists',
     'en'  : 'Playlists',
-    'fa'  : 'لیست های پخش',
+    'fa_IR'  : 'لیست های پخش',
   },
   {
     'name': 'artists',
     'en'  : 'Artists',
-    'fa'  : 'هنرمندان',
+    'fa_IR'  : 'هنرمندان',
   },
   {
     'name': 'genres',
     'en'  : 'Genres',
-    'fa'  : 'ژانر ها',
+    'fa_IR'  : 'ژانر ها',
   },
   {
     'name': 'top_tracks',
     'en'  : 'Top Tracks',
-    'fa'  : 'بهترین ها',
+    'fa_IR'  : 'بهترین ها',
   },
   {
     'name': 'subscription',
     'en'  : 'Subscription',
-    'fa'  : 'خرید اشتراک',
+    'fa_IR'  : 'خرید اشتراک',
   },
 
   // ========================
@@ -195,92 +195,92 @@ dynamic languageStrings = [
   {
     'name': 'loginRegister',
     'en'  : 'login / register',
-    'fa'  : 'ورود / ثبت نام',
+    'fa_IR'  : 'ورود / ثبت نام',
   },
   {
     'name': 'loginToAccount',
     'en'  : 'login to your account',
-    'fa'  : 'ورود به حساب کاربری',
+    'fa_IR'  : 'ورود به حساب کاربری',
   },
   {
     'name': 'getResetLink',
     'en'  : 'get reset link',
-    'fa'  : 'درخواست تغییر رمز',
+    'fa_IR'  : 'درخواست تغییر رمز',
   },
   {
     'name': 'getConfirmation',
     'en'  : 'resend confirmation',
-    'fa'  : 'دریافت تائیدیه ایمیل',
+    'fa_IR'  : 'دریافت تائیدیه ایمیل',
   },
   {
     'name': 'resetLinkSent',
     'en'  : 'reset link has been sent to your email, check it out, please',
-    'fa'  : 'لینک بازناشی رمز به ایمیل شما ارسال شد.',
+    'fa_IR'  : 'لینک بازناشی رمز به ایمیل شما ارسال شد.',
   },
   {
     'name': 'sendConfirmation',
     'en'  : 'resend confirmation email',
-    'fa'  : 'ارسال مجدد تائید ایمیل',
+    'fa_IR'  : 'ارسال مجدد تائید ایمیل',
   },
   {
     'name': 'confirmationSent',
     'en'  : 'confirmation email has been sent to you',
-    'fa'  : 'تائیدیه ایمیل برای شما ارسال شد.',
+    'fa_IR'  : 'تائیدیه ایمیل برای شما ارسال شد.',
   },
   {
     'name': 'userCreated',
     'en'  : 'your user created and an confirmation email was sent to you.',
-    'fa'  : 'حساب کاربری شما ساخته شد و یک ایمیل تائیدیه برای شما ارسال شد.',
+    'fa_IR'  : 'حساب کاربری شما ساخته شد و یک ایمیل تائیدیه برای شما ارسال شد.',
   },
   {
     'name': 'email',
     'en'  : 'Email',
-    'fa'  : 'ایمیل',
+    'fa_IR'  : 'ایمیل',
   },
   {
     'name': 'password',
     'en'  : 'Password',
-    'fa'  : 'رمز عبور',
+    'fa_IR'  : 'رمز عبور',
   },
   {
     'name': 'login',
     'en'  : 'Login',
-    'fa'  : 'ورود',
+    'fa_IR'  : 'ورود',
   },
   {
     'name': 'loginHere',
     'en'  : 'Login Here',
-    'fa'  : 'ورود',
+    'fa_IR'  : 'ورود',
   },
   {
     'name': 'forgotPassword',
     'en'  : 'Forgot Password?',
-    'fa'  : 'آیا رمز خود را فراموش کرده اید؟',
+    'fa_IR'  : 'آیا رمز خود را فراموش کرده اید؟',
   },
   {
     'name': 'dontHaveAccount',
     'en'  : 'Dont Have An Account',
-    'fa'  : 'تا بحال حساب کاربری نساخته اید؟',
+    'fa_IR'  : 'تا بحال حساب کاربری نساخته اید؟',
   },
   {
     'name': 'createAccount',
     'en'  : 'Create An Account',
-    'fa'  : 'ساخت حساب کاربری',
+    'fa_IR'  : 'ساخت حساب کاربری',
   },
   {
     'name': 'fullName',
     'en'  : 'Full name',
-    'fa'  : 'نام کامل',
+    'fa_IR'  : 'نام کامل',
   },
   {
     'name': 'register',
     'en'  : 'Register Now',
-    'fa'  : 'ثبت نام',
+    'fa_IR'  : 'ثبت نام',
   },
   {
     'name': 'alreadyHaveAccount',
     'en'  : 'Already Have an Account?',
-    'fa'  : 'قبلا حساب ساخته اید؟',
+    'fa_IR'  : 'قبلا حساب ساخته اید؟',
   },
 
   // ========================
@@ -289,27 +289,27 @@ dynamic languageStrings = [
   {
     'name': 'vitrin',
     'en'  : 'Vitrin',
-    'fa'  : 'ویترین',
+    'fa_IR'  : 'ویترین',
   },
   {
     'name': 'albums',
     'en'  : 'Albums',
-    'fa'  : 'آلبوم ها',
+    'fa_IR'  : 'آلبوم ها',
   },
   {
     'name': 'artists',
     'en'  : 'Artists',
-    'fa'  : 'هنرمندان',
+    'fa_IR'  : 'هنرمندان',
   },
   {
     'name': 'genres',
     'en'  : 'Genres',
-    'fa'  : 'ژانر ها',
+    'fa_IR'  : 'ژانر ها',
   },
   {
     'name': 'topTracks',
     'en'  : 'Top Tracks',
-    'fa'  : 'ترانه های ناب',
+    'fa_IR'  : 'ترانه های ناب',
   },
 
   // ========================
@@ -319,53 +319,53 @@ dynamic languageStrings = [
   {
     'name': 'favorites',
     'en'  : 'Favorites',
-    'fa'  : 'لایک شده ها',
+    'fa_IR'  : 'لایک شده ها',
   },
   {
     'name': 'history',
     'en'  : 'History',
-    'fa'  : 'شنیده شده ها',
+    'fa_IR'  : 'شنیده شده ها',
   },
   {
     'name': 'downloads',
     'en'  : 'Downloads',
-    'fa'  : 'دانلود شده ها',
+    'fa_IR'  : 'دانلود شده ها',
   },
 
   // archive sergeant
   {
     'name': 'archive_artistList',
     'en'  : 'Artists Manager',
-    'fa'  : 'مدیریت هنرمندان',
+    'fa_IR'  : 'مدیریت هنرمندان',
   },
   {
     'name': 'archive_upload',
     'en'  : 'Upload',
-    'fa'  : 'آپلود',
+    'fa_IR'  : 'آپلود',
   },
   {
     'name': 'archive_convert',
     'en'  : 'Convert System',
-    'fa'  : 'مبدل صوتی',
+    'fa_IR'  : 'مبدل صوتی',
   },
 
   // category sergeant
   {
     'name': 'archive_categories',
     'en'  : 'Category Manager',
-    'fa'  : 'مدیریت دسته بندی ها',
+    'fa_IR'  : 'مدیریت دسته بندی ها',
   },
 
   // administrator
   {
     'name': 'users',
     'en'  : 'User Manager',
-    'fa'  : 'مدیریت کاربران',
+    'fa_IR'  : 'مدیریت کاربران',
   },
   {
     'name': 'advanced_settings',
     'en'  : 'Advanced Settings',
-    'fa'  : 'تنظیمات پیشرفته',
+    'fa_IR'  : 'تنظیمات پیشرفته',
   },
 
   // ========================
@@ -374,21 +374,21 @@ dynamic languageStrings = [
   {
     'name': 'selectLanguage',
     'en'  : 'Language Selection',
-    'fa'  : 'انتخاب زبان',
+    'fa_IR'  : 'انتخاب زبان',
   },
 
   // ========================
   // small Menu-Items
   // ========================
   {
-    'name': 'addToFavourites',
-    'en'  : 'Add To Favourites',
-    'fa'  : 'افزودن به علاقمندی ها',
+    'name': 'addTofavourites',
+    'en'  : 'Add To favourites',
+    'fa_IR'  : 'افزودن به علاقمندی ها',
   },
   {
     'name': 'share',
     'en'  : 'Share',
-    'fa'  : 'اشتراک گذاری',
+    'fa_IR'  : 'اشتراک گذاری',
   },
 
   // ========================
@@ -397,32 +397,32 @@ dynamic languageStrings = [
   {
     'name': 'songTitle',
     'en'  : 'Song Title',
-    'fa'  : 'عنوان',
+    'fa_IR'  : 'عنوان',
   },
   {
     'name': 'album',
     'en'  : 'Album',
-    'fa'  : 'آلبوم',
+    'fa_IR'  : 'آلبوم',
   },
   {
     'name': 'artist',
     'en'  : 'Artist',
-    'fa'  : 'هنرمند',
+    'fa_IR'  : 'هنرمند',
   },
   {
     'name': 'duration',
     'en'  : 'Duration',
-    'fa'  : 'زمان',
+    'fa_IR'  : 'زمان',
   },
   {
     'name': 'favoriteStatus',
-    'en'  : 'Favorite Status',
-    'fa'  : 'وضعیت علاقمندی',
+    'en'  : 'favorite Status',
+    'fa_IR'  : 'وضعیت علاقمندی',
   },
   {
     'name': 'playlist',
     'en'  : 'Playlist',
-    'fa'  : 'لیست پخش',
+    'fa_IR'  : 'لیست پخش',
   },
 
   // ========================
@@ -431,56 +431,56 @@ dynamic languageStrings = [
   {
     'name': 'buySubscription',
     'en'  : 'Get a Subscription',
-    'fa'  : 'خرید اشتراک'
+    'fa_IR'  : 'خرید اشتراک'
   },
   {
     'name': 'days',
     'en'  : 'Days',
-    'fa'  : 'روز',
+    'fa_IR'  : 'روز',
   },
   {
     'name': 'price',
     'en'  : 'Price',
-    'fa'  : 'قیمت',
+    'fa_IR'  : 'قیمت',
   },
   {
     'name': 'offlineAccess',
     'en'  : 'Offline Accesss',
-    'fa'  : 'استفاده به صورت افلاین',
+    'fa_IR'  : 'استفاده به صورت افلاین',
   },
   {
     'name': 'downloadSongs',
     'en'  : 'Download Songs',
-    'fa'  : 'دانلود ترانه ها',
+    'fa_IR'  : 'دانلود ترانه ها',
   },
   {
     'name': 'multipleQuality',
     'en'  : 'Multiple Quality',
-    'fa'  : 'کیفیت های مختلف',
+    'fa_IR'  : 'کیفیت های مختلف',
   },
   {
     'name': 'subscriptionPlan',
     'en'  : 'Subscription Plan',
-    'fa'  : 'اشتراک فعال',
+    'fa_IR'  : 'اشتراک فعال',
   },
   {
     'name': 'daysLeft',
     'en'  : 'Days Left',
-    'fa'  : 'روز های باقی مانده',
+    'fa_IR'  : 'روز های باقی مانده',
   },
   {
     'name': 'listenlastMonth',
     'en'  : 'listen last Month',
-    'fa'  : 'شنیده شده های این ماه',
+    'fa_IR'  : 'شنیده شده های این ماه',
   },
   {
     'name': 'likedLastMonth',
     'en'  : 'liked Last Month',
-    'fa'  : 'لایک شده های این ماه',
+    'fa_IR'  : 'لایک شده های این ماه',
   },
   {
     'name': 'youDontHaveSubscriptionYet',
     'en'  : "You Don't Have any plan Yet.",
-    'fa'  : 'شما هنوز هیچ اشتراک فعالی ندارید.',
+    'fa_IR'  : 'شما هنوز هیچ اشتراک فعالی ندارید.',
   },
 ];

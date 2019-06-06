@@ -2,8 +2,8 @@
 library languageService;
 
 import 'dart:html';
-import 'package:melodyku/core/utility/language.dart';
-import 'package:melodyku/core/system_schema.dart';
+import 'package:js/js_util.dart' as js;
+import 'package:melodyku/core/core.dart';
 import 'language/language_strings.dart';
 import 'stitch_service.dart';
 
@@ -14,10 +14,11 @@ class LanguageService
   List<Map> languageDocs = [];
   StitchService _stitch;
 
+  bool loaded = false;
+
   LanguageService(this._stitch) 
   {
-    _languageList = List<Language>();
-    prepareLanguages();
+    _languageList = [];
     getLanguages();
   }
 
@@ -27,7 +28,7 @@ class LanguageService
   void switchTo(int index) => 
     _current = index;
 
-  String getStr(String name) => 
+  String getStr(String name) =>
     _languageList[_current].getStr(name);
 
   String getDirection() => 
@@ -45,11 +46,12 @@ class LanguageService
   // prepration =================================
   void prepareLanguages()
   {
-    // loop per language
-    for (var i = 0; i < language_detail_List.length; i++) 
+    for (var i = 0; i < languageDocs.length; i++) 
     {
       // get lang detail
-      dynamic ld = language_detail_List[i];
+      dynamic ld = languageDocs[i];
+
+      if(!ld['isActive']) continue;
 
       // get lang strings
       dynamic strings = extractStringsByCode(ld['code']);
@@ -57,18 +59,20 @@ class LanguageService
       // create lang
       Language language = Language(
           code: ld['code'],
-          name: ld['name'], 
+          name: ld['title'], 
           flag: ld['flag'], 
-          direction: ld['direction'], 
+          direction: (ld['direction'] == 'rtl') ? Direction.rtl : Direction.ltr, 
           strings: strings
         );
 
       _languageList.add(language);
 
       // get current
-      if(ld['default'] != null && ld['default']) 
+      if(ld['isDefault']) 
         _current = _languageList.length-1;
     }
+
+    loaded = true;
   }
 
   dynamic extractStringsByCode(String code)
@@ -91,16 +95,19 @@ class LanguageService
 
   void getLanguages() async
   {
-    promiseToFuture(_stitch.dbClient.db('media').collection('language').find().asArray())
+    //dynamic query = js.jsify({'isActive': true});
+    await promiseToFuture(_stitch.dbClient.db('cms').collection('language_config').find().asArray())
       .then((list) 
       {
-          print('prepareOptions got languages ${list.length}');
+          //print('prepareOptions got languages ${list.length}');
           list.forEach((jsDoc) 
           {
               Map doc = convertToMap(jsDoc, SystemSchema.language);
               languageDocs.add(doc);
           });
       });
+
+    prepareLanguages();
   }
 
   List<DbField> getLanguageFiels()

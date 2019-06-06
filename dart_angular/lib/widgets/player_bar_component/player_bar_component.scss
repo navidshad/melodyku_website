@@ -300,8 +300,9 @@ $tempBorder: 0px solid white;
     //     display: none;
     // }
 
+    $smallPlayerHeight: 50px;
     .background, .bar {
-        height: 40px;
+        height: $smallPlayerHeight;
     }
 
     .time-line {
@@ -310,7 +311,7 @@ $tempBorder: 0px solid white;
 
     .time-line-small {
         display: block;
-        transform: translateY(-25px);
+        transform: translateY(-35px);
     }
 
     .current{
@@ -330,7 +331,7 @@ $tempBorder: 0px solid white;
     }
 
     .warning{
-        bottom: 40px;
+        bottom: $smallPlayerHeight;
         height: 30px;
         background: #000000d9;
     }

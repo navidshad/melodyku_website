@@ -83,10 +83,12 @@ class SystemSchema
 	// CMS ======================================
 	static List<DbField> language = 
 	[
-		DbField('title'),
-		DbField('title_en'),
 		DbField('code'),
 		DbField('isDefault', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('title'),
+		DbField('title_en'),
+		DbField('direction'),
 	];
 
 	static List<DbField> tariff = 
