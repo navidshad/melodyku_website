@@ -17,12 +17,14 @@ import 'package:melodyku/core/injector.dart' as CI;
 @Component(
   selector: 'app-shell',
   templateUrl: 'app_shell_component.html',
+  
   styleUrls: [
     'app_shell_component.css',
     'drawer.css',
     'header.css',
     'profile.css',
   ],
+
   directives: [
     coreDirectives, 
     routerDirectives,
@@ -30,6 +32,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     LoginFormComponent,
     TranslateBtnComponent,
   ],
+
   providers: [
     ClassProvider(PageRoutes),
   ],
@@ -74,17 +77,16 @@ class AppShellComponent
   User get user => _userService.user;
   
 
-  bool get allowLoadShell {
+  bool get allowLoadShell 
+  {
     bool key  = false;
 
-    // check user data
     if(!isLogedIn) key = true;
     else if(user != null && user.isLoadedData)
       key = true;
 
-    // check Language
     key = lang.loaded;
-
+      
     return key;
   }
 
@@ -120,10 +122,11 @@ class AppShellComponent
       mainMargine: '80px', 
       direction: 'right', 
       planeOpacity: '0.8',
-      openOnInitialied: true);
+      openOnInitialied: true
+    );
   }
 
-  void setupmainMenu_second(Element shell)
+  void setupProfileDrawer(Element shell)
   {
     Element mainContent = shell.querySelector('#mainContent');
     Element planeEl = shell.querySelector('.drawer-plane');
