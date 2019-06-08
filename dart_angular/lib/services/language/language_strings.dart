@@ -76,6 +76,16 @@ dynamic languageStrings = [
     'en'  : 'More',
     'fa_IR'  : 'بیشتر'
   },
+  {
+    'name': 'whatAreYouSearchingFor',
+    'en'  : 'what are you searching for',
+    'fa_IR': 'دنبال چی میگردی ...',
+  },
+  {
+    'name': 'notFound',
+    'en'  : 'No Found 404',
+    'fa_IR': 'متاسفانه چیزی پیدا نشد!',
+  },
 
   // ========================
   // warnings
@@ -148,6 +158,11 @@ dynamic languageStrings = [
   // ========================
   // pages
   // ========================
+  {
+    'name': 'search',
+    'en'  : 'search',
+    'fa_IR'  : 'جستجو',
+  },
   {
     'name': 'profile',
     'en'  : 'Profile',
@@ -408,6 +423,11 @@ dynamic languageStrings = [
     'name': 'artist',
     'en'  : 'Artist',
     'fa_IR'  : 'هنرمند',
+  },
+  {
+    'name': 'song',
+    'en'  : 'Song',
+    'fa_IR'  : 'موسیقی',
   },
   {
     'name': 'duration',

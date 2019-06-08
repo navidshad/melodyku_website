@@ -176,8 +176,8 @@ class Song implements MediaItem
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
-        artist,
-        subtitle: title,
+        title,
+        subtitle: artist,
         id: id,
         duration: getDuration(),
         number: digititemNumber,

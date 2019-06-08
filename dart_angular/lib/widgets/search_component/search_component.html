@@ -1,0 +1,41 @@
+<div class="widget-container">
+
+	<div class="form flex-column flex-center">
+		<input class="input-text" type="text" placeholder="{{lang.getStr('whatAreYouSearchingFor')}}" 
+			[(ngModel)]="word" (change)="search()">
+		
+		<div class="types flex-row flex-center">
+			<div class="btn-sl pointer {{type == 'artist' ? 'btn-selected' : 'btn-disabled'}}"
+				(click)="changeType('artist')">{{lang.getStr('artist')}}</div>
+
+			<div class="btn-sl pointer {{type == 'song' ? 'btn-selected' : 'btn-disabled'}}"
+				(click)="changeType('song')">{{lang.getStr('song')}}</div>
+		</div>
+	</div>
+
+	<div class="notfound flex-column flex-center" *ngIf="nothingFound && aggregator != null">
+		<div>{{lang.getStr('notFound')}}</div>
+	</div>
+
+	<list-wide 
+		*ngIf="type == 'song' && listItems_song.length > 0"
+	    [numerical]="true"
+	    [items]="listItems_song"
+	    [exploreBtn]="false"
+	    [playBtn]="true">
+	</list-wide>
+
+	<grid-rect
+		*ngIf="type == 'artist' && cards_artist.length > 0"
+		[masonry]	="false"
+		[exploreBtn]="true"
+		[playBtn]	="false"
+		[items]		="cards_artist">
+	</grid-rect>
+
+	<div class="load-more" *ngIf="aggregator != null && aggregator.hasMore">
+		<div class="btn-sl margin-h-20" 
+		(click)="loadNextPage()">{{lang.getStr('more')}}</div>
+	</div>
+
+</div>

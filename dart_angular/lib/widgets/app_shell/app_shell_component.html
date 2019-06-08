@@ -11,7 +11,7 @@
         <header class="bar" dir="rtl">
 
             <!-- muenu button -->
-            <div class="main-menu">
+            <div class="icon">
                 <div class="menu-btn push unselectable">
                     <img src="/assets/svg/icon_menu.svg">
                 </div>
@@ -24,13 +24,22 @@
                 <h3>{{titleBar}}</h3>
             </div>
 
-            <div class="profile">
-                <div *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)"
-                class="menu-btn unselectable profile-btn">
+            <div class="profile flex-row flex-center">
+                <div class="icon"
+                    [routerLinkActive]="'active'">
+                    <a [routerLink]="pageRoutes.getRouterUrl('search')">
+                        <img src="/assets/svg/icon_search.svg">
+                    </a>
+                </div>
+
+                <div class="icon unselectable profile-btn"
+                    *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)">
                     <img src="/assets/svg/icon_user_m.svg">
                 </div>
                 
-                <div *ngIf="!isLogedIn" class="btn-sl" (click)="openlogin()">{{lang.getStr('loginRegister')}}</div>
+                <div class="btn-sl"
+                    *ngIf="!isLogedIn"  
+                    (click)="openlogin()">{{lang.getStr('login')}}</div>
             </div>
 
         </header>
@@ -112,5 +121,5 @@
 </div>
 
 <!-- login form -->
-<login-form *ngIf="!isLogedIn"></login-form>
+<login-form *ngIf="!isLogedIn && allowLoadShell"></login-form>
 

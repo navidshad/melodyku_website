@@ -34,6 +34,7 @@ export 'subscription_plans_component/subscription_plans_component.dart';
 export 'table_media_component/table_media_component.dart';
 export 'toast_component/toast_component.dart';
 export 'translate_btn_component/translate_btn_component.dart';
+export 'search_component/search_component.dart';
 
 export 'user/profile_editor/profile_editor.dart';
 export 'user/user_activity_detail/user_activity_detail.dart';

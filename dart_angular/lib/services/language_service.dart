@@ -43,6 +43,13 @@ class LanguageService
   String getCode() =>
     _languageList[_current].code;
 
+  List<String> getCodes()
+  {
+    List<String> codes = [];
+    _languageList.forEach((language) => codes.add(language.code));
+    return codes;
+  }
+
   // prepration =================================
   void prepareLanguages()
   {

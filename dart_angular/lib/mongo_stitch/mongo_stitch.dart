@@ -5,3 +5,4 @@ export 'stitch_helper.dart';
 export 'app_client.dart';
 export 'field.dart';
 export 'functions.dart';
+export 'aggregate.dart';

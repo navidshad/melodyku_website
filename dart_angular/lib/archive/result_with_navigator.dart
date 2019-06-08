@@ -23,17 +23,16 @@ class ResultWithNavigator<T>
   int _perPage;
   int _current = 0;
 
-  bool hasMore;
+  bool hasMore = false;
 
   GetType getType;
   Map customQuery;
   Map customSort;
-  String regexPattern;
 
   List<T> list = [];
 
   ResultWithNavigator({this.getType = GetType.mediaItems, 
-    this.regexPattern, this.customQuery, this.customSort, int perPage=20})
+    this.customQuery, this.customSort, int perPage=20})
   {
     _perPage = perPage;
     _stitch = Injector.get<StitchService>();

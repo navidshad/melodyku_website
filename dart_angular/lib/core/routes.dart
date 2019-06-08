@@ -37,6 +37,7 @@ import 'package:melodyku/src/pages/p_subscription/subscription_page.template.dar
 import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit_template;
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
 import 'package:melodyku/src/pages/s_playlist/playlist_page.template.dart' as playlist_template;
+import 'package:melodyku/src/pages/s_search/search_page.template.dart' as search_template;
 
 Map<String, PageDefinition> pageDefinitions = pageDefinitions = 
 {
@@ -311,6 +312,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),
+
+  'search' : PageDefinition(
+    title         : 'search',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'search'),
+                      component: search_template.SearchPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/svg/icon_search.svg',
+  ),
 };
 
 class PageRoutes
@@ -374,5 +386,5 @@ class PageRoutes
     return list;
   }
 
-  String getRouterUrl (name, [Map<String, String> params]) => pageDefinitions[name].route.toUrl(params);
+  String getRouterUrl (name, [Map<String, String> params]) => pageDefinitions[name].route.toUrl(params ?? {});
 }
