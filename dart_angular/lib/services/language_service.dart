@@ -28,8 +28,11 @@ class LanguageService
   void switchTo(int index) => 
     _current = index;
 
-  String getStr(String name) =>
-    _languageList[_current].getStr(name);
+  String getStr(String name) {
+    if(_current != null)
+      return _languageList[_current].getStr(name);
+    else return name;
+  }
 
   String getDirection() => 
     _languageList[_current].direction.toString();
@@ -103,7 +106,9 @@ class LanguageService
   void getLanguages() async
   {
     //dynamic query = js.jsify({'isActive': true});
-    await promiseToFuture(_stitch.dbClient.db('cms').collection('language_config').find().asArray())
+    Future request = promiseToFuture(_stitch.dbClient.db('cms').collection('language_config').find().asArray());
+
+    await _stitch.requestByQueue(request)
       .then((list) 
       {
           //print('prepareOptions got languages ${list.length}');

@@ -40,6 +40,7 @@ class SearchComponent
 
 	void changeType(String t) {
 		type = t;
+		aggregator = null;
 		search();
 	}
 

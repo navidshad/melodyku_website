@@ -218,8 +218,9 @@ class StitchService
     await Future.doWhile(() async
     { 
         await Future.delayed(Duration(milliseconds: 100));
-        
-        if(_queueNumbers.indexOf(stamp) <= 0) return false;
+
+        if(user == null) true;
+        else if(_queueNumbers.indexOf(stamp) <= 0) return false;
         else return true;
     });
 

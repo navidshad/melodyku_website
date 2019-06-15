@@ -82,10 +82,8 @@ class AppShellComponent
     bool key  = false;
 
     if(!isLogedIn) key = true;
-    else if(user != null && user.isLoadedData)
+    else if(user != null && user.isLoadedData && lang.loaded)
       key = true;
-
-    key = lang.loaded;
       
     return key;
   }
