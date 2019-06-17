@@ -21,6 +21,9 @@ class Page
     checkAccess();
     updateTitleBar();
 
+    // track pageView
+    Injector.get<AnalyticService>().trackPage(title);
+
     print('.: the $title page loaded :.');
   }
 

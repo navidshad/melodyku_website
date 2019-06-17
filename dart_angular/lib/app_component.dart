@@ -22,10 +22,10 @@ import 'package:melodyku/core/injector.dart' as CI;
   ],
   providers: const [
     ClassProvider(StitchService),
+    ClassProvider(AnalyticService),
     ClassProvider(LanguageService),
     ClassProvider(MessageService),
     ClassProvider(UserService),
-    //ClassProvider(Requester),
     ClassProvider(ContentProvider),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
@@ -38,16 +38,16 @@ import 'package:melodyku/core/injector.dart' as CI;
 class AppComponent
 {
   
-  AppComponent( StitchService stitch,
+  AppComponent( StitchService stitch, AnalyticService ga,
     UserService us, ContentProvider cp, MessageService ms, 
     LanguageService lang, SubscriptionService subScription)
   {
 
     // register this userService into Injectory.
+    CI.Injector.register(CI.InjectorMember('AnalyticService', ga));
     CI.Injector.register(CI.InjectorMember('StitchService', stitch));
     CI.Injector.register(CI.InjectorMember('LanguageService', lang));
     CI.Injector.register(CI.InjectorMember('UserService', us));
-    //CI.Injector.register(CI.InjectorMember('Requester', rq));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));

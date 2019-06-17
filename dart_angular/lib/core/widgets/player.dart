@@ -6,10 +6,7 @@ import 'dart:async';
 
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/archive/archive.dart';
-import 'package:melodyku/core/injector.dart';
-import 'package:melodyku/core/widgets/list_item.dart';
-import 'package:melodyku/core/utility/math.dart';
-import 'imag_button.dart';
+import 'package:melodyku/core/core.dart';
 
 class Player 
 {
@@ -92,9 +89,14 @@ class Player
   // play methods -------------------------------
   void play() 
   {
-    if(audio.paused) {
+    if(audio.paused) 
+    {
       audio.play();
       playBtn.clicked(true);
+
+      // track playling
+      Injector.get<AnalyticService>()
+        .trackEvent('play', category: 'song', label: current.title, value: current.artist);
     }
     else {
       audio.pause();
