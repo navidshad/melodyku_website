@@ -22,7 +22,7 @@ class ArchiveAlbumPage implements OnActivate
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  ContentProvider _contentProvider;
+  CategoryService _categoryService;
   StitchService _stitch;
 
   String albumID;
@@ -32,7 +32,7 @@ class ArchiveAlbumPage implements OnActivate
   
 
   // constructor ==================================
-  ArchiveAlbumPage(this._contentProvider, this._messageService, this.lang, this._userservice, this._stitch)
+  ArchiveAlbumPage(this._categoryService, this._messageService, this.lang, this._userservice, this._stitch)
   {
     _page = Page(
       userService: _userservice,
@@ -60,7 +60,7 @@ class ArchiveAlbumPage implements OnActivate
       database: "media",
       collection:"album",
       id:albumID,
-      dbFields: SystemSchema.album,
+      dbFields: SystemSchema.injectSubfields('categories', SystemSchema.album, _categoryService.getGroups()),
     );
 
     songOptions = CollectionOptions(
@@ -69,7 +69,7 @@ class ArchiveAlbumPage implements OnActivate
       database: 'media',
       collection:"song",
       query: {'albumId': albumID},
-      dbFields: SystemSchema.song,
+      dbFields: SystemSchema.injectSubfields('categories', SystemSchema.song, _categoryService.getGroups()),
     );
   }
 

@@ -65,15 +65,19 @@ class  EmailConfirmationPage implements OnActivate
 
 		// get 
 		await _stitch.confirmEmail(token, tokenID)
-		.then((result) 
+		.then((result) async
 		{
-			modal.addMessage(result['message']);
+			modal.addMessage(lang.getStr('done'));
+      		modal.showMessage();
+      		modal.doWaiting(false);
 
-			if(result['done'])modal.doWaiting(false);
-			else modal.showMessage();
+			await Future.delayed(Duration(seconds: 1));
+      		Page.goToHome();
 		})
 		.catchError((result) {
-			modal.addMessage(result['message'], color: 'red');
+			modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
+      		modal.showMessage();
+      		modal.doWaiting(false);
 		});	
 	}
 }

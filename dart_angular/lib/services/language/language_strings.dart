@@ -42,6 +42,11 @@ dynamic languageStrings = [
   // common
   // ========================
   {
+    'name': 'done',
+    'en'  : 'done',
+    'fa_IR'  : 'انجام شد'
+  },
+  {
     'name': 'install',
     'en'  : 'Install',
     'fa_IR'  : 'نصب'
@@ -231,6 +236,11 @@ dynamic languageStrings = [
     'name': 'resetLinkSent',
     'en'  : 'reset link has been sent to your email, check it out, please',
     'fa_IR'  : 'لینک بازناشی رمز به ایمیل شما ارسال شد.',
+  },
+  {
+    'name': 'LinkInvalid',
+    'en'  : 'link is expired or invalid',
+    'fa_IR'  : 'لینک منقضی شده است، لطفا از ابتدا اقدام کنید.',
   },
   {
     'name': 'sendConfirmation',

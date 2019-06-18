@@ -19,6 +19,11 @@
     background-color: #111; /* Black*/
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */  
     display: none;
+    padding: 20px;
+
+    .back_stitcker{
+        width: 30px;
+    }
 }
 
 .logo {

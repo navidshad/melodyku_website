@@ -48,6 +48,8 @@ class SearchComponent
 	{
 		if(word.trim().length == 0) return;
 
+		word = word.toLowerCase();
+
 		nothingFound = false;
 
 		cards_artist = [];

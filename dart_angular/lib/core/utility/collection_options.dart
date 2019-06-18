@@ -30,14 +30,6 @@ class LinkButton
 	}
 }
 
-class SubField {
-	String title;
-	String key;
-	dynamic value;
-
-	SubField({this.title, this.key, this.value});
-}
-
 class CollectionOptions 
 {
 	String title;

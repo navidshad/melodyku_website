@@ -119,7 +119,6 @@ class AppShellComponent
       width: 80, 
       mainMargine: '80px', 
       direction: 'right', 
-      planeOpacity: '0.8',
       openOnInitialied: true
     );
   }
@@ -135,7 +134,7 @@ class AppShellComponent
 
     drawerProfile = Drawer(drawerProfileEl, mainContent, el_plane: planeEl,
       el_btn_noPushing: drawerProfileBtnNoPush,
-      width: 250, mainMargine: '250px', direction: 'left', planeOpacity: '0.5');
+      width: 250, mainMargine: '250px', direction: 'left');
   }
 
   Future<void> closeDrawers() async

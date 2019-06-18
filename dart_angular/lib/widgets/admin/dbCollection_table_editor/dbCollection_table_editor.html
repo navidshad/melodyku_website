@@ -34,7 +34,7 @@
 			<tr class="table-row" *ngFor="let item of list; let i=index">
 
 				<td *ngFor="let field of options.getValidFields(); let i=index">
-					{{item[field.key]}}
+					{{field.generateTtitle(item)}}
 				</td>
 
 				<td class="option">
@@ -76,7 +76,7 @@
 	extractor (onExtract)="getElement($event)">
 	
 	<div class="modal-card text-center text-normal">
-		<div class="w3-row modal-content">
+		<div class="w3-row modal-content" style="height: 600px;">
 			
 			<db-collection-item-editor
 				*ngIf="editableItemOptions != null"

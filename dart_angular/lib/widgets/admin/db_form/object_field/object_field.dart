@@ -16,6 +16,7 @@ import 'package:melodyku/widgets/widgets.dart';
 		formDirectives,
 		ObjectField,
 		SelectField,
+		MultiselectFeld,
 	],
 	exports: [
 		FieldType,
@@ -46,7 +47,7 @@ class ObjectField
 	void set setViewMode(bool value) => viewMode = value;
 
 	@Input()
-	dynamic object;
+	Map object;
 
 	@Input()
 	void set options(List<DbField> value) => fields = value;

@@ -29,6 +29,9 @@ class MediaCoverComponent
 
   @Input()
   String lable;
+
+  @Input()
+  bool noAction;
   
   @Input()
   String thumbnail;
@@ -54,7 +57,8 @@ class MediaCoverComponent
   @Input()
   bool isBig;
 
-  bool getPlayAccess() => playBtn ?? true;
+  bool getnoActionBool() => noAction ?? false;
+  bool getPlayAccess() => playBtn ?? false;
   bool getExploreAccess() => exploreBtn ?? false;
   bool getCoverAccess() {
     //print('cover thumbnail ${thumbnail}');

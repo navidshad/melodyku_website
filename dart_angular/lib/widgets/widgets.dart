@@ -5,6 +5,7 @@ export 'admin/converter_component/converter_component.dart';
 export 'admin/cover_item_editor/cover_item_editor.dart';
 export 'admin/db_form/object_field/object_field.dart';
 export 'admin/db_form/select_field/select_field.dart';
+export 'admin/db_form/multiselect_field/multiselect_field.dart';
 export 'admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 export 'admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 export 'admin/media_language_settings/media_language_settings.dart';

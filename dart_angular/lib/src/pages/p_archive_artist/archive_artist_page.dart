@@ -22,7 +22,7 @@ class ArchiveArtistPage implements OnActivate
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  ContentProvider _contentProvider;
+  CategoryService _categoryService;
   StitchService _stitch;
 
   CollectionOptions AlbumTableOptions;
@@ -31,7 +31,7 @@ class ArchiveArtistPage implements OnActivate
   dynamic artist;
 
   // constructor ==================================
-  ArchiveArtistPage(this._contentProvider, this._messageService, this._userservice, this._stitch)
+  ArchiveArtistPage(this._categoryService, this._messageService, this._userservice, this._stitch)
   {
     _page = Page(
       userService: _userservice,
@@ -61,7 +61,7 @@ class ArchiveArtistPage implements OnActivate
       database: 'media',
       collection:"artist",
       id:artistID,
-      dbFields: SystemSchema.artist,
+      dbFields: SystemSchema.injectSubfields('categories', SystemSchema.artist, _categoryService.getGroups()),
     );
 
 
@@ -71,7 +71,7 @@ class ArchiveArtistPage implements OnActivate
       collection: 'album',
       query: {'artistId': artistID},
       allowUpdate: false,
-      dbFields: SystemSchema.album,
+      dbFields: SystemSchema.injectSubfields('categories', SystemSchema.album, _categoryService.getGroups()),
 
       linkButtons: <LinkButton>[
         LinkButton(

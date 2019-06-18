@@ -1,7 +1,7 @@
 /// {@nodoc}
 library mongo_field;
 
-enum FieldType {text, textbox, checkbox, select, object}
+enum FieldType {text, textbox, checkbox, select, multiSelect, object}
 
 
 enum DataType {string, bool, int, float, object, array_string, array_object, dateTime}
@@ -43,21 +43,65 @@ class DbField {
     	if(fieldType == null) setDefaultFields();
 	}
 
-  void setDefaultFields()
-  {
-  	//fieldType =FieldType.text;
-    switch(dataType)
-    {
-      case DataType.string:   fieldType =FieldType.text; break;
-      case DataType.int:      fieldType =FieldType.text; break;
-      case DataType.float:    fieldType =FieldType.text; break;
-      case DataType.bool:     fieldType =FieldType.checkbox; break;
-      case DataType.object:   fieldType =FieldType.object; break;
-      case DataType.array_string: fieldType =FieldType.select; break;
-      case DataType.array_object: fieldType =FieldType.select; break;
-      case DataType.dateTime: fieldType =FieldType.text; break;
-    }
-  }
+	void setDefaultFields()
+	{
+		//fieldType =FieldType.text;
+		switch(dataType)
+		{
+		  case DataType.string:   fieldType =FieldType.text; break;
+		  case DataType.int:      fieldType =FieldType.text; break;
+		  case DataType.float:    fieldType =FieldType.text; break;
+		  case DataType.bool:     fieldType =FieldType.checkbox; break;
+		  case DataType.object:   fieldType =FieldType.object; break;
+		  case DataType.array_string: fieldType =FieldType.select; break;
+		  case DataType.array_object: fieldType =FieldType.select; break;
+		  case DataType.dateTime: fieldType =FieldType.text; break;
+		}
+	}
 
-	//String getType() => dataType.toString();
+	String extractTitlesForStrValues(Map object)
+	{
+		String extracted = '';
+
+		List<String> arr = object[key] as List<String>;
+
+		// groups loop
+		subFields.forEach((group) 
+		{
+			// subgroup loop
+			group.subFields.forEach((subF) 
+			{
+				if(arr.indexOf(subF.strvalue) != -1)
+					extracted += subF.title + ", ";
+			});
+		});
+
+		return extracted;
+	}
+
+	String extractTitleForStrValue(Map object)
+	{
+		String value = object[key];
+		subFields.forEach((sdf) 
+		{
+			if(sdf.strvalue == value)
+				value = sdf.key;
+		});
+
+		return value;
+	}
+
+	// title should be generated for these types: select, multiSelect
+	String generateTtitle(Map row)
+	{
+		String value = row[key].toString();
+
+		if(fieldType == FieldType.select)
+			value = extractTitleForStrValue(row);
+
+		else if(fieldType == FieldType.multiSelect)
+			value = extractTitlesForStrValues(row);
+
+		return value;
+	}
 }

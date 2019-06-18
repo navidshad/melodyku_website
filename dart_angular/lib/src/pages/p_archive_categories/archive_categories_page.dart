@@ -21,14 +21,14 @@ class ArchiveCategoriesPage
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  ContentProvider _contentProvider;
+  CategoryService _categoryService;
   StitchService _stitch;
 
   CollectionOptions catrgoryOptions;
-  CollectionOptions clusterOptions;
+  CollectionOptions groupOptions;
 
   // constructor ==================================
-  ArchiveCategoriesPage(this._contentProvider, this._messageService, this._userservice, this._stitch)
+  ArchiveCategoriesPage(this._categoryService, this._messageService, this._userservice, this._stitch)
   {
     _page = Page(
       userService: _userservice, 
@@ -44,38 +44,20 @@ class ArchiveCategoriesPage
   {
     List<DbField> clusterFilds = [];
 
-    await promiseToFuture(_stitch.dbClient.db('media').collection('cluster').find().asArray())
-    .then((clusters) 
-    {
-      clusters.forEach((doc) 
-      {
-        // dynamic converted = convertFromJS(doc, stringObjects: ['local_title']);
-        // DbField field = DbField(
-        //   converted['title'], strvalue: converted['_id'].toString());
-        // clusterFilds.add(field);
-      });
-
-    }).catchError((error) => print(error));
-
     catrgoryOptions = CollectionOptions(
+        hasCover: true,
         title: 'Manage Categories',
         database: 'media',
         collection: 'category',
-        dbFields: [
-          DbField('title'),
-          DbField('clusterId', fieldType: FieldType.select, subFields: clusterFilds),
-          DbField('local_title', dataType: DataType.object, fieldType: FieldType.object)
-        ],
+        dbFields: SystemSchema.injectSubfields('groupId', 
+            SystemSchema.category, _categoryService.getGroups()),
       );
 
-    clusterOptions = CollectionOptions(
-      title: 'Manage Clusters',
+    groupOptions = CollectionOptions(
+      title: 'Manage groups',
       database: 'media',
-      collection: 'cluster',
-      dbFields: [
-        DbField('title'),
-        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object)
-      ],
+      collection: 'category_group',
+      dbFields: SystemSchema.category_group,
     );
   }
 }

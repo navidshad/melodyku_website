@@ -3,6 +3,7 @@ library stitchService;
 
 import 'dart:async';
 import 'dart:html';
+import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 
@@ -61,7 +62,7 @@ class StitchService
     })
     .catchError((error){
       log(error);
-      result['message'] = error.toString();
+      result['message'] = js.getProperty(error, 'message');
       return result;
     });
   }
@@ -83,7 +84,7 @@ class StitchService
     })
     .catchError((error){
       log(error);
-      result['message'] = error.toString();
+      result['message'] = js.getProperty(error, 'message');
       return result;
     });
   }
@@ -104,7 +105,7 @@ class StitchService
     })
     .catchError((error){
       log(error);
-      result['message'] = error.toString();
+      result['message'] = js.getProperty(error, 'message');
       return result;
     });
   }
@@ -116,22 +117,7 @@ class StitchService
     UserPasswordAuthProviderClient emailPassClient = appClient.auth
       .getProviderClient(userPasswordAuthProviderClientFactory);
     
-    return promiseToFuture(emailPassClient.confirmUser(token, tokenID))
-    .then((msg)
-    {
-      print('email was confirmed');
-
-      if(!msg.toString().contains('invalid token'))
-        result['done'] = true;
-
-      result['message'] = msg;
-      return result;
-    })
-    .catchError((error){
-      log(error);
-      result['message'] = error.toString();
-      return result;
-    });
+    return promiseToFuture(emailPassClient.confirmUser(token, tokenID));
   }
 
   Future<dynamic> resendConfirmationEmail(String email)
@@ -147,12 +133,11 @@ class StitchService
       log(msg);
       print('confirmation email was sent | $msg');
       result['done'] = true;
-      result['message'] = msg;
       return result;
     })
     .catchError((error){
       log(error);
-      result['message'] = error.toString();
+      result['message'] = js.getProperty(error, 'message');
       return result;
     });
   }
@@ -169,42 +154,26 @@ class StitchService
     {
       print('reset link was sent | $msg');
       result['done'] = true;
-      result['message'] = msg;
       return result;
     })
     .catchError((error){
       log(error);
-      result['message'] = error.toString();
+      result['message'] = js.getProperty(error, 'message');
       return result;
     });
   }
 
   Future<dynamic> resetPassword(String token, String tokenID, String newPassword)
   {
-    dynamic result = {'done':false, 'message':''};
+    Map result = {'done':false, 'message':''};
 
     UserPasswordAuthProviderClient emailPassClient = appClient.auth
       .getProviderClient(userPasswordAuthProviderClientFactory);
     
-    return promiseToFuture(emailPassClient.resetPassword(token, tokenID, newPassword))
-    .then((msg)
-    {
-      print('password was reseted');
-
-      if(!msg.toString().contains('invalid token'))
-        result['done'] = true;
-
-      result['message'] = msg;
-      return result;
-    })
-    .catchError((error){
-      log(error);
-      result['message'] = error.toString();
-      return result;
-    });
+    return promiseToFuture(emailPassClient.resetPassword(token, tokenID, newPassword));
   }
 
-  // Queue Requester
+  // Queue Requester ==================================
   List<int> _queueNumbers = [];
   Future requestByQueue(Future request) async
   {
@@ -219,7 +188,7 @@ class StitchService
     { 
         await Future.delayed(Duration(milliseconds: 100));
 
-        if(user == null) true;
+        if(user == null) return true;
         else if(_queueNumbers.indexOf(stamp) <= 0) return false;
         else return true;
     });
@@ -230,5 +199,16 @@ class StitchService
          _queueNumbers.remove(stamp);
          print('request of $stamp get done');
       });
+  }
+
+  Future<RemoteMongoCollection> getCollectionAsync({String db, String collection}) async
+  {
+    await Future.doWhile(() async
+    { 
+        if(dbClient == null) return true;
+        else return false;
+    });
+
+    return dbClient.db(db).collection(collection);
   }
 }
