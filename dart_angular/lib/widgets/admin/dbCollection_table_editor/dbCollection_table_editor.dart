@@ -69,6 +69,22 @@ class DbCollectionTableEditorComponent
 		_modalService.register(modalName, modal);
 	}
 
+	// String getFieldValue(DbField df, Map row)
+	// {
+	// 	String value = row[df.key].toString();
+
+	// 	// if field type is select the value of the field should be the lable of select member.
+	// 	if(df.fieldType == FieldType.select)
+	// 	{
+	// 		df.subFields.forEach((sdf) {
+	// 			if(sdf.strvalue == value)
+	// 				value = sdf.key;
+	// 		});
+	// 	}
+
+	// 	return value;
+	// }
+
 	void showForm([dynamic selected])
 	{
 		editable = selected ?? {};

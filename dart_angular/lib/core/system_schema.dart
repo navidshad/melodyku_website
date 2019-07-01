@@ -10,7 +10,8 @@ class SystemSchema
 	[
 		DbField('name'),
 		DbField('imgStamp', isDisable:true),
-        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
+        DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+        DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> album =
@@ -21,7 +22,8 @@ class SystemSchema
 		DbField('artistId', isHide: true),
      	DbField('artist', isDisable: true),
       	DbField('description'),
-      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> song_version = 
@@ -29,7 +31,8 @@ class SystemSchema
 		DbField('title'),
 		DbField('size', dataType: DataType.float),
 		DbField('duration', dataType: DataType.float),
-		DbField('bitrate', dataType: DataType.int)
+		DbField('bitrate', dataType: DataType.int),
+		DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> song = 
@@ -39,7 +42,6 @@ class SystemSchema
 		DbField('title', dataType: DataType.string, fieldType: FieldType.text),
 		DbField('album', isDisable: true),
 		DbField('artist', isDisable: true),
-		DbField('genre', dataType: DataType.string, fieldType: FieldType.select, subFields: []),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
 		DbField('size', dataType: DataType.float, isHide:true),
@@ -49,6 +51,7 @@ class SystemSchema
 		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_album', isHide:true),
 		DbField('imgStamp_artist', isHide:true),
+		DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> result_artists = 
@@ -79,6 +82,20 @@ class SystemSchema
 	// 	DbField('list', dataType: DataType.array_object, subFields: ArchiveSchema.song),
 	//  DbField('imgStamp', isHide:true),
 	// ];
+
+	static List<DbField> category =
+	[
+		DbField('groupId', fieldType: FieldType.select, subFields: []),
+		DbField('title'),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('imgStamp', isDisable:true),
+	];
+
+	static List<DbField> category_group =
+	[
+		DbField('title'),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: [])
+	];
 
 	// CMS ======================================
 	static List<DbField> language = 

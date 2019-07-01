@@ -7,7 +7,7 @@ class Drawer {
   int width = 100;
   String mainMargine = "80px";
   String direction = "right";
-  String planeOpacity = "0.8";
+  String planeOpacity = "0.9";
   Element el_drawer;
   Element el_main;
   Element el_plane;
@@ -19,7 +19,7 @@ class Drawer {
   bool pushing = false;
 
   Drawer(this.el_drawer, this. el_main, 
-    {this.width, this.mainMargine, this.direction, this.planeOpacity,
+    {this.width, this.mainMargine, this.direction,
      this.el_btn_pushing, this.el_btn_noPushing, this.el_plane, this.openOnInitialied=false})
   {
     setupStyle();
@@ -123,9 +123,18 @@ class Drawer {
   {
     if(pushing) return;
 
+    if(direction == 'right'){
+      el_plane.querySelector('.back_stitcker').style.transform = 'rotate(90deg)';
+      el_plane.style.alignItems = 'flex-end';
+    }
+    else if(direction == 'left'){
+      el_plane.querySelector('.back_stitcker').style.transform = 'rotate(-90deg)';
+      el_plane.style.alignItems = 'flex-start';
+    }
+
     if(key)
     {
-      el_plane.style.display= "block";
+      el_plane.style.display= "flex";
       el_plane.style.opacity= planeOpacity;
     }
     else {

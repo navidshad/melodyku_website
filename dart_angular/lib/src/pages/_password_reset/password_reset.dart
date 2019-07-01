@@ -36,7 +36,7 @@ class PasswordResetPage implements OnActivate
   String tokenID;
 
   // constructor ==================================
-  PasswordResetPage(this._messageService, this._userservice, this._stitch, this._modalService)
+  PasswordResetPage(this.lang, this._messageService, this._userservice, this._stitch, this._modalService)
   {
     _page = Page(
       userService: _userservice, 
@@ -71,18 +71,22 @@ class PasswordResetPage implements OnActivate
 
   void send()
   {
+    modal.doWaiting(true);
+
     _stitch.resetPassword(token, tokenID, newPass)
     .then((result) async
     {
-      modal.addMessage(result['message']);
-      if(result['done'])modal.doWaiting(false);
-      else modal.showMessage();
+      modal.addMessage(lang.getStr('done'));
+      modal.showMessage();
+      modal.doWaiting(false);
 
       await Future.delayed(Duration(seconds: 1));
       Page.goToHome();
     })
     .catchError((result) {
-      modal.addMessage(result['message'], color: 'red');
+      modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
+      modal.showMessage();
+      modal.doWaiting(false);
     }); 
   }
 }

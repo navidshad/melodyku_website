@@ -1,0 +1,13 @@
+<div class="container">
+	<div *ngFor="let group of groups">
+		<h4>{{group.title}}</h4>
+		<ul>
+			<li *ngFor="let cat of group.subFields">
+				<input type="checkbox"
+					[ngModel]="checkStatus(cat.strvalue)"
+					(ngModelChange)="select(cat.strvalue)">
+				<label>{{cat.title}}</label>
+			</li>
+		</ul>
+	</div>
+</div>

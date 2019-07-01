@@ -110,7 +110,7 @@ class LoginFormComponent
     _stitch.sendResetPasswordEmail(email)
     .then((result) 
     {
-      modal.addMessage(result['message'] /*lang.getStr('resetLinkSent')*/, color: 'yellow');
+      modal.addMessage(lang.getStr('resetLinkSent'), color: 'yellow');
       modal.showMessage();
       modal.doWaiting(false);
     })
@@ -129,7 +129,7 @@ class LoginFormComponent
     _stitch.resendConfirmationEmail(email)
     .then((result) 
     {
-      modal.addMessage(result['message'] /*lang.getStr('confirmationSent')*/, color: 'yellow');
+      modal.addMessage(lang.getStr('confirmationSent'), color: 'yellow');
       modal.showMessage();
       modal.doWaiting(false);
     })

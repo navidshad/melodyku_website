@@ -1,4 +1,6 @@
-<div class="cover flex-column flex-center {{isBig != null && isBig ? 'cover_big' : 'small'}}"
+<div class="cover flex-column flex-center 
+        {{isBig != null && isBig ? 'cover_big' : 'small'}}
+        {{getnoActionBool() ? '' : 'pointer'}}"
      (click)="explore()">
 
         <!-- lable -->
@@ -14,7 +16,8 @@
             <img src="{{randomPattern}}">
         </div>
 
-        <div class="overlay
+        <div *ngIf="!getnoActionBool()" 
+            class="overlay
             {{(number == hoverIndex) ? 'shown blueback' : ''}}
             {{(number == selectedIndex) ? 'shown' : ''}}">
             <!-- blue overlay -->

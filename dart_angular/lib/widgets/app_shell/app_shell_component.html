@@ -1,7 +1,10 @@
 <div  #shell *ngIf="allowLoadShell">
 
     <!-- drawer background -->
-    <div class="drawer-plane" #plane (click)="closeDrawers()">
+    <div class="drawer-plane flex-column flex-center" #plane (click)="closeDrawers()">
+        <div>
+            <img class="back_stitcker" src="/assets/svg/icon_border_arrow_up.svg">
+        </div>
     </div>
 
     <!-- mainContent -->
