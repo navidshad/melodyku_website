@@ -51,7 +51,7 @@ function BeforInit(app)
     let corsOptions = {
         origin: (ctx) => {
           const requestOrigin = ctx.accept.headers.origin;
-          let whitelist = ['http://localhost', 'http://localhost:8080', 'http://steryo.melodyku.com', 'http://melodyku.com'];
+          let whitelist = global.config.valid_cors;
           
           if (!whitelist.includes(requestOrigin))
               return ctx.throw(`🙈 ${requestOrigin} is not a valid origin`);
@@ -94,7 +94,10 @@ function setupVHost(koaApp)
 
     global.io = require('socket.io').listen(server);
     
+    hostess.use('www.' + global.config.domain_steryo, steryo.app);
     hostess.use(global.config.domain_steryo, steryo.app);
+    
+    hostess.use('www.' + global.config.domain_melodyku, koaApp.callback());
     hostess.use(global.config.domain_melodyku, koaApp.callback());
     
     // 404 
