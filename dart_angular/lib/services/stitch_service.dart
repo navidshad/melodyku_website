@@ -175,23 +175,26 @@ class StitchService
 
   // Queue Requester ==================================
   List<int> _queueNumbers = [];
+  int rCounter = 0;
   Future requestByQueue(Future request) async
   {
+    rCounter++;
+
     // register a number for this rquest
     int stamp = DateTime.now().millisecondsSinceEpoch;
     _queueNumbers.add(stamp);
 
-    print('request stamp registered $stamp');
+    print('${rCounter}th request registered $stamp');
 
     // waite untile the index of it's stamp get 0;
-    await Future.doWhile(() async
-    { 
-        await Future.delayed(Duration(milliseconds: 100));
+    // await Future.doWhile(() async
+    // { 
+    //     await Future.delayed(Duration(milliseconds: 100));
 
-        if(user == null) return true;
-        else if(_queueNumbers.indexOf(stamp) <= 0) return false;
-        else return true;
-    });
+    //     if(user == null) return true;
+    //     else if(_queueNumbers.indexOf(stamp) <= 0) return false;
+    //     else return true;
+    // });
 
     // waite for performing request ans remove stamp
     return await request

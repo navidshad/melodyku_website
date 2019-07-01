@@ -13,7 +13,6 @@ import 'package:melodyku/widgets/widgets.dart';
   styleUrls: ['card_rect_component.css'],
   directives: [
     coreDirectives, 
-    //ItemMenuComponent
     LikeComponent,
     MediaCoverComponent,
   ],
@@ -23,6 +22,8 @@ class CardRectComponent
   Player _player;
   UserService _userService;
   PlayerService _playerService;
+
+  CardRectComponent(this._playerService, this._player, this._userService);
 
   @Input()
   Card card;
@@ -48,23 +49,15 @@ class CardRectComponent
     //return -1;
   }
 
-  CardRectComponent(this._playerService, this._player, this._userService);
-
   void play()
   {
     if(card.type == ArchiveTypes.media)
       _playerService.play(card.origin);
   }
 
-  void like()
-  {
-    card.origin.like();
-  }
+  void like() => card.origin.like();
 
   bool get isLogedIn => _userService.isLogedIn;
-
-  // bool getPlayAccess() => playBtn ?? true;
-  // bool getExploreAccess() => exploreBtn ?? false;
 
   // when mose go into
   void onmouseenter(int i) => hoverIndex = i;

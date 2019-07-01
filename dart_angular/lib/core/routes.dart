@@ -177,7 +177,18 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     iconImgRef    : 'assets/imgs/icons/downloads.png',
   ),
 
-  // archive sergeant
+  'subscription' : PageDefinition(
+    title         : 'subscription',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'subscription'),
+                      component: subscription_template.SubscriptionPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  // archive sergeant =================================================
   'archive_artistList' : PageDefinition(
     title         : 'archive_artistList',
     position      : MenuPosition.profileDrawer,
@@ -233,7 +244,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),
 
-  // category sergeant
+  // category sergeant ==========================================================
   'archive_categories' : PageDefinition(
     title         : 'archive_categories',
     position      : MenuPosition.profileDrawer,
@@ -245,7 +256,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),
 
-  // administrator
+  // administrator ==============================================================
   'users' : PageDefinition(
     title         : 'users',
     position      : MenuPosition.profileDrawer,
@@ -264,17 +275,6 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'advanced-settings'),
                       component: advanced_settings_template.AdvancedSettingsPageNgFactory,
-                    ),
-    iconImgRef    : 'assets/imgs/icons/more.png',
-  ),
-
-  'subscription' : PageDefinition(
-    title         : 'subscription',
-    position      : MenuPosition.profileDrawer,
-    permissionType: PermissionType.customer_access,
-    route         : RouteDefinition(
-                      routePath: RoutePath(path: 'subscription'),
-                      component: subscription_template.SubscriptionPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

@@ -55,13 +55,18 @@ self.addEventListener('activate', (evt) => {
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (evt) => {
+self.addEventListener('fetch', (evt) => 
+{
+  //log request
+  //console.log('=== sw fetch =', evt.request);
+
   //console.log('[ServiceWorker] Fetch', evt.request.url);
   // CODELAB: Add fetch event handler here.
   if (evt.request.mode !== 'navigate') {
     // Not a page navigation, bail.
     return;
   }
+
   evt.respondWith(
       fetch(evt.request)
           .catch(() => {
