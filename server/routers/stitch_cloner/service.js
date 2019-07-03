@@ -10,8 +10,9 @@ connection.on('connected', () => colog.info('- stitchClonerDB has been connected
 
 module.exports.name = name;
 
-module.exports.artist = connection.model('artist', new Schema({}, {strict: false}));
-module.exports.album = connection.model('album', new Schema({}, {strict: false}));
-module.exports.song = connection.model('song', new Schema({}, {strict: false}));
-module.exports.song_favorite = connection.model('song_favorite', new Schema({}, {strict: false}));
-module.exports.song_history = connection.model('song_history', new Schema({}, {strict: false}));
+module.exports.artist = connection.model('artist', new Schema({}, {strict: false}), 'artist');
+module.exports.album = connection.model('album', new Schema({}, {strict: false}), 'album');
+module.exports.song = connection.model('song', new Schema({}, {strict: false}), 'song');
+module.exports.song = connection.model('playlist', new Schema({}, {strict: false}), 'playlist');
+module.exports.song_favorite = connection.model('song_favorite', new Schema({}, {strict: false}), 'song_favorite');
+module.exports.song_history = connection.model('song_history', new Schema({}, {strict: false}), 'song_history');

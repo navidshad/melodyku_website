@@ -27,7 +27,10 @@ stitchCloner.post('/find', async (ctx) =>
     // operate on db
     await db[body.collection].find(body.query, body.projection, body.options).exec()
         .then(docs => ctx.body = docs)
-        .catch(err => ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 stitchCloner.post('/count', async (ctx) => 
@@ -50,7 +53,10 @@ stitchCloner.post('/count', async (ctx) =>
     // operate on db
     await db[body.collection].countDocuments(body.query).exec()
         .then(docs => ctx.body = docs)
-        .catch(err => ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 stitchCloner.post('/updateOne', async (ctx) => 
@@ -74,8 +80,10 @@ stitchCloner.post('/updateOne', async (ctx) =>
     await db[body.collection].updateOne(body.query, body.update, body.options).exec()
         .then((writeOpResult) => 
             ctx.body = reply('s', {'d': writeOpResult}))
-        .catch(err => 
-            ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 stitchCloner.post('/insertOne', async (ctx) => 
@@ -99,8 +107,10 @@ stitchCloner.post('/insertOne', async (ctx) =>
     await new db[body.collection](body.doc).save()
         .then((writeOpResult) => 
             ctx.body = reply('s', {'d': writeOpResult}))
-        .catch(err => 
-            ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 stitchCloner.post('/removeOne', async (ctx) => 
@@ -124,8 +134,10 @@ stitchCloner.post('/removeOne', async (ctx) =>
     await db[body.collection].findOneAndRemove(body.id).exec()
         .then((result) => 
             ctx.body = reply('s', {'d': result}))
-        .catch(err => 
-            ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 stitchCloner.post('/aggregate', async (ctx) => 
@@ -149,8 +161,10 @@ stitchCloner.post('/aggregate', async (ctx) =>
     await db[body.collection].aggregate(body.piplines).exec()
         .then((result) => 
             ctx.body = reply('s', {'d': result}))
-        .catch(err => 
-            ctx.throw(reply('e', {'e':err}), 500));
+        .catch(err => {
+          ctx.status = err.status || 500;
+          ctx.body = err.message;
+        });
 });
 
 module.exports.name = name;
