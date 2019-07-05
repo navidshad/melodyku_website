@@ -7,6 +7,8 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
+import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
+
 @Component(
   selector: 'album-single-wrapper',
   templateUrl: 'album_single_wrapper_component.html',
@@ -40,7 +42,7 @@ class AlbumSingleWrapperComponent
   String thumbnail;
 
   @Input()
-  ResultWithNavigator<Song> songNavigator;
+  SC.ResultWithNavigator<Song> songNavigator;
 
   void playAll() =>
     _playerService.playByList(songNavigator.list);

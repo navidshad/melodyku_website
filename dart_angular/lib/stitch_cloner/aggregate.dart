@@ -1,0 +1,87 @@
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/mongo_stitch/functions.dart';
+import 'package:melodyku/services/services.dart';
+
+class Aggregate 
+{
+	StitchClonerService stitchCloner;
+	String collection;
+	List<Map> pipline;
+
+	bool hasMore = false;
+	bool isInitialized = false;
+
+	int totalItems = 0;
+	int perPage = 20;
+	int page = 0;
+	int pages = 0;
+
+	Aggregate({this.collection, this.pipline=const[], this.perPage=20})
+	{
+		stitchCloner = Injector.get<StitchClonerService>();
+	}
+
+	Future<void> initialize() async
+	{
+		// get count ============================
+		List<Map> countPipeline = [
+				{ "\$count": "count" }
+			];
+
+		countPipeline.insertAll(0, pipline);
+
+		await stitchCloner.aggregate(
+			collection: collection, piplines: countPipeline)
+			.then((docs) 
+			{
+				if(docs.length > 0) totalItems = docs[0]['count'];
+			})
+			.catchError(_handleError);
+
+		isInitialized = true;
+
+		Map navigatorDetail = getNavigatorDetail(total: totalItems, page: page, perPage: perPage);
+		pages = navigatorDetail['pages'];
+	}
+
+	Future<List<dynamic>> loadNextPage({int goto}) async
+	{
+		if(totalItems == 0) return [];
+
+		page += 1;
+		if(goto != null) page = goto;
+
+		Map navigatorDetail = getNavigatorDetail(total: totalItems, page: page, perPage: perPage);
+		print('=== SC loadNextPage $navigatorDetail | page $page');
+
+		List<Map> nextPipeline = [
+			{
+				'\$skip' : navigatorDetail['from']
+			},
+
+			{
+				'\$limit': navigatorDetail['to']
+			}
+		];
+
+		nextPipeline.insertAll(0, pipline);
+
+		List<dynamic> docs = [];
+
+		await stitchCloner.aggregate(
+			collection: collection, piplines: nextPipeline)
+			.then((list) => docs = list)
+			.catchError(_handleError);
+
+		if(page < navigatorDetail['pages']) 
+			hasMore = true;
+		else hasMore = false;
+
+		return docs;
+	}
+
+	Exception _handleError(dynamic e) {
+	    print(e); // for demo purposes only
+	    return Exception('Aggregate error; cause: $e');
+	}
+}

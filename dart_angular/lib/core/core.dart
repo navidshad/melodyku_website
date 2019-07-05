@@ -7,7 +7,7 @@ export 'routes.dart';
 export 'system_schema.dart';
 export 'types.dart';
 export 'modal.dart';
-export 'urls.dart';
+export 'vars.dart';
 
 export 'utility/collection_options.dart';
 export 'utility/language.dart';

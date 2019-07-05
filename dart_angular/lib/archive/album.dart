@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 
+import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
+
 import 'result_with_navigator.dart';
 import 'song.dart';
 import 'media_item.dart';
@@ -16,7 +18,7 @@ class Album implements MediaItem
   String artistId;
   ArchiveTypes type;
 
-  ResultWithNavigator<Song> songNavigator;
+  SC.ResultWithNavigator<Song> songNavigator;
 
   String title;
   String artist;
@@ -65,7 +67,7 @@ class Album implements MediaItem
   void getSongs() async
   {
     ContentProvider cp = Injector.get<ContentProvider>();
-    songNavigator = await cp.stitchArchive.song_getListByAlbum(id);
+    songNavigator = await cp.stitchClonerArchive.song_getListByAlbum(id);
     //injectAlbumCover();
   }
 

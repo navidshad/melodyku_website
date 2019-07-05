@@ -6,6 +6,8 @@ import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
+import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
+
 @Component(
   selector: 'page',
   templateUrl: 'vitrin_page.html',
@@ -48,20 +50,20 @@ class VitrinPage
   
   // get 
   String p_month_id = '5bfd635ccb6db178f4e4b14e';
-  Playlist pl_top10_month = await _contentProvider.stitchArchive.playlist_getRamdom('برترین های تاریخ');
+  Playlist pl_top10_month = await _contentProvider.stitchClonerArchive.playlist_getRamdom('برترین های تاریخ');
   card_top10_month = pl_top10_month.getChildsAsWidgets<Card>(total: 10);
 
   print('pl_top10_month ${pl_top10_month.list.length}');
 
   // get forYou list
   //String p_forYou_id = '5ba8f3018f5e0509f0b3d1cc';
-  Playlist pl_for_you = await _contentProvider.stitchArchive.playlist_getRamdom('برای شما');
+  Playlist pl_for_you = await _contentProvider.stitchClonerArchive.playlist_getRamdom('برای شما');
   card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
 
 
   // get 15 top media of day
   //String p_day_id = '5ba8a5cf31243004332bd45a';
-  Playlist pl_top15_day = await _contentProvider.stitchArchive.playlist_getRamdom('پیشنهاد های امروز');
+  Playlist pl_top15_day = await _contentProvider.stitchClonerArchive.playlist_getRamdom('پیشنهاد های امروز');
   listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
  }
 }

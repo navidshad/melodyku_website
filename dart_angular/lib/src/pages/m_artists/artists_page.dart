@@ -6,6 +6,8 @@ import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
+import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
+
 @Component(
   selector: 'page',
   templateUrl: 'artists_page.html',
@@ -45,14 +47,14 @@ class ArtistsPage
   void getContent() async 
   {
 
-    ResultWithNavigator rArtists_featured = await _contentProvider.stitchArchive
+    SC.ResultWithNavigator rArtists_featured = await _contentProvider.stitchClonerArchive
       .artist_getList(randomRange(0, 50), total: 10);
 
     rArtists_featured.list.forEach((artist) {
       featuredArtists.add(artist.getAsWidget<Card>());
     });
 
-    ResultWithNavigator rArtists_tops = await _contentProvider.stitchArchive
+    SC.ResultWithNavigator rArtists_tops = await _contentProvider.stitchClonerArchive
       .artist_getList(randomRange(0, 50), total: 20);
 
     rArtists_tops.list.forEach((artist) {

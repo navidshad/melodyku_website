@@ -126,7 +126,8 @@ class Song implements MediaItem
     }
 
     // create stream link
-    Uri link = Uri.https(window.location.host, 'stream', 
+
+    Uri link = Uri.https(Vars.host, 'stream', 
       {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()});
 
     return link.toString();

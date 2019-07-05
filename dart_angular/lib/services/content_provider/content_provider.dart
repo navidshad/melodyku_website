@@ -2,20 +2,22 @@
 library contentProvider;
 
 import 'stitch_archive.dart';
+import 'stitch_cloner_archive.dart';
 import 'assets.dart';
 
 import 'package:melodyku/services/services.dart';
-import 'package:melodyku/core/utility/math.dart';
-import 'package:melodyku/core/urls.dart';
+import 'package:melodyku/core/core.dart';
 
 class ContentProvider 
 {
   StitchArchive stitchArchive;
+  StitchClonerArchive stitchClonerArchive;
 
-	ContentProvider(StitchService stitch)
+
+	ContentProvider(StitchService stitch, StitchClonerService stitchCloner)
 	{
 		stitchArchive = StitchArchive(stitch);
-		//archive = Archive(requester);
+		stitchClonerArchive = StitchClonerArchive(stitchCloner);
 
 		//print('ContentProvider constructor, $stitchArchive');
 	}
@@ -29,17 +31,17 @@ class ContentProvider
 
 		if(imgStamp.length > 10)
 		{
-			Uri imageLink = Uri.https(dataMelodyku, 'images/$type/$id-$imgStamp.jpg');
+			Uri imageLink = Uri.https(Vars.dataHost, 'images/$type/$id-$imgStamp.jpg');
 			link = imageLink.toString();
 		}
 		else if(imgStamp_album.length > 10)
 		{
-			Uri imageLink = Uri.https(dataMelodyku, 'images/album/$albumId-$imgStamp_album.jpg');
+			Uri imageLink = Uri.https(Vars.dataHost, 'images/album/$albumId-$imgStamp_album.jpg');
 			link = imageLink.toString();
 		}
 		else if(imgStamp_artist.length > 10)
 		{
-			Uri imageLink = Uri.https(dataMelodyku, 'images/artist/$artistId-$imgStamp_artist.jpg');
+			Uri imageLink = Uri.https(Vars.dataHost, 'images/artist/$artistId-$imgStamp_artist.jpg');
 			link = imageLink.toString();
 		}
 
