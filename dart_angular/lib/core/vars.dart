@@ -1,7 +1,6 @@
 /// {@nodoc}
 library vars;
 
-import 'package:http/http.dart';
 import 'dart:html';
 
 class Vars 
@@ -13,6 +12,12 @@ class Vars
   {
   	String host = window.location.host.contains('localhost') ? Vars.mainHost : window.location.host;
   	return Uri.https(host, 'stitchCloner').toString();
+  }
+
+  static String get stitchCatcherUrl
+  {
+    String host = window.location.host.contains('localhost') ? Vars.mainHost : window.location.host;
+    return Uri.https(host, 'stitchCatcher').toString();
   }
 
   static String get host

@@ -69,6 +69,29 @@ class StitchClonerArchive
     return navigator;
   }
 
+  Future<List<Album>> album_getRandomList({int total=15}) async
+  {
+    List<Album> albums = [];
+    dynamic pipeLine = [
+        {
+          '\$sample': {'size': total}
+        }
+      ];
+
+    await _stitchCloner.aggregate(
+      collection: 'album', piplines: pipeLine)
+      .then((docs) 
+      {
+        docs.forEach((doc) {
+          Map converted = convertToMap(js.jsify(doc), SystemSchema.album);
+          Album album = Album.fromjson(converted);
+          albums.add(album);
+        });
+      }).catchError(_handleError);
+
+    return albums;
+  }
+
   // song ------------------------------------------------
   Future<SC.ResultWithNavigator<Song>> song_getList({int page=1, int total=15}) async
   {

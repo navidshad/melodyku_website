@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 import 'package:melodyku/core/core.dart';
@@ -6,11 +7,12 @@ import 'package:melodyku/services/services.dart';
 
 class CategoryService
 {
-	StitchService _stitchService;
+	//StitchService _stitchService;
+	StitchCatcherService _stitchCatcher;
 	List<Map> _groups = [];
 	List<Map> _categories = [];
 
-	CategoryService(this._stitchService)
+	CategoryService(this._stitchCatcher)
 	{
 		getGroupsFromDb();
 		getCategoriesFromDb();
@@ -18,38 +20,58 @@ class CategoryService
 
 	void getGroupsFromDb() async
 	{
-		RemoteMongoCollection coll = await _stitchService
-			.getCollectionAsync(db: 'media', collection: 'category_group');
+		// RemoteMongoCollection coll = await _stitchService
+		// 	.getCollectionAsync(db: 'media', collection: 'category_group');
 			
-		Future request = promiseToFuture(coll.find().asArray());
+		// Future request = promiseToFuture(coll.find().asArray());
 
-		Injector.get<StitchService>().requestByQueue(request)
-		.then((docs) 
-		{
-			for(dynamic doc in docs)
+		// Injector.get<StitchService>().requestByQueue(request)
+		// .then((docs) 
+		// {
+		// 	for(dynamic doc in docs)
+		// 	{
+		// 		Map converted = convertToMap(doc, SystemSchema.category_group);
+		// 		_groups.add(converted);
+		// 	}
+		// });
+
+		_stitchCatcher.getAll(collection: 'category_group')
+			.then((docs) 
 			{
-				Map converted = convertToMap(doc, SystemSchema.category_group);
-				_groups.add(converted);
-			}
-		});
+				for(dynamic doc in docs)
+				{
+					Map converted = convertToMap(js.jsify(doc), SystemSchema.category_group);
+					_groups.add(converted);
+				}
+			});
 	}
 
 	void getCategoriesFromDb() async
 	{
-		RemoteMongoCollection coll = await _stitchService
-			.getCollectionAsync(db: 'media', collection: 'category');
+		// RemoteMongoCollection coll = await _stitchService
+		// 	.getCollectionAsync(db: 'media', collection: 'category');
 			
-		Future request = promiseToFuture(coll.find().asArray());
+		// Future request = promiseToFuture(coll.find().asArray());
 
-		Injector.get<StitchService>().requestByQueue(request)
-		.then((docs) 
-		{
-			for(dynamic doc in docs)
+		// Injector.get<StitchService>().requestByQueue(request)
+		// .then((docs) 
+		// {
+		// 	for(dynamic doc in docs)
+		// 	{
+		// 		Map converted = convertToMap(doc, SystemSchema.category);
+		// 		_categories.add(converted);
+		// 	}
+		// });
+
+		_stitchCatcher.getAll(collection: 'category')
+			.then((docs) 
 			{
-				Map converted = convertToMap(doc, SystemSchema.category);
-				_categories.add(converted);
-			}
-		});
+				for(dynamic doc in docs)
+				{
+					Map converted = convertToMap(js.jsify(doc), SystemSchema.category);
+					_categories.add(converted);
+				}
+			});
 	}
 
 	List<DbField> _getCategoriesByGroup(groupId)

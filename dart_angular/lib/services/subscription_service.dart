@@ -13,6 +13,7 @@ import 'package:melodyku/core/system_schema.dart';
 class SubscriptionService
 {
 	StitchService _stitch;
+	StitchCatcherService _stitchCatcher;
 	UserService _userService;
 	ModalService _modalService;
 	List<Map> _tariffs = [];
@@ -67,13 +68,24 @@ class SubscriptionService
 	{
 		if(_tariffs.length == 0)
 		{
-			RemoteMongoCollection collection = _stitch.dbClient.db('cms').collection('tariffs');
-			await promiseToFuture(collection.find().asArray())
+			// RemoteMongoCollection collection = _stitch.dbClient.db('cms').collection('tariffs');
+			// await promiseToFuture(collection.find().asArray())
+			// 	.then((result) 
+			// 	{
+			// 		result.forEach((doc) 
+			// 		{
+			// 			Map tariff = convertToMap(doc, SystemSchema.tariff);
+			// 			_tariffs.add(tariff);
+			// 		});
+			// 	})
+			// 	.catchError(_catchError);
+
+			await _stitchCatcher.getAll(collection: 'tariffs')
 				.then((result) 
 				{
 					result.forEach((doc) 
 					{
-						Map tariff = convertToMap(doc, SystemSchema.tariff);
+						Map tariff = convertToMap(js.jsify(doc), SystemSchema.tariff);
 						_tariffs.add(tariff);
 					});
 				})

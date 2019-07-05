@@ -47,23 +47,23 @@ class AlbumsPage
     void getContent() async 
   {
 
-    SC.ResultWithNavigator rAlbums_featured = await _contentProvider.stitchClonerArchive
-      .album_getList(randomRange(0, 50), total: 10);
+    List<Album> rAlbums_featured = await _contentProvider.stitchClonerArchive
+      .album_getRandomList(total:10);
 
-    rAlbums_featured.list.forEach((album) 
+    rAlbums_featured.forEach((album) 
       => featuredAlbums.add(album.getAsWidget<Card>()));
 
-    SC.ResultWithNavigator ralbums_tops = await _contentProvider.stitchClonerArchive
-      .album_getList(randomRange(0, 50), total: 15);
+    List<Album> ralbums_tops = await _contentProvider.stitchClonerArchive
+      .album_getRandomList(total:15);
 
-    ralbums_tops.list.forEach((album) {
+    ralbums_tops.forEach((album) {
       top15albums.add(album.getAsWidget<Card>());
     });
 
-    SC.ResultWithNavigator ralbums_Lasts = await _contentProvider.stitchClonerArchive
-      .album_getList(randomRange(0, 50), total: 20);
+    List<Album> ralbums_Lasts = await _contentProvider.stitchClonerArchive
+      .album_getRandomList(total:20);
 
-    ralbums_Lasts.list.forEach((album) {
+    ralbums_Lasts.forEach((album) {
       lastAlbums.add(album.getAsWidget<Card>());
     });
   }

@@ -40,7 +40,7 @@ class Album implements MediaItem
       artistId: artistId);
   }
 
-  factory Album.fromjson(Map detail, {bool dontGetSongs})
+  factory Album.fromjson(Map detail, {bool dontGetSongs=true})
   {
     Album album;
     try {
