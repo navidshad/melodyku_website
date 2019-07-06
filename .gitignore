@@ -1,4 +1,14 @@
-dart_angular/web/assets/track.mp3
-.vscode
-build
+# Files and directories created by pub
+.dart_tool/
+.packages
+# Remove the following pattern if you wish to check in your lock file
+pubspec.lock
+
+# Conventional directory for build outputs
+build/
 build.rar
+
+# Directory created by dartdoc
+doc/api/
+
+.idea
