@@ -15,25 +15,22 @@ class Subscription
 	DateTime startsIn;
 	DateTime expiresIn;
 
-	StitchService _stitch;
+	MongoDBService _mongodb;
 
 	Subscription(this.refId)
 	{
-		this._stitch = Injector.get<StitchService>();
+		this._mongodb = Injector.get<MongoDBService>();
 		getUserSubscription();
 	}
 
 	void getUserSubscription() async
 	{
-		RemoteMongoCollection collection = _stitch.dbClient.db('user').collection('subscription');
-		dynamic query = js.jsify({'refId': refId});
-		
-		Future request = promiseToFuture(collection.find(query).first());
-
-		_stitch.requestByQueue(request)
+		Map query = {'refId': refId };
+    
+		_mongodb.findOne(database: 'user', collection: 'subscription', query: query)
 			.then((result) 
 			{
-				Map converted = convertToMap(result, SystemSchema.subscription);
+				Map converted = validateFields(result, SystemSchema.subscription);
 				plan = converted['plan'];
 				startsIn = converted['startsIn'];
 				expiresIn = converted['expiresIn'] ?? DateTime.now();

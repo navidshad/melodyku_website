@@ -17,19 +17,18 @@ class UserActivityDetail
 {
 	LanguageService lang;
 	UserService _userService;
-	StitchService _stitch;
 
 	String subscriptionPlan = '...';
 	String daysLeft = '0';
 	String listenlastMonth = '0';
 	String likedLastMonth = '0';
 
-	UserActivityDetail(this._stitch, this._userService, this.lang)
+	UserActivityDetail(this._userService, this.lang)
 	{
-		fetDetail();
+		getDetail();
 	}
 
-	void fetDetail() async
+	void getDetail() async
 	{
 		// plan & days left
 		if(_userService.user.subscription.hasSubscription())

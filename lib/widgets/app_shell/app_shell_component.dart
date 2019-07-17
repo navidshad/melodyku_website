@@ -42,7 +42,6 @@ class AppShellComponent
   LanguageService lang;
   PageRoutes pageRoutes;
   UserService _userService;
-  StitchService _stitch;
   MessageService _messageService;
 
   bool isDrawerOpen = false;
@@ -53,7 +52,7 @@ class AppShellComponent
   get titleBar => lang.getStr(_titleBar);
 
   // constructor ================================
-  AppShellComponent(this._stitch, this._userService, this._messageService, this.lang, this.pageRoutes)
+  AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
   {
     CI.Injector.register(CI.InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
@@ -73,7 +72,7 @@ class AppShellComponent
 
   // user =======================================
   bool get isLogedIn => _userService.isLogedIn;
-  bool get isFirstLoggined => _stitch.user != null ? true : false;
+  bool get isFirstLoggined => _userService.user != null ? true : false;
   User get user => _userService.user;
   
 

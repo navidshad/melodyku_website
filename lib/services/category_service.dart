@@ -1,18 +1,14 @@
-import 'dart:html';
-import 'package:js/js_util.dart' as js;
-
-import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 
 class CategoryService
 {
 	//StitchService _stitchService;
-	StitchCatcherService _stitchCatcher;
+	MongoDBService _mongodb;
 	List<Map> _groups = [];
 	List<Map> _categories = [];
 
-	CategoryService(this._stitchCatcher)
+	CategoryService(this._mongodb)
 	{
 		getGroupsFromDb();
 		getCategoriesFromDb();
@@ -20,27 +16,12 @@ class CategoryService
 
 	void getGroupsFromDb() async
 	{
-		// RemoteMongoCollection coll = await _stitchService
-		// 	.getCollectionAsync(db: 'media', collection: 'category_group');
-			
-		// Future request = promiseToFuture(coll.find().asArray());
-
-		// Injector.get<StitchService>().requestByQueue(request)
-		// .then((docs) 
-		// {
-		// 	for(dynamic doc in docs)
-		// 	{
-		// 		Map converted = convertToMap(doc, SystemSchema.category_group);
-		// 		_groups.add(converted);
-		// 	}
-		// });
-
-		_stitchCatcher.getAll(collection: 'category_group')
+		_mongodb.find(database: 'media', collection: 'category_group')
 			.then((docs) 
 			{
 				for(dynamic doc in docs)
 				{
-					Map converted = convertToMap(js.jsify(doc), SystemSchema.category_group);
+					Map converted = validateFields(doc, SystemSchema.category_group);
 					_groups.add(converted);
 				}
 			});
@@ -48,27 +29,12 @@ class CategoryService
 
 	void getCategoriesFromDb() async
 	{
-		// RemoteMongoCollection coll = await _stitchService
-		// 	.getCollectionAsync(db: 'media', collection: 'category');
-			
-		// Future request = promiseToFuture(coll.find().asArray());
-
-		// Injector.get<StitchService>().requestByQueue(request)
-		// .then((docs) 
-		// {
-		// 	for(dynamic doc in docs)
-		// 	{
-		// 		Map converted = convertToMap(doc, SystemSchema.category);
-		// 		_categories.add(converted);
-		// 	}
-		// });
-
-		_stitchCatcher.getAll(collection: 'category')
+		_mongodb.find(database: 'media', collection: 'category')
 			.then((docs) 
 			{
 				for(dynamic doc in docs)
 				{
-					Map converted = convertToMap(js.jsify(doc), SystemSchema.category);
+					Map converted = validateFields(doc, SystemSchema.category);
 					_categories.add(converted);
 				}
 			});

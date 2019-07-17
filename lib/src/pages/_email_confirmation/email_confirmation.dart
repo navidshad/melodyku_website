@@ -24,13 +24,13 @@ class  EmailConfirmationPage implements OnActivate
 	LanguageService lang;
 	UserService _userservice;
 	MessageService _messageService;
-	StitchService _stitch;
+	//StitchService _stitch;
 
 	ModalService _modalService;
   	Modal modal;
 
 	// constructor ==================================
-	EmailConfirmationPage(this._messageService, this._userservice, this._stitch, this._modalService)
+	EmailConfirmationPage(this._messageService, this._userservice, /*this._stitch,*/ this._modalService)
 	{
 		_page = Page(
 			userService: _userservice, 
@@ -64,20 +64,20 @@ class  EmailConfirmationPage implements OnActivate
 		
 
 		// get 
-		await _stitch.confirmEmail(token, tokenID)
-		.then((result) async
-		{
-			modal.addMessage(lang.getStr('done'));
-      		modal.showMessage();
-      		modal.doWaiting(false);
+		// await _stitch.confirmEmail(token, tokenID)
+		// .then((result) async
+		// {
+		// 	modal.addMessage(lang.getStr('done'));
+    //   		modal.showMessage();
+    //   		modal.doWaiting(false);
 
-			await Future.delayed(Duration(seconds: 1));
-      		Page.goToHome();
-		})
-		.catchError((result) {
-			modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
-      		modal.showMessage();
-      		modal.doWaiting(false);
-		});	
+		// 	await Future.delayed(Duration(seconds: 1));
+    //   		Page.goToHome();
+		// })
+		// .catchError((result) {
+		// 	modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
+    //   		modal.showMessage();
+    //   		modal.doWaiting(false);
+		// });	
 	}
 }

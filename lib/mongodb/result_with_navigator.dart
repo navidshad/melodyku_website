@@ -2,23 +2,22 @@
 library resultWithNavigator;
 
 import 'dart:async';
-import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
 
 enum GetType {mediaItems, favorites, history}
 
 class ResultWithNavigator<T>
 {
-  SC.Aggregate _aggregator; 
+  Aggregate _aggregator; 
 
   int _pages = 0;
   int _perPage;
   int _current = 0;
 
+  String database;
   String collection;
 
   bool hasMore = false;
@@ -104,16 +103,34 @@ class ResultWithNavigator<T>
     return piplines;
   }
 
+  Map getAccessQuery()
+  {
+    Map query = {};
+    
+    if(getType == GetType.favorites || getType == GetType.history)
+      query = { 'refId': Injector.get<UserService>().user.id };
+
+    return query;
+  }
+
   void initialize()
   {
+    // set database
+    if(getType == GetType.mediaItems)
+      database = 'media';
+    else database = 'user';
+
+    // set collection again
     if (getType == GetType.favorites)
       collection = 'song_favorite';
     else if (getType == GetType.history)
       collection = 'song_history';
 
-    _aggregator = SC.Aggregate(
+    _aggregator = Aggregate(
+      database: database,
       collection: collection, 
       pipline: getPiplines(),
+      accessQuery: getAccessQuery(),
       perPage: _perPage);
   }
 
@@ -138,7 +155,7 @@ class ResultWithNavigator<T>
     if(resetList) list = [];
 
     docs.forEach((doc) {
-      Map maped = convertToMap(js.jsify(doc), getDbFields<T>());
+      Map maped = validateFields(doc, getDbFields<T>());
       list.add(createItemFromDoc<T>(maped));
     });
 
@@ -164,8 +181,13 @@ class ResultWithNavigator<T>
         ids.add(doc['songId']);
       });
 
-    List<dynamic> docs = await Injector.get<StitchClonerService>()
-      .getByIds(collection: 'song', ids: ids, );
+    List<dynamic> docs = [];
+
+    if(ids.length > 0)
+    {
+      docs = await Injector.get<MongoDBService>()
+        .findByIds(database: 'media', collection: 'song', ids: ids);
+    }
 
     docs.sort((a, b)
     {

@@ -3,106 +3,132 @@ library userService;
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:convert';
 
-import 'package:melodyku/page/page.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
 import 'package:melodyku/user/user.dart';
-
-import 'stitch_service.dart';
 
 export 'package:melodyku/user/user.dart';
 export 'package:melodyku/core/types.dart';
 
 class UserService 
 {
-  StitchService _stitch;
-  User user;
-  //User get user => user;
+  AuthService auth;
+  
+  String token;
+  User _user;
+  User get user => _user;
 
   bool isLogedIn = false;
+  //bool get isLogedIn => _isLogedIn;
 
-  UserService(this._stitch);
+  UserService(this.auth);
 
-  void loginWithLastSession()
+  void _loginAnonymous() async
   {
-    if(_stitch.user == null) return;
+    token = await auth.loginAnonymous();
+    Map payload = await auth.varifyToken(token);
 
-    print('loginWithLastSession');
+    _loadUserFromPayload(payload);
+  }
 
-    String pName = _stitch.user.loggedInProviderName;
+  void _loadUserFromPayload(Map payload)
+  {
+    UserType type = User.getType(payload['type']);
+    _user = User(payload['id'], type: type, permissionId: payload['permission']);
 
-    print('pName $pName');
+    _saveSession(payload);
 
-    if(pName == 'api-key'){
-        user = User(_stitch.user.id, fullAccess: true);
-        isLogedIn = true;
-    }
-    else if(pName != 'anon-user') {
-      user = User(_stitch.user.id);
+    if(type == UserType.user)
       isLogedIn = true;
+  }
+
+  void _saveSession(Map payload)
+  {
+    window.localStorage['token'] = token;
+  }
+
+  void loginWithLastSession() async
+  {
+    bool hasStoredToken = window.localStorage.containsKey('token');
+    
+    if(!hasStoredToken)
+    {
+      _loginAnonymous();
+      return;
     }
+
+    try{
+
+        token = window.localStorage['token'];
+        Map payload = await auth.varifyToken(token);
+        _loadUserFromPayload(payload);
+
+      }catch(err)
+      {
+        print( '== LastSession error $err');
+        _loginAnonymous();
+      }
   }
 
-  Future<dynamic> login(String email, String password) async
+  Future<void> login({String identity, String identityType, String password}) async
   {
-    dynamic result;
-
-    await _stitch.loginWithEmailPassword(email, password)
-      .then((r)
+    auth.login(identity: identity, identityType: identityType, password: password)
+      .then((result) async
       {
-        result = r;
-        if(result['done']) {
-          isLogedIn = true;
-          user = User(_stitch.user.id, getDetail: true);
-        }
-      }).catchError((onError){
-        result = onError;
-      });
+        token = result;
+        Map payload = await auth.varifyToken(token);
 
-    return result;
+        _loadUserFromPayload(payload);
+      });
   }
 
-  Future<dynamic> loginWithAPIKey(String key) async
-  {
-    dynamic result;
+  // Future<dynamic> loginWithAPIKey(String key) async
+  // {
+  //   dynamic result;
 
-    await _stitch.loginWithAPIKey(key)
-      .then((r)
-      {
-        user = User(_stitch.user.id, fullAccess: true);
-        result = r;
-        if(result['done']) isLogedIn = true;
-      }).catchError((onError)
-      {
-        result = onError;
-      });
+  //   await _stitch.loginWithAPIKey(key)
+  //     .then((r)
+  //     {
+  //       user = User(_stitch.user.id, fullAccess: true);
+  //       result = r;
+  //       if(result['done']) isLogedIn = true;
+  //     }).catchError((onError)
+  //     {
+  //       result = onError;
+  //     });
 
-    return result;
-  }
+  //   return result;
+  // }
 
   void logout() async
   {
-    await promiseToFuture(_stitch.appClient.auth.logout())
-      .then((r) 
-      {
-        user = null;
-        isLogedIn = false;
+    // await promiseToFuture(_stitch.appClient.auth.logout())
+    //   .then((r) 
+    //   {
+    //     _user = null;
+    //     isLogedIn = false;
 
-        Page.goToHome();
-      });
+    //     Navigator.goToRawPath('/#');
+    //   });
+
+    _loginAnonymous();
+    isLogedIn = false;
   }
 
-  Future<dynamic> register(String email, String password) async
-  {
-    dynamic result = {'done':false, 'message':''};
+  // Future<dynamic> register(String email, String password) async
+  // {
+  //   dynamic result = {'done':false, 'message':''};
 
-    await _stitch.registerWithEmailPassword(email, password)
-    .then((r) {
-      result = r;
-    })
-    .catchError((onError){
-        result['message'] = onError;
-    });
+  //   await _stitch.registerWithEmailPassword(email, password)
+  //   .then((r) {
+  //     result = r;
+  //   })
+  //   .catchError((onError){
+  //       result['message'] = onError;
+  //   });
 
-    return result;    
-  }
+  //   return result;    
+  // }
 }

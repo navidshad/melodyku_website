@@ -4,7 +4,7 @@ library objectField;
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import 'package:melodyku/core/core.dart';
+import 'package:melodyku/mongodb/mongodb.dart';
 import 'package:melodyku/widgets/widgets.dart';
 
 @Component(

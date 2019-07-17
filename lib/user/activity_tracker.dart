@@ -1,9 +1,7 @@
 /// {@nodoc}
 library activityTracker;
 
-import 'package:js/js_util.dart' as js;
 import 'dart:async';
-import 'dart:html';
 
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
@@ -16,7 +14,7 @@ class ActivityTracker
 	//StitchService _stitch;
 	// RemoteMongoDatabase _userDB;
 
-	StitchClonerService _stitchCloner;
+	MongoDBService _mongodb;
 	String _userId;
 
 	int _todayPlayCount = 0;
@@ -27,7 +25,7 @@ class ActivityTracker
 		// _stitch = Injector.get<StitchService>();
 		// _userDB = _stitch.dbClient.db('user');
 
-		_stitchCloner = Injector.get<StitchClonerService>();
+		_mongodb = Injector.get<MongoDBService>();
 
 		_getTodayCount();
 	}
@@ -52,8 +50,7 @@ class ActivityTracker
 		// 	_todayPlayCount++;
 		// });
 
-		await _stitchCloner.insertOne(
-			collection: collName, doc: recentDoc)
+		await _mongodb.insertOne( database: 'user', collection: collName, doc: recentDoc)
 			.then((result) 
 			{
 				print('a played song has been reported');
@@ -73,7 +70,7 @@ class ActivityTracker
 
 		//count = await promiseToFuture(_userDB.collection(collName).count(js.jsify(query)));
 
-		count = await _stitchCloner.count(collection: collName, query: query);
+		count = await _mongodb.count(database: 'user', collection: collName, query: query);
 
 		// like
 		if(count == 0)
@@ -94,8 +91,7 @@ class ActivityTracker
 			// 	isTracked = true;
 			// });
 
-			await _stitchCloner.insertOne(
-			collection: collName, doc: recentDoc)
+			await _mongodb.insertOne(database: 'user', collection: collName, doc: recentDoc)
 			.then((result) 
 			{
 				print('a song has been liked');
@@ -112,8 +108,7 @@ class ActivityTracker
 			// })
 			// .catchError((error) => isTracked = true);
 
-			await _stitchCloner.removeOne(
-				collection: collName, query: query)
+			await _mongodb.removeOne(database: 'user', collection: collName, query: query)
 				.then((result) {
 					isTracked = false;
 					print('a played song has been unliked');
@@ -144,7 +139,7 @@ class ActivityTracker
 
 		//count = await promiseToFuture(collection.count(js.jsify(query)));
 
-		count = await _stitchCloner.count(collection: collName, query: query);
+		count = await _mongodb.count(database: 'user', collection: collName, query: query);
 
 		//print('=== count for song $id is $count');
 
@@ -155,11 +150,8 @@ class ActivityTracker
 
 	Future<void> _getTodayCount() async
 	{
-		print('=== _getTodayCount');
-
-		DateTime from = DateTime.now().toUtc();
-		from = from.subtract(Duration(hours: from.hour, minutes: from.minute, seconds: from.second));
-
+		DateTime from = getDate(DateTime.now().toUtc());
+	
 		dynamic pipeline = [
 			{
 				'\$match': {
@@ -170,17 +162,9 @@ class ActivityTracker
 			},
 		];
 
-		// await promiseToFuture(_userDB.collection('song_history').aggregate(js.jsify(pipeline)).asArray())
-		// .then((list) 
-		// {
-		// 	_todayPlayCount = list.length; 
-		// 	//print('=== _getTodayCount ${_todayPlayCount}');
-		// }).catchError((error) {
-		// 	print('=== _getTodayCount $error');
-		// });
-
-		await _stitchCloner.aggregate(
-			collection: 'song_history', piplines: pipeline)
+		Map accessQuery = {'refId': _userId};
+		await _mongodb.aggregate(
+			database: 'user', collection: 'song_history', piplines: pipeline, accessQuery: accessQuery)
 			.then((list) 
 			{
 				_todayPlayCount = list.length; 

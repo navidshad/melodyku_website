@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 import 'dart:async';
 
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/core/core.dart';
 
 
 @Component(
@@ -23,8 +24,9 @@ class CoverItemEditor implements OnInit
 {
 	final eventController = StreamController<bool>();
 	ContentProvider _contentProvider;
+	UserService _userService;
 
-	CoverItemEditor(this._contentProvider);
+	CoverItemEditor(this._contentProvider, this._userService);
 
 	void ngOnInit() async
 	{
@@ -71,12 +73,13 @@ class CoverItemEditor implements OnInit
 
 	    print('$type $id');
 
-	    String link = '${window.location.origin}/image/upload';
+	    String link = '${Vars.host}/image/upload';
 	    //String link = 'http://steryo.melodyku.com/image/upload';
 
 		final request = new HttpRequest();
 	    request.open('POST', link);
 	    request.setRequestHeader('orgine', window.location.origin);
+	    request.setRequestHeader('authorization', _userService.token);
 
 	    request.upload.onProgress
 	    	.listen((ProgressEvent e) {

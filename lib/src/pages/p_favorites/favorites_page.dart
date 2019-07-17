@@ -6,8 +6,6 @@ import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
-
 @Component(
   selector: 'page',
   templateUrl: 'favorites_page.html',
@@ -22,7 +20,7 @@ class FavoritesPage
   MessageService _messageService;
   PlayerService _playerService;
 
-  SC.ResultWithNavigator<Song> songNavigator;
+  ResultWithNavigator<Song> songNavigator;
 
   // constructor ==================================
   FavoritesPage(this.lang, this._messageService, this._userservice, this._playerService)
@@ -34,7 +32,7 @@ class FavoritesPage
       needLogedIn: true,
       title: 'favorites');
 
-    songNavigator = SC.ResultWithNavigator(getType: SC.GetType.favorites);
+    songNavigator = ResultWithNavigator(getType: GetType.favorites);
     songNavigator.loadNextPage();
   }
 

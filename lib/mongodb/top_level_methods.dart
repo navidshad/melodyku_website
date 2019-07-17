@@ -1,18 +1,7 @@
-/// {@nodoc}
-library mongo_utilities;
-
-import 'package:js/js_util.dart' as js;
-import 'js_interop.dart';
-
-import 'field.dart';
 import 'package:melodyku/core/injector.dart';
 import 'package:melodyku/services/services.dart';
 
-
-/// convert a js object into dart Map by providing an schema.
-/// 
-/// {@category mongo_stitch}
-Map convertToMap(dynamic jsObject, List<DbField> customFields)
+Map validateFields(dynamic opject, List<DbField> customFields)
 {
 
 	Map newObject = {};
@@ -20,7 +9,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 
 	//_id field
 	try{
-		dynamic id = js.getProperty(jsObject, '_id');
+		dynamic id = opject['_id'];
 		if(id != null) newObject['_id'] = id;
 	}catch(e){
 		print('_id catch | $e');
@@ -32,7 +21,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			dynamic value;
 
 			try {
-				value = js.getProperty(jsObject, field.key);
+				value = opject[field.key];
 			}catch(e){
 				//print('convertToMap forEach ${field.key} is null');
 			}
@@ -53,7 +42,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			// bool field
 			else if(field.dataType == DataType.bool) 
 			{
-				if(value.runtimeType == bool) newObject[field.key] = value;
+				if(value.runtimeType.toString() == 'bool') newObject[field.key] = value;
 				else {
 					try{
 						newObject[field.key] = bool.fromEnvironment(value.toString());
@@ -98,7 +87,7 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 
 				try{
 					value.forEach((element) {
-						Map newMember = convertToMap(element, field.subFields);
+						Map newMember = validateFields(element, field.subFields);
 						objectArray.add(newMember);
 					});
 				}catch(e){
@@ -112,10 +101,10 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			else if(field.dataType == DataType.object)
 			{
 				try{
-					newObject[field.key] = convertToMap(value, field.subFields);
+					newObject[field.key] = validateFields(value, field.subFields);
 				}catch(e){
 					//print('object field catch | key ${field.key}, value ${value}');
-					newObject[field.key] = convertToMap({}, field.subFields);
+					newObject[field.key] = validateFields({}, field.subFields);
 				}
 			}
 
@@ -123,8 +112,8 @@ Map convertToMap(dynamic jsObject, List<DbField> customFields)
 			else if(field.dataType == DataType.dateTime)
 			{
 				try{
-					JSDate jsDate = value; //JSDate(value.toString());
-					newObject[field.key] = jsDateToDateTime(jsDate);
+					DateTime date = DateTime.parse(value);
+					newObject[field.key] = date;
 				}catch(e){
 					//print('dateTime field catch | key ${field.key}, value ${value} $e');
 					newObject[field.key] = null;
@@ -153,24 +142,4 @@ Map getNavigatorDetail({int total=10, int page=1, int perPage=5})
 
 	Map result = {'pages': _total_pages, 'from':from, 'to':perPage};
 	return result;
-}
-
-/// convert a js Date into DateTime
-/// 
-/// {@category mongo_stitch}
-DateTime jsDateToDateTime(JSDate jsDate)
-{
-	DateTime dateTime = DateTime(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes());
-	return dateTime;
-}
-
-/// convert a DateTime object into js Date.
-/// 
-/// {@category mongo_stitch}
-JSDate dateTimeToJSDate(DateTime date)
-{
-	date = date.toUtc();
-	JSDate jsDate = JSDate(date.year, date.month, date.day, date.hour, date.minute, date.second);
-	//print('jsDate ${jsDate.toString()}');
-	return jsDate;
 }

@@ -22,13 +22,12 @@ class ArchiveCategoriesPage
   UserService _userservice;
   MessageService _messageService;
   CategoryService _categoryService;
-  StitchService _stitch;
 
   CollectionOptions catrgoryOptions;
   CollectionOptions groupOptions;
 
   // constructor ==================================
-  ArchiveCategoriesPage(this._categoryService, this._messageService, this._userservice, this._stitch)
+  ArchiveCategoriesPage(this._categoryService, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 

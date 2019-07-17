@@ -1,12 +1,13 @@
 import 'package:melodyku/core/core.dart';
-import 'package:melodyku/mongo_stitch/functions.dart';
 import 'package:melodyku/services/services.dart';
 
 class Aggregate 
 {
-	StitchClonerService stitchCloner;
+	MongoDBService _mongodb;
+  String database;
 	String collection;
 	List<Map> pipline;
+	Map accessQuery;
 
 	bool hasMore = false;
 	bool isInitialized = false;
@@ -16,9 +17,9 @@ class Aggregate
 	int page = 0;
 	int pages = 0;
 
-	Aggregate({this.collection, this.pipline=const[], this.perPage=20})
+	Aggregate({this.database, this.collection, this.pipline=const[], this.accessQuery=const{}, this.perPage=20})
 	{
-		stitchCloner = Injector.get<StitchClonerService>();
+		_mongodb = Injector.get<MongoDBService>();
 	}
 
 	Future<void> initialize() async
@@ -30,8 +31,8 @@ class Aggregate
 
 		countPipeline.insertAll(0, pipline);
 
-		await stitchCloner.aggregate(
-			collection: collection, piplines: countPipeline)
+		await _mongodb.aggregate( 
+			database: database, collection: collection, piplines: countPipeline, accessQuery: accessQuery)
 			.then((docs) 
 			{
 				if(docs.length > 0) totalItems = docs[0]['count'];
@@ -68,8 +69,7 @@ class Aggregate
 
 		List<dynamic> docs = [];
 
-		await stitchCloner.aggregate(
-			collection: collection, piplines: nextPipeline)
+		await _mongodb.aggregate( database: database, collection: collection, piplines: nextPipeline, accessQuery: accessQuery)
 			.then((list) => docs = list)
 			.catchError(_handleError);
 

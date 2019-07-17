@@ -4,21 +4,18 @@ library subscriptionService;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:js/js_util.dart' as js;
-
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/navigator.dart';
 import 'package:melodyku/core/system_schema.dart';
 
 class SubscriptionService
 {
-	StitchService _stitch;
-	StitchCatcherService _stitchCatcher;
+	MongoDBService _mongoDBService;
 	UserService _userService;
 	ModalService _modalService;
 	List<Map> _tariffs = [];
 
-	SubscriptionService(this._stitch, this._userService, this._modalService);
+	SubscriptionService(this._mongoDBService, this._userService, this._modalService);
 
 	Future<Map> getTariffById(dynamic id) async
 	{
@@ -43,20 +40,19 @@ class SubscriptionService
 		DateTime startsIn = DateTime.now().toUtc();
 		DateTime expiresIn = DateTime.now().add(Duration(days: daysDuration)).toUtc();
 
-		dynamic newUserSubscriptionPlane = {
+		Map newUserSubscriptionPlane = {
 			'refId'		: refId,
 			'plan'		: tariff['title'],
-			'startsIn'	: dateTimeToJSDate(startsIn),
-			'expiresIn'	: dateTimeToJSDate(expiresIn),
+			'startsIn'	: startsIn.toIso8601String(),
+			'expiresIn'	: expiresIn.toIso8601String(),
 		};
 
-		dynamic doc = js.jsify({ '\$set': newUserSubscriptionPlane});
-		dynamic query = js.jsify({'refId':refId});
+		dynamic doc = {'\$set': newUserSubscriptionPlane};
+		dynamic query = {'refId':refId};
 
-		RemoteMongoCollection coll = _stitch.dbClient.db('user').collection('subscription');
-		promiseToFuture(
-			coll.updateOne(query, doc, js.jsify({ 'upsert': true })))
-			.then((result)
+    _mongoDBService.updateOne(database: 'user', collection: 'subscription', 
+      query: query, update: doc, options: {'upsert': true})
+      .then((result)
 			{
 				print('### tariff ${tariff['title']} has been submitted for user.');
 				_userService.user.updateSubscription();
@@ -68,24 +64,12 @@ class SubscriptionService
 	{
 		if(_tariffs.length == 0)
 		{
-			// RemoteMongoCollection collection = _stitch.dbClient.db('cms').collection('tariffs');
-			// await promiseToFuture(collection.find().asArray())
-			// 	.then((result) 
-			// 	{
-			// 		result.forEach((doc) 
-			// 		{
-			// 			Map tariff = convertToMap(doc, SystemSchema.tariff);
-			// 			_tariffs.add(tariff);
-			// 		});
-			// 	})
-			// 	.catchError(_catchError);
-
-			await _stitchCatcher.getAll(collection: 'tariffs')
+			await _mongoDBService.find(database: 'cms', collection: 'tariff')
 				.then((result) 
 				{
 					result.forEach((doc) 
 					{
-						Map tariff = convertToMap(js.jsify(doc), SystemSchema.tariff);
+						Map tariff = validateFields(doc, SystemSchema.tariff);
 						_tariffs.add(tariff);
 					});
 				})

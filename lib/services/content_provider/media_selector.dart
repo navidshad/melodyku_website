@@ -2,19 +2,16 @@
 library StitchClonerArchive;
 
 import 'dart:async';
-import 'package:js/js_util.dart' as js;
-
 
 import 'package:melodyku/archive/archive.dart';
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 
-class StitchClonerArchive
+class MediaSelector
 {
-  StitchClonerService _stitchCloner;
+  MongoDBService _mongoDBService;
 
-  StitchClonerArchive(this._stitchCloner);
+  MediaSelector(this._mongoDBService);
 
   // methods
   Future<dynamic> getItemByID<T>(String id) async
@@ -25,11 +22,12 @@ class StitchClonerArchive
 
     T item;
 
-    await _stitchCloner.findOne(
+    await _mongoDBService.findOne(
+      database: 'media',
       collection: collection, query: { '_id': id })
       .then((doc) 
       {
-        Map convertedToMap = convertToMap(js.jsify(doc), dbFields);
+        Map convertedToMap = validateFields(doc, dbFields);
         item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap, dontGetSongs: false);
       })
       .catchError(_handleError);
@@ -38,9 +36,9 @@ class StitchClonerArchive
   }
 
   // artist -----------------------------------------------
-  Future<SC.ResultWithNavigator<Artist>> artist_getList(int page, {int total=15}) async
+  Future<ResultWithNavigator<Artist>> artist_getList(int page, {int total=15}) async
   {
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Artist>(perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Artist>(perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
@@ -48,21 +46,20 @@ class StitchClonerArchive
   }
 
   // album ------------------------------------------------
-  Future<SC.ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
+  Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
-    print('album_getListByArtist begin to get');
     Map query = {'artistId': artistId};
 
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Album>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Album>(customQuery: query, perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
 
-  Future<SC.ResultWithNavigator<Album>> album_getList(int page, {int total=15}) async
+  Future<ResultWithNavigator<Album>> album_getList(int page, {int total=15}) async
   {
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Album>(perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Album>(perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
@@ -78,12 +75,11 @@ class StitchClonerArchive
         }
       ];
 
-    await _stitchCloner.aggregate(
-      collection: 'album', piplines: pipeLine)
+    await _mongoDBService.aggregate(database:'media', collection: 'album', piplines: pipeLine)
       .then((docs) 
       {
         docs.forEach((doc) {
-          Map converted = convertToMap(js.jsify(doc), SystemSchema.album);
+          Map converted = validateFields(doc, SystemSchema.album);
           Album album = Album.fromjson(converted);
           albums.add(album);
         });
@@ -93,31 +89,31 @@ class StitchClonerArchive
   }
 
   // song ------------------------------------------------
-  Future<SC.ResultWithNavigator<Song>> song_getList({int page=1, int total=15}) async
+  Future<ResultWithNavigator<Song>> song_getList({int page=1, int total=15}) async
   {
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Song>(perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
 
-  Future<SC.ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
+  Future<ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
     Map query = {'artistId': artistId};
 
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Song>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
     return navigator;
   }
 
-  Future<SC.ResultWithNavigator<Song>> song_getListByAlbum(String albumId, {int page=1, int total=15}) async
+  Future<ResultWithNavigator<Song>> song_getListByAlbum(String albumId, {int page=1, int total=15}) async
   {
     Map query = {'albumId': albumId};
 
-    SC.ResultWithNavigator navigator = SC.ResultWithNavigator<Song>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
     await navigator.loadNextPage(goto: page);
 
@@ -135,18 +131,17 @@ class StitchClonerArchive
 
     playlist = Playlist.fromjson(playlistDetail);
 
-    dynamic pipeLine = [
+    List<Map> pipeLine = [
         {
           '\$sample': {'size': total}
         }
-      ];
+    ];
 
-    await _stitchCloner.aggregate(
-      collection: 'song', piplines: pipeLine)
+    await _mongoDBService.aggregate( database: 'media', collection: 'song', piplines: pipeLine)
       .then((docs) 
       {
         docs.forEach((doc) {
-          Map converted = convertToMap(js.jsify(doc), SystemSchema.song);
+          Map converted = validateFields(doc, SystemSchema.song);
           Song song = Song.fromjson(converted);
           playlist.list.add(song);
         });
@@ -156,7 +151,7 @@ class StitchClonerArchive
   }
 
   // playlist ---------------------------------------------
-  Future<SC.ResultWithNavigator> playlist_getList() async
+  Future<ResultWithNavigator> playlist_getList() async
   {
     // String url = '${link_archive}/playlist/all';
     // print('playlist_getList(), url: $url');
@@ -201,8 +196,7 @@ class StitchClonerArchive
   }
 
   // other methods ----------------------------------------
-  Exception _handleError(dynamic e) {
-    print(e); // for demo purposes only
-    return Exception('Server error; cause: $e');
+  void _handleError(dynamic e) {
+    print('Server error; cause: $e'); // for demo purposes only
   }
 }

@@ -23,7 +23,6 @@ class ArchiveAlbumPage implements OnActivate
   UserService _userservice;
   MessageService _messageService;
   CategoryService _categoryService;
-  StitchService _stitch;
 
   String albumID;
   List<DbField> languages = [];
@@ -32,7 +31,7 @@ class ArchiveAlbumPage implements OnActivate
   
 
   // constructor ==================================
-  ArchiveAlbumPage(this._categoryService, this._messageService, this.lang, this._userservice, this._stitch)
+  ArchiveAlbumPage(this._categoryService, this._messageService, this.lang, this._userservice)
   {
     _page = Page(
       userService: _userservice,

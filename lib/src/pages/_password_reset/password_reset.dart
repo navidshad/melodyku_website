@@ -26,7 +26,7 @@ class PasswordResetPage implements OnActivate
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  StitchService _stitch;
+  //StitchService _stitch;
 
   ModalService _modalService;
   Modal modal;
@@ -36,7 +36,7 @@ class PasswordResetPage implements OnActivate
   String tokenID;
 
   // constructor ==================================
-  PasswordResetPage(this.lang, this._messageService, this._userservice, this._stitch, this._modalService)
+  PasswordResetPage(this.lang, this._messageService, this._userservice, /*this._stitch,*/ this._modalService)
   {
     _page = Page(
       userService: _userservice, 
@@ -73,20 +73,20 @@ class PasswordResetPage implements OnActivate
   {
     modal.doWaiting(true);
 
-    _stitch.resetPassword(token, tokenID, newPass)
-    .then((result) async
-    {
-      modal.addMessage(lang.getStr('done'));
-      modal.showMessage();
-      modal.doWaiting(false);
+    // _stitch.resetPassword(token, tokenID, newPass)
+    // .then((result) async
+    // {
+    //   modal.addMessage(lang.getStr('done'));
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
 
-      await Future.delayed(Duration(seconds: 1));
-      Page.goToHome();
-    })
-    .catchError((result) {
-      modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
-      modal.showMessage();
-      modal.doWaiting(false);
-    }); 
+    //   await Future.delayed(Duration(seconds: 1));
+    //   Page.goToHome();
+    // })
+    // .catchError((result) {
+    //   modal.addMessage(lang.getStr('LinkInvalid'), color: 'red');
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
+    // }); 
   }
 }

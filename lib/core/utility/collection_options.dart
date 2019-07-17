@@ -3,8 +3,7 @@ library collectionOptions;
 
 import 'package:angular_router/angular_router.dart';
 
-import 'package:melodyku/mongo_stitch/field.dart';
-export 'package:melodyku/mongo_stitch/field.dart';
+import 'package:melodyku/mongodb/field.dart';
 
 class LinkButton 
 {

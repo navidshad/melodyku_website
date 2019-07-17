@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
+import 'package:melodyku/mongodb/mongodb.dart';
 
 @Component(
 	selector: 'multiselect-field',

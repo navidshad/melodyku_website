@@ -7,8 +7,6 @@ import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
-
 @Component(
   selector: 'page',
   templateUrl: 'artist_page.html',
@@ -28,7 +26,7 @@ class ArtistPage implements OnActivate
   ContentProvider _contentProvider;
 
   Artist artist;
-  SC.ResultWithNavigator<Song> topListNavigator;
+  ResultWithNavigator<Song> topListNavigator;
   List<Card> albums = [];
 
   // constructor ==================================
@@ -49,14 +47,14 @@ class ArtistPage implements OnActivate
     final id = current.parameters['id'];
 
     // get detail
-    artist = await _contentProvider.stitchClonerArchive.getItemByID<Artist>(id);
+    artist = await _contentProvider.mediaselector.getItemByID<Artist>(id);
 
     // get 10 song of artist
-    topListNavigator = await _contentProvider.stitchClonerArchive.song_getListByArtist(artist.id, page: 1, total: 10);
+    topListNavigator = await _contentProvider.mediaselector.song_getListByArtist(artist.id, page: 1, total: 10);
     topListNavigator.hasMore = false;
 
     // get albums
-    SC.ResultWithNavigator rAlbums = await _contentProvider.stitchClonerArchive.album_getListByArtist(artist.id);
+    ResultWithNavigator rAlbums = await _contentProvider.mediaselector.album_getListByArtist(artist.id);
     rAlbums.list.forEach((album) {
       albums.add(album.getAsWidget<Card>());
     });

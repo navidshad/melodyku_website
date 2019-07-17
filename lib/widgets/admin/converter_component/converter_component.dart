@@ -23,7 +23,7 @@ import 'package:melodyku/archive/archive.dart';
 class ConverterComponent 
 {
 	LanguageService lang;
-	StitchService _stitch;
+	MongoDBService _mongodb;
 	IO.Socket socket;
 
 	ResultWithNavigator<Song> navigator;
@@ -32,7 +32,7 @@ class ConverterComponent
 	String selectedPreset;
 	bool isConverting = false;
 
-	ConverterComponent(this.lang, this._stitch)
+	ConverterComponent(this.lang, this._mongodb)
 	{
 		navigator = ResultWithNavigator<Song>(perPage: 10);
 		_getPresets();
@@ -41,12 +41,11 @@ class ConverterComponent
 
 	void _getPresets() async
 	{
-		RemoteMongoCollection presetColl = _stitch.dbClient.db('cms').collection('convert_preset');
-		promiseToFuture(presetColl.find().asArray())
+		_mongodb.find(database: 'cms', collection: 'convert_preset')
 			.then((dynamic docs) 
 			{
 				docs.forEach((dynamic doc) {
-					Map converted = convertToMap(doc, SystemSchema.convert_preset);
+					Map converted = validateFields(doc, SystemSchema.convert_preset);
 					DbField field = DbField(converted['title'], strvalue: converted['title']);
 					presets.add(field);
 				});

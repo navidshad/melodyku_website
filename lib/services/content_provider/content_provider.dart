@@ -1,8 +1,7 @@
 /// {@nodoc}
 library contentProvider;
 
-import 'stitch_archive.dart';
-import 'stitch_cloner_archive.dart';
+import 'media_selector.dart';
 import 'assets.dart';
 
 import 'package:melodyku/services/services.dart';
@@ -10,16 +9,12 @@ import 'package:melodyku/core/core.dart';
 
 class ContentProvider 
 {
-  StitchArchive stitchArchive;
-  StitchClonerArchive stitchClonerArchive;
+  MediaSelector mediaselector;
 
 
-	ContentProvider(StitchService stitch, StitchClonerService stitchCloner)
+	ContentProvider(MongoDBService mongoService)
 	{
-		stitchArchive = StitchArchive(stitch);
-		stitchClonerArchive = StitchClonerArchive(stitchCloner);
-
-		//print('ContentProvider constructor, $stitchArchive');
+		mediaselector = MediaSelector(mongoService);
 	}
 
 	String getImage({

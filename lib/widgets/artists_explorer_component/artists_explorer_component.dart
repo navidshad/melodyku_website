@@ -10,8 +10,6 @@ import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'characters.dart';
 
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
-
 @Component(
 	selector: 'artist-explorer',
 	templateUrl: 'artists_explorer_component.html',
@@ -28,7 +26,7 @@ class ArtistsExplorerComponent
 	int _perPage = 20;
 
 	List<Card> artistCards = [];
-	SC.Aggregate agregator;
+	Aggregate agregator;
 	
 
 	LanguageService lang;
@@ -65,7 +63,8 @@ class ArtistsExplorerComponent
 
 	void getArtists() async
 	{
-		agregator = SC.Aggregate(
+		agregator = Aggregate(
+      database: 'media',
 			collection: 'artist', 
 			pipline: [getMatchStage()], 
 			perPage: _perPage);
@@ -80,7 +79,7 @@ class ArtistsExplorerComponent
 
 		artistDocs.forEach((doc) 
 			{
-				Map map = convertToMap(js.jsify(doc), SystemSchema.artist);
+				Map map = validateFields(doc, SystemSchema.artist);
 				Artist artist = Artist.fromjson(map);
 				artistCards.add(artist.getAsWidget<Card>());
 			});

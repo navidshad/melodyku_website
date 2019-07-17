@@ -3,16 +3,12 @@ library dbcollectionItemEditor;
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'dart:html';
 import 'dart:async';
-
-import 'package:js/js_util.dart' as js;
 
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
-import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 
 @Component(
 	selector: 'db-collection-item-editor',
@@ -32,16 +28,11 @@ import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 class DbCollectionItemEditorComponent
 {
 	final eventController = StreamController<bool>();
-	ModalService _modalService;
-  	Modal modal;
+  Modal modal;
 
-	StitchService _stitch;
-	RemoteMongoCollection _collection;
+  MongoDBService _mongodb;
 
-	DbCollectionItemEditorComponent(this._stitch, this._modalService)
-	{
-		print('DbCollectionItemEditorComponent constructor');
-	}
+	DbCollectionItemEditorComponent(this._mongodb);
 
 	Map editable;
 	CollectionOptions op;
@@ -60,8 +51,6 @@ class DbCollectionItemEditorComponent
 		else if(options.id != null) 	getItem();
 
 		if(op.createNew) changeMode(false);
-
-		_collection = _stitch.dbClient.db(op.database).collection(op.collection);
 		print('=== end to get options');
 	}
 
@@ -76,23 +65,29 @@ class DbCollectionItemEditorComponent
 
 		print('getting item, ${op.id.toString()}');
 
+		// create update query
+		Map query = {'_id': op.id};
+
+		if(op.query != null)
+			query.addAll(op.query);
+
 		// get by aggregate
-		await promiseToFuture(_stitch.appClient.callFunction('getById', [op.database, op.collection, op.id.toString()]))
-		.then((document) 
-		{
-			// List<String> keies = getKeies(document, removes: ['_id']);
-			// if(fields.length == 0) fields = keies;
-			//print('gotten item, $document');
-			setNewEditable(document);
-			
-		}).catchError(_catchError);
+    await _mongodb.findOne(database: op.database, collection: op.collection, query: query)
+      .then((document) 
+      {
+        // List<String> keies = getKeies(document, removes: ['_id']);
+        // if(fields.length == 0) fields = keies;
+        //print('gotten item, $document');
+        setNewEditable(document);
+        
+      }).catchError(_catchError);
 
 		//print('item gotten, ${editable}');
 	}
 
-	void setNewEditable(dynamic doc) {
-		log(doc);
-		editable = convertToMap(doc, op.dbFields);
+	void setNewEditable(dynamic doc) 
+  {
+		editable = validateFields(doc, op.dbFields);
 		op.id = editable['_id'];
 	}
 
@@ -100,12 +95,9 @@ class DbCollectionItemEditorComponent
 	{
 		isUpdating = true;
 
-		dynamic newItem = js.jsify(editable);
-
-		await promiseToFuture(_collection.insertOne(newItem))
+		await _mongodb.insertOne(database: op.database, collection: op.collection, doc: editable)
 		.then((d)
 		{
-			log(d);
 			getItem();
 			changeMode(false);
 
@@ -122,7 +114,10 @@ class DbCollectionItemEditorComponent
 		isUpdating = true;
 
 		// create update query
-		dynamic query = js.jsify({'_id': editable['_id']});
+		Map query = {'_id': editable['_id']};
+
+		if(op.query != null)
+			query.addAll(op.query);
 
 		// remove id
 		editable.remove('_id');
@@ -130,17 +125,17 @@ class DbCollectionItemEditorComponent
 		print('updating $editable');
 		
 		// create update option
-		dynamic update = js.jsify({ '\$set': editable });
+		Map update = { '\$set': editable };
 
-		await promiseToFuture(_collection.updateOne(query, update))
-		.then((d)
-		{
-			log(d);
-			getItem();
-			changeMode(false);
-			eventController.add(true);
-		})
-		.catchError(_catchError);
+		await _mongodb.updateOne(database: op.database, collection: op.collection, 
+      query: query, update: update)
+      .then((d)
+      {
+        getItem();
+        changeMode(false);
+        eventController.add(true);
+      })
+      .catchError(_catchError);
 
 		isUpdating = false;
 		viewMode = true;
@@ -153,16 +148,15 @@ class DbCollectionItemEditorComponent
 		//print('deleting ${editable['_id']}');
 
 		// create update query
-		dynamic query = js.jsify({'_id': editable['_id']});
+		Map query = {'_id': editable['_id']};
 
-		await promiseToFuture(_collection.deleteOne(query))
-		.then((d)
-		{
-			log(d);
-			getItem();
-			eventController.add(true);
-		})
-		.catchError(_catchError);
+		await _mongodb.removeOne(database: op.database, collection: op.collection, query: query)
+      .then((d)
+      {
+        getItem();
+        eventController.add(true);
+      })
+      .catchError(_catchError);
 	}
 
 	void _catchError(error){

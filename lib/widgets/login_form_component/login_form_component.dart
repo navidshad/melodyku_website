@@ -24,7 +24,6 @@ class LoginFormComponent
   LanguageService lang;
   UserService _userService;
   ModalService _modalService;
-  StitchService _stitch;
   Modal modal;
 
   bool isVisible = false;
@@ -37,13 +36,7 @@ class LoginFormComponent
   String errorMessage;
 
   // constructor --------------------------------
-  LoginFormComponent(this.lang, this._userService, this._modalService, this._stitch)
-  {
-    window.onKeyPress.listen((KeyboardEvent e)
-    {
-      //if(e.key == 'k') activeForm = (activeForm != 'apikey') ? 'apikey' : 'login';
-    });
-  }
+  LoginFormComponent(this.lang, this._userService, this._modalService);
 
   // get and register modal to modal Manager
   void getElement(Element el) 
@@ -67,19 +60,18 @@ class LoginFormComponent
   {
     
     modal.doWaiting(true);
-    dynamic result = await _userService.login(email, password);
+    
+    await _userService.login(identity: email, identityType: 'phone', password: password)
+      .then((r) { modal.close(); })
+      .catchError((e) => errorMessage = 'wrong phone or password');
 
-    if(result['done']) modal.close();
-    else {
-      errorMessage = result['message'];
-      modal.doWaiting(false);
-    }
+    modal.doWaiting(false);
   }
 
   void loginWithAPIKey() async
   {
     modal.doWaiting(true);
-    dynamic result = await _userService.loginWithAPIKey(apikey);
+    dynamic result;// = await _userService.loginWithAPIKey(apikey);
 
     if(result['done']) modal.close();
     else {
@@ -91,7 +83,7 @@ class LoginFormComponent
   void register() async
   {
     modal.doWaiting(true);
-    dynamic result = await _userService.register(email, password);
+    dynamic result;// = await _userService.register(email, password);
 
     if(result['done']) {
       modal.addMessage(lang.getStr('userCreated'), color:'yellow');
@@ -107,37 +99,37 @@ class LoginFormComponent
   {
     modal.doWaiting(true);
 
-    _stitch.sendResetPasswordEmail(email)
-    .then((result) 
-    {
-      modal.addMessage(lang.getStr('resetLinkSent'), color: 'yellow');
-      modal.showMessage();
-      modal.doWaiting(false);
-    })
-    .catchError((result)
-    {
-      modal.addMessage(result['message'], color:'red');
-      modal.showMessage();
-      modal.doWaiting(false);
-    });
+    // _mongodb.sendResetPasswordEmail(email)
+    // .then((result) 
+    // {
+    //   modal.addMessage(lang.getStr('resetLinkSent'), color: 'yellow');
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
+    // })
+    // .catchError((result)
+    // {
+    //   modal.addMessage(result['message'], color:'red');
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
+    // });
   }
 
   void sendEmailConfirmation()
   {
     modal.doWaiting(true);
     
-    _stitch.resendConfirmationEmail(email)
-    .then((result) 
-    {
-      modal.addMessage(lang.getStr('confirmationSent'), color: 'yellow');
-      modal.showMessage();
-      modal.doWaiting(false);
-    })
-    .catchError((result)
-    {
-      modal.addMessage(result['message'], color:'red');
-      modal.showMessage();
-      modal.doWaiting(false);
-    });
+    // _mongodb.resendConfirmationEmail(email)
+    // .then((result) 
+    // {
+    //   modal.addMessage(lang.getStr('confirmationSent'), color: 'yellow');
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
+    // })
+    // .catchError((result)
+    // {
+    //   modal.addMessage(result['message'], color:'red');
+    //   modal.showMessage();
+    //   modal.doWaiting(false);
+    // });
   }
 }

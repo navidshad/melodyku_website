@@ -1,80 +1,39 @@
 /// {@nodoc}
 library permission;
 
-import 'package:melodyku/core/types.dart';
+import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
 
-class Permission {
-  dynamic id;
-  String title;
-  bool isDefault;
-  bool customer_access;  
-  bool archive_manager;
-  bool categorizing;
-  bool user_manager;
-  bool quality_management;
-  bool advanced_settings;
+class Permission 
+{
+  String id;
+  bool customer_access = false;  
+  bool anonymous_access = false;  
+  bool archive_manager = false;
+  bool categorizing = false;
+  bool user_manager = false;
+  bool quality_management = false;
+  bool advanced_settings = false;
 
-  Permission({
-    this.id,
-    this.title,
-    this.isDefault,
-    this.customer_access,     
-    this.archive_manager,
-    this.categorizing,
-    this.user_manager,
-    this.quality_management,
-    this.advanced_settings
-    });
-
-  factory Permission.fromJson(dynamic detail)
+  Permission(this.id)
   {
-    Permission p;
-    try
-    {
-      p = Permission(
-        id                : detail['_id'],
-        title             : detail['title'],
-        isDefault         : detail['isDefault'],
-        advanced_settings : detail['advanced_settings'],
-        categorizing      : detail['categorizing'],
-        archive_manager   : detail['archive_manager'],
-        customer_access   : detail['customer_access'],        
-        quality_management: detail['quality_management'],
-        user_manager      : detail['user_manager'],
-      );
-
-    } catch (e) {
-      print('$e | $detail');
-    }
-
-    return p;
+    getPermission();
   }
 
-  factory Permission.fullaccess()
+  void getPermission()
   {
-    return Permission(
-        advanced_settings : true,
-        isDefault         : false,
-        categorizing      : true,
-        archive_manager   : true,
-        customer_access   : true,        
-        quality_management: true,
-        user_manager      : true,
-      );
-  }
-
-  factory Permission.lessAccess()
-  {
-    return Permission(
-        title: '',
-        advanced_settings : false,
-        isDefault         : false,
-        categorizing      : false,
-        archive_manager   : false,
-        customer_access   : false,        
-        quality_management: false,
-        user_manager      : false,
-      );
+    AuthService _auth  = Injector.get<AuthService>();
+    _auth.getPermission(id)
+      .then((permission) 
+      {
+        customer_access   = permission['customer_access'];  
+        anonymous_access  = permission['anonymous_access'];  
+        archive_manager   = permission['archive_manager'];
+        categorizing      = permission['categorizing'];
+        user_manager      = permission['user_manager'];
+        quality_management  = permission['quality_management'];
+        advanced_settings   = permission['advanced_settings'];
+      });
   }
 
   // compare two permission class
@@ -96,6 +55,7 @@ class Permission {
   bool hasAccess(PermissionType type)
   {
     bool has = false;
+
     switch (type) {
       case PermissionType.customer_access:
         has = customer_access;

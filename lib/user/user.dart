@@ -14,6 +14,8 @@ export 'activity_tracker.dart';
 export 'permission.dart';
 export 'subscription.dart';
 
+enum UserType {user, anonymous}
+
 class User 
 {
   Permission _permission;
@@ -22,6 +24,8 @@ class User
   Subscription _subscription;
   Subscription get subscription => _subscription;
 
+  UserType type;
+
   String id;
   dynamic detailId;
   String permissionId;
@@ -29,56 +33,36 @@ class User
   String email;
   String imgStamp;
 
-  User(id, {
-    this.detailId, 
-    bool fullAccess= false, 
-    bool getDetail=true,
+  User(String id, {
+    this.type,
     this.permissionId,
-    this.fullname,
-    this.email,
-    this.imgStamp,
+    bool getDetail=true,
     })
   {
-    this.id = id.toString();
+    this.id = id;
 
-    if(fullAccess) 
+    if(getDetail) getData();
+
+    if(type == UserType.user)
     {
-      _permission = Permission.fullaccess();
-      fullname = 'Administrator';
+      _permission = Permission(permissionId);
+      _subscription = Subscription(id);
+      traker = ActivityTracker(id);
     }
-    else if(getDetail) getData();
-
-    _subscription = Subscription(id);
-    traker = ActivityTracker(id);
   }
 
-  // factory User.fromJson(Map detail)
-  // {
-  //   User p;
-
-  //   print('user $detail');
-
-  //   try{
-  //     p = User(
-  //       detail['refId'].toString(),
-  //       detailId: detail['_id'],
-  //       permissionId : detail['permissionId'],
-  //       email : detail['email'],
-  //       fullname : detail['fullname'],
-  //       imgStamp : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
-  //     );
-  //   }
-  //   catch(e){
-  //     print('User.fromJson | $e');
-  //   }
-
-  //   return p;
-  // }
+  static UserType getType(String type)
+  {
+    if(type == 'user') return UserType.user;
+    else return UserType.anonymous;
+  }
 
   bool hasAccess(PermissionType type) 
   {
     bool access = false;
-    if(_permission != null) access = _permission.hasAccess(type);
+    if(_permission != null) 
+      access = _permission.hasAccess(type);
+
     return access;
   }
 
@@ -90,27 +74,24 @@ class User
 
   void getData() async
   {
-    StitchService stitch = Injector.get<StitchService>();
-    RemoteMongoDatabase userDB = stitch.dbClient.db('user');
-
-    //get detail
-    dynamic detailQuery = js.jsify({'refId': id});
-
-    Future userDetailRequest = promiseToFuture(userDB.collection('detail').find(detailQuery).first());
+    MongoDBService mongodb = Injector.get<MongoDBService>();
+    dynamic detailQuery = {'refId': id};
     
-    await stitch.requestByQueue(userDetailRequest)
+    await mongodb.findOne(database: 'user', collection: 'detail', query: detailQuery)
     .then((doc)
     {
       // reget data, this is for first login affter registeration.
       // because user data is created affter first login.
-      if(doc == null) getData();
+      if(doc == null) {
+        getData();
+        return;
+      }
 
-      Map converted = convertToMap(doc, SystemSchema.userDetail);
+      Map converted = validateFields(doc, SystemSchema.userDetail);
       //print('user detail | $converted');
 
       detailId = converted['_id'];
       fullname = converted.containsKey('fullname') ? converted['fullname'] : '';
-      permissionId = converted['permissionId'];
       email = converted['email'];
       imgStamp = converted['imgStamp'];
 
@@ -127,14 +108,14 @@ class User
     //   _permission = Permission.fromJson(pDetail);
     // }).catchError(_catchError);
 
-    StitchCatcherService stitchCatcher = Injector.get<StitchCatcherService>();
-      stitchCatcher.getById(collection: 'permission', id: permissionId)
-      .then((doc) 
-      {
-        //print('user permission | $doc');
-        dynamic pDetail = convertToMap(js.jsify(doc), SystemSchema.permission);
-        _permission = Permission.fromJson(pDetail);
-      }).catchError(_catchError);
+    // StitchCatcherService stitchCatcher = Injector.get<StitchCatcherService>();
+    //   stitchCatcher.getById(collection: 'permission', id: permissionId)
+    //   .then((doc) 
+    //   {
+    //     //print('user permission | $doc');
+    //     dynamic pDetail = convertToMap(js.jsify(doc), SystemSchema.permission);
+    //     _permission = Permission.fromJson(pDetail);
+    //   }).catchError(_catchError);
   }
 
   String getImage()

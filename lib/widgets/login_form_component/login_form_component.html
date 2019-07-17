@@ -9,97 +9,43 @@
             </div>
 
             <!-- forms -->
-            <div class="w3-container w3-half">
+            <div class="w3-container w3-half ">
 
-                <div>
-                    <!-- login -->
-                    <h5 *ngIf="activeForm == 'login'" >{{lang.getStr('loginToAccount')}}</h5>
-                    <!-- register -->
-                    <h5 *ngIf="activeForm == 'register'" >{{lang.getStr('createAccount')}}</h5>
-                    
-                    <!-- error -->
-                    <div *ngIf="errorMessage != null" style="color: red">
-                        <p>{{errorMessage}}</p>
+                <!-- login form -->
+                <div class="login flex-column flex-center">
+                    <div>
+                        <h5 *ngIf="activeForm == 'login'" >
+                            {{lang.getStr('loginToAccount')}}
+                        </h5>
                     </div>
 
-                    <!-- form -->
-                    <form id="login-from">
+                    <!-- identity -->
+                    <div class="full-wide">
+                        <input dir="ltr" [(ngModel)]="email" 
+                                class="input-text input-wide" name="identity" type="text" placeholder="{{lang.getStr('phone')}}">
+                    </div>
 
-                        <!-- email -->
-                        <div *ngIf="activeForm != 'apikey'" class="w3-row w3-section group">
-                            <div class="w3-col icon" style="width:50px">
-                                <img src="/assets/svg/icon_email.svg">
-                            </div>
-                            <div class="w3-rest w3-mobile">
-                                <input dir="ltr" [(ngModel)]="email" 
-                                    class="w3-input w3-round" name="email" type="text" placeholder="{{lang.getStr('email')}}">
-                            </div>
-                        </div>
-            
-                        <!-- password -->
-                        <div *ngIf="activeForm == 'login' || activeForm == 'register'"
-                            class="w3-row w3-section group">
-                            <div class="w3-col icon" style="width:50px">
-                                <img src="/assets/svg/icon_lock.svg" alt="">
-                            </div>
-                            <div class="w3-rest w3-mobile">
-                                <input dir="ltr" [(ngModel)]="password"
-                                    class="w3-input w3-round" name="password" type="password" placeholder="{{lang.getStr('password')}}">
-                            </div>
-                        </div>
+                    <!-- password -->
+                    <div class="full-wide">
+                        <input dir="ltr" [(ngModel)]="password"
+                                class="input-text input-wide" name="password" type="password" placeholder="{{lang.getStr('password')}}">
+                    </div>
 
-                        <!-- api key -->
-                        <div *ngIf="activeForm == 'apikey'" class="w3-row w3-section group">
-                            <div class="w3-col" style="width:50px">
-                                <img src="/assets/svg/icon_lock.svg" alt="">
-                            </div>
-                            <div class="w3-rest w3-mobile">
-                                <input [(ngModel)]="apikey"
-                                    class="w3-input w3-round" name="apikey" type="password" placeholder="enter your api key">
-                            </div>
-                        </div>
-                    </form>
+                    <!-- btn -->
+                    <div class="btn-sl margin-h-20" 
+                        (click)="login()">{{lang.getStr('login')}}</div>
 
-                    <div class="">
-                        <!-- login -->
-                        <div *ngIf="activeForm == 'login'"  
-                            class="btn-sl w3-mobile" 
-                            (click)="login()">{{lang.getStr('login')}}</div>
-
-                        <!-- reset password -->
-                        <div *ngIf="activeForm == 'resetPassword'"  
-                            class="btn-sl w3-mobile" 
-                            (click)="sendResetLink()">{{lang.getStr('getResetLink')}}</div>
-
-                        <!-- resend email confirmation -->
-                        <div *ngIf="activeForm == 'confirmation'"  
-                            class="btn-sl w3-mobile" 
-                            (click)="sendEmailConfirmation()">{{lang.getStr('getConfirmation')}}</div>
-
-                        <!-- register -->
-                        <div *ngIf="activeForm == 'register'"
-                            class="btn-sl w3-mobile" 
-                            (click)="register()">{{lang.getStr('register')}}</div>
-
-                        <!-- login with APIKEY -->
-                        <div *ngIf="activeForm == 'apikey'"  
-                            class="btn-sl w3-mobile" 
-                            (click)="loginWithAPIKey()">{{lang.getStr('login')}}</div>
-
+                    <!-- alternatives -->
+                    <div class="alternatives">
                         <ul class="alternatives">
-                            <li class="pointer" *ngIf="activeForm == 'login'"
-                                (click)="switchForm('register')">{{lang.getStr('register')}}</li>
-
-                            <li class="pointer" *ngIf="activeForm != 'login'"
-                                (click)="switchForm('login')">{{lang.getStr('loginHere')}}</li>
-                        </ul>
-
-                        <ul class="alternatives">
+                            <li class="pointer" (click)="switchForm('register')">{{lang.getStr('register')}}</li>
                             <li class="pointer" (click)="switchForm('resetPassword')">{{lang.getStr('forgotPassword')}}</li>
                             <li class="pointer" (click)="switchForm('confirmation')">{{lang.getStr('sendConfirmation')}}</li>
                         </ul>
                     </div>
+
                 </div>
+
             </div>
             <!-- end forms -->
         </div>

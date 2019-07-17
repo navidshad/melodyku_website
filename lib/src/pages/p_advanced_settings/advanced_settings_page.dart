@@ -10,7 +10,6 @@ import 'package:melodyku/widgets/widgets.dart';
   templateUrl: 'advanced_settings_page.html',
   styleUrls: [ 'advanced_settings_page.css' ],
   directives: [
-    mediaLanguageSettingsComponent,
     DbCollectionTableEditorComponent,
     TariffManagerComponent,
   ]

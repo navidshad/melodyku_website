@@ -23,16 +23,21 @@ class ProfileEditor
 	CollectionOptions options;
 
 	String id;
+	Map<String, dynamic> accesQuery;
   	String type;
 
 	ProfileEditor(this._userService)
 	{
-		print('_userService.user.detailId ${_userService.user.detailId}');
+		print('_userService.user.id ${_userService.user.id}');
+
+		// this query is for to aacess only own data from server.
+		accesQuery = { 'refId': _userService.user.id };
 
 		options = CollectionOptions(
 			title: 'acountDetail',
 			database: 'user',
 			collection: 'detail',
+			query: accesQuery,
 			id: _userService.user.detailId,
 			dbFields: SystemSchema.userDetail,
 			hasCover: false,

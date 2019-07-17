@@ -1,7 +1,6 @@
 /// {@nodoc}
 library languageService;
 
-import 'package:js/js_util.dart' as js;
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/language/language_strings.dart';
 import 'package:melodyku/services/services.dart';
@@ -12,11 +11,11 @@ class LanguageService
   List<Language> _languageList;
   List<Map> languageDocs = [];
   //StitchService _stitch;
-  StitchCatcherService _stitchCatcher;
+  MongoDBService _mongodb;
 
   bool loaded = false;
 
-  LanguageService(this._stitchCatcher) 
+  LanguageService(this._mongodb) 
   {
     _languageList = [];
     getLanguages();
@@ -81,7 +80,7 @@ class LanguageService
       if(ld['isDefault']) 
         _current = _languageList.length-1;
     }
-
+    
     loaded = true;
   }
 
@@ -105,27 +104,12 @@ class LanguageService
 
   void getLanguages() async
   {
-    //dynamic query = js.jsify({'isActive': true});
-    // Future request = promiseToFuture(_stitch.dbClient.db('cms').collection('language_config').find().asArray());
-
-    // await _stitch.requestByQueue(request)
-    //   .then((list) 
-    //   {
-    //       //print('prepareOptions got languages ${list.length}');
-    //       list.forEach((jsDoc) 
-    //       {
-    //           Map doc = convertToMap(jsDoc, SystemSchema.language);
-    //           languageDocs.add(doc);
-    //       });
-    //   });
-
-    await _stitchCatcher.getAll(collection: 'language_config')
+    await _mongodb.find(database: 'cms', collection: 'language_config')
         .then((list) 
         {
-            print('prepareOptions got languages ${list.length}');
             list.forEach((doc) 
             {
-                Map converted = convertToMap(js.jsify(doc), SystemSchema.language);
+                Map converted = validateFields(doc, SystemSchema.language);
                 languageDocs.add(converted);
             });
         });

@@ -1,7 +1,7 @@
 /// {@nodoc}
 library systemSchema;
 
-import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
+import 'package:melodyku/mongodb/mongodb.dart';
 
 class SystemSchema
 {
@@ -32,7 +32,7 @@ class SystemSchema
 		DbField('size', dataType: DataType.float),
 		DbField('duration', dataType: DataType.float),
 		DbField('bitrate', dataType: DataType.int),
-		DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+		//DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> song = 
@@ -128,10 +128,12 @@ class SystemSchema
 	[
 		DbField('title'),
 		DbField('isDefault', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('isAnonymous', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('advanced_settings', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('categorizing', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('archive_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('customer_access', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('anonymous_access', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('quality_management', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('user_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
@@ -140,9 +142,7 @@ class SystemSchema
 	static List<DbField> userDetail = 
 	[
 		DbField('refId', isHide: true, isDisable: true),
-		DbField('permissionId', isHide: true, fieldType: FieldType.select),
 		DbField('fullname'),
-		DbField('email', isDisable: true),
 		DbField('imgStamp', isHide:true, isDisable: true),		
 	];
 

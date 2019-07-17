@@ -44,6 +44,6 @@ class AlbumPage implements OnActivate
     final id = current.parameters['id'];
 
     // get album
-    album = await _contentProvider.stitchClonerArchive.getItemByID<Album>(id);
+    album = await _contentProvider.mediaselector.getItemByID<Album>(id);
   }
 }

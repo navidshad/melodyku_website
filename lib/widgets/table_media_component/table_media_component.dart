@@ -8,8 +8,6 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 
-import 'package:melodyku/stitch_cloner/stitch_cloner.dart' as SC;
-
 @Component(
   selector: 'table-media',
   templateUrl: 'table_media_component.html',
@@ -30,7 +28,7 @@ class TableSong
   TableSong(this.lang, this._playerService, this._player);
 
   @Input('songNavigator')
-  SC.ResultWithNavigator<Song> navigator;
+  ResultWithNavigator<Song> navigator;
 
   @Input()
   bool hideMore;

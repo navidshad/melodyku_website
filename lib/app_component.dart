@@ -21,14 +21,13 @@ import 'package:melodyku/core/injector.dart' as CI;
     PlayerBareComponent,
   ],
   providers: const [
-    ClassProvider(StitchService),
-    ClassProvider(StitchClonerService),
-    ClassProvider(StitchCatcherService),
+    ClassProvider(AuthService),
+    ClassProvider(UserService),
+    ClassProvider(MongoDBService),
     ClassProvider(AnalyticService),
     ClassProvider(LanguageService),
     ClassProvider(CategoryService),
     ClassProvider(MessageService),
-    ClassProvider(UserService),
     ClassProvider(ContentProvider),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
@@ -41,16 +40,15 @@ import 'package:melodyku/core/injector.dart' as CI;
 class AppComponent
 {
   
-  AppComponent( StitchService stitch, StitchClonerService stitchCloner, StitchCatcherService stitchCatcher, 
+  AppComponent(  MongoDBService mongodb, AuthService auth,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
   {
 
     // register this userService into Injectory.
     CI.Injector.register(CI.InjectorMember('AnalyticService', ga));
-    CI.Injector.register(CI.InjectorMember('StitchService', stitch));
-    CI.Injector.register(CI.InjectorMember('StitchClonerService', stitchCloner));
-    CI.Injector.register(CI.InjectorMember('StitchCatcherService', stitchCatcher));
+    CI.Injector.register(CI.InjectorMember('AuthService', auth));
+    CI.Injector.register(CI.InjectorMember('MongoDBService', mongodb));
     CI.Injector.register(CI.InjectorMember('LanguageService', lang));
     CI.Injector.register(CI.InjectorMember('CategoryService', cats));
     CI.Injector.register(CI.InjectorMember('UserService', us));

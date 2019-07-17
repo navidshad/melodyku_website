@@ -20,10 +20,9 @@ class SubscriptionPage
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  StitchService _stitchService;
 
   // constructor ==================================
-  SubscriptionPage(this._stitchService, this._messageService, this._userservice)
+  SubscriptionPage(this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 

@@ -9,7 +9,6 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
-import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 
 @Component(
 	selector: 'search',
@@ -25,9 +24,9 @@ import 'package:melodyku/mongo_stitch/mongo_stitch.dart';
 class SearchComponent
 {
 	LanguageService lang;
-	StitchService _stitch;
+	MongoDBService _mongodb;
 
-	SearchComponent(this.lang, this._stitch);
+	SearchComponent(this.lang, this._mongodb);
 
 	String type = 'song';
 	String word = '';
@@ -73,13 +72,15 @@ class SearchComponent
 
 		if(type == 'artist') {
 			aggregator = Aggregate(
-				collection: _stitch.dbClient.db('media').collection('artist'),
+        database: 'media',
+				collection: 'artist',
 				pipline: pipline);
 		}
 
 		else if(type == 'song') {
 			aggregator = Aggregate(
-				collection: _stitch.dbClient.db('media').collection('song'),
+				database: 'media',
+				collection: 'song',
 				pipline: pipline);
 		}
 
@@ -98,13 +99,13 @@ class SearchComponent
 			{
 				if(type == 'artist')
 				{
-					Map converted = convertToMap(doc, SystemSchema.artist);
+					Map converted = validateFields(doc, SystemSchema.artist);
 					Artist artist = Artist.fromjson(converted);
 					cards_artist.add(artist.getAsWidget<Card>());
 				}
 				else if(type == 'song')
 				{
-					Map converted = convertToMap(doc, SystemSchema.song);
+					Map converted = validateFields(doc, SystemSchema.song);
 					Song song = Song.fromjson(converted);
 					listItems_song.add(song.getAsWidget<ListItem>());
 				}

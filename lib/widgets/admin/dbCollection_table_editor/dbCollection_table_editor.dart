@@ -13,7 +13,6 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
-import 'package:melodyku/mongo_stitch/app_client.dart';
 
 @Component(
 	selector: 'db-collection-table-editor',
@@ -29,10 +28,9 @@ import 'package:melodyku/mongo_stitch/app_client.dart';
 class DbCollectionTableEditorComponent
 {
 	ModalService _modalService;
-  	Modal modal;
+  Modal modal;
 
-	StitchService _stitch;
-	RemoteMongoCollection _collection;
+	MongoDBService _mongodb;
 
 	CollectionOptions options;
 	CollectionOptions editableItemOptions;
@@ -58,7 +56,7 @@ class DbCollectionTableEditorComponent
 		getPage();
 	}
 
-	DbCollectionTableEditorComponent(this._stitch, this._modalService);
+	DbCollectionTableEditorComponent(this._mongodb, this._modalService);
 
 	// get and register modal to modal Manager
 	void getElement(Element el) 
@@ -68,22 +66,6 @@ class DbCollectionTableEditorComponent
 		modal = Modal(el);
 		_modalService.register(modalName, modal);
 	}
-
-	// String getFieldValue(DbField df, Map row)
-	// {
-	// 	String value = row[df.key].toString();
-
-	// 	// if field type is select the value of the field should be the lable of select member.
-	// 	if(df.fieldType == FieldType.select)
-	// 	{
-	// 		df.subFields.forEach((sdf) {
-	// 			if(sdf.strvalue == value)
-	// 				value = sdf.key;
-	// 		});
-	// 	}
-
-	// 	return value;
-	// }
 
 	void showForm([dynamic selected])
 	{
@@ -145,16 +127,16 @@ class DbCollectionTableEditorComponent
 	void getPage({int page, int navigate}) async
 	{
 		// get collection
-		if(_collection == null){
-			await Future.delayed(Duration(seconds:1));
-			_collection = _stitch.dbClient.db(options.database).collection(options.collection);
-		}
+		// if(_collection == null){
+		// 	await Future.delayed(Duration(seconds:1));
+		// 	_collection = _mongodb.dbClient.db(options.database).collection(options.collection);
+		// }
 
 		if(page != null) current_page = page;
 		if(navigate != null) current_page += navigate;
 
 		// combine queries objects 
-		dynamic combinedQueries = options.query ?? {};
+		Map combinedQueries = options.query ?? {};
 
 		_searchQuery.keys.forEach((key) {
 				if(!_searchQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
@@ -162,7 +144,8 @@ class DbCollectionTableEditorComponent
 
 		// get total items
 		//print('_mainQuery $_mainQuery');
-		await promiseToFuture(_collection.count(js.jsify(combinedQueries)))
+    await _mongodb.count(database: options.database, 
+      collection: options.collection, query: combinedQueries)
 			.then((count)
 			{
 				total = count;
@@ -176,7 +159,7 @@ class DbCollectionTableEditorComponent
 								perPage: perPage);
 
 		// aggregate pipline
-		List<dynamic> pipline = [
+		List<Map> piplines = [
 			// {"\$match": _mainQuery},
 			// {"\$match": _searchQuery},
 			{"\$match": combinedQueries},
@@ -185,22 +168,23 @@ class DbCollectionTableEditorComponent
 			{"\$sort": { '_id': -1 } },
 		];
 		
-		print('pipline for ${_collection.namespace} $pipline');
+		//print('pipline for ${_collection.namespace} $pipline');
 
 		// get by aggregate
-		await promiseToFuture(_collection.aggregate(js.jsify(pipline)).asArray())
-		.then((documents) 
-		{
-			list = [];	
+    await _mongodb.aggregate(database: options.database, collection: options.collection,
+      piplines: piplines)
+      .then((documents) 
+      {
+        list = [];	
 
-			for(int i=0; i < documents.length; i++)
-			{
-				dynamic document = documents[i];
+        for(int i=0; i < documents.length; i++)
+        {
+          dynamic document = documents[i];
 
-				Map converted = convertToMap(document, options.dbFields);
-				list.add(converted);
-			}
-		}).catchError(_catchError);
+          Map converted = validateFields(document, options.dbFields);
+          list.add(converted);
+        }
+      }).catchError(_catchError);
 
 		print('items gotten, ${list.length}');
 	}
@@ -219,17 +203,16 @@ class DbCollectionTableEditorComponent
 		if(!confirmation) return;
 
 		// create remove query
-		dynamic query = js.jsify({'_id': item['_id']});
+		dynamic query = {'_id': item['_id']};
 
-		await promiseToFuture(_collection.deleteOne(query))
-		.then((d){
-			log(d);
-			getPage();
-			modal.close();
-
-			getPage();
-		})
-		.catchError(printError);
+    _mongodb.removeOne(database: options.database, collection: options.collection, query: query)
+      .then((d)
+      {
+        getPage();
+        modal.close();
+        getPage();
+      })
+      .catchError(printError);
 	}
 
 	void printError(error)

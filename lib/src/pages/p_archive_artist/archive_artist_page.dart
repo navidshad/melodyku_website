@@ -23,7 +23,6 @@ class ArchiveArtistPage implements OnActivate
   UserService _userservice;
   MessageService _messageService;
   CategoryService _categoryService;
-  StitchService _stitch;
 
   CollectionOptions AlbumTableOptions;
   CollectionOptions singleOptions;
@@ -31,7 +30,7 @@ class ArchiveArtistPage implements OnActivate
   dynamic artist;
 
   // constructor ==================================
-  ArchiveArtistPage(this._categoryService, this._messageService, this._userservice, this._stitch)
+  ArchiveArtistPage(this._categoryService, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice,
