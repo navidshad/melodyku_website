@@ -43,13 +43,15 @@ class Modal
 
   }
 
-  void doWaiting(key)
+  Future<void> doWaiting(key) async
   {
     Element cardContent = base.querySelector('.modal-content');
     cardContent.style.transition = '0.5s';
 
     if(key) cardContent.style.opacity = '0';
     else cardContent.style.opacity = '1';
+
+    return Future.delayed(Duration(milliseconds: 500));
   }
 
   void _addMessageSection()
@@ -80,6 +82,11 @@ class Modal
     li.appendText(text);
 
     base.querySelector('.modal-message').append(li);
+  }
+
+  void clearMessages()
+  {
+    base.querySelector('.modal-message').children = [];
   }
 
   void showMessage() => base.querySelector('.modal-message').style.display = 'block';

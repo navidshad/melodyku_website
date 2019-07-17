@@ -12,23 +12,25 @@
             <div class="w3-container w3-half ">
 
                 <!-- login form -->
-                <div class="login flex-column flex-center">
-                    <div>
-                        <h5 *ngIf="activeForm == 'login'" >
-                            {{lang.getStr('loginToAccount')}}
-                        </h5>
+                <div id="login" class="animatable none flex-column flex-center">
+                    <div class>
+                        <h5>{{lang.getStr('loginToAccount')}}</h5>
                     </div>
 
                     <!-- identity -->
                     <div class="full-wide">
-                        <input dir="ltr" [(ngModel)]="email" 
-                                class="input-text input-wide" name="identity" type="text" placeholder="{{lang.getStr('phone')}}">
+                        <input dir="ltr" [(ngModel)]="phone" 
+                                class="input-text input-wide" 
+                                name="identity" type="text" 
+                                placeholder="{{lang.getStr('phone')}}">
                     </div>
 
                     <!-- password -->
                     <div class="full-wide">
                         <input dir="ltr" [(ngModel)]="password"
-                                class="input-text input-wide" name="password" type="password" placeholder="{{lang.getStr('password')}}">
+                                class="input-text input-wide" 
+                                name="password" type="password" 
+                                placeholder="{{lang.getStr('password')}}">
                     </div>
 
                     <!-- btn -->
@@ -38,14 +40,156 @@
                     <!-- alternatives -->
                     <div class="alternatives">
                         <ul class="alternatives">
-                            <li class="pointer" (click)="switchForm('register')">{{lang.getStr('register')}}</li>
-                            <li class="pointer" (click)="switchForm('resetPassword')">{{lang.getStr('forgotPassword')}}</li>
-                            <li class="pointer" (click)="switchForm('confirmation')">{{lang.getStr('sendConfirmation')}}</li>
+                            <li class="pointer" (click)="showForm('register-phone')">{{lang.getStr('register')}}</li>
+                            <li class="pointer" 
+                            (click)="showForm('register-phone-for-change-password')">{{lang.getStr('forgotPassword')}}</li>
                         </ul>
                     </div>
-
                 </div>
 
+                <!-- register phone -->
+                <div id="register-phone" class="animatable none flex-column flex-center">
+                    <div class>
+                        <h5>{{lang.getStr('createAccount')}}</h5>
+                    </div>
+
+                    <!-- identity -->
+                    <div class="full-wide">
+                        <label>{{lang.getStr('insertPhone')}}</label>
+                        <input dir="ltr" [(ngModel)]="phone" 
+                                class="input-text input-wide" 
+                                name="identity" type="text" 
+                                placeholder="{{lang.getStr('phone')}}">
+                    </div>
+
+                    <!-- btn -->
+                    <div class="btn-sl margin-h-20" 
+                        (click)="registerPhone()">{{lang.getStr('submit')}}</div>
+
+                    <!-- alternatives -->
+                    <div class="alternatives">
+                        <ul class="alternatives">
+                            <li class="pointer" (click)="showForm('login')">{{lang.getStr('loginHere')}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- submite-password -->
+                <div id="submite-password" class="animatable none flex-column flex-center">
+                    <div class>
+                        <h5>{{lang.getStr('createAccount')}}</h5>
+                    </div>
+
+                    <!-- identity -->
+                    <div class="full-wide">
+                        <label>{{lang.getStr('insertPhone')}}</label>
+                        <input dir="ltr" [(ngModel)]="phone" 
+                                class="input-text input-wide" 
+                                name="identity" type="text" 
+                                placeholder="{{lang.getStr('phone')}}">
+                    </div>
+
+                    <!-- code -->
+                    <div class="full-wide">
+                        <!-- <label>{{lang.getStr('insertCode')}}</label> -->
+                        <input dir="ltr" [(ngModel)]="code" 
+                                class="input-text input-wide" 
+                                name="code" type="text" 
+                                placeholder="{{lang.getStr('insertCode')}}">
+                    </div>
+
+                    <!-- password -->
+                    <div class="full-wide">
+                        <!-- <label>{{lang.getStr('insertNewPassword')}}</label> -->
+                        <input dir="ltr" [(ngModel)]="password"
+                                class="input-text input-wide" 
+                                name="password" type="password" 
+                                placeholder="{{lang.getStr('insertNewPassword')}}">
+                    </div>
+
+                    <!-- btn -->
+                    <div class="btn-sl margin-h-20" 
+                        (click)="submitePassword()">{{lang.getStr('submit')}}</div>
+
+                    <!-- alternatives -->
+                    <div class="alternatives">
+                        <ul class="alternatives">
+                            <li class="pointer" (click)="showForm('login')">{{lang.getStr('loginHere')}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- register phone for change password -->
+                <div id="register-phone-for-change-password" class="animatable none flex-column flex-center">
+                    <div class>
+                        <h5>{{lang.getStr('changePassword')}}</h5>
+                    </div>
+
+                    <!-- identity -->
+                    <div class="full-wide">
+                        <label>{{lang.getStr('insertPhone')}}</label>
+                        <input dir="ltr" [(ngModel)]="phone" 
+                                class="input-text input-wide" 
+                                name="identity" type="text" 
+                                placeholder="{{lang.getStr('phone')}}">
+                    </div>
+
+                    <!-- btn -->
+                    <div class="btn-sl margin-h-20" 
+                        (click)="registerPhoneForChangePassword()">{{lang.getStr('submit')}}</div>
+
+                    <!-- alternatives -->
+                    <div class="alternatives">
+                        <ul class="alternatives">
+                            <li class="pointer" (click)="showForm('login')">{{lang.getStr('loginHere')}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- submite-password for change -->
+                <div id="submite-password-for-change" class="animatable none flex-column flex-center">
+                    <div class>
+                        <h5>{{lang.getStr('changePassword')}}</h5>
+                    </div>
+
+                    <!-- identity -->
+                    <div class="full-wide">
+                        <label>{{lang.getStr('insertPhone')}}</label>
+                        <input dir="ltr" [(ngModel)]="phone" 
+                                class="input-text input-wide" 
+                                name="identity" type="text" 
+                                placeholder="{{lang.getStr('phone')}}">
+                    </div>
+
+                    <!-- code -->
+                    <div class="full-wide">
+                        <!-- <label>{{lang.getStr('insertCode')}}</label> -->
+                        <input dir="ltr" [(ngModel)]="code" 
+                                class="input-text input-wide" 
+                                name="code" type="text" 
+                                placeholder="{{lang.getStr('insertCode')}}">
+                    </div>
+
+                    <!-- password -->
+                    <div class="full-wide">
+                        <!-- <label>{{lang.getStr('insertNewPassword')}}</label> -->
+                        <input dir="ltr" [(ngModel)]="password"
+                                class="input-text input-wide" 
+                                name="password" type="password" 
+                                placeholder="{{lang.getStr('insertNewPassword')}}">
+                    </div>
+
+                    <!-- btn -->
+                    <div class="btn-sl margin-h-20" 
+                        (click)="submitePasswordForChange()">{{lang.getStr('submit')}}</div>
+
+                    <!-- alternatives -->
+                    <div class="alternatives">
+                        <ul class="alternatives">
+                            <li class="pointer" (click)="showForm('login')">{{lang.getStr('loginHere')}}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <!-- end forms -->
         </div>

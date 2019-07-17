@@ -29,11 +29,19 @@ class LoginFormComponent
   bool isVisible = false;
   String activeForm = 'login';
   
-  String email = '';
+  String phone = '';
   String password = '';
-  String apikey = '';
+  String code = '';
 
   String errorMessage;
+
+  List<String> formIds = [
+    'login', 
+    'register-phone', 
+    'submite-password',
+    'register-phone-for-change-password',
+    'submite-password-for-change'
+    ];
 
   // constructor --------------------------------
   LoginFormComponent(this.lang, this._userService, this._modalService);
@@ -41,95 +49,173 @@ class LoginFormComponent
   // get and register modal to modal Manager
   void getElement(Element el) 
   {
-    modal = Modal(el, onClose: switchForm, arg: 'login');
+    modal = Modal(el, onClose: showForm, arg: 'login');
     _modalService.register('login', modal);
+
+    showForm('login');
   }
 
   // visibility of form -------------------------
-  void switchForm([String name])
+  void showForm(sectionid) async
   {
-    if(name != null) activeForm = name;
-    else if(activeForm == 'login') activeForm = 'register';
-    else activeForm = 'login';
+    // clear text boxes
+    phone = '';
+    password = '';
+    modal.clearMessages();
 
-    errorMessage = null;
+    // hide modal content
+    await modal.doWaiting(true);
+
+    // hide all sections
+    formIds.forEach((id) =>
+      modal.base.querySelector('#$id').classes.add('none'));
+
+    // show specific section
+    modal.base.querySelector('#$sectionid').classes.remove('none');
+
+    // show modal content again
+    modal.doWaiting(false);
   }
 
-  // login logout -------------------------------
   void login() async 
   {
-    
     modal.doWaiting(true);
     
-    await _userService.login(identity: email, identityType: 'phone', password: password)
-      .then((r) { modal.close(); })
-      .catchError((e) => errorMessage = 'wrong phone or password');
+    await _userService.login(identity: phone, identityType: 'phone', password: password)
+      .then((r) async
+      {
+        modal.clearMessages();
+        modal.addMessage('Success', color: 'green');
+        modal.showMessage();
+
+        await Future.delayed(Duration(milliseconds: 500));
+        modal.close();
+      })
+      .catchError((e) {
+        print('login error $e');
+        errorMessage = 'wrong phone or password';
+
+        modal.clearMessages();
+        modal.addMessage(errorMessage, color: 'red');
+        modal.showMessage();
+      });
 
     modal.doWaiting(false);
   }
 
-  void loginWithAPIKey() async
+  void registerPhone() async
   {
+    if(phone == '') return;
+
     modal.doWaiting(true);
-    dynamic result;// = await _userService.loginWithAPIKey(apikey);
 
-    if(result['done']) modal.close();
-    else {
-      errorMessage = result['message'];
-      modal.doWaiting(false);
-    }
-  }
+    await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
+      .then((r) async
+      {
+        modal.clearMessages();
+        modal.addMessage('Your phone number has been submitted', color: 'yellow');
+        modal.showMessage();
 
-  void register() async
-  {
-    modal.doWaiting(true);
-    dynamic result;// = await _userService.register(email, password);
+        await Future.delayed(Duration(milliseconds: 500));
+        showForm('submite-password');
+      })
+      .catchError((e) {
+        print('registerPhone error $e');
+        errorMessage = 'wrong phone';
 
-    if(result['done']) {
-      modal.addMessage(lang.getStr('userCreated'), color:'yellow');
-      modal.showMessage();
-      switchForm('login');
-    }
-    else errorMessage = result['message'];
-  
+        modal.clearMessages();
+        modal.addMessage(errorMessage, color: 'red');
+        modal.showMessage();
+      });
+
     modal.doWaiting(false);
   }
 
-  void sendResetLink()
+  void submitePassword() async
   {
+    if(phone == '' || password == '' || code == '') return;
+
     modal.doWaiting(true);
 
-    // _mongodb.sendResetPasswordEmail(email)
-    // .then((result) 
-    // {
-    //   modal.addMessage(lang.getStr('resetLinkSent'), color: 'yellow');
-    //   modal.showMessage();
-    //   modal.doWaiting(false);
-    // })
-    // .catchError((result)
-    // {
-    //   modal.addMessage(result['message'], color:'red');
-    //   modal.showMessage();
-    //   modal.doWaiting(false);
-    // });
+    // submite password
+    await _userService.auth
+      .registerSubmitPass(identity: phone, password: password, serial: code)
+      .then((r) async
+      {
+        modal.clearMessages();
+        modal.addMessage('Success', color: 'green');
+        modal.showMessage();
+
+        await Future.delayed(Duration(milliseconds: 2000));
+        showForm('login');
+      })
+      .catchError((e) {
+        print('submitePassword error $e');
+        errorMessage = 'Check your information please, and submite again';
+
+        modal.clearMessages();
+        modal.addMessage(errorMessage, color: 'red');
+        modal.showMessage();
+      });
+
+    modal.doWaiting(false);
   }
 
-  void sendEmailConfirmation()
+  void registerPhoneForChangePassword() async
   {
+    if(phone == '') return;
+
     modal.doWaiting(true);
-    
-    // _mongodb.resendConfirmationEmail(email)
-    // .then((result) 
-    // {
-    //   modal.addMessage(lang.getStr('confirmationSent'), color: 'yellow');
-    //   modal.showMessage();
-    //   modal.doWaiting(false);
-    // })
-    // .catchError((result)
-    // {
-    //   modal.addMessage(result['message'], color:'red');
-    //   modal.showMessage();
-    //   modal.doWaiting(false);
-    // });
+
+    await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
+      .then((r) async
+      {
+        modal.clearMessages();
+        modal.addMessage('Your phone number has been submitted', color: 'yellow');
+        modal.showMessage();
+
+        await Future.delayed(Duration(milliseconds: 500));
+        showForm('submite-password-for-change');
+      })
+      .catchError((e) {
+        print('registerPhoneForChangePassword error $e');
+        errorMessage = 'wrong phone';
+
+        modal.clearMessages();
+        modal.addMessage(errorMessage, color: 'red');
+        modal.showMessage();
+      });
+
+    modal.doWaiting(false);
+  }
+
+  void submitePasswordForChange() async
+  {
+    if(phone == '' || password == '' || code == '') return;
+
+    modal.doWaiting(true);
+
+    // submite password
+    await _userService.auth
+      .changePass(identity: phone, password: password, serial: code)
+      .then((r) async
+      {
+        modal.clearMessages();
+        modal.addMessage('Success', color: 'green');
+        modal.showMessage();
+
+        await Future.delayed(Duration(milliseconds: 2000));
+        showForm('login');
+      })
+      .catchError((e) {
+        print('submitePasswordForChange error $e');
+        errorMessage = 'Check your information please, and submite again';
+
+        modal.clearMessages();
+        modal.addMessage(errorMessage, color: 'red');
+        modal.showMessage();
+      });
+
+    modal.doWaiting(false);
   }
 }

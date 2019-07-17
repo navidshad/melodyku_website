@@ -5,7 +5,7 @@ import 'dart:html';
 
 class Vars 
 {
-  static String mainHost = 'melodyku.com';
+  static String mainHost = 'melodyku.ir';
   static String dataHost = 'data.${Vars.mainHost}';
 
   static String get host

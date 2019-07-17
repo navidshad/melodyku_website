@@ -10,7 +10,7 @@ class AuthService
 
 	AuthService(this._http);
 
-	Future<String> login({String identity, String identityType, String password})
+	Future<dynamic> login({String identity, String identityType, String password})
 	{
 		String url = Vars.host + '/user/login';
 
@@ -25,7 +25,7 @@ class AuthService
 			.then((rBody) => rBody['token']);
 	}
 
-	Future<String> loginAnonymous({String identity, String identityType, String password})
+	Future<dynamic> loginAnonymous({String identity, String identityType, String password})
 	{
 		String url = Vars.host + '/user/loginAnonymous';
 
@@ -44,7 +44,7 @@ class AuthService
 			.then((rBody) => rBody['peyload']);
 	}
 
-	Future<void> registerSubmitId({String identity, String identityType})
+	Future<dynamic> registerSubmitId({String identity, String identityType})
 	{
 		String url = Vars.host + '/user/register_submit_id';
 
@@ -57,9 +57,23 @@ class AuthService
 			.then(analizeResult);
 	}
 
-	Future<void> registerSubmitPass({String identity, String password, String serial})
+	Future<dynamic> registerSubmitPass({String identity, String password, String serial})
 	{
 		String url = Vars.host + '/user/register_submit_pass';
+
+		Map body = {
+			'id': identity,
+			'password': password,
+			'serial': serial
+		};
+
+		return _http.post(url, body: body)
+			.then(analizeResult);
+	}
+
+	Future<dynamic> changePass({String identity, String password, String serial})
+	{
+		String url = Vars.host + '/user/change_pass';
 
 		Map body = {
 			'id': identity,
@@ -89,7 +103,9 @@ class AuthService
 	dynamic analizeResult(Response r)
 	{
 		//print('== SC analizeResult ${r.body}');
-		if(r.statusCode != 200) throw new StateError(r.body);
-		return _convert(r.body);
+		dynamic body = _convert(r.body);
+
+		if(r.statusCode != 200) throw new StateError(body);
+		return body;
 	}
 }

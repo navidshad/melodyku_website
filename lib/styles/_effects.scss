@@ -56,6 +56,10 @@
     opacity: 0;
 }
 
+.animatable {
+    transition: all ease 0.5s;
+}
+
 ._line {
     //position: relative;
     //content: "";

@@ -283,9 +283,19 @@ dynamic languageStrings = [
     'fa_IR'  : 'آیا رمز خود را فراموش کرده اید؟',
   },
   {
-    'name': 'dontHaveAccount',
-    'en'  : 'Dont Have An Account',
-    'fa_IR'  : 'تا بحال حساب کاربری نساخته اید؟',
+    'name': 'insertPhone',
+    'en'  : 'insert your phone',
+    'fa_IR'  : 'لطفا شماره موبایل خود را با پیش شماره کشوری وارد کنید',
+  },
+  {
+    'name': 'insertCode',
+    'en'  : 'sms code',
+    'fa_IR'  : 'کد پیامک',
+  },
+  {
+    'name': 'insertNewPassword',
+    'en'  : 'new password',
+    'fa_IR'  : 'رمز جدید',
   },
   {
     'name': 'createAccount',
