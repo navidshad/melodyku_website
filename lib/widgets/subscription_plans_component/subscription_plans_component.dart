@@ -2,9 +2,11 @@
 library subscriptionPlansComponent;
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
 	selector: 'subscription_plans',
@@ -12,15 +14,20 @@ import 'package:melodyku/widgets/widgets.dart';
 	styleUrls: ['subscription_plans_component.css'],
 	directives: [
 		coreDirectives,
+		formDirectives,
 		CardTariffComponent,
-	]
+		DirectionDirective
+	],
 )
 class SubscriptionPlansComponent 
 {
 	SubscriptionService _subService;
+	LanguageService lang;
 	List<Map> tariffs = [];
 
-	SubscriptionPlansComponent(this._subService)
+	Currency currency = Currency.irt;
+
+	SubscriptionPlansComponent(this._subService, this.lang)
 	{
 		getTariffs();
 	}
@@ -28,6 +35,13 @@ class SubscriptionPlansComponent
 	void getTariffs() async
 	{
 		tariffs = await _subService.getTariffs();
+	}
+
+	void onChangeCurrency(String str)
+	{
+		print('onChangeCurrency $str');
+		if(str == 'irt') currency = Currency.irt;
+		else if(str == 'eur') currency = Currency.euro;
 	}
 
 	void _catchError(error) => print(error);

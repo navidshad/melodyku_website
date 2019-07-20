@@ -6,9 +6,9 @@ import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
-import 'package:melodyku/directives/directives.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -17,7 +17,8 @@ import 'package:melodyku/directives/directives.dart';
   directives: [ 
     coreDirectives,
     CardRectComponent,
-    ElementExtractorDirective
+    ElementExtractorDirective,
+    DirectionDirective,
    ],
 )
 class SliderRectComponent

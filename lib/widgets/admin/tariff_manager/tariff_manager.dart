@@ -25,7 +25,7 @@ class TariffManagerComponent
 		options = CollectionOptions(
 	      	title: 'Manage Tariffs',
 	      	database: 'cms',
-	      	collection: 'tariffs',
+	      	collection: 'tariff',
 			allowQuery: false,
 	      	dbFields: SystemSchema.tariff,
 		);

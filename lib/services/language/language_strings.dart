@@ -91,6 +91,30 @@ dynamic languageStrings = [
     'en'  : 'No Found 404',
     'fa_IR': 'متاسفانه چیزی پیدا نشد!',
   },
+  {
+    'name': 'select',
+    'en'  : 'Select',
+    'fa_IR': 'انتخاب',
+  },
+
+  // ========================
+  // patment
+  // ========================
+  {
+    'name': 'irt',
+    'en'  : 'Toman (IRT)',
+    'fa_IR': 'تومان',
+  },
+  {
+    'name': 'eur',
+    'en'  : '€ (EUR)',
+    'fa_IR': 'یورو',
+  },
+  {
+    'name': 'chooseCurrency',
+    'en'  : 'Choose a Currency',
+    'fa_IR': 'یک واحد پولی انتخاب کنید',
+  },
 
   // ========================
   // warnings

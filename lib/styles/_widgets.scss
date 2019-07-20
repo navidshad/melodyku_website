@@ -1,6 +1,5 @@
 .widget-title{
     color: $lightblue-color;
-    margin-bottom: 20px;
 
     ._line-title{
         @extend ._line;
@@ -42,12 +41,5 @@
 
     .widget-container-fill{
         margin: $h_hieghtDevide_m;  
-    }
-
-    .widget-title{
-        margin-bottom: 10px;
-        h3 {
-            font-size: 15px;
-        }
     }
 }

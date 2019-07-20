@@ -37,15 +37,15 @@ class UserManagerComponent
         for(int i=0; i < documents.length; i++)
         {
           Map detail = validateFields(documents[i], SystemSchema.permission);
-          DbField sub = DbField(detail['title'], strvalue: detail['id']);
+          DbField sub = DbField(detail['title'], strvalue: detail['_id']);
           permissions.add(sub);
         }
 
         options = CollectionOptions(
           title: 'Manage Users',
-          database: 'user',
-          collection: 'detail',
-          dbFields: SystemSchema.injectSubfields('permissionId', SystemSchema.userDetail, permissions),
+          database: 'cms',
+          collection: 'auth',
+          dbFields: SystemSchema.injectSubfields('permission', SystemSchema.userAuth, permissions),
           showHidenField: true,
         );
 

@@ -6,6 +6,7 @@ import 'package:angular/angular.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
   selector: 'card-wide',
@@ -15,6 +16,7 @@ import 'package:melodyku/widgets/widgets.dart';
     coreDirectives,
     LikeComponent,
     MediaCoverComponent,
+    DirectionDirective,
   ]
 )
 class CardWideComponent 

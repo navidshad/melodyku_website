@@ -4,6 +4,7 @@ library cardTariffComponent;
 import 'package:angular/angular.dart';
 
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
 	selector: 'card_tariff',
@@ -11,9 +12,10 @@ import 'package:melodyku/services/services.dart';
 	styleUrls: ['card_tariff_component.css'],
 	directives: [
 		coreDirectives,
+		DirectionDirective,
 	]
 )
-class CardTariffComponent 
+class CardTariffComponent implements DoCheck
 {
 	LanguageService lang;
 	UserService _userService;
@@ -25,8 +27,23 @@ class CardTariffComponent
 			active = false;
 	}
 
+	@override
+	void ngDoCheck()
+	{
+		print('get price');
+		if(currency == Currency.irt)
+			price = '${detail['price_irt']} ${lang.getStr('irt')}';
+		else if(currency == Currency.euro)
+			price = '${detail['price_eur']} ${lang.getStr('eur')}';
+	}
+
+	String price = '';
+
 	@Input()
 	Map detail;
+
+	@Input()
+	Currency currency;
 
 	bool active = true;
 

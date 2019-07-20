@@ -94,10 +94,7 @@ class LoginFormComponent
       .catchError((e) {
         print('login error $e');
         errorMessage = 'wrong phone or password';
-
-        modal.clearMessages();
-        modal.addMessage(errorMessage, color: 'red');
-        modal.showMessage();
+        showError(errorMessage);
       });
 
     modal.doWaiting(false);
@@ -105,9 +102,13 @@ class LoginFormComponent
 
   void registerPhone() async
   {
-    if(phone == '') return;
-
     modal.doWaiting(true);
+
+    if(!validatePhone())
+    {
+      showError('Wrong phone number');
+      return;
+    }
 
     await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
       .then((r) async
@@ -122,10 +123,7 @@ class LoginFormComponent
       .catchError((e) {
         print('registerPhone error $e');
         errorMessage = 'wrong phone';
-
-        modal.clearMessages();
-        modal.addMessage(errorMessage, color: 'red');
-        modal.showMessage();
+        showError(errorMessage);
       });
 
     modal.doWaiting(false);
@@ -152,10 +150,7 @@ class LoginFormComponent
       .catchError((e) {
         print('submitePassword error $e');
         errorMessage = 'Check your information please, and submite again';
-
-        modal.clearMessages();
-        modal.addMessage(errorMessage, color: 'red');
-        modal.showMessage();
+        showError(errorMessage);
       });
 
     modal.doWaiting(false);
@@ -163,9 +158,13 @@ class LoginFormComponent
 
   void registerPhoneForChangePassword() async
   {
-    if(phone == '') return;
-
     modal.doWaiting(true);
+
+    if(!validatePhone())
+    {
+      showError('Wrong phone number');
+      return;
+    }
 
     await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
       .then((r) async
@@ -180,10 +179,7 @@ class LoginFormComponent
       .catchError((e) {
         print('registerPhoneForChangePassword error $e');
         errorMessage = 'wrong phone';
-
-        modal.clearMessages();
-        modal.addMessage(errorMessage, color: 'red');
-        modal.showMessage();
+        showError(errorMessage);
       });
 
     modal.doWaiting(false);
@@ -210,12 +206,26 @@ class LoginFormComponent
       .catchError((e) {
         print('submitePasswordForChange error $e');
         errorMessage = 'Check your information please, and submite again';
-
-        modal.clearMessages();
-        modal.addMessage(errorMessage, color: 'red');
-        modal.showMessage();
+        showError(errorMessage);
       });
 
     modal.doWaiting(false);
+  }
+
+  void showError(String err)
+  {
+    modal.clearMessages();
+    modal.addMessage(err, color:'red');
+    modal.showMessage();
+    modal.doWaiting(false);
+  }
+
+  bool validatePhone()
+  {
+    phone = phone.replaceAll('+', '');
+    String pattern = r'^\d{8,15}$';
+    RegExp reg = RegExp(pattern, caseSensitive: false);
+
+    return reg.hasMatch(phone);
   }
 }

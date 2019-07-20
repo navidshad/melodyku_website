@@ -6,19 +6,19 @@
 
 	<div class="body flex-column flex-wide">
 		
-		<div class="full-wide">
+		<div class="full-wide" direction>
 			<ul class="detail">
 				<li>{{lang.getStr('downloadSongs')}}</li>
 				<li>{{lang.getStr('offlineAccess')}}</li>
 				<li>{{lang.getStr('multipleQuality')}}</li>
 				<li><span>{{detail['days'].toString()}}</span> <span>روز</span></li>
-				<li><span>{{lang.getStr('Price')}}</span><span>{{detail['price'].toString()}}</span> تومان</li>
+				<li>{{price}}</li>
 			</ul>
 		</div>
 
 		<div class="btn-sl" 
 			[class.btn-disabled]="!active"
-			(click)="makePurchase()">خرید</div>
+			(click)="makePurchase()">{{lang.getStr('select')}}</div>
 	</div>
 
 </div>

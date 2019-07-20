@@ -33,8 +33,12 @@ class LanguageService
     else return name;
   }
 
-  String getDirection() => 
-    _languageList[_current].direction.toString();
+  Direction getDirection() 
+  {
+    if(loaded)
+      return _languageList[_current].direction;
+    else return Direction.ltr;
+  }
 
   String getFlag() => 
     _languageList[_current].flag;

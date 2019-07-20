@@ -37,6 +37,7 @@ class CollectionOptions
 
 	List<LinkButton> linkButtons;
 	Map<String, dynamic> query;
+	Map<String, dynamic> sort;
 
 	List<DbField> dbFields;
 
@@ -54,7 +55,7 @@ class CollectionOptions
 
 	CollectionOptions({
 		this.title, 			this.database,		this.collection, 	this.id, 			this.document,
-		this.linkButtons, 		this.query,			this.dbFields,
+		this.linkButtons, 		this.query=const{},			this.sort,			this.dbFields,
 		this.createNew	 = false,
 		this.showHidenField	 = false,
 		this.allowAdd 	 = true, 		 	 	

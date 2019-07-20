@@ -54,7 +54,7 @@ $columnGap: 10px;
 .titles {
     @include unselectable;
     //grid-area: t;
-    margin-right: $columnGap;
+    //margin: 0px $columnGap;
 
     flex-grow: 1;
     flex-shrink: 1;
@@ -92,6 +92,10 @@ $columnGap: 10px;
         filter: brightness(30%);
         -webkit-filter: brightness(30%);
     }
+}
+
+.cover{
+    margin: 0px $columnGap;
 }
 
 .card:hover {

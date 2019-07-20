@@ -112,7 +112,8 @@ class SystemSchema
 	[
 		DbField('title'),
 		DbField('days', dataType: DataType.int),
-		DbField('price', dataType: DataType.int),
+		DbField('price_irt', dataType: DataType.int),
+		DbField('price_eur', dataType: DataType.int),
 		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
@@ -139,6 +140,14 @@ class SystemSchema
 	];
 
 	// user ====================================
+	static List<DbField> userAuth = 
+	[
+		DbField('type', isDisable: true),
+		DbField('email'),
+		DbField('phone'),
+		DbField('permission', fieldType: FieldType.select, subFields: []),
+	];
+
 	static List<DbField> userDetail = 
 	[
 		DbField('refId', isHide: true, isDisable: true),

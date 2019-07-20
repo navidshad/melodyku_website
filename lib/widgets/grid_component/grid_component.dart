@@ -5,6 +5,7 @@ import 'package:angular/angular.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
   selector: 'grid-rect',
@@ -13,7 +14,8 @@ import 'package:melodyku/widgets/widgets.dart';
   directives: [
     coreDirectives,
     CardRectComponent,
-    ],
+    DirectionDirective,
+  ],
 )
 class GridComponent
 {

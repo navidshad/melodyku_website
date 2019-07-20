@@ -21,12 +21,12 @@ class ArchiveArtistListPage
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
-  ContentProvider _contentProvider;
+  CategoryService _categoryService;
 
   CollectionOptions options;
 
   // constructor ==================================
-  ArchiveArtistListPage(this._contentProvider, this._messageService, this._userservice)
+  ArchiveArtistListPage(this._categoryService, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice,
@@ -44,8 +44,10 @@ class ArchiveArtistListPage
         allowAdd: true,
         allowRemove: false,
         hasCover: false,
+
+        sort: { 'name': 1 },
         
-        dbFields: SystemSchema.artist,
+        dbFields: SystemSchema.injectSubfields('categories', SystemSchema.artist, _categoryService.getGroups()),
 
         linkButtons: [
           LinkButton(

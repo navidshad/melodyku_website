@@ -124,28 +124,35 @@ class DbCollectionTableEditorComponent
 
 	void navigate(int value) => getPage(navigate: value);
 
+	Map getSearchQuery()
+	{
+		Map tempQuery;
+
+		if(_searchQuery.keys.length > 0)
+			tempQuery = {};
+
+		_searchQuery.keys.forEach((key) 
+			=> tempQuery[key] = { '\$regex': _searchQuery[key], '\$options':'ig'});
+
+		return tempQuery;
+	}
+
 	void getPage({int page, int navigate}) async
 	{
-		// get collection
-		// if(_collection == null){
-		// 	await Future.delayed(Duration(seconds:1));
-		// 	_collection = _mongodb.dbClient.db(options.database).collection(options.collection);
-		// }
-
 		if(page != null) current_page = page;
 		if(navigate != null) current_page += navigate;
 
 		// combine queries objects 
-		Map combinedQueries = options.query ?? {};
+		Map combinedQueries = getSearchQuery() ?? options.query;
 
-		_searchQuery.keys.forEach((key) {
-				if(!_searchQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
-			});
+		// _searchQuery.keys.forEach((key) {
+		// 		if(!_searchQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
+		// 	});
 
 		// get total items
 		//print('_mainQuery $_mainQuery');
-    await _mongodb.count(database: options.database, 
-      collection: options.collection, query: combinedQueries)
+    	await _mongodb.count(database: options.database, 
+      	collection: options.collection, query: combinedQueries)
 			.then((count)
 			{
 				total = count;
@@ -159,13 +166,19 @@ class DbCollectionTableEditorComponent
 								perPage: perPage);
 
 		// aggregate pipline
-		List<Map> piplines = [
-			// {"\$match": _mainQuery},
-			// {"\$match": _searchQuery},
+		List<Map> piplines = 
+		[	
+			// query
 			{"\$match": combinedQueries},
+
+			// navigation
 			{"\$skip": avigatorDetail['from']},
 			{"\$limit": avigatorDetail['to']},
-			{"\$sort": { '_id': -1 } },
+			
+			// sort
+			{
+				"\$sort": options.sort ?? { '_id': -1 } 
+			},
 		];
 		
 		//print('pipline for ${_collection.namespace} $pipline');

@@ -85,7 +85,7 @@ class DbField {
 		subFields.forEach((sdf) 
 		{
 			if(sdf.strvalue == value)
-				value = sdf.key;
+				value = sdf.title;
 		});
 
 		return value;
@@ -102,6 +102,13 @@ class DbField {
 		else if(fieldType == FieldType.multiSelect)
 			value = extractTitlesForStrValues(row);
 
+		else if(fieldType == FieldType.object)
+		{
+			Map tempObj = row[key] as Map;
+			value = '';
+			tempObj.keys.forEach((key) 
+				=> value += '${tempObj[key]}, ');
+		}
 		return value;
 	}
 }

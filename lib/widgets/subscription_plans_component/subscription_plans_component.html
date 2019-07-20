@@ -1,8 +1,24 @@
-<div class="widget-container">
+<div class="widget-container flex-column flex-center">
+
+	<!-- currency -->
+	<div class="currency" direction>
+		<label >{{lang.getStr('chooseCurrency')}}</label>
+		<select class="select w3-select" 
+			[ngModel]="'irt'"
+			(ngModelChange)="onChangeCurrency($event)">
+			<option [value]="'irt'" selected>{{lang.getStr('irt')}}</option>
+			<option [value]="'eur'">{{lang.getStr('eur')}}</option>
+		</select>
+	</div>
+
+	<!-- cards -->
 	<div class="flex-row flex-center">
 
 		<div *ngFor="let tariff of tariffs" class="flex-item-l">
-			<card_tariff [detail]="tariff"></card_tariff>
+			<card_tariff 
+				[detail]="tariff"
+				[currency]="currency">
+			</card_tariff>
 		</div>
 
 	</div>	

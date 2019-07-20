@@ -1,12 +1,13 @@
 <div class="widget-container">
 
-    <div class="flex-row flex-space-between">
+    <div class="flex-row flex-space-between margin-h-20"
+        direction>
         <div class="widget-title">
             <h3>{{title}}</h3>
             <div class="_line-title"></div>
         </div>
 
-        <div class="btn-sl play-all" 
+        <div class="btn-sl play-all"
             *ngIf="playBtn"
             (click)="playAll()">{{lang.getStr('playAll')}}</div>
     </div>
@@ -14,7 +15,10 @@
     <div class='thumbs' id="thumbs" 
         extractor (onExtract)="getSliderElement($event)">
         
-        <card-rect class="item" *ngFor="let item of items; let i=index" 
+        <card-rect class="item" 
+            
+            *ngFor="let item of items; let i=index" 
+            
             [card]="item"
             [number]='i'
             [exploreBtn]="exploreBtn"

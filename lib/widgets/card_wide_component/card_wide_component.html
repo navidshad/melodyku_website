@@ -1,5 +1,4 @@
-<div class="card-container"
-    >
+<div class="card-container" direction>
 
     <!-- <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null"> -->
         
@@ -13,7 +12,7 @@
 
                 <div *ngIf="numerical" class="number">{{item.number}}</div>
     
-                <div class="cover-container">
+                <div class="cover">
                     <media-cover 
                         [thumbnail]="item.thumbnail.toString()"
                         [titleLink]="item.titleLink.toString()"
