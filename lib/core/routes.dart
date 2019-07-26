@@ -381,17 +381,6 @@ class PageRoutes
       // add if 
       if(isProfilePosition && hasAccess)
             list.add(page.toMenuItem());
-            
-      // try{
-      //     if(isProfilePosition && hasAccess)
-      //       list.add(page.toMenuItem());
-      //   }catch(e)
-      //   {
-      //     print('$name ${page.permissionType}');
-      //     print('isProfilePosition $isProfilePosition | hasAccess $hasAccess');
-      //     print('getProfileMenuItems $e');
-      //   }
-      
     });
 
     return list;

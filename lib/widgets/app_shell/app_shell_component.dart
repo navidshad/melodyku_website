@@ -51,6 +51,9 @@ class AppShellComponent
   String _titleBar;
   get titleBar => lang.getStr(_titleBar);
 
+  List<MenuItem> mainMenuItems = [];
+  List<MenuItem> profileItems = [];
+
   // constructor ================================
   AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
   {
@@ -96,6 +99,9 @@ class AppShellComponent
     await lang.getLanguages();
     await CI.Injector.get<CategoryService>().getGroupsFromDb();
     await CI.Injector.get<CategoryService>().getCategoriesFromDb();
+
+    mainMenuItems = pageRoutes.getMainMenuItems();
+    profileItems  = pageRoutes.getProfileMenuItems();
 
     _isReady = true;
   }

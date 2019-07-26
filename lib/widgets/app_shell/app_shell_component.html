@@ -78,7 +78,7 @@
         </div>
 
         <ul class="menu-group">
-            <li *ngFor="let item of pageRoutes.getMainMenuItems()"
+            <li *ngFor="let item of mainMenuItems"
             class="d-menu-item w3-center"
             [routerLinkActive]="'active'">
                 <a href="#" 
@@ -107,7 +107,7 @@
         </div>
 
         <ul class="menu-group">
-            <li *ngFor="let item of pageRoutes.getProfileMenuItems()"
+            <li *ngFor="let item of profileItems"
             class="d-menu-item"
             [routerLinkActive]="'active'">
                 <a [routerLink]="item.url" class='item-right-text'>
