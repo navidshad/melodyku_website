@@ -9,6 +9,8 @@
 }
 
 .button {
+    @include image(30px, 0px);
+
     color: $white-color;
     border: none;
     outline: none;
@@ -27,8 +29,8 @@
 
     width: fit-content;
 
-    img {
-        width: 100%;
+    label{
+        cursor: pointer;
     }
 }
 
@@ -83,7 +85,11 @@
 .btn-disabled {
     background: grey;
     opacity: 0.5;
-    cursor: default;
+    cursor: not-allowed;
+
+    label{
+        cursor: not-allowed;
+    }
 }
 
 $selectedBtn : #ff4fea;
@@ -105,6 +111,10 @@ $selectedBtn : #ff4fea;
 .play-all::after{
     content: "►";
     margin: 0px 5px;
+}
+
+.btn-green{
+    background-color: green;
 }
 
 @media screen and (max-width: 425px) 

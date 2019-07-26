@@ -4,11 +4,13 @@ library cardTariffComponent;
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
+import 'dart:async';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/payment/payment.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
 	selector: 'card_tariff',
@@ -19,41 +21,20 @@ import 'package:melodyku/directives/directives.dart';
 		formDirectives,
 		DirectionDirective,
 		ElementExtractorDirective,
+		ButtonRounded,
 	]
 )
-class CardTariffComponent implements DoCheck
+class CardTariffComponent implements OnChanges
 {
 	LanguageService lang;
 	UserService _userService;
 	PaymentService _peymentService;
 
 	SectionSwitcher switcher;
+	ButtonOptions payBtnOptions;
 
 	List<Getway> getways = [];
 	Getway selectedGate;
-
-	CardTariffComponent(this.lang, this._userService, this._peymentService)
-	{
-		if(_userService.user.subscription.hasSubscription()){
-			//active = false;
-		}
-
-		_peymentService.getWays()
-			.then((list) {
-				getways = list;
-				selectedGate = getways[0];
-			});
-	}
-
-	@override
-	void ngDoCheck()
-	{
-		print('get price');
-		if(currency == Currency.irt)
-			price = '${detail['price_irt']} ${lang.getStr('irt')}';
-		else if(currency == Currency.eur)
-			price = '${detail['price_eur']} ${lang.getStr('eur')}';
-	}
 
 	String price = '';
 
@@ -63,31 +44,57 @@ class CardTariffComponent implements DoCheck
 	@Input()
 	Currency currency;
 
-	bool active = true;
+	@Input()
+	bool allowPayment;
 
+	final _onChangeAllowPayment = StreamController<bool>();
+
+	@Output()
+	Stream<bool> get onChangeAllowPayment => _onChangeAllowPayment.stream;
+
+	String paylink = '';
+
+	CardTariffComponent(this.lang, this._userService, this._peymentService)
+	{
+		payBtnOptions = ButtonOptions(
+				lable: lang.getStr('createFactor'), 
+				type: ButtonType.sl,
+				callback: makePurchase
+			);
+	}
+
+	@override
+	void ngOnChanges(Map<String, SimpleChange> changes)
+	{
+		payBtnOptions.setActivation(false);
+		
+		_peymentService.getWays(currency)
+			.then((list) 
+			{
+				getways = list;
+				if(list.length == 0) return;
+
+				selectedGate = getways[0];
+				payBtnOptions.setActivation(true);
+			});
+
+		if(currency == Currency.irt)
+			price = '${detail['price_irt']} ${lang.getStr('irt')}';
+		else if(currency == Currency.eur)
+			price = '${detail['price_eur']} ${lang.getStr('eur')}';
+	}
 
 	void showPayform()
 	{
-		if(!active) return;
-		active = false;
-
-		//_subService.purchaseTariff(detail['_id']);
-
+		if(!allowPayment) return;
+		
+		_onChangeAllowPayment.add(false);
 		switcher.show('s_payment');
-	}
-
-	void makePurchase()
-	{
-		_peymentService.createFactor(detail['_id'].toString(), selectedGate.currency)
-			.then((factor) => factor.getPayLink(selectedGate.title))
-			.then((String link) {
-				Navigator.goToRawPath(link);
-			});
 	}
 
 	void back()
 	{
-		active = true;
+		_onChangeAllowPayment.add(true);
 		switcher.show('s_tariff');
 	}
 
@@ -108,5 +115,25 @@ class CardTariffComponent implements DoCheck
 			if(getway.title == gateTitle)
 				selectedGate = getway;
 		});
+	}
+
+	Function openPaymentLink() {
+		payBtnOptions.doWaiting(true);
+		Navigator.goToRawPath(paylink);
+	}
+
+	Function makePurchase()
+	{
+		payBtnOptions.doWaiting(true);
+		_peymentService.createFactor(detail['_id'].toString(), selectedGate.currency)
+			.then((factor) => factor.getPayLink(selectedGate.title))
+			.then((String link) 
+			{
+				paylink = link;
+				payBtnOptions.lable = lang.getStr('pay');
+				payBtnOptions.callback = openPaymentLink;
+				payBtnOptions.doWaiting(false);
+				payBtnOptions.setColor('green');
+			});
 	}
 }

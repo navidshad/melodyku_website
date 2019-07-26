@@ -28,6 +28,8 @@ class SubscriptionPlansComponent
 
 	Currency currency = Currency.irt;
 
+	bool allowPayment = true;
+
 	SubscriptionPlansComponent(this._subService, this.lang)
 	{
 		getTariffs();

@@ -18,7 +18,7 @@
 			</div>
 
 			<div class="btn-sl" 
-				[class.btn-disabled]="!active"
+				[class.btn-disabled]="!allowPayment"
 				(click)="showPayform()">{{lang.getStr('select')}}</div>
 		</div>
 	</div>
@@ -51,10 +51,8 @@
 				</select>
 			</div>
 
-			<div class="btn-sl margin-h-20" 
-				(click)="makePurchase()">
-				{{lang.getStr('pay')}}
-			</div>
+			<div class="margin-h-20"></div>
+			<rounded-button [options]="payBtnOptions"></rounded-button>
 
 		</div>
 	</div>

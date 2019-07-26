@@ -29,7 +29,7 @@ class PaymentService
 		return headers;
 	}
 
-	Future<List<Getway>> getWays() async
+	Future<List<Getway>> getWays(Currency currency) async
 	{
 		String url = Vars.host + '/payment/getways';
 
@@ -41,9 +41,12 @@ class PaymentService
 			{
 				List<Getway> gates = [];
 
-				result['getways'].forEach((detail) {
+				result['getways'].forEach((detail) 
+				{
 					Getway gate = Getway(detail['title'], detail['currency']);
-					gates.add(gate);
+					
+					if(gate.currency == currency)
+						gates.add(gate);
 				});
 
 				return gates;

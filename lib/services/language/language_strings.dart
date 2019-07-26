@@ -98,7 +98,7 @@ dynamic languageStrings = [
   },
 
   // ========================
-  // patment
+  // payment
   // ========================
   {
     'name': 'irt',
@@ -119,6 +119,11 @@ dynamic languageStrings = [
     'name'  : 'surTopayment',
     'en'    : 'If you sure to want buy this plan, select a getway and make purchase.',
     'fa_IR' : 'اگر برای خرید این بلن مطمئن هستید، یکی از درگاه های پرداخت را انتخاب کنید و سپش دکمه پرداخت را بفشارید.'
+  },
+  {
+    'name' : 'createFactor',
+    'en'   : 'Checkout',
+    'fa_IR': 'صدور فاکتور'
   },
   {
     'name' : 'pay',

@@ -17,7 +17,9 @@
 		<div *ngFor="let tariff of tariffs" class="flex-item-l">
 			<card_tariff 
 				[detail]="tariff"
-				[currency]="currency">
+				[currency]="currency"
+				[allowPayment]="allowPayment" 
+				(onChangeAllowPayment)="allowPayment = $event">
 			</card_tariff>
 		</div>
 

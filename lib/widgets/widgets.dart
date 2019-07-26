@@ -38,3 +38,5 @@ export 'search_component/search_component.dart';
 
 export 'user/profile_editor/profile_editor.dart';
 export 'user/user_activity_detail/user_activity_detail.dart';
+
+export 'ui_elements/button_rounded/button_rounded.dart';
