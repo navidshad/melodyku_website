@@ -5,7 +5,6 @@ enum ClickType {switchable, trigger}
 enum ArchiveTypes {media, album, artist, playlist}
 enum MessageType {player, modal, appshell, toast}
 enum Direction {ltr, rtl}
-enum Currency { irt, euro }
 
 enum ItemMenuAction {like, share}
 

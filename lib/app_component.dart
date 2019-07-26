@@ -24,6 +24,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     ClassProvider(AuthService),
     ClassProvider(UserService),
     ClassProvider(MongoDBService),
+    ClassProvider(PaymentService),
     ClassProvider(AnalyticService),
     ClassProvider(LanguageService),
     ClassProvider(CategoryService),
@@ -40,7 +41,7 @@ import 'package:melodyku/core/injector.dart' as CI;
 class AppComponent
 {
   
-  AppComponent(  MongoDBService mongodb, AuthService auth,
+  AppComponent(  MongoDBService mongodb, AuthService auth, PaymentService ps,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
   {
@@ -55,6 +56,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
+    CI.Injector.register(CI.InjectorMember('PaymentService', ps));
 
     // login with last session
     us.loginWithLastSession();

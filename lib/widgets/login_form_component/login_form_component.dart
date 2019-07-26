@@ -80,6 +80,8 @@ class LoginFormComponent
   void login() async 
   {
     modal.doWaiting(true);
+
+    phone = phone.replaceAll('+', '');
     
     await _userService.login(identity: phone, identityType: 'phone', password: password)
       .then((r) async

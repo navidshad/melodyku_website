@@ -1,28 +1,29 @@
 <div class='widget-container'>
 
+    <!-- 
+        This tag must have direction attribute 
+        To being changed by direction directive
+    -->
     <div class="flex-row flex-space-between"
-        direction>
+        direction> 
         
         <div class="widget-title">
             <h3>{{title}}</h3>
             <div class="_line-title"></div>
         </div>
-
         <div class="btn-sl play-all" 
-            *ngIf="playBtn"
-            (click)="playAll()">{{lang.getStr('playAll')}}</div>
+            *ngIf="playBtn" (click)="playAll()">
+            {{lang.getStr('playAll')}}
+        </div>
     </div>
 
     <div class="grid">
-
-        <card-wide  *ngFor="let item of items; let i=index" dir="rtl"
-            [item]='item' 
-            [number]='i'
-            [numerical]='numerical'
+        <card-wide  
+            *ngFor="let item of items; let i=index"
+            [item]='item' [number]='i' [numerical]='numerical'
             [duration]="true"
             [exploreBtn]="exploreBtn"
             [playBtn]="playBtn">
         </card-wide>
-
     </div>
 </div>

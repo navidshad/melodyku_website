@@ -10,13 +10,14 @@ class CategoryService
 
 	CategoryService(this._mongodb)
 	{
-		getGroupsFromDb();
-		getCategoriesFromDb();
+		// they will be called from app shell
+		//getGroupsFromDb();
+		//getCategoriesFromDb();
 	}
 
-	void getGroupsFromDb() async
+	Future<void> getGroupsFromDb() async
 	{
-		_mongodb.find(database: 'media', collection: 'category_group')
+		return _mongodb.find(database: 'media', collection: 'category_group')
 			.then((docs) 
 			{
 				for(dynamic doc in docs)
@@ -27,9 +28,9 @@ class CategoryService
 			});
 	}
 
-	void getCategoriesFromDb() async
+	Future<void> getCategoriesFromDb() async
 	{
-		_mongodb.find(database: 'media', collection: 'category')
+		return _mongodb.find(database: 'media', collection: 'category')
 			.then((docs) 
 			{
 				for(dynamic doc in docs)

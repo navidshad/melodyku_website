@@ -7,10 +7,16 @@
 			<div class="btn-sl" (click)="showForm()">add new</div>
 		</div>
 
+		<div class="query">
+			<input 	#total [ngModel]="perPage" (change)="totalPerPage = total.value"
+					class="input-text" type="text">
+			<lable>TOTAL</lable>
+		</div>
+
 		<div class="query" *ngIf="options.allowQuery">
 			<input 	[(ngModel)]="searchQuery" (change)="search()"
 					class="input-text" type="text" placeholder='{"field":"val"}'>
-			<!-- <lable>SEARCH</lable> -->
+			<lable>SEARCH</lable>
 		</div>
 
 		<div class="widget-title none-margine">

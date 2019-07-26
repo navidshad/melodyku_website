@@ -1,24 +1,62 @@
-<div class="tariff_card">
+<div class="tariff_card" extractor (onExtract)="getElement($event)">
 
-	<div class="head flex-column flex-center">
-		<h2>{{detail['title']}}</h2>
-	</div>
-
-	<div class="body flex-column flex-wide">
-		
-		<div class="full-wide" direction>
-			<ul class="detail">
-				<li>{{lang.getStr('downloadSongs')}}</li>
-				<li>{{lang.getStr('offlineAccess')}}</li>
-				<li>{{lang.getStr('multipleQuality')}}</li>
-				<li><span>{{detail['days'].toString()}}</span> <span>روز</span></li>
-				<li>{{price}}</li>
-			</ul>
+	<div class="s_tariff">
+		<div class="head flex-column flex-center">
+			<h2>{{detail['title']}}</h2>
 		</div>
 
-		<div class="btn-sl" 
-			[class.btn-disabled]="!active"
-			(click)="makePurchase()">{{lang.getStr('select')}}</div>
+		<div class="body flex-column flex-wide">
+			
+			<div class="full-wide" direction>
+				<ul class="detail">
+					<li>{{lang.getStr('downloadSongs')}}</li>
+					<li>{{lang.getStr('offlineAccess')}}</li>
+					<li>{{lang.getStr('multipleQuality')}}</li>
+					<li><span>{{detail['days'].toString()}}</span> <span>روز</span></li>
+					<li>{{price}}</li>
+				</ul>
+			</div>
+
+			<div class="btn-sl" 
+				[class.btn-disabled]="!active"
+				(click)="showPayform()">{{lang.getStr('select')}}</div>
+		</div>
 	</div>
 
+	<div class="s_payment">
+
+		<div class="navigator" direction>
+			<div class="button back" (click)="back()">
+				<img src="/assets/svg/icon_border_arrow_up.svg">
+			</div>
+		</div>
+
+		<div class="flex-column flex-center">
+
+			<div class="getways" direction>
+				<p class="description">
+				{{lang.getStr('surTopayment')}}	
+				</p>
+
+				<select class="select w3-select"
+					*ngIf="getways.length > 0"
+					[ngModel]="selectedGate.title"
+					(ngModelChange)="onChangeGetway($event)">
+					
+					<option *ngFor="let getway of getways" 
+						[value]="getway.title">
+						{{lang.getStr(getway.title)}}
+					</option>
+
+				</select>
+			</div>
+
+			<div class="btn-sl margin-h-20" 
+				(click)="makePurchase()">
+				{{lang.getStr('pay')}}
+			</div>
+
+		</div>
+	</div>
+	
 </div>

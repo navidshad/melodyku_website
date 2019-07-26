@@ -23,3 +23,4 @@ export 'widgets/list_item.dart';
 export 'widgets/menu_item.dart';
 export 'widgets/origin.dart';
 export 'widgets/player.dart';
+export 'widgets/section_switcher.dart';

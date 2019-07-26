@@ -3,9 +3,11 @@
 
 .tariff_card{
 	width: 250px;
+	height: 400px;
 	border-radius: 5px;
     overflow: hidden;
     margin: 5px;
+    background-color: white;
 }
 
 .head{
@@ -22,6 +24,16 @@
 	color: black;
 }
 
-// .btn-disabled{
-// 	cursor: wait;
-// }
+.back {
+	transform: rotate(-90deg);
+	width: 30px;
+	border-radius: 50px;
+}
+.back:hover{
+	background-color: grey;
+}
+
+.s_payment{
+	color: black;
+	margin: 20px;
+}

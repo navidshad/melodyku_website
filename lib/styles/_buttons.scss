@@ -26,6 +26,10 @@
     letter-spacing: 1px;
 
     width: fit-content;
+
+    img {
+        width: 100%;
+    }
 }
 
 .button:hover {
@@ -74,10 +78,6 @@
     width: 20px;
     height: 20px;
     margin: 10px 0px;
-
-    img {
-        width: 100%;
-    }
 }
 
 .btn-disabled {

@@ -5,6 +5,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/payment/payment.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
 
@@ -41,7 +42,7 @@ class SubscriptionPlansComponent
 	{
 		print('onChangeCurrency $str');
 		if(str == 'irt') currency = Currency.irt;
-		else if(str == 'eur') currency = Currency.euro;
+		else if(str == 'eur') currency = Currency.eur;
 	}
 
 	void _catchError(error) => print(error);

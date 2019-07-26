@@ -11,7 +11,7 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
 
-import 'package:melodyku/core/app_intaller.dart' as installer;
+//import 'package:melodyku/core/app_intaller.dart' as installer;
 import 'package:melodyku/core/injector.dart' as CI;
 
 @Component(
@@ -54,8 +54,9 @@ class AppShellComponent
   // constructor ================================
   AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
   {
-    CI.Injector.register(CI.InjectorMember('PageRoutes', pageRoutes));
+    CI.Injector.register(InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
+    intialize();
   } 
 
   void resiveMessage(MessageDetail message)
@@ -67,10 +68,11 @@ class AppShellComponent
       _titleBar = message.detail['title'];
   }
 
-  bool get isInstalled => installer.getInstallStatus();
-  void installApp() => installer.installPWA();
+  bool get isInstalled => getInstallStatus();
+  void installApp() => installPWA();
 
   // user =======================================
+  bool _isReady = false;
   bool get isLogedIn => _userService.isLogedIn;
   bool get isFirstLoggined => _userService.user != null ? true : false;
   User get user => _userService.user;
@@ -83,8 +85,19 @@ class AppShellComponent
     if(!isLogedIn) key = true;
     else if(user != null && user.isLoadedData && lang.loaded)
       key = true;
+    
+    if(!_isReady) key = false;
       
     return key;
+  }
+
+  void intialize() async
+  {
+    await lang.getLanguages();
+    await CI.Injector.get<CategoryService>().getGroupsFromDb();
+    await CI.Injector.get<CategoryService>().getCategoriesFromDb();
+
+    _isReady = true;
   }
 
   void logout() async 

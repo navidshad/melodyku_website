@@ -115,6 +115,16 @@ dynamic languageStrings = [
     'en'  : 'Choose a Currency',
     'fa_IR': 'یک واحد پولی انتخاب کنید',
   },
+  {
+    'name'  : 'surTopayment',
+    'en'    : 'If you sure to want buy this plan, select a getway and make purchase.',
+    'fa_IR' : 'اگر برای خرید این بلن مطمئن هستید، یکی از درگاه های پرداخت را انتخاب کنید و سپش دکمه پرداخت را بفشارید.'
+  },
+  {
+    'name' : 'pay',
+    'en'   : 'pay',
+    'fa_IR': 'پرداخت'
+  },
 
   // ========================
   // warnings

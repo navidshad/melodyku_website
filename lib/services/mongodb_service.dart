@@ -14,7 +14,7 @@ class MongoDBService
 
 	MongoDBService(this._http, this._userService);
 
-	Future<Map<String, String>> getHeaders() async
+	Future<Map<String, String>> _getHeaders() async
 	{
 		await Future.doWhile(() async
 		{
@@ -42,7 +42,7 @@ class MongoDBService
       		'options': options
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 		
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -58,7 +58,7 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -74,7 +74,7 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -92,7 +92,7 @@ class MongoDBService
 			'options': options
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -108,7 +108,7 @@ class MongoDBService
 			'doc': doc,
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -124,7 +124,7 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -141,7 +141,7 @@ class MongoDBService
 			'accessQuery': accessQuery
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
@@ -157,7 +157,7 @@ class MongoDBService
 			'IDs': ids,
 		};
 
-		Map<String, String> headers = await getHeaders();
+		Map<String, String> headers = await _getHeaders();
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);

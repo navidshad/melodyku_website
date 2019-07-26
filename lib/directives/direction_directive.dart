@@ -1,20 +1,30 @@
 import 'dart:html';
-
 import 'package:angular/angular.dart';
 
 import 'package:melodyku/core/core.dart' as core;
 import 'package:melodyku/services/services.dart';
 
+/*
+* This is a directive 
+* For controling RTL/LTR aspect of components
+* */
+
 @Directive(selector: '[direction]')
 class DirectionDirective
 {
-	DirectionDirective(Element el)
+	// called when element being created
+	DirectionDirective(Element tag)
 	{
-		LanguageService lang = core.Injector.get<LanguageService>();
+		// get language service
+		LanguageService lang = core.Injector
+									.get<LanguageService>();
+		
+		// get global direction
 		Direction direction = lang.getDirection();
 
+		// set element direction
 		if(direction == Direction.ltr)
-			el.setAttribute('dir', 'ltr');
-		else el.setAttribute('dir', 'rtl');
+			tag.setAttribute('dir', 'ltr');
+		else tag.setAttribute('dir', 'rtl');
 	}
 }

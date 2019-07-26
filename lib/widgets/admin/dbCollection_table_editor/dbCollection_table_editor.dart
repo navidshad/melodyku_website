@@ -44,10 +44,21 @@ class DbCollectionTableEditorComponent
 	String modalName;
 	String formType;
 
-	int perPage = 10;
+	int perPage = 25;
 	int total = 0;
 	int total_pages = 0;
 	int current_page = 1;
+
+	set totalPerPage(String val)
+	{
+		try{
+			int temp = int.tryParse(val);
+			perPage = temp;
+			getPage(page:1);
+		}catch(e){
+
+		}
+	}
 
 	@Input('options')
 	void set setOptions(CollectionOptions value)
@@ -170,21 +181,20 @@ class DbCollectionTableEditorComponent
 		[	
 			// query
 			{"\$match": combinedQueries},
-
-			// navigation
-			{"\$skip": avigatorDetail['from']},
-			{"\$limit": avigatorDetail['to']},
-			
 			// sort
 			{
 				"\$sort": options.sort ?? { '_id': -1 } 
 			},
+			
+			// navigator
+			{"\$skip": avigatorDetail['from']},
+			{"\$limit": avigatorDetail['to']},
 		];
 		
 		//print('pipline for ${_collection.namespace} $pipline');
 
 		// get by aggregate
-    await _mongodb.aggregate(database: options.database, collection: options.collection,
+    	await _mongodb.aggregate(database: options.database, collection: options.collection,
       piplines: piplines)
       .then((documents) 
       {
@@ -218,14 +228,14 @@ class DbCollectionTableEditorComponent
 		// create remove query
 		dynamic query = {'_id': item['_id']};
 
-    _mongodb.removeOne(database: options.database, collection: options.collection, query: query)
-      .then((d)
-      {
-        getPage();
-        modal.close();
-        getPage();
-      })
-      .catchError(printError);
+    	_mongodb.removeOne(database: options.database, collection: options.collection, query: query)
+	      .then((d)
+	      {
+	        getPage();
+	        modal.close();
+	        getPage();
+	      })
+	      .catchError(printError);
 	}
 
 	void printError(error)

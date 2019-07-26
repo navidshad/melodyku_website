@@ -18,7 +18,9 @@ class LanguageService
   LanguageService(this._mongodb) 
   {
     _languageList = [];
-    getLanguages();
+    
+    // will be called from app shell
+    //getLanguages();
   }
 
   // base methods ===============================
@@ -106,7 +108,7 @@ class LanguageService
     return extracted;
   }
 
-  void getLanguages() async
+  Future<void> getLanguages() async
   {
     await _mongodb.find(database: 'cms', collection: 'language_config')
         .then((list) 

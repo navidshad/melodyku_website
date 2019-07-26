@@ -170,6 +170,17 @@ class SystemSchema
 		DbField('artistId', dataType: DataType.dateTime),
 	];
 
+	static List<DbField> factor = 
+	[
+		DbField('refId'),
+		DbField('isPaid', dataType: DataType.bool),
+		DbField('amount', dataType: DataType.int),
+		DbField('currency'),
+		DbField('description'),
+		DbField('createdAt', dataType: DataType.dateTime),
+		DbField('updatedAt', dataType: DataType.dateTime),
+	];
+
 	// methods ==================================
 	static List<DbField> injectSubfields(fielKey, List<DbField> schema, List<DbField> subfields)
 	{
