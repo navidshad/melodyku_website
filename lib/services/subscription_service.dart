@@ -29,36 +29,36 @@ class SubscriptionService
 		return selectedTariff;
 	}
 
-	void purchaseTariff(dynamic id) async
-	{
-		String refId = _userService.user.id.toString();
-		Map tariff = await getTariffById(id);
-		if(tariff == null) return;
+	// void purchaseTariff(dynamic id) async
+	// {
+	// 	String refId = _userService.user.id.toString();
+	// 	Map tariff = await getTariffById(id);
+	// 	if(tariff == null) return;
 
-		int daysDuration = tariff['days'];
+	// 	int daysDuration = tariff['days'];
 
-		DateTime startsIn = DateTime.now().toUtc();
-		DateTime expiresIn = DateTime.now().add(Duration(days: daysDuration)).toUtc();
+	// 	DateTime startsIn = DateTime.now().toUtc();
+	// 	DateTime expiresIn = DateTime.now().add(Duration(days: daysDuration)).toUtc();
 
-		Map newUserSubscriptionPlane = {
-			'refId'		: refId,
-			'plan'		: tariff['title'],
-			'startsIn'	: startsIn.toIso8601String(),
-			'expiresIn'	: expiresIn.toIso8601String(),
-		};
+	// 	Map newUserSubscriptionPlane = {
+	// 		'refId'		: refId,
+	// 		'plan'		: tariff['title'],
+	// 		'startsIn'	: startsIn.toIso8601String(),
+	// 		'expiresIn'	: expiresIn.toIso8601String(),
+	// 	};
 
-		dynamic doc = {'\$set': newUserSubscriptionPlane};
-		dynamic query = {'refId':refId};
+	// 	dynamic doc = {'\$set': newUserSubscriptionPlane};
+	// 	dynamic query = {'refId':refId};
 
-    _mongoDBService.updateOne(database: 'user', collection: 'subscription', 
-      query: query, update: doc, options: {'upsert': true})
-      .then((result)
-			{
-				print('### tariff ${tariff['title']} has been submitted for user.');
-				_userService.user.updateSubscription();
-			})
-			.catchError(_catchError);
-	}
+ //    _mongoDBService.updateOne(database: 'user', collection: 'subscription', 
+ //      query: query, update: doc, options: {'upsert': true})
+ //      .then((result)
+	// 		{
+	// 			print('### tariff ${tariff['title']} has been submitted for user.');
+	// 			_userService.user.updateSubscription();
+	// 		})
+	// 		.catchError(_catchError);
+	// }
 
 	Future<List<Map>> getTariffs() async
 	{

@@ -24,9 +24,11 @@ class Album implements MediaItem
   String imgStamp;
   String imgStamp_artist;
 
+  Map localTitle;
+
   Album({this.id, this.artistId, this.type, this.title, this.artist, 
     this.description, this.imgStamp, this.imgStamp_artist, 
-    this.thumbnail, bool dontGetSongs=false})
+    this.thumbnail, this.localTitle, bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
 
@@ -51,6 +53,7 @@ class Album implements MediaItem
         description : (detail['description'] != null) ? detail['description'] : '',
         imgStamp    : (detail['imgStamp']   != null)  ? detail['imgStamp'] : '',
         imgStamp_artist    : (detail['imgStamp_artist']   != null)  ? detail['imgStamp_artist'] : '',
+        localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
       );
     } 
     catch (e) {
@@ -107,6 +110,7 @@ class Album implements MediaItem
         origin: this,
         titleLink: link,
         subtitleLink: link_artist,
+        localTitle: localTitle,
       ) as T;
     }
     else if (T == ListItem)
@@ -122,6 +126,7 @@ class Album implements MediaItem
         type: ArchiveTypes.album,
         origin: this,
         titleLink: link,
+        localTitle: localTitle,
       ) as T;
     }
 
@@ -148,7 +153,8 @@ class Album implements MediaItem
           id: item.id,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
-          origin: item
+          origin: item,
+          localTitle: item.localTitle,
         ) as T;
       }
       else if (T == ListItem)
@@ -161,7 +167,8 @@ class Album implements MediaItem
           number: itemNumber,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
-          origin: item
+          origin: item,
+          localTitle: item.localTitle,
         ) as T;
       }
 

@@ -34,6 +34,7 @@ class Song implements MediaItem
   String imgStamp_album;
   String imgStamp_artist;
 
+  Map localTitle;
 
   List<Map> versions = [];
 
@@ -54,7 +55,8 @@ class Song implements MediaItem
     this.versions,
     this.imgStamp,
     this.imgStamp_album,
-    this.imgStamp_artist
+    this.imgStamp_artist,
+    this.localTitle
   })
   {
     type = ArchiveTypes.media;
@@ -95,9 +97,10 @@ class Song implements MediaItem
       imgStamp_album  : (detail['imgStamp_album']   != null) ? detail['imgStamp_album'] : '',
       imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
       versions  : detail['versions'],
+      localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
     );
 
-    //if(detail['titleIndex'] != null) mFromJson.title = (detail['titleIndex']['ku_fa']).toString().trim();
+    print(mFromJson.localTitle);
 
     } catch (e) {
       print('convert Song from json ${json.encode(detail)}');
@@ -152,8 +155,8 @@ class Song implements MediaItem
 
   @override
   String get link => '#${Injector.get<PageRoutes>().getRouterUrl('song', {'id': id})}';
-  String get list_album => '#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
-  String get list_artist => '#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
+  String get link_album => '#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
+  String get link_artist => '#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -165,11 +168,12 @@ class Song implements MediaItem
       widget = Card( 
         title,
         subtitle: artist,
-        subtitleLink: list_artist,
+        subtitleLink: link_artist,
         id: id,
         thumbnail: thumbnail,
         type: ArchiveTypes.media,
-        origin: this
+        origin: this,
+        localTitle: localTitle,
       ) as T;
     }
 
@@ -184,7 +188,8 @@ class Song implements MediaItem
         number: digititemNumber,
         thumbnail: thumbnail,
         type: ArchiveTypes.media,
-        origin: this
+        origin: this,
+        localTitle: localTitle,
       ) as T;
     }
 

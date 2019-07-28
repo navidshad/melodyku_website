@@ -4,7 +4,6 @@ library cardRectComponent;
 import 'package:angular/angular.dart';
 
 import 'package:melodyku/core/core.dart';
-import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 
@@ -16,16 +15,16 @@ import 'package:melodyku/widgets/widgets.dart';
     coreDirectives, 
     LikeComponent,
     MediaCoverComponent,
-    DirectionDirective,
   ],
 )
 class CardRectComponent
 {
+  LanguageService lang;
   Player _player;
   UserService _userService;
   PlayerService _playerService;
 
-  CardRectComponent(this._playerService, this._player, this._userService);
+  CardRectComponent(this.lang, this._playerService, this._player, this._userService);
 
   @Input()
   Card card;

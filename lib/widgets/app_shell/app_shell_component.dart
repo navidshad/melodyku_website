@@ -69,6 +69,8 @@ class AppShellComponent
     // check to get new title
     if(message.detail['title'] != null) 
       _titleBar = message.detail['title'];
+
+    
   }
 
   bool get isInstalled => getInstallStatus();

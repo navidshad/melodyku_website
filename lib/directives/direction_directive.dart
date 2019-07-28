@@ -16,8 +16,7 @@ class DirectionDirective
 	DirectionDirective(Element tag)
 	{
 		// get language service
-		LanguageService lang = core.Injector
-									.get<LanguageService>();
+		LanguageService lang = core.Injector.get<LanguageService>();
 		
 		// get global direction
 		Direction direction = lang.getDirection();

@@ -7,7 +7,8 @@
 
 		<div class="body flex-column flex-wide">
 			
-			<div class="full-wide" direction>
+			<div class="full-wide" 
+				dir="{{lang.getDir()}}">
 				<ul class="detail">
 					<li>{{lang.getStr('downloadSongs')}}</li>
 					<li>{{lang.getStr('offlineAccess')}}</li>
@@ -25,7 +26,8 @@
 
 	<div class="s_payment">
 
-		<div class="navigator" direction>
+		<div class="navigator" 
+			dir="{{lang.getDir()}}">
 			<div class="button back" (click)="back()">
 				<img src="/assets/svg/icon_border_arrow_up.svg">
 			</div>
@@ -33,7 +35,8 @@
 
 		<div class="flex-column flex-center">
 
-			<div class="getways" direction>
+			<div class="getways" 
+				dir="{{lang.getDir()}}">
 				<p class="description">
 				{{lang.getStr('surTopayment')}}	
 				</p>

@@ -19,7 +19,6 @@ import 'package:melodyku/widgets/widgets.dart';
 	directives: [
 		coreDirectives,
 		formDirectives,
-		DirectionDirective,
 		ElementExtractorDirective,
 		ButtonRounded,
 	]
@@ -125,7 +124,7 @@ class CardTariffComponent implements OnChanges
 	Function makePurchase()
 	{
 		payBtnOptions.doWaiting(true);
-		_peymentService.createFactor(detail['_id'].toString(), selectedGate.currency)
+		_peymentService.createFactor('tariff', detail['_id'].toString(), selectedGate.currency)
 			.then((factor) => factor.getPayLink(selectedGate.title))
 			.then((String link) 
 			{

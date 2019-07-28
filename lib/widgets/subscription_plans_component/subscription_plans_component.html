@@ -1,12 +1,13 @@
 <div class="widget-container flex-column flex-center">
 
 	<!-- currency -->
-	<div class="currency" direction>
+	<div class="currency"
+		dir="{{lang.getDir()}}">
 		<label >{{lang.getStr('chooseCurrency')}}</label>
 		<select class="select w3-select" 
 			[ngModel]="'irt'"
 			(ngModelChange)="onChangeCurrency($event)">
-			<option [value]="'irt'" selected>{{lang.getStr('irt')}}</option>
+			<option [value]="'irt'">{{lang.getStr('irt')}}</option>
 			<option [value]="'eur'">{{lang.getStr('eur')}}</option>
 		</select>
 	</div>

@@ -18,7 +18,10 @@ class Artist implements MediaItem
   String thumbnail;
   String imgStamp;
 
-  Artist({this.id, this.name, this.description, this.imgStamp, this.thumbnail})
+  Map localTitle;
+
+  Artist({this.id, this.name, this.description, 
+    this.imgStamp, this.thumbnail, this.localTitle})
   {
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>()
@@ -34,6 +37,7 @@ class Artist implements MediaItem
         name      : (detail['name'] != null) ? detail['name'] : '',
         description: (detail['description'] != null) ? detail['description'] : '',
         imgStamp  : (detail['imgStamp'] != null) ? detail['imgStamp'] : '',
+        localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
         );
     } 
     catch (e) {
@@ -90,7 +94,8 @@ class Artist implements MediaItem
         thumbnail: thumbnail,
         titleLink: link,
         type: ArchiveTypes.artist,
-        origin: this
+        origin: this,
+        localTitle: localTitle,
       ) as T;
     }
     else if (T == ListItem)
@@ -104,7 +109,8 @@ class Artist implements MediaItem
         thumbnail: thumbnail,
         titleLink: link,
         type: ArchiveTypes.artist,
-        origin: this
+        origin: this,
+        localTitle: localTitle,
       ) as T;
     }
 

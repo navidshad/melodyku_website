@@ -18,7 +18,6 @@ import 'package:melodyku/archive/archive.dart';
     coreDirectives,
     CardRectComponent,
     ElementExtractorDirective,
-    DirectionDirective,
    ],
 )
 class SliderRectComponent

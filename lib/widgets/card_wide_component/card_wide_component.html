@@ -1,4 +1,4 @@
-<div class="card-container" direction>
+<div class="card-container" dir="{{lang.getDir()}}">
 
     <!-- <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null"> -->
         
@@ -26,7 +26,7 @@
             
                 <div class="titles">
                     <p>
-                        <span class="title">{{item.title}}</span><br>
+                        <span class="title">{{item.getTitle(lang.getCode())}}</span><br>
                         <span class="sub" *ngIf="item.subtitle != null">{{item.subtitle}}</span>
                     </p>
                 </div>

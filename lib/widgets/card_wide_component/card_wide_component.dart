@@ -6,7 +6,6 @@ import 'package:angular/angular.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
-import 'package:melodyku/directives/directives.dart';
 
 @Component(
   selector: 'card-wide',
@@ -16,11 +15,11 @@ import 'package:melodyku/directives/directives.dart';
     coreDirectives,
     LikeComponent,
     MediaCoverComponent,
-    DirectionDirective,
   ]
 )
 class CardWideComponent 
 {
+  LanguageService lang;
   Player _player;
   PlayerService _playerService;
   UserService _userService;
@@ -54,7 +53,7 @@ class CardWideComponent
     //return -1;
   }
 
-  CardWideComponent(this._playerService, this._player, this._userService);
+  CardWideComponent(this.lang, this._playerService, this._player, this._userService);
 
   void play() {
     if(item.type == ArchiveTypes.media)

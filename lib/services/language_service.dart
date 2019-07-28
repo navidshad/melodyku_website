@@ -42,6 +42,9 @@ class LanguageService
     else return Direction.ltr;
   }
 
+  String getDir() =>
+    getDirection().toString().replaceAll('Direction.', '');
+
   String getFlag() => 
     _languageList[_current].flag;
 

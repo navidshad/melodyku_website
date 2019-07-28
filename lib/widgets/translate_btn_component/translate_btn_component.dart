@@ -26,6 +26,8 @@ class TranslateBtnComponent
   Modal modal;
   String selected;
 
+  List<Map> list;
+
   // contruction ================================
   TranslateBtnComponent(this._modalService, this.lang);
 
@@ -33,6 +35,8 @@ class TranslateBtnComponent
   {
     modal = Modal(el);
     _modalService.register('languageSelection', modal);
+
+    list = lang.getLanguageMaps();
   }
 
   // methods ====================================

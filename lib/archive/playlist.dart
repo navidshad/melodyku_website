@@ -21,7 +21,10 @@ class Playlist implements MediaItem
   String thumbnail;
   String imgStamp;
 
-  Playlist({this.id, this.title, this.list, this.thumbnail, this.imgStamp})
+  Map localTitle;
+
+  Playlist({this.id, this.title, this.list, 
+    this.thumbnail, this.imgStamp, this.localTitle})
   {
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>().getImage(type:'playlist', id:id, imgStamp:imgStamp);
@@ -47,7 +50,8 @@ class Playlist implements MediaItem
         id        : detail['_id'].toString(), 
         title     : detail['title'], 
         imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
-        list      : items 
+        list      : items,
+        localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
         );
     } 
     catch (e) {
@@ -97,7 +101,8 @@ class Playlist implements MediaItem
           thumbnail: thumbnail,
           titleLink: link,
           type: ArchiveTypes.playlist,
-          origin: this
+          origin: this,
+
       ) as T;
     }
     else if(T == ListItem)
@@ -138,11 +143,12 @@ class Playlist implements MediaItem
         widget = Card<Song>( 
           item.title,
           subtitle: item.artist,
-          subtitleLink: item.list_artist,
+          subtitleLink: item.link_artist,
           id: item.id,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
           origin: item,
+          localTitle: item.localTitle,
         ) as T;
       }
       else if(T == ListItem)
@@ -156,7 +162,8 @@ class Playlist implements MediaItem
           number: itemNumber,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
-          origin: item
+          origin: item,
+          localTitle: item.localTitle,
         ) as T;
       }
 

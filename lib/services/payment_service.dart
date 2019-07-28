@@ -53,7 +53,7 @@ class PaymentService
 			});
 	}
 
-	Future<Factor> createFactor(String tariffid, Currency currency) async
+	Future<Factor> createFactor(String type, String id, Currency currency) async
 	{
 		String url = Vars.host + '/payment/createFactor';
 
@@ -61,7 +61,8 @@ class PaymentService
 
 		Map body = {
 			'currency': getCurrencyAsStr(currency),
-			'tariffid': tariffid
+			'type': type,
+			'id': id
 		};
 
 		return _http.post(url, headers: headers, body: json.encode(body))
