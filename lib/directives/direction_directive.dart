@@ -12,18 +12,30 @@ import 'package:melodyku/services/services.dart';
 @Directive(selector: '[direction]')
 class DirectionDirective
 {
+	Element tag;
 	// called when element being created
 	DirectionDirective(Element tag)
 	{
-		// get language service
-		LanguageService lang = core.Injector.get<LanguageService>();
-		
-		// get global direction
-		Direction direction = lang.getDirection();
+		this.tag = tag;
+	}
 
-		// set element direction
-		if(direction == Direction.ltr)
-			tag.setAttribute('dir', 'ltr');
-		else tag.setAttribute('dir', 'rtl');
+	String dir;
+
+	@Input()
+	bool align;
+
+	@Input()
+	set direction(String val)
+	{
+		dir = val;
+		tag.setAttribute('dir', dir);
+
+		if((align ?? false)) tag.style.setProperty('text-align', getTextAlign());
+	}
+
+	String getTextAlign()
+	{
+		if(dir == 'ltr') return 'left';
+		else return 'right';
 	}
 }

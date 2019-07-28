@@ -31,6 +31,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     ElementExtractorDirective,
     LoginFormComponent,
     TranslateBtnComponent,
+    DirectionDirective,
   ],
 
   providers: [

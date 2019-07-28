@@ -17,17 +17,14 @@ class PageDefinition
   String title;
 
   PageDefinition
-    ({this.route, this.permissionType, this.position, this.iconImgRef, this.title})
-    {
-      _lang = Injector.get<LanguageService>();
-    }
+    ({this.route, this.permissionType, this.position, this.iconImgRef, this.title});
 
   MenuItem toMenuItem() 
   {
     String tUrl = route.toUrl();
 
-    String localTitle = _lang.getStr(title);
-    MenuItem mi = MenuItem(title: localTitle, img_ref: iconImgRef, url: tUrl);
+    //String localTitle = _lang.getStr(title);
+    MenuItem mi = MenuItem(title: title, img_ref: iconImgRef, url: tUrl);
     return mi;
   }
 }

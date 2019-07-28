@@ -79,13 +79,16 @@
 
         <ul class="menu-group">
             <li *ngFor="let item of mainMenuItems"
-            class="d-menu-item w3-center"
-            [routerLinkActive]="'active'">
-                <a href="#" 
-                    [routerLink]="item.url">
-                    <img src="{{item.img_ref}}" alt="" class="drawer-icon">
-                </a>
-                <div class="item-divider"></div>
+                class="d-menu-item w3-center"
+                [routerLinkActive]="'active'">
+                    <a [routerLink]="item.url">
+                        <div class="flex-column flex-center rect-item">
+                            <img src="{{item.img_ref}}" alt="" class="drawer-icon">
+                            <span class="subtitle">{{lang.getStr(item.title)}}</span>    
+                        </div>
+                    </a>
+                    
+                    <div class="item-divider"></div>
             </li>
         </ul>
 
@@ -108,13 +111,16 @@
 
         <ul class="menu-group">
             <li *ngFor="let item of profileItems"
-            class="d-menu-item"
-            [routerLinkActive]="'active'">
-                <a [routerLink]="item.url" class='item-right-text'>
-                    <img src="{{item.img_ref}}" alt="" class="drawer-icon">
-                    <span class="drawer-title">{{item.title}}</span>
-                </a>
-                <div class="item-divider"></div>
+                class="d-menu-item"
+                [direction]="lang.getDir()" [align]="true"
+                [routerLinkActive]="'active'">
+                    <a [routerLink]="item.url" >
+                        <div class="wide-item">
+                            <img src="{{item.img_ref}}" alt="" class="drawer-icon">
+                            <span class="drawer-title">{{lang.getStr(item.title)}}</span>
+                        </div>
+                    </a>
+                    <div class="item-divider"></div>
             </li>
         </ul>
 

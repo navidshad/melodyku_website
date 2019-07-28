@@ -11,7 +11,7 @@
                 <h3>{{lang.getStr('selectLanguage')}}</h3>
             </div>
 
-            <div class="lang-list">
+            <div class="lang-list" dir="{{lang.getDir()}}">
                 <div *ngFor="let lang of list; let i=index"
                     [class.active]="isCurrentLanguage(i)" (click)="switchTo(i)">
                     <label>{{lang['name']}}</label>

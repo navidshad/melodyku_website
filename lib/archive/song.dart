@@ -100,8 +100,6 @@ class Song implements MediaItem
       localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
     );
 
-    print(mFromJson.localTitle);
-
     } catch (e) {
       print('convert Song from json ${json.encode(detail)}');
       print(e);
