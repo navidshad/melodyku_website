@@ -15,6 +15,7 @@ export 'admin/user_manager/user_manager.dart';
 // app shell
 export 'app_shell/app_shell_component.dart';
 export 'login_form_component/login_form_component.dart';
+export 'login_form2_component/login_form2_component.dart';
 
 // widgets components
 export 'album_single_wrapper_component/album_single_wrapper_component.dart';

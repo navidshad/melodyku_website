@@ -1,5 +1,5 @@
 /// {@nodoc}
-library loginFormComponent;
+library loginForm2Component;
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -10,24 +10,25 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 
 @Component(
-  selector: 'login-form',
-  templateUrl: 'login_form_component.html',
-  styleUrls: ['login_form_component.css'],
+  selector: 'login-form2',
+  templateUrl: 'login_form2_component.html',
+  styleUrls: ['login_form2_component.css'],
   directives: [
     coreDirectives,
     ElementExtractorDirective,
     formDirectives,
   ]
 )
-class LoginFormComponent
+class LoginForm2Component
 {
   LanguageService lang;
   UserService _userService;
-  ModalService _modalService;
-  Modal modal;
 
   bool isVisible = false;
   String activeForm = 'login';
+  
+  Element base;
+  SectionSwitcher swicher;
   
   String phone = '';
   String password = '';
@@ -35,22 +36,21 @@ class LoginFormComponent
 
   String errorMessage;
 
-  List<String> formIds = [
-    'login', 
-    'register-phone', 
-    'submite-password',
-    'register-phone-for-change-password',
-    'submite-password-for-change',
-    ];
-
   // constructor --------------------------------
-  LoginFormComponent(this.lang, this._userService, this._modalService);
+  LoginForm2Component(this.lang, this._userService);
 
   // get and register modal to modal Manager
   void getElement(Element el) 
   {
-    modal = Modal(el, onClose: showForm, arg: 'login');
-    _modalService.register('login', modal);
+    base = el;
+
+    swicher = SectionSwitcher([
+      el.querySelector('#login'),  
+      el.querySelector('#register-phone'), 
+      el.querySelector('#submite-password'), 
+      el.querySelector('#register-phone-for-change-password'), 
+      el.querySelector('#submite-password-for-change'), 
+    ]);
 
     showForm('login');
   }
@@ -61,63 +61,43 @@ class LoginFormComponent
     // clear text boxes
     phone = '';
     password = '';
-    modal.clearMessages();
 
     // hide modal content
-    await modal.doWaiting(true);
-
-    // hide all sections
-    formIds.forEach((id) =>
-      modal.base.querySelector('#$id').classes.add('none'));
-
-    // show specific section
-    modal.base.querySelector('#$sectionid').classes.remove('none');
-
-    // show modal content again
-    modal.doWaiting(false);
+    swicher.show(sectionid);
   }
 
   void login() async 
   {
-    modal.doWaiting(true);
+    swicher.hideAll();
 
     phone = phone.replaceAll('+', '');
     
     await _userService.login(identity: phone, identityType: 'phone', password: password)
       .then((r) async
       {
-        modal.clearMessages();
-        modal.addMessage('Success', color: 'green');
-        modal.showMessage();
-
-        await Future.delayed(Duration(milliseconds: 500));
-        modal.close();
+        Navigator.gotTo('');
       })
       .catchError((e) {
         print('login error $e');
         errorMessage = 'wrong phone or password';
-        showError(errorMessage);
+        showForm('login');
       });
-
-    modal.doWaiting(false);
   }
 
   void registerPhone() async
   {
-    modal.doWaiting(true);
+    swicher.hideAll();
 
     if(!validatePhone())
     {
-      showError('Wrong phone number');
+      errorMessage = 'Wrong phone number';
       return;
     }
 
     await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
       .then((r) async
       {
-        modal.clearMessages();
-        modal.addMessage('Your phone number has been submitted', color: 'yellow');
-        modal.showMessage();
+        errorMessage = 'Your phone number has been submitted';
 
         await Future.delayed(Duration(milliseconds: 500));
         showForm('submite-password');
@@ -125,26 +105,22 @@ class LoginFormComponent
       .catchError((e) {
         print('registerPhone error $e');
         errorMessage = 'wrong phone';
-        showError(errorMessage);
+        showForm('register-phone');
       });
-
-    modal.doWaiting(false);
   }
 
   void submitePassword() async
   {
     if(phone == '' || password == '' || code == '') return;
 
-    modal.doWaiting(true);
+    swicher.hideAll();
 
     // submite password
     await _userService.auth
       .registerSubmitPass(identity: phone, password: password, serial: code)
       .then((r) async
       {
-        modal.clearMessages();
-        modal.addMessage('Success', color: 'green');
-        modal.showMessage();
+        errorMessage = 'Success';
 
         await Future.delayed(Duration(milliseconds: 2000));
         showForm('login');
@@ -152,28 +128,24 @@ class LoginFormComponent
       .catchError((e) {
         print('submitePassword error $e');
         errorMessage = 'Check your information please, and submite again';
-        showError(errorMessage);
+        showForm('submite-password');
       });
-
-    modal.doWaiting(false);
   }
 
   void registerPhoneForChangePassword() async
   {
-    modal.doWaiting(true);
+    swicher.hideAll();
 
     if(!validatePhone())
     {
-      showError('Wrong phone number');
+      errorMessage = 'Wrong phone number';
       return;
     }
 
     await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
       .then((r) async
       {
-        modal.clearMessages();
-        modal.addMessage('Your phone number has been submitted', color: 'yellow');
-        modal.showMessage();
+        errorMessage = 'Your phone number has been submitted';
 
         await Future.delayed(Duration(milliseconds: 500));
         showForm('submite-password-for-change');
@@ -181,26 +153,22 @@ class LoginFormComponent
       .catchError((e) {
         print('registerPhoneForChangePassword error $e');
         errorMessage = 'wrong phone';
-        showError(errorMessage);
+        showForm('register-phone-for-change-password');
       });
-
-    modal.doWaiting(false);
   }
 
   void submitePasswordForChange() async
   {
     if(phone == '' || password == '' || code == '') return;
 
-    modal.doWaiting(true);
+    swicher.hideAll();
 
     // submite password
     await _userService.auth
       .changePass(identity: phone, password: password, serial: code)
       .then((r) async
       {
-        modal.clearMessages();
-        modal.addMessage('Success', color: 'green');
-        modal.showMessage();
+        errorMessage = 'Success';
 
         await Future.delayed(Duration(milliseconds: 2000));
         showForm('login');
@@ -208,18 +176,8 @@ class LoginFormComponent
       .catchError((e) {
         print('submitePasswordForChange error $e');
         errorMessage = 'Check your information please, and submite again';
-        showError(errorMessage);
+        showForm('submite-password-for-change');
       });
-
-    modal.doWaiting(false);
-  }
-
-  void showError(String err)
-  {
-    modal.clearMessages();
-    modal.addMessage(err, color:'red');
-    modal.showMessage();
-    modal.doWaiting(false);
   }
 
   bool validatePhone()

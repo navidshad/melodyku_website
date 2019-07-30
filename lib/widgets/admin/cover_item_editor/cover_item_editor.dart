@@ -119,7 +119,12 @@ class CoverItemEditor implements OnInit
 		//String link = 'http://steryo.melodyku.com/image/remove';
 		
 		Map body = {'type': type, 'id':id};
-		Map<String, String> header = {'orgine': 'localhost:8080'/*window.location.origin*/};
+
+		Map<String, String> header = {
+			'orgine': window.location.origin,
+			'authorization': _userService.token
+		};
+		
 		Client http = Client();
 		http.post(link, body: body, headers: header)
 			.then((body) {

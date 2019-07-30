@@ -1,0 +1,47 @@
+.logo{
+    width: 250px;
+}
+
+.form{
+    flex-grow: 1;
+    max-width: 250px;
+}
+
+.alternatives {
+    list-style: none;
+    
+    li {
+        text-align: right;
+    }
+}
+
+.widget-container{
+    margin-top: 80px;
+}
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 479px) 
+{
+    .body{
+        padding: 0px;
+    }
+
+    .icon {
+        display: none;
+    }
+
+    .logo{
+        width: 150px;
+    }
+
+    .modal-content{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 375px) 
+{
+    .logo{
+        width: 100px;
+    }
+}

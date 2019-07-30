@@ -80,6 +80,7 @@
         <ul class="menu-group">
             <li *ngFor="let item of mainMenuItems"
                 class="d-menu-item w3-center"
+                (click)="drawerMenu.close()"
                 [routerLinkActive]="'active'">
                     <a [routerLink]="item.url">
                         <div class="flex-column flex-center rect-item">
@@ -112,6 +113,7 @@
         <ul class="menu-group">
             <li *ngFor="let item of profileItems"
                 class="d-menu-item"
+                (click)="drawerProfile.close()"
                 [direction]="lang.getDir()" [align]="true"
                 [routerLinkActive]="'active'">
                     <a [routerLink]="item.url" >
@@ -130,5 +132,5 @@
 </div>
 
 <!-- login form -->
-<login-form *ngIf="allowLoadShell"></login-form>
+<!-- <login-form *ngIf="allowLoadShell"></login-form> -->
 

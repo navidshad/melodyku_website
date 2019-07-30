@@ -1,6 +1,8 @@
 /// {@nodoc}
 library languageService;
 
+import 'dart:html';
+
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/language/language_strings.dart';
 import 'package:melodyku/services/services.dart';
@@ -26,8 +28,10 @@ class LanguageService
   // base methods ===============================
   int get current => _current;
 
-  void switchTo(int index) => 
+  void switchTo(int index) {
     _current = index;
+    _saveSession();
+  }
 
   String getStr(String name) {
     if(_current != null)
@@ -124,6 +128,7 @@ class LanguageService
         });
 
     prepareLanguages();
+    _loadSession();
   }
 
   List<DbField> getLanguageFiels()
@@ -142,5 +147,15 @@ class LanguageService
     _languageList.forEach((Language lang) 
       => langs.add(lang.getDetail()));
     return langs;
+  }
+
+  void _saveSession() =>
+    window.localStorage['current_language'] = current.toString();
+
+  void _loadSession()
+  {
+    try{
+      _current = int.parse(window.localStorage['current_language']);
+    }catch(e){}
   }
 }

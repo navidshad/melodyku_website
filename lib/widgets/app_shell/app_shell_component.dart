@@ -29,7 +29,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     coreDirectives, 
     routerDirectives,
     ElementExtractorDirective,
-    LoginFormComponent,
+    //LoginFormComponent,
     TranslateBtnComponent,
     DirectionDirective,
   ],
@@ -70,8 +70,6 @@ class AppShellComponent
     // check to get new title
     if(message.detail['title'] != null) 
       _titleBar = message.detail['title'];
-
-    
   }
 
   bool get isInstalled => getInstallStatus();
@@ -83,7 +81,6 @@ class AppShellComponent
   bool get isFirstLoggined => _userService.user != null ? true : false;
   User get user => _userService.user;
   
-
   bool get allowLoadShell 
   {
     bool key  = false;
@@ -93,6 +90,9 @@ class AppShellComponent
       key = true;
     
     if(!_isReady) key = false;
+
+    if(profileItems.length == 0)
+      getMenuItems();
       
     return key;
   }
@@ -103,10 +103,15 @@ class AppShellComponent
     await CI.Injector.get<CategoryService>().getGroupsFromDb();
     await CI.Injector.get<CategoryService>().getCategoriesFromDb();
 
-    mainMenuItems = pageRoutes.getMainMenuItems();
-    profileItems  = pageRoutes.getProfileMenuItems();
+    getMenuItems();
 
     _isReady = true;
+  }
+
+  void getMenuItems()
+  {
+    mainMenuItems = pageRoutes.getMainMenuItems();
+    profileItems  = pageRoutes.getProfileMenuItems();
   }
 
   void logout() async 
@@ -114,11 +119,14 @@ class AppShellComponent
     await closeDrawers();
     _userService.logout();
     drawerProfile = null;
+    profileItems = [];
   }
 
   // register form ------------------------------
-  void openlogin() => 
-    _messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
+  void openlogin() {
+    //_messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
+    Navigator.gotTo('login');
+  }
 
 
   // drawers ====================================

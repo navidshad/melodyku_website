@@ -23,18 +23,26 @@ class SectionSwitcher
 			element.style.setProperty('display', 'none'));
 	}
 
-	Future<void> show(String classSelector) async
+	Future<void> show(String selector) async
 	{
 		await hideAll();
+
+		Element el;
+
+		String normal = selector.replaceAll('.', '');
+		normal = normal.replaceAll('#', '');
 		
-		selectors.forEach((element) {
-			if(element.classes.contains(classSelector))
-				element.style.setProperty('display', 'block');
+		selectors.forEach((element) 
+		{
+			if(selector.startsWith('.') && element.classes.contains(normal))
+				el = element;
+			else if(element.id == normal)
+				el = element;
 		});
 
-		selectors.forEach((element) {
-			if(element.classes.contains(classSelector))
-				element.style.setProperty('opacity', '1');
-		});
+		if(el == null) return;
+
+		el.style.setProperty('display', 'block');
+		el.style.setProperty('opacity', '1');
 	}
 }

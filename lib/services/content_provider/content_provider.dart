@@ -9,8 +9,7 @@ import 'package:melodyku/core/core.dart';
 
 class ContentProvider 
 {
-  MediaSelector mediaselector;
-
+  	MediaSelector mediaselector;
 
 	ContentProvider(MongoDBService mongoService)
 	{

@@ -9,8 +9,7 @@ import 'types.dart';
 import 'widgets/menu_item.dart';
 
 // pages
-import 'package:melodyku/src/pages/_email_confirmation/email_confirmation.template.dart' as email_confirmation_template;
-import 'package:melodyku/src/pages/_password_reset/password_reset.template.dart' as password_reset_template;
+import 'package:melodyku/src/pages/_login/login.template.dart' as login_template;
 
 import 'package:melodyku/src/pages/m_albums/albums_page.template.dart' as albums_page_template;
 import 'package:melodyku/src/pages/m_playlists/playlists_page.template.dart' as playlists_page_template;
@@ -42,27 +41,16 @@ import 'package:melodyku/src/pages/s_search/search_page.template.dart' as search
 Map<String, PageDefinition> pageDefinitions = pageDefinitions = 
 {
   // user validation ========================
-  'email_confirmation' : PageDefinition(
-    title         : 'email_confirmation',
+  'login' : PageDefinition(
+    title         : 'login',
     position      : MenuPosition.none,
     permissionType: PermissionType.customer_access,
     route         : RouteDefinition(
-                      routePath: RoutePath(path: 'email_confirmation/token/:token/tokenId/:tokenId'),
-                      component: email_confirmation_template.EmailConfirmationPageNgFactory,
+                      routePath: RoutePath(path: 'login'),
+                      component: login_template.LoginPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/home.png',
-  ),
-  
-  'password_reset' : PageDefinition(
-    title         : 'password_reset',
-    position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
-    route         : RouteDefinition(
-                      routePath: RoutePath(path: 'password_reset/token/:token/tokenId/:tokenId'),
-                      component: password_reset_template.PasswordResetPageNgFactory,
-                    ),
-    iconImgRef    : 'assets/imgs/icons/home.png',
-  ),  
+  ), 
 
   // main menu drawer =======================
   'vitrin' : PageDefinition(

@@ -88,13 +88,13 @@ class CardTariffComponent implements OnChanges
 		if(!allowPayment) return;
 		
 		_onChangeAllowPayment.add(false);
-		switcher.show('s_payment');
+		switcher.show('.s_payment');
 	}
 
 	void back()
 	{
 		_onChangeAllowPayment.add(true);
-		switcher.show('s_tariff');
+		switcher.show('.s_tariff');
 	}
 
 	void getElement(HtmlElement el)
@@ -105,7 +105,7 @@ class CardTariffComponent implements OnChanges
 			el.querySelector('.s_payment'),	
 		]);
 
-		switcher.show('s_tariff');
+		switcher.show('.s_tariff');
 	}
 
 	void onChangeGetway(String gateTitle)
