@@ -178,8 +178,10 @@ class MongoDBService
 
 	dynamic analizeResult(Response r)
 	{
-		//print('== analizeResult ${r.body}');
-		if(r.statusCode != 200) throw new StateError(r.body);
+		if(r.statusCode != 200) {
+			print('== analizeResult mongo service err ${r.statusCode} ${r.body}');
+			throw new StateError(r.body);
+		}
 		return _convert(r.body);
 	}
 }

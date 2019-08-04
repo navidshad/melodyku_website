@@ -14,37 +14,11 @@ $itemMargin: 0px 0px 0px 15px;
     margin: $itemMargin;
 }
 
-// navigator
-.navigate-btn {
-    width: 10px;
-    height: 20px;
-    background: url('/assets/imgs/icons/arrow_left.png');
-    background-repeat: no-repeat;
-}
-.navigate-btn:hover{
-    @include hoverShadow;
+.swiper-slide{
+    //width: 240px;
+    height: auto;
 }
 
-.navigator {
-    position: relative;
-    top: -160px;
-}
-
-.prev {
-    @extend .navigate-btn;
-    transform: rotateY(180deg);
-    //float: right;
-    left: 20px;
-    position: relative;
-}
-.next {
-    @extend .navigate-btn;
-    float: left;
-    position: relative;
-    left: -20px;
-    right: auto;
-    top: -20px;
-}
 
 @media all and (max-width: 768px)
 {
@@ -52,7 +26,7 @@ $itemMargin: 0px 0px 0px 15px;
         overflow-x: auto;
     }
 
-    .prev, .next {
+    .navigator {
         display: none;
     }
 }

@@ -52,12 +52,15 @@ dynamic createSwipeOptions({
 	int speed=300,
 	SwiperEffect effect,
 	bool watchOverflow= false,
-	bool centeredSlides=true,
+	bool centeredSlides=false,
+	bool grabCursor=false,
+	bool loop=false,
 	SwiperNavigation navigation,
 	dynamic slidesPerView='auto',
 	int spaceBetween=5,
 	CoverflowEffect coverflowEffect,
 	int initialSlide,
+	Map more= const {},
 })
 {
 	Map options = {
@@ -65,6 +68,8 @@ dynamic createSwipeOptions({
 		'effect': _getEffect(effect),
 		'watchOverflow': watchOverflow,
 		'centeredSlides': centeredSlides,
+		'grabCursor': grabCursor,
+		'loop': loop,
 		'slidesPerView': slidesPerView,
 		'spaceBetween': spaceBetween,
 		'initialSlide': initialSlide,
@@ -77,6 +82,8 @@ dynamic createSwipeOptions({
 		options['coverflowEffect'] = coverflowEffect.getMap();
 		options['initialSlide'] = initialSlide ?? 1;
 	}
+
+	options.addAll(more);
 
 	return jsify(options);
 }

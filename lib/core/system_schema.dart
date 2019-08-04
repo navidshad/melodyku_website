@@ -153,7 +153,7 @@ class SystemSchema
     DbField('title'),
     DbField('width', dataType: DataType.int),
     DbField('height', dataType: DataType.int),
-    //DbField('slides', dataType: DataType.array_object, isHide: true, subFields: SystemSchema.slide),
+    DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
   ];
 
 	// user ====================================

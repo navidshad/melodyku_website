@@ -47,12 +47,15 @@ class SlideShowEditorComponent implements OnChanges
 		modal = Modal(el, onSubmitAsync: onSlideEdited);
 	}
 
-	ngOnChanges(Map<String, SimpleChange> changes) async
+	ngOnChanges(Map<String, SimpleChange> changes)
 	{
 		if(id != null){
 			slideshow = SlideShow(id: id);
-			await slideshow.initialize();
-			initSwiper();
+			slideshow.initialize()
+				.then((r){
+					initSwiper();
+				}).catchError((err) 
+					=> print(err));
 		}
 	}
 

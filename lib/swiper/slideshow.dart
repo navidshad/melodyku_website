@@ -10,6 +10,8 @@ class SlideShow
 	int height;
 	List<Slide> slides = [];
 
+	bool initilized = false;
+
 	MongoDBService _mongodb;
 
 	SlideShow({this.id, this.title})
@@ -17,7 +19,7 @@ class SlideShow
 		_mongodb = Injector.get<MongoDBService>();
 	}
 
-	Future<void> initialize()
+	Future<void> initialize() async
 	{
 		Map query = {};
 		if(id != null) query['_id'] = id;
@@ -34,7 +36,8 @@ class SlideShow
 
 				// get slides
 				return getSlides();
-			});
+			})
+			.then((r) => initilized=true);
 	}
 
 	Future<void> getSlides()

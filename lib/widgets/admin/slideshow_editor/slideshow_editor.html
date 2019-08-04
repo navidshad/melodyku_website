@@ -12,13 +12,15 @@
 				[options]="addBtnOptions"></rounded-button>	
 		</div>
 	</div>
-	<div class="preview-container swiper-container">
+	<div class="preview-container swiper-container"
+		*ngIf="slideshow.initilized">
 	    <div class="swiper-wrapper animatable" 
 	    	[class.no-opacity]="addBtnOptions.isWaiting">
 	        <!-- Slides -->
 	        <div class="swiper-slide flex-column flex-center"
 	        	*ngFor="let slide of slideshow.slides; let i=index">
 	        	<div class="preview-slide"
+		        	style="max-width: {{slideshow.width/3}}px; max-height: {{slideshow.height/3}}px;"
 	        		(click)="openSlideOption(i)">
 	        		<img *ngIf="(slide.imgStamp ?? '').length > 0" src="{{slide.getImgLink()}}">
 	        	</div>

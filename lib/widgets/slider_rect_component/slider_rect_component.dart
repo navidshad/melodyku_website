@@ -9,6 +9,7 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
+import 'package:melodyku/swiper/swiper.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -20,7 +21,7 @@ import 'package:melodyku/archive/archive.dart';
     ElementExtractorDirective,
    ],
 )
-class SliderRectComponent
+class SliderRectComponent implements OnChanges
 {
   Element slider;
   int height = 250;
@@ -28,6 +29,8 @@ class SliderRectComponent
 
   LanguageService lang;
   PlayerService _playerService;
+
+  Swiper swiper;
 
   SliderRectComponent(this.lang, this._playerService);
   
@@ -46,18 +49,30 @@ class SliderRectComponent
   @Input()
   bool couldliked;
 
-  void next() 
+  bool initilized = false;
+
+  @override
+  ngOnChanges(Map<String, SimpleChange> changes) 
   {
-    //move += itemSize;
-    int currentPos = slider.scrollLeft;
-    slider.scroll(currentPos - itemSize, 0);
+    initSwiper();
   }
 
-  void prev() 
+  void initSwiper() async
   {
-    //move -= itemSize;
-    int currentPos = slider.scrollLeft;
-    slider.scroll(currentPos + itemSize, 0);
+    await Future.delayed(Duration(seconds:1));
+    swiper = Swiper(
+      '#${items.hashCode}',
+      createSwipeOptions(
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        loop: false,
+        navigation: SwiperNavigation(
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',),
+      )
+    );
+
+    initilized = true;
   }
 
   void getSliderElement(Element el) => slider = el;

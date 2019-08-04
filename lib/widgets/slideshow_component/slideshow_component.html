@@ -1,11 +1,19 @@
 <div *ngIf="slideshow != null">
 	
-	<div id="{{slideshow.title}}" 
+	<div id="{{slideshow.hashCode}}" 
 		class="swiper-container animatable" 
 		[class.no-opacity]="!initilized"
-		*ngIf="slideshow.slides.length > 0">
+		*ngIf="slideshow.initilized">
+
 	    <div class="swiper-wrapper">
 	        <!-- Slides -->
+	        <div class="swiper-slide no-slide flex-row flex-center"
+	        	*ngIf="slideshow.slides.length == 0"
+	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;">
+	        	<div>
+	        		<h4>slides not found</h4>
+	        	</div>
+	        </div> 
 	        <div class="swiper-slide" 
 	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;"
 	        	*ngFor="let slide of slideshow.slides; let i=index">

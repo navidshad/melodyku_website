@@ -12,23 +12,26 @@
             (click)="playAll()">{{lang.getStr('playAll')}}</div>
     </div>
 
-    <div class='thumbs' id="thumbs" 
-        extractor (onExtract)="getSliderElement($event)">
-        
-        <card-rect class="item" 
-            
-            *ngFor="let item of items; let i=index" 
-            
-            [card]="item"
-            [number]='i'
-            [exploreBtn]="exploreBtn"
-            [playBtn]="playBtn"
-            [couldliked]="couldliked">
-        </card-rect>
-    </div>
+    <div id="{{items.hashCode}}" 
+        class="swiper-container animatable" 
+        [class.no-opacity]="!initilized">
 
-    <div class="navigator">
-        <div class="prev" (click)="prev()"></div>
-        <div class="next" (click)="next()"></div>
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="cover_big swiper-slide"
+                *ngFor="let item of items; let i=index">
+                <card-rect class="item" 
+                    [card]="item"
+                    [number]='i'
+                    [exploreBtn]="exploreBtn"
+                    [playBtn]="playBtn"
+                    [couldliked]="couldliked">
+                </card-rect>
+            </div>
+
+        </div>
+        <!-- Add Arrows -->
+        <div class="navigator swiper-button-next"></div>
+        <div class="navigator swiper-button-prev"></div>
     </div>
 </div>

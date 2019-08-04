@@ -11,7 +11,7 @@ import 'package:melodyku/swiper/swiper.dart';
 		coreDirectives
 	]
 )
-class SlideShowComponent implements OnChanges
+class SlideShowComponent implements OnChanges, OnInit
 {
 	MongoDBService _mongodb;
 	SlideShow slideshow;
@@ -24,13 +24,20 @@ class SlideShowComponent implements OnChanges
 
 	SlideShowComponent(this._mongodb);
 
-	ngOnChanges(Map<String, SimpleChange> changes) async
+	void ngOnInit()
+	{
+		//initSwiper();
+	}
+
+	void ngOnChanges(Map<String, SimpleChange> changes)
 	{
 		if(title != null) {
 			slideshow = SlideShow(title: title);
-			await slideshow.initialize();
+			slideshow.initialize()
+				.then((r) => initSwiper())
+				.catchError((err) => print(err));
+
 			print('initial swiper ngOnChanges');
-			initSwiper();
 		}
 	}
 
@@ -38,10 +45,12 @@ class SlideShowComponent implements OnChanges
 	{
 		await Future.delayed(Duration(seconds:1));
 		swiper = Swiper(
-			'#${slideshow.title}',
+			'#${slideshow.hashCode}',
 			createSwipeOptions(
 				slidesPerView: 'auto',
 				spaceBetween: 10,
+				initialSlide: 1,
+				centeredSlides: true,
 				navigation: SwiperNavigation(
 					nextEl: '.swiper-button-next',
 					prevEl: '.swiper-button-prev',),
