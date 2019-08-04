@@ -27,7 +27,8 @@ class Playlist implements MediaItem
     this.thumbnail, this.imgStamp, this.localTitle})
   {
     // get thumbnail link
-    thumbnail = Injector.get<ContentProvider>().getImage(type:'playlist', id:id, imgStamp:imgStamp);
+    thumbnail = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'playlist', id:id, imgStamp:imgStamp);
   }
 
   factory Playlist.fromjson(Map detail)

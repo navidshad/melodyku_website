@@ -45,6 +45,7 @@
     background: $lightblue-color;
     font-size: 12px;
     padding: 3px 10px;
+    height: 6px;
 }
 
 .btn-sl {
@@ -76,6 +77,7 @@
 
 .btn-close{
     @extend .button;
+    @include image(20px, 0px);
     border-radius: 100%;
     width: 20px;
     height: 20px;

@@ -1,6 +1,3 @@
-/// {@nodoc}
-library coverItemEditor;
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'dart:html';
@@ -9,30 +6,45 @@ import 'dart:async';
 import 'package:melodyku/services/services.dart';
 
 @Component(
-	selector: 'cover-item-editor',
-	templateUrl: 'cover_item_editor.html',
-	styleUrls: ['cover_item_editor.css'],
+	selector: 'image-uploader',
+	template: '''
+		<div class="options flex-row">
+			<form #form enctype="multipart/form-data">
+
+		    	<input class="btn-sl pick" type="file" #upload name='image'>
+				
+		    	<div class="flex-row flex-center">
+					<div class="btn-sl {{isUploading ? 'btn-disabled': ''}}" 
+						 (click)="uploadFiles(form)">upload {{progress}}</div>
+						 
+					<div class="btn-close {{isUploading ? 'btn-disabled': ''}}" 
+						 (click)="removeImage()">
+						<img src="/assets/svg/icon_close.svg">
+					</div>
+				</div>
+		  	</form>
+		</div>
+	''',
+	styles: [ '''
+		.options {
+			margin: 10px 0px;
+		}
+
+		.pick{
+			max-width: 200px;
+		    padding: 0;
+		}
+	'''],
 	directives: [
 		coreDirectives,
 		formDirectives,
 	]
 )
-class CoverItemEditor implements OnInit
+class ImageUploaderComponent 
 {
-	final eventController = StreamController<bool>();
+	final eventController = StreamController<String>();
 	ContentProvider _contentProvider;
 
-	CoverItemEditor(this._contentProvider);
-
-	void ngOnInit() async
-	{
-		if(type == null || id == null) return;
-
-		getNewLink();
-	}
-
-	String stamp;
-	String link = '';
 	String progress = '';
 	bool isUploading = false;
 
@@ -45,21 +57,12 @@ class CoverItemEditor implements OnInit
 	@Input()
 	String id;
 
-	@Input()
-	void set imgStamp(String value)
-	{
-		stamp = value;
-		getNewLink();
-	}
-
 	@Output()
-	Stream get onChanged => eventController.stream;
+	Stream get onUploaded => eventController.stream;
 
-	void getNewLink(){
-		link = _contentProvider.getImage(database: database, type: type, id: id, imgStamp: stamp);
-	}
+	ImageUploaderComponent(this._contentProvider);
 
-  	void uploadFiles(FormElement form) 
+	void uploadFiles(FormElement form) 
   	{
   		if(isUploading) return;
 
@@ -73,10 +76,10 @@ class CoverItemEditor implements OnInit
 	    	onProgress: (ProgressEvent e) {
       			progress = (e.loaded*100/e.total).toInt().toString() + '%';
     		})
-	    	.then((r) {
+	    	.then((stamp) {
 	    		progress = '';
-    			eventController.add(true);
     			isUploading = false;
+    			eventController.add(stamp);
 	    	})
 	    	.catchError((err) {
 	    		progress = '';
@@ -93,7 +96,6 @@ class CoverItemEditor implements OnInit
   		_contentProvider.removeImage(database: database, type: type, id:id)
   			.then((body) {	
 				print('image has been removed $body');
-				eventController.add(true);
 				isUploading = false;
 			})
 			.catchError((err) {

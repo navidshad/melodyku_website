@@ -26,7 +26,6 @@ class ObjectField
 {
 	List<DbField> fields = [];
 	bool viewMode = false;
-	
 
 	void addValueToObjectFiled(String key, String value) =>
 		object[key] = value;
@@ -59,7 +58,7 @@ class ObjectField
 	{
 		bool key = false;
 
-		if(!item.isHide || showHidenField)
+		if(!item.isHide || (showHidenField ?? false))
 			key = true;
 
 		return key;

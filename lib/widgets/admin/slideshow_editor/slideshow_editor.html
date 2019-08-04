@@ -1,0 +1,58 @@
+<div class="" *ngIf="slideshow != null">
+	<div class="w3-row">
+		<div class="w3-half">
+			<p class="float-left">
+				<span>{{slideshow.title}}</span>
+				<span>{{slideshow.width}}*{{slideshow.height}}</span>
+			</p>
+		</div>
+		<div class="w3-half">
+			<rounded-button 
+				class="float-right"
+				[options]="addBtnOptions"></rounded-button>	
+		</div>
+	</div>
+	<div class="preview-container swiper-container">
+	    <div class="swiper-wrapper animatable" 
+	    	[class.no-opacity]="addBtnOptions.isWaiting">
+	        <!-- Slides -->
+	        <div class="swiper-slide flex-column flex-center"
+	        	*ngFor="let slide of slideshow.slides; let i=index">
+	        	<div class="preview-slide"
+	        		(click)="openSlideOption(i)">
+	        		<img *ngIf="(slide.imgStamp ?? '').length > 0" src="{{slide.getImgLink()}}">
+	        	</div>
+	        	<div><span>s{{i}}</span></div>
+	        	<div class="btn-close"
+	        		(click)="removeSlide(i)">
+	        		<img src="/assets/svg/icon_close.svg"> 		
+	        	</div>
+			</div>
+	    </div>
+	    <!-- Add Arrows -->
+    	<div class="swiper-button-next"></div>
+    	<div class="swiper-button-prev"></div>
+	</div>
+</div>
+
+<div class="modal-base" extractor (onExtract)="getElement($event)">
+    <div class="modal-card modal-card-noBackground text-center text-normal">
+        <div class="w3-row modal-content">
+
+        	<div *ngIf="selectedSlideMap != null" style="height:100%">
+
+        		<image-uploader 
+        			[database]="'cms'"
+        			[type]="'slide'"
+        			[id]="selectedSlideMap['_id']"
+        			(onUploaded)="onUploaded($event)"></image-uploader>
+        			
+        		<object-field
+        			[(object)]="selectedSlideMap"
+        			[options]="slideFieldOptions"></object-field>
+
+        	</div>
+
+        </div>
+    </div>
+</div>

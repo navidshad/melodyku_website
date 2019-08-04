@@ -8,6 +8,8 @@ class ButtonOptions
 	ButtonType type;
 	Function callback;
 
+	bool isWaiting = false;
+
 	StreamController<bool> waitingController;
 	StreamController<bool> statusController;
 	StreamController<String> colorController;
@@ -22,8 +24,10 @@ class ButtonOptions
 	void setActivation(bool key) =>
 		statusController.add(key);
 
-	void doWaiting(bool key) =>
-		waitingController.add(key);
+	void doWaiting(bool key) {
+		isWaiting = key;
+		waitingController.add(isWaiting);
+	}
 
 	void setColor(String color) =>
 		colorController.add(color);

@@ -7,21 +7,45 @@ import 'dart:async';
 class Modal
 {
   Element base;
+  DivElement submitBtn;
   Function onClose;
-  dynamic arg;
+  Function onSubmitAsync;
+  dynamic closeArg;
+  bool isSubmitting = false;
 
-  Modal(this.base, {this.onClose, this.arg})
+  Modal(this.base, {this.onClose, this.onSubmitAsync, this.closeArg})
   {
     close(performCallback: false);
 
     _addMessageSection();
-    _addCloseButton();
+    _addButtons();
   }
 
   void show()
   {
+    isSubmitting = false;
     base.style.display = 'flex';
     base.style.opacity = '1';
+  }
+
+  void submit() async
+  {
+    if(isSubmitting) return;
+
+    if(onSubmitAsync != null) {
+      isSubmitting = true;
+      submitBtn.classes.add('btn-disabled');
+      await onSubmitAsync();
+      submitBtn.classes.remove('btn-disabled');
+    }
+
+    base.style.opacity = '1';
+
+    // delay for making none
+    await Future.delayed(Duration(microseconds: 500));
+    base.style.display = 'none';
+
+    doWaiting(false);
   }
 
   void close({bool performCallback=true}) async
@@ -37,7 +61,7 @@ class Modal
     // close callback
     if(performCallback && onClose != null)
     {
-      if(arg != null) onClose(arg);
+      if(closeArg != null) onClose(closeArg);
       else onClose();
     }
 
@@ -63,16 +87,32 @@ class Modal
     base.querySelector('.modal-card').append(ul);
   }
 
-  void _addCloseButton()
+  void _addButtons()
   {
-    DivElement  div = DivElement();
-    div.classes.add('btn-close');
-    div.onClick.listen((e) => close());
+    // submit
+    submitBtn = DivElement();
+    submitBtn.classes.add('btn-sl-x');
+    submitBtn.text = "submite";
+    submitBtn.onClick.listen((e) => submit());
 
+    // close
+    DivElement  div_close = DivElement();
+    div_close.classes.add('btn-close');
+    div_close.onClick.listen((e) => close());
     ImageElement img = ImageElement(src: '/assets/svg/icon_close.svg');
-    div.append(img);
+    div_close.append(img);
 
-    base.querySelector('.modal-card').append(div);
+    // group div
+    DivElement  div_group = DivElement();
+    div_group.classes.add('flex-row');
+    div_group.classes.add('flex-center');
+    div_group.style.setProperty('width', '200px');
+    
+    div_group.append(div_close);
+    if(onSubmitAsync != null) 
+      div_group.append(submitBtn);
+
+    base.querySelector('.modal-card').append(div_group);
   }
 
   void addMessage(String text, {String color})

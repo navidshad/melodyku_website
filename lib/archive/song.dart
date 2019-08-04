@@ -63,10 +63,7 @@ class Song implements MediaItem
     getLikeStatus();
 
     // get thumbnail link
-    this.thumbnail = Injector.get<ContentProvider>().
-      getImage(type:'song', id:id, imgStamp:imgStamp, 
-        imgStamp_album: imgStamp_album, imgStamp_artist: imgStamp_artist,
-        albumId: albumId, artistId: artistId);
+    getThumbnailLink();
   }
 
   factory Song.fromjson(Map detail)
@@ -106,6 +103,29 @@ class Song implements MediaItem
     }
 
     return mFromJson;
+  }
+
+  void getThumbnailLink()
+  {
+    String link;
+
+    if(imgStamp.length > 10)
+    {
+     link = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'song', id:id, imgStamp:imgStamp);
+    }
+    else if(imgStamp_album.length > 10)
+    {
+     link = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'album', id:albumId, imgStamp:imgStamp_album);
+    }
+    else if(imgStamp_artist.length > 10)
+    {
+     link = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'artist', id:artistId, imgStamp:imgStamp_artist);
+    }
+
+    thumbnail = link;
   }
 
   Future<String> getStreamLink(String version) async

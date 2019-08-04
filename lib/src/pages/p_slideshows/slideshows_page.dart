@@ -7,7 +7,8 @@ import 'package:melodyku/services/services.dart';
 @Component(
 	selector:'page',
 	template: '''
-
+    <db-collection-table-editor [options]="options">
+    </db-collection-table-editor>
 	''',
 	directives: [
 		DbCollectionTableEditorComponent,
@@ -29,13 +30,23 @@ class SlideShowsPage
 		  messageService: _messageService, 
 		  permissionType: PermissionType.customer_access,
 		  needLogedIn: true,
-		  title: 'history');
+		  title: 'slide show list');
 
 		options = new CollectionOptions(
-				title: 'slide show list',
-				database: 'cms',
-				collection: 'slideshow',
-				
-			);
+			title: 'slide show list',
+			database: 'cms',
+			collection: 'slideshow',
+			allowAdd: true,
+	        allowUpdate: false,
+	        allowRemove: true,
+	        allowQuery: false,
+	        dbFields: SystemSchema.slideshow,
+	        linkButtons: [
+	          LinkButton(
+	            title: 'edite', 
+	            route: pageDefinitions['slideshow'].route, 
+	            parameters: ['_id']),
+	        ]
+		);
 	}
 }

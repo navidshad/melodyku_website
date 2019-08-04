@@ -96,26 +96,6 @@ class User
       imgStamp = converted['imgStamp'];
 
     }).catchError(_catchError);
-
-
-    // get permission 
-    // Future permissionRequest = promiseToFuture(stitch.appClient.callFunction('getById', ['cms', 'permission', permissionId]));
-    // await stitch.requestByQueue(permissionRequest)
-    // .then((doc) 
-    // {
-    //   //print('user permission | $doc');
-    //   dynamic pDetail = convertToMap(doc, SystemSchema.permission);
-    //   _permission = Permission.fromJson(pDetail);
-    // }).catchError(_catchError);
-
-    // StitchCatcherService stitchCatcher = Injector.get<StitchCatcherService>();
-    //   stitchCatcher.getById(collection: 'permission', id: permissionId)
-    //   .then((doc) 
-    //   {
-    //     //print('user permission | $doc');
-    //     dynamic pDetail = convertToMap(js.jsify(doc), SystemSchema.permission);
-    //     _permission = Permission.fromJson(pDetail);
-    //   }).catchError(_catchError);
   }
 
   String getImage()
@@ -123,7 +103,7 @@ class User
     String link = '/assets/svg/icon_user.svg';
 
     if(imgStamp != null && imgStamp.length > 10)
-      link = Injector.get<ContentProvider>().getImage(type: 'user', id: id, imgStamp: imgStamp);
+      link = Injector.get<ContentProvider>().getImage(database: 'user', type: 'detail', id: id, imgStamp: imgStamp);
 
     return link;
   }

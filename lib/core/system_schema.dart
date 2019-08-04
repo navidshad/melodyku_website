@@ -87,8 +87,8 @@ class SystemSchema
 	[
 		DbField('groupId', fieldType: FieldType.select, subFields: []),
 		DbField('title'),
-      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
-      	DbField('imgStamp', isDisable:true),
+    DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+    DbField('imgStamp', isDisable:true),
 	];
 
 	static List<DbField> category_group =
@@ -138,6 +138,23 @@ class SystemSchema
 		DbField('quality_management', dataType: DataType.bool, fieldType: FieldType.checkbox),
 		DbField('user_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
+
+  static List<DbField> slide = 
+  [
+  	DbField('refId', isHide: true),
+    DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+    DbField('local_subtitle', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+    DbField('imgStamp', isHide: true),
+    DbField('link'),
+  ];
+
+  static List<DbField> slideshow = 
+  [
+    DbField('title'),
+    DbField('width', dataType: DataType.int),
+    DbField('height', dataType: DataType.int),
+    //DbField('slides', dataType: DataType.array_object, isHide: true, subFields: SystemSchema.slide),
+  ];
 
 	// user ====================================
 	static List<DbField> userAuth = 

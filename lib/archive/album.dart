@@ -33,10 +33,7 @@ class Album implements MediaItem
     if(!dontGetSongs) getSongs();
 
     // get thumbnail link
-    thumbnail = Injector.get<ContentProvider>()
-      .getImage(type:'album', id:id, imgStamp:imgStamp, 
-      imgStamp_artist: imgStamp_artist,
-      artistId: artistId);
+    getThumbnailLink();
   }
 
   factory Album.fromjson(Map detail, {bool dontGetSongs=true})
@@ -62,6 +59,24 @@ class Album implements MediaItem
     }
 
     return album;
+  }
+
+  void getThumbnailLink()
+  {
+    String link;
+
+    if(imgStamp.length > 10)
+    {
+     link = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'album', id:id, imgStamp:imgStamp);
+    }
+    else if(imgStamp_artist.length > 10)
+    {
+     link = Injector.get<ContentProvider>()
+      .getImage(database:'media', type:'artist', id:artistId, imgStamp:imgStamp_artist);
+    }
+
+    thumbnail = link;
   }
 
   void getSongs() async

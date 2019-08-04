@@ -24,7 +24,8 @@ class ProfileEditor
 
 	String id;
 	Map<String, dynamic> accesQuery;
-  	String type;
+  	String type = 'detail';
+  	String database = 'user';
 
 	ProfileEditor(this._userService)
 	{
@@ -35,8 +36,8 @@ class ProfileEditor
 
 		options = CollectionOptions(
 			title: 'acountDetail',
-			database: 'user',
-			collection: 'detail',
+			database: database,
+			collection: type,
 			query: accesQuery,
 			id: _userService.user.detailId,
 			dbFields: SystemSchema.userDetail,
@@ -44,7 +45,6 @@ class ProfileEditor
 		);
 
 		id = _userService.user.id;
-    	type = 'user';
 	}
 
 	void onUpdated() =>

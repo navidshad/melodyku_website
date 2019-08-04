@@ -49,7 +49,7 @@ class LoginFormComponent
   // get and register modal to modal Manager
   void getElement(Element el) 
   {
-    modal = Modal(el, onClose: showForm, arg: 'login');
+    modal = Modal(el, onClose: showForm, closeArg: 'login');
     _modalService.register('login', modal);
 
     showForm('login');

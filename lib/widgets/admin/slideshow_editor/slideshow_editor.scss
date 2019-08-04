@@ -1,0 +1,18 @@
+.preview-container{
+	border: 1px solid white;
+	padding: 5px;
+	height: 210px;
+}
+.swiper-slide{
+	width: 240px;
+}
+.preview-slide{
+	border: 1px solid white;
+	width: 240px;
+	height: 128px;
+
+	img{
+		height: 100%;
+		width: 100%;
+	}
+}

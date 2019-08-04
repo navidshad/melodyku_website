@@ -25,7 +25,7 @@ class Artist implements MediaItem
   {
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>()
-      .getImage(type:'artist', id:id, imgStamp:imgStamp);
+      .getImage(database:'media', type:'artist', id:id, imgStamp:imgStamp);
   }
 
   factory Artist.fromjson(dynamic detail)

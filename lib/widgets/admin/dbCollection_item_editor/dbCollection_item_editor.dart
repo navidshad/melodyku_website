@@ -28,9 +28,9 @@ import 'package:melodyku/widgets/widgets.dart';
 class DbCollectionItemEditorComponent
 {
 	final eventController = StreamController<bool>();
-  Modal modal;
+  	Modal modal;
 
-  MongoDBService _mongodb;
+  	MongoDBService _mongodb;
 
 	DbCollectionItemEditorComponent(this._mongodb);
 

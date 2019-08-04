@@ -1,0 +1,23 @@
+<div *ngIf="slideshow != null">
+	
+	<div id="{{slideshow.title}}" 
+		class="swiper-container animatable" 
+		[class.no-opacity]="!initilized"
+		*ngIf="slideshow.slides.length > 0">
+	    <div class="swiper-wrapper">
+	        <!-- Slides -->
+	        <div class="swiper-slide" 
+	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;"
+	        	*ngFor="let slide of slideshow.slides; let i=index">
+	        	<a href="{{slide.link}}">
+	        		<img class="background" src="{{slide.getImgLink()}}">
+	        	</a>
+			</div>
+
+	    </div>
+	    <!-- Add Arrows -->
+    	<div class="swiper-button-next"></div>
+    	<div class="swiper-button-prev"></div>
+	</div>
+
+</div>

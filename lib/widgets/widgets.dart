@@ -6,11 +6,13 @@ export 'admin/cover_item_editor/cover_item_editor.dart';
 export 'admin/db_form/object_field/object_field.dart';
 export 'admin/db_form/select_field/select_field.dart';
 export 'admin/db_form/multiselect_field/multiselect_field.dart';
+export 'admin/db_form/image_uploader/image_uploader.dart';
 export 'admin/dbCollection_item_editor/dbCollection_item_editor.dart';
 export 'admin/dbCollection_table_editor/dbCollection_table_editor.dart';
 export 'admin/permission_manager/permission_manager.dart';
 export 'admin/tariff_manager/tariff_manager.dart';
 export 'admin/user_manager/user_manager.dart';
+export 'admin/slideshow_editor/slideshow_editor.dart';
 
 // app shell
 export 'app_shell/app_shell_component.dart';
@@ -36,6 +38,7 @@ export 'table_media_component/table_media_component.dart';
 export 'toast_component/toast_component.dart';
 export 'translate_btn_component/translate_btn_component.dart';
 export 'search_component/search_component.dart';
+export 'slideshow_component/slideshow_component.dart';
 
 export 'user/profile_editor/profile_editor.dart';
 export 'user/user_activity_detail/user_activity_detail.dart';

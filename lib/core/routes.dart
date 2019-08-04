@@ -32,6 +32,9 @@ import 'package:melodyku/src/pages/p_history/history_page.template.dart' as hist
 import 'package:melodyku/src/pages/p_profile/profile_page.template.dart' as profile_template;
 import 'package:melodyku/src/pages/p_users/users_page.template.dart' as users_template;
 import 'package:melodyku/src/pages/p_subscription/subscription_page.template.dart' as subscription_template;
+import 'package:melodyku/src/pages/p_slideshows/slideshows_page.template.dart' as slideshows_template;
+import 'package:melodyku/src/pages/p_slideshow/slideshow_page.template.dart' as slideshow_template;
+
 
 import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit_template;
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
@@ -177,6 +180,28 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   ),
 
   // archive sergeant =================================================
+  'slideshows' : PageDefinition(
+    title         : 'slideshows',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.archive_manager,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'slideshows'),
+                      component: slideshows_template.SlideShowsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'slideshow' : PageDefinition(
+    title         : 'slideshow',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.archive_manager,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'slideshow/:_id'),
+                      component: slideshow_template.SlideShowPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
   'archive_artistList' : PageDefinition(
     title         : 'archive_artistList',
     position      : MenuPosition.profileDrawer,

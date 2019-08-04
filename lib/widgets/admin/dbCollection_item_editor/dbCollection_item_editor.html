@@ -14,6 +14,7 @@
 
 		<div class ="w3-third w3-container" *ngIf="op.hasCover">
 			<cover-item-editor 
+				[database]="op.database"
 				[type]="op.collection"
 				[id]="editable['_id'].toString()"
 				[imgStamp]="editable['imgStamp']"

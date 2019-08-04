@@ -1,7 +1,7 @@
 import 'package:melodyku/core/injector.dart';
 import 'package:melodyku/services/services.dart';
 
-Map validateFields(dynamic opject, List<DbField> customFields)
+Map validateFields(dynamic object, List<DbField> customFields)
 {
 
 	Map newObject = {};
@@ -9,7 +9,7 @@ Map validateFields(dynamic opject, List<DbField> customFields)
 
 	//_id field
 	try{
-		dynamic id = opject['_id'];
+		String id = object['_id'];
 		if(id != null) newObject['_id'] = id;
 	}catch(e){
 		print('_id catch | $e');
@@ -21,14 +21,16 @@ Map validateFields(dynamic opject, List<DbField> customFields)
 			dynamic value;
 
 			try {
-				value = opject[field.key];
+				value = object[field.key];
 			}catch(e){
 				//print('convertToMap forEach ${field.key} is null');
 			}
 
 			// inject language fields
-			if(field.key == 'local_title')
+			if(field.key.startsWith('local_')){
+				//print('== language fields injected ${field.key}');
 				field.subFields = Injector.get<LanguageService>().getLanguageFiels();
+			}
 
 			//print('convertToMap forEach ${field.key} ${field.dataType} = $value');
 
