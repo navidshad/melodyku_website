@@ -13,7 +13,7 @@ import 'package:melodyku/swiper/swiper.dart';
 )
 class SlideShowComponent implements OnChanges, OnInit
 {
-	MongoDBService _mongodb;
+	LanguageService lang;
 	SlideShow slideshow;
 	Swiper swiper;
 
@@ -22,7 +22,7 @@ class SlideShowComponent implements OnChanges, OnInit
 	@Input()
 	String title;
 
-	SlideShowComponent(this._mongodb);
+	SlideShowComponent(this.lang);
 
 	void ngOnInit()
 	{

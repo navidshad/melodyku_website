@@ -141,6 +141,7 @@ class SystemSchema
 
   static List<DbField> slide = 
   [
+  	DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
   	DbField('refId', isHide: true),
     DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
     DbField('local_subtitle', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
@@ -153,7 +154,6 @@ class SystemSchema
     DbField('title'),
     DbField('width', dataType: DataType.int),
     DbField('height', dataType: DataType.int),
-    DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
   ];
 
 	// user ====================================

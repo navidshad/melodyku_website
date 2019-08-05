@@ -5,24 +5,24 @@ class Slide
 {
 	String id;
 	String refId;
-	Map local_title;
-	Map local_subtitle;
+	Map localTitle;
+	Map localSubTitle;
 	String imgStamp;
 	String link;
-	int order;
+	bool showDetail;
 
-	Slide({this.id, this.refId, this.local_title, this.local_subtitle, this.imgStamp, this.link, this.order});
+	Slide({this.id, this.refId, this.showDetail, this.localTitle, this.localSubTitle, this.imgStamp, this.link});
 
 	factory Slide.fromMap(Map detail)
 	{
 		return Slide(
 			id				: detail['_id'],
 			refId			: detail['refId'],
-			local_title		: detail['local_title'],
-			local_subtitle	: detail['local_subtitle'],
+			localTitle		: detail['local_title'],
+			localSubTitle	: detail['local_subtitle'],
 			imgStamp		: detail['imgStamp'],
 			link			: detail['link'],
-			order			: detail['order'],
+			showDetail		: detail['showDetail'],
 		);
 	}
 
@@ -30,11 +30,11 @@ class Slide
 	{
 		return {
 			'_id'			: id,
-			'local_title'	: local_title,
-			'local_subtitle': local_subtitle,
+			'local_title'	: localTitle,
+			'local_subtitle': localSubTitle,
 			'imgStamp'		: imgStamp,
 			'link'			: link,
-			'order'			: order
+			'showDetail'	: showDetail
 		};
 	}
 
@@ -48,5 +48,27 @@ class Slide
 	{
 		Injector.get<ContentProvider>()
 			.removeImage(database:'cms', type: 'slide', id: id);
+	}
+
+	String getTitle(String languageCode)
+	{
+		String tempTitle = '';
+
+		if(localTitle.containsKey(languageCode) && 
+		    localTitle[languageCode].length > 0)
+		  tempTitle = localTitle[languageCode];
+
+		return tempTitle;
+	}
+
+	String getSubTitle(String languageCode)
+	{
+		String tempTitle = '';
+
+		if(localSubTitle.containsKey(languageCode) && 
+		    localSubTitle[languageCode].length > 0)
+		  tempTitle = localSubTitle[languageCode];
+
+		return tempTitle;
 	}
 }

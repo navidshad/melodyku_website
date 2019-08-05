@@ -1,4 +1,4 @@
-<div *ngIf="slideshow != null">
+	<div *ngIf="slideshow != null">
 	
 	<div id="{{slideshow.hashCode}}" 
 		class="swiper-container animatable" 
@@ -17,9 +17,16 @@
 	        <div class="swiper-slide" 
 	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;"
 	        	*ngFor="let slide of slideshow.slides; let i=index">
-	        	<a href="{{slide.link}}">
-	        		<img class="background" src="{{slide.getImgLink()}}">
-	        	</a>
+	        	<img class="background" src="{{slide.getImgLink()}}">
+	        	
+        		<div class="active-content animatable"
+        			*ngIf="slide.showDetail">
+        			<a class="" href="{{slide.link}}">
+    					<h2>{{slide.getTitle(lang.getCode())}}</h2>
+    					<h4>{{slide.getSubTitle(lang.getCode())}}</h4>
+    				</a>
+        		</div>
+	        	
 			</div>
 
 	    </div>
