@@ -1,6 +1,6 @@
 <div class="widget-container-fill flex-column flex-center">
 	
-	<table>
+	<table [direction]="lang.getDir()">
         <tr>
             <td>{{lang.getStr('subscriptionPlan')}}</td>
             <td>{{subscriptionPlan}}</td>

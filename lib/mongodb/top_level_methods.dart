@@ -12,7 +12,7 @@ Map validateFields(dynamic object, List<DbField> customFields)
 		String id = object['_id'];
 		if(id != null) newObject['_id'] = id;
 	}catch(e){
-		print('_id catch | $e');
+		//print('_id catch | $e');
 	}
 	
 	// other fields

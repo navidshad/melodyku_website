@@ -130,7 +130,8 @@ class MongoDBService
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> aggregate({String database, String collection, List<Map> piplines, Map accessQuery=const{}}) async
+  	Future<dynamic> aggregate({String database, String collection, List<Map> piplines, 
+  		Map accessQuery=const{}, String bodyKey='', List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/aggregate';
 
@@ -138,8 +139,12 @@ class MongoDBService
 			'database': database,
 			'collection': collection,
 			'piplines': piplines,
-			'accessQuery': accessQuery
+			'accessQuery': accessQuery,
+			'bodyKey': bodyKey,
+			'types': [],
 		};
+
+		types.forEach((tc) => body['types'].add(tc.getMap()));
 
 		Map<String, String> headers = await _getHeaders();
 

@@ -41,15 +41,6 @@ class ActivityTracker
 			'refId'		: _userId,
 		};
 
-		// dynamic doc = js.jsify(recentDoc);
-
-		// await promiseToFuture(_userDB.collection(collName).insertOne(doc))
-		// .then((result) 
-		// {
-		// 	print('a played song has been reported $result');
-		// 	_todayPlayCount++;
-		// });
-
 		await _mongodb.insertOne( database: 'user', collection: collName, doc: recentDoc)
 			.then((result) 
 			{
@@ -83,14 +74,6 @@ class ActivityTracker
 				'refId'		: _userId,
 			};
 
-			// dynamic doc = js.jsify(recentDoc);
-
-			// await promiseToFuture(_userDB.collection(collName).insertOne(doc))
-			// .then((result) {
-			// 	print('a song has been liked');
-			// 	isTracked = true;
-			// });
-
 			await _mongodb.insertOne(database: 'user', collection: collName, doc: recentDoc)
 			.then((result) 
 			{
@@ -101,13 +84,6 @@ class ActivityTracker
 
 		// unlike
 		else {
-			// await promiseToFuture(_userDB.collection(collName).deleteOne(query))
-			// .then((result) {
-			// 	isTracked = false;
-			// 	print('a played song has been unliked');
-			// })
-			// .catchError((error) => isTracked = true);
-
 			await _mongodb.removeOne(database: 'user', collection: collName, query: query)
 				.then((result) {
 					isTracked = false;
@@ -128,17 +104,12 @@ class ActivityTracker
 		if(type == ArchiveTypes.media) 
 			collName = 'song_favorite';
 
-		//RemoteMongoCollection collection = _userDB.collection(collName);
-
 		dynamic query = {
 				'songId': id,
 				'refId'	: _userId
 			};
 
 		int count = 0;
-
-		//count = await promiseToFuture(collection.count(js.jsify(query)));
-
 		count = await _mongodb.count(database: 'user', collection: collName, query: query);
 
 		//print('=== count for song $id is $count');
@@ -148,11 +119,28 @@ class ActivityTracker
 		return result;
 	}
 
-	Future<void> _getTodayCount() async
+	Future<void> _getTodayCount()
 	{
 		DateTime from = getDate(DateTime.now().toUtc());
 	
+		return getTotalActivity(collection: 'song_history', from: from)
+			.then((count)
+			{
+				_todayPlayCount = count;
+				print('=== _getTodayCount ${_todayPlayCount}');
+			}).catchError((error) {
+				print('=== _getTodayCount $error');
+			});
+	}
+
+	Future<dynamic> getTotalActivity({String collection, DateTime from})
+	{
+		Map accessQuery = {'refId': _userId};
+	
 		dynamic pipeline = [
+			{
+				'\$match': accessQuery
+			},
 			{
 				'\$match': {
 					'date': {
@@ -160,17 +148,25 @@ class ActivityTracker
 					}
 				}
 			},
+			{ 
+				'\$group': { '_id': null, 'count': {'\$sum':1} }
+			}
 		];
 
-		Map accessQuery = {'refId': _userId};
-		await _mongodb.aggregate(
-			database: 'user', collection: 'song_history', piplines: pipeline, accessQuery: accessQuery)
-			.then((list) 
-			{
-				_todayPlayCount = list.length; 
-				print('=== _getTodayCount ${_todayPlayCount}');
-			}).catchError((error) {
-				print('=== _getTodayCount $error');
+		List<TypeCaster> typeCasters = [
+			TypeCaster('Date', '1.\$match.date.\$gte')
+		];
+
+		return _mongodb.aggregate(
+			database: 'user', collection: collection, 
+			piplines: pipeline, accessQuery: accessQuery,
+			bodyKey: 'piplines', types: typeCasters)
+			.then((list) {
+				//print(list);
+				return (list.length > 0) ? list[0]['count'] : 0;
+			})
+			.catchError((error) {
+				print('=== getTotalActivity $error');
 			});
 	}
 }
