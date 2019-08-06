@@ -16,7 +16,7 @@ import 'package:melodyku/archive/archive.dart';
     GridComponent,
   ]
 )
-class AlbumsPage 
+class AlbumsPage implements OnInit
 {
   Page _page;
   LanguageService lang;
@@ -39,10 +39,15 @@ class AlbumsPage
       title: 'albums',
     );
 
+    //getContent();
+  }
+
+  ngOnInit()
+  {
     getContent();
   }
 
-    void getContent() async 
+  void getContent() async 
   {
 
     List<Album> rAlbums_featured = await _contentProvider.mediaselector
@@ -64,5 +69,7 @@ class AlbumsPage
     ralbums_Lasts.forEach((album) {
       lastAlbums.add(album.getAsWidget<Card>());
     });
+
+    
   }
 }

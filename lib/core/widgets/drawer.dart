@@ -68,7 +68,7 @@ class Drawer {
   {
     //print('doOpenCloseWithPushing');
     pushing = true;
-    el_drawer.style.zIndex = "0";
+    //el_drawer.style.zIndex = "0";
 
     if(isDrawerOpen) close();
     else _open();

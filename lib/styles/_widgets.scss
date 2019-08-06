@@ -1,6 +1,9 @@
+.widget-header{
+    margin-bottom: 15px;
+}
+
 .widget-title{
     color: $lightblue-color;
-    width: fit-content;
 
     ._line-title{
         @extend ._line;

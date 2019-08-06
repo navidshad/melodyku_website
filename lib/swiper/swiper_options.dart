@@ -49,6 +49,7 @@ class CoverflowEffect
 }
 
 dynamic createSwipeOptions({
+	bool observer=true,
 	int speed=300,
 	SwiperEffect effect,
 	bool watchOverflow= false,
@@ -64,6 +65,7 @@ dynamic createSwipeOptions({
 })
 {
 	Map options = {
+		'observer': observer,
 		'speed': speed,
 		'effect': _getEffect(effect),
 		'watchOverflow': watchOverflow,

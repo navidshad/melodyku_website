@@ -1,7 +1,9 @@
 <div class="widget-container">
 
-    <div class="widget-title" *ngIf="title != null">
-        <h3>{{title}}</h3>
+    <div class="widget-title" 
+        [direction]="lang.getDir()"
+        *ngIf="title != null">
+        <h2>{{title}}</h2>
         <div class="_line-title"></div>
     </div>
 

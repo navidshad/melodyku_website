@@ -11,7 +11,7 @@ import 'package:melodyku/swiper/swiper.dart';
 		coreDirectives
 	]
 )
-class SlideShowComponent implements OnChanges, OnInit
+class SlideShowComponent implements OnChanges
 {
 	LanguageService lang;
 	SlideShow slideshow;
@@ -24,11 +24,6 @@ class SlideShowComponent implements OnChanges, OnInit
 
 	SlideShowComponent(this.lang);
 
-	void ngOnInit()
-	{
-		//initSwiper();
-	}
-
 	void ngOnChanges(Map<String, SimpleChange> changes)
 	{
 		if(title != null) {
@@ -37,7 +32,7 @@ class SlideShowComponent implements OnChanges, OnInit
 				.then((r) => initSwiper())
 				.catchError((err) => print(err));
 
-			print('initial swiper ngOnChanges');
+			//print('initial swiper ngOnChanges');
 		}
 	}
 
@@ -59,7 +54,11 @@ class SlideShowComponent implements OnChanges, OnInit
 				coverflowEffect: CoverflowEffect(
 					slideShadows: true,
 					rotate: 0, 
-					depth: 200)
+					depth: 200),
+
+				more: {
+					'slideToClickedSlide': true,
+				}
 			)
 		);
 

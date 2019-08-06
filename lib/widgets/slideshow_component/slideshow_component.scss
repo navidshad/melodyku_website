@@ -12,17 +12,18 @@
 	}
 
 	.active-content{
+		position: fixed;
 		background-color: #1b1f3852;
 		text-align: center;
 		line-height: 20px;
 		padding: 10px;
 		opacity: 0;
 		width: 100%;
-		height: 100%;
+		//height: 100%;
 
 		a{
-			width: 100%
-			height 100%;
+			width: 100%;
+			height: 100%;
 			text-decoration: none;
 		}
 
@@ -37,6 +38,37 @@
 
 	.active-content{
 		opacity: 1;
-		transform: translateY(-100%);
+		transform: translate(-10px, -100%);
 	}
 }
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 375px) 
+{
+
+}
+
+@media only screen and (max-width: 425px) 
+{
+	.swiper-slide{
+		width: 80%;
+		height: 80%;
+	}
+
+	.navigator{
+		display: none;
+	}
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px)
+{
+
+}
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) 
+{
+
+
+} 

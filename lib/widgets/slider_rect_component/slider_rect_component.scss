@@ -2,36 +2,24 @@
 
 $itemMargin: 0px 0px 0px 15px;
 
-.thumbs {
-    display: flex;
-    transition: transform 0.5s ease;
-    overflow: hidden;
-    //transition: all 0.2s ease;
-    scroll-behavior: smooth;
-}
-
-.item {
-    margin: $itemMargin;
+.widget-container{
+    margin-bottom: 0px;
 }
 
 .swiper-slide{
-    //width: 240px;
-    height: auto;
+    height: 100%;
+    margin-bottom: 20px;
 }
 
 
 @media all and (max-width: 768px)
 {
-    .thumbs{
-        overflow-x: auto;
-    }
-
     .navigator {
         display: none;
     }
 }
 
-@media screen and (max-width: 479px) 
+@media screen and (max-width: 425px) 
 {
 
 }

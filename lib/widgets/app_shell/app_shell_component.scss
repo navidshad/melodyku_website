@@ -3,7 +3,7 @@
 }
 
 .content-body{
-    padding: 50px 60px 0px 60px;
+    padding: 10px 60px 0px 60px;
 }
 
 .install_warning{
@@ -25,17 +25,17 @@
 
 
 /* SMARTPHONES PORTRAIT */
-@media only screen and (min-width: 375px) 
+@media only screen and (max-width: 375px) 
 {
     .install_warning{
         margin-top: 35px;
     }
 }
 
-@media only screen and (min-width: 425px) 
+@media only screen and (max-width: 425px) 
 {
     .content-body {
-        padding: 30px 10px 0px 10px;
+        padding: 0px 10px;
     }
 
     .install_warning{
@@ -47,13 +47,13 @@
 @media only screen and (min-width: 768px)
 {
     .content-body {
-        padding: 30px 30px 0px 30px;
+        padding: 0px 30px;
     }
 }
 
 
 /* TABLET LANDSCAPE / DESKTOP */
-@media only screen and (max-width: 1024px) 
+@media only screen and (min-width: 1024px) 
 {
 
 

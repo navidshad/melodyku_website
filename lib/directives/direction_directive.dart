@@ -1,9 +1,6 @@
 import 'dart:html';
 import 'package:angular/angular.dart';
 
-import 'package:melodyku/core/core.dart' as core;
-import 'package:melodyku/services/services.dart';
-
 /*
 * This is a directive 
 * For controling RTL/LTR aspect of components
