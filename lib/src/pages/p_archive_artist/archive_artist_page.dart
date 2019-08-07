@@ -1,10 +1,13 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
+import 'dart:html';
+
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/directives/directives.dart';
 
 @Component(
   selector: 'page',
@@ -14,6 +17,8 @@ import 'package:melodyku/widgets/widgets.dart';
     coreDirectives,
     DbCollectionTableEditorComponent,
     DbCollectionItemEditorComponent,
+    ElementExtractorDirective,
+    musicUploaderComponent,
   ]
 )
 class ArchiveArtistPage implements OnActivate 
@@ -24,13 +29,16 @@ class ArchiveArtistPage implements OnActivate
   MessageService _messageService;
   CategoryService _categoryService;
 
+  Modal modal;
+
   CollectionOptions AlbumTableOptions;
   CollectionOptions singleOptions;
 
-  dynamic artist;
+  Map album;
 
   // constructor ==================================
-  ArchiveArtistPage(this._categoryService, this._messageService, this._userservice)
+  ArchiveArtistPage(
+    this._categoryService, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice,
@@ -47,6 +55,11 @@ class ArchiveArtistPage implements OnActivate
     String artistID = current.parameters['_id'];
     //print('artistID $artistID');
     prepareOptions(artistID);
+  }
+
+  void getElement(Element el) 
+  {
+    modal = Modal(el);
   }
 
   void prepareOptions(String artistID) async
@@ -69,6 +82,7 @@ class ArchiveArtistPage implements OnActivate
       database: 'media',
       collection: 'album',
       query: {'artistId': artistID},
+      addOnCreate: {'artistId': artistID},
       allowUpdate: false,
       dbFields: SystemSchema.injectSubfields('categories', SystemSchema.album, _categoryService.getGroups()),
 
@@ -78,7 +92,17 @@ class ArchiveArtistPage implements OnActivate
           route: pageDefinitions['archive_album'].route, 
           parameters: ['_id']),
       ],
+
+      actionButtons: [
+        ActionButton(title:'upload', onEvent: openUpload),
+      ]
     );
+  }
+
+  Function openUpload(Map doc)
+  {
+    album = doc;
+    modal.show();
   }
 
   void _catchError(Error) => print(Error);

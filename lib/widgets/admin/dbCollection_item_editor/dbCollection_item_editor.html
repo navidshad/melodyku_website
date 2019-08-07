@@ -1,6 +1,8 @@
 <div class="widget-container flex-column flex-center"
 	*ngIf="op != null">
 	
+	<p class="w3-red" *ngIf="error != null">{{error}}</p>
+
 	<div class="w3-row" *ngIf="editable != null">
 
 		<div class="detail w3-twothird w3-container text-left {{isUpdating ? 'no-opacity' : ''}}">
@@ -34,5 +36,4 @@
 		*ngIf="op.createNew">
 		<div class="btn-sl {{!viewMode ? 'btn-selected' : ''}}" (click)="createItem()">create</div>
 	</div>
-
 </div>

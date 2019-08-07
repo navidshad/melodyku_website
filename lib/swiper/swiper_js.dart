@@ -1,5 +1,4 @@
 @JS()
-//library main;
 library swiper;
 
 import 'package:js/js.dart';

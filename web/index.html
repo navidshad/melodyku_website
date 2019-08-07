@@ -9,13 +9,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-133720746-2', { 'send_page_view': false });
-    </script>
 
-    <title>ملودیکو</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-    <script>
       // WARNING: DO NOT set the <base href> like this in production!
       // Details: https://webdev.dartlang.org/angular/guide/router
       (function () {
@@ -23,18 +17,12 @@
         document.write('<base href="' + (m ? m[0] : '/') + '" />');
       }());
     </script>
-    <script src="/assets/js/install.js"></script>
-    <script src="/assets/js/swiper.min.js"></script>
 
-    <script>
-      function createSwiper(selector, options)
-      {
-        let mySwiper = new Swiper (selector, options);
-        console.log('== swiper created', selector, options);
-        console.log(mySwiper);
-      }
-    </script>
+    <title>ملودیکو</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
+    <!-- PWA -->
     <!-- CODELAB: Add link rel manifest -->
     <link rel="manifest" href="/manifest.json">
     <!-- CODELAB: Add iOS meta tags and icons -->
@@ -46,11 +34,24 @@
     <meta name="description" content="a middle-east music stream service.">
     <!-- CODELAB: Add meta theme-color -->
     <meta name="theme-color" content="#15182b" />
+    <!-- end PWA -->
     
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="/assets/css/swiper.min.css">
+    <script src="/assets/js/install.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- thirdparty -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="/assets/thirdparty/swiper/swiper.min.css">
+    <script src="/assets/thirdparty/swiper/swiper.min.js"></script>
+
+    <link rel="stylesheet" href="/assets/thirdparty/filepond/filepond.min.css">
+    <script src="/assets/thirdparty/filepond/filepond-plugin-file-metadata.js"></script>
+    <script src="/assets/thirdparty/filepond/filepond.min.js"></script>
+    <!-- end thirdparty -->
+
+	
     <script defer src="main.dart.js"></script>
   </head>
   <body>

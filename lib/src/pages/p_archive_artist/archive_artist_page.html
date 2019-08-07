@@ -5,3 +5,16 @@
 
 <db-collection-table-editor
 	[options]="AlbumTableOptions"></db-collection-table-editor>
+
+<div class="modal-base"
+	extractor (onExtract)="getElement($event)">
+	
+	<div class="modal-card modal-card-noBackground">
+		<div class="modal-content">
+		
+			<music-uploader [album]="album"></music-uploader>
+
+		</div>
+	</div>
+
+</div>

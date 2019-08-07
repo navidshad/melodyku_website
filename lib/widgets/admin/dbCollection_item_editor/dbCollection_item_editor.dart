@@ -40,6 +40,8 @@ class DbCollectionItemEditorComponent
 	bool viewMode = true;
 	bool isUpdating = false;
 	bool createNew= false;
+
+	String error;
 	
 	@Input()
 	void set options(CollectionOptions options)
@@ -86,31 +88,35 @@ class DbCollectionItemEditorComponent
 	}
 
 	void setNewEditable(dynamic doc) 
-  {
+  	{
 		editable = validateFields(doc, op.dbFields);
 		op.id = editable['_id'];
 	}
 
 	void createItem() async 
 	{
+		error = '';
 		isUpdating = true;
+
+		editable.addAll(op.addOnCreate);
 
 		await _mongodb.insertOne(database: op.database, collection: op.collection, doc: editable)
 		.then((d)
 		{
 			getItem();
 			changeMode(false);
+			op.createNew = false;
 
 			eventController.add(true);
 		})
 		.catchError(_catchError);
 
 		isUpdating = false;
-		op.createNew = false;
 	}
 
 	void updateItem() async
 	{
+		error = '';
 		isUpdating = true;
 
 		// create update query
@@ -141,26 +147,9 @@ class DbCollectionItemEditorComponent
 		viewMode = true;
 	}
 
-	void removeItem() async
-	{
-		modal.doWaiting(true);
-
-		//print('deleting ${editable['_id']}');
-
-		// create update query
-		Map query = {'_id': editable['_id']};
-
-		await _mongodb.removeOne(database: op.database, collection: op.collection, query: query)
-      .then((d)
-      {
-        getItem();
-        eventController.add(true);
-      })
-      .catchError(_catchError);
-	}
-
-	void _catchError(error){
-		print(error.toString());
+	void _catchError(err){
+		print('== DbCollectionItemEditorComponent error $err');
+		error = err.toString();
 		eventController.add(false);
 	}
 }

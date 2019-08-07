@@ -42,7 +42,7 @@ class ArchiveArtistListPage
         collection:'artist',
         allowUpdate: false,
         allowAdd: true,
-        allowRemove: false,
+        allowRemove: true,
         hasCover: false,
 
         sort: { 'name': 1 },

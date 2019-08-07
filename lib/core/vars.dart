@@ -10,7 +10,14 @@ class Vars
 
   static String get host
   {
-  	String host = window.location.host.contains('localhost') ? Vars.mainHost : Vars.mainHost;//window.location.host;
+  	String host = 
+  		(
+  			window.location.host.contains('localhost') || 
+  			window.location.host.contains('169')
+  		) 
+  		? Vars.mainHost 
+  		: window.location.host;
+
   	return Uri.https(host, '').toString();
   }
 }

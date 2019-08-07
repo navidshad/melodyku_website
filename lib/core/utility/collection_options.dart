@@ -29,6 +29,18 @@ class LinkButton
 	}
 }
 
+class ActionButton
+{
+	String title;
+	Function onEvent;
+
+	ActionButton({this.title, this.onEvent});
+
+	void onClick(Map doc){
+		if(onEvent != null) onEvent(doc);
+	}
+}
+
 class CollectionOptions 
 {
 	String title;
@@ -36,8 +48,10 @@ class CollectionOptions
 	String collection;
 
 	List<LinkButton> linkButtons;
+	List<ActionButton> actionButtons;
 	Map<String, dynamic> query;
 	Map<String, dynamic> sort;
+	Map<String, dynamic> addOnCreate;
 
 	List<DbField> dbFields;
 
@@ -54,8 +68,17 @@ class CollectionOptions
 	dynamic document;
 
 	CollectionOptions({
-		this.title, 			this.database,		this.collection, 	this.id, 			this.document,
-		this.linkButtons, 		this.query=const{},			this.sort,			this.dbFields,
+		this.title, 			
+		this.database,		
+		this.collection, 	
+		this.id, 			
+		this.document,
+		this.linkButtons=const [],		
+		this.actionButtons= const [],
+		this.query=const{},			
+		this.addOnCreate=const{},
+		this.sort,			
+		this.dbFields,
 		this.createNew	 = false,
 		this.showHidenField	 = false,
 		this.allowAdd 	 = true, 		 	 	

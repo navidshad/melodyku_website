@@ -28,7 +28,7 @@ import 'package:melodyku/widgets/widgets.dart';
 class DbCollectionTableEditorComponent
 {
 	ModalService _modalService;
-  Modal modal;
+  	Modal modal;
 
 	MongoDBService _mongodb;
 
@@ -89,6 +89,7 @@ class DbCollectionTableEditorComponent
 		{
 			editableItemOptions = CollectionOptions(
 				createNew: true,
+				addOnCreate:options.addOnCreate,
 				document: editable,
 				database: options.database,
 				collection: options.collection,

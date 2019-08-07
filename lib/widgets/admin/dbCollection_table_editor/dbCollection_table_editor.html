@@ -45,9 +45,16 @@
 
 				<td class="option">
 					<div class="btn-sl-x" *ngIf="options.allowUpdate" (click)="showForm(item)">edit</div>
-					<div class="btn-sl-x" *ngIf="options.allowRemove" (click)="removeItem(item)">remove</div>
+					<div class="btn-sl-x" *ngIf="options.allowRemove" (click)="
+					removeItem(item)">remove</div>
+
 					<a class="btn-sl-x" *ngFor="let lb of options.linkButtons" 
 						href="{{lb.toUrl(item)}}">{{lb.title}}</a>
+
+					<div class="btn-sl-x" 
+						*ngFor="let actionBtn of options.actionButtons" 
+						(click)="actionBtn.onClick(item)">{{actionBtn.title}}</div>
+					
 				</td>
 			</tr>
 		</table>

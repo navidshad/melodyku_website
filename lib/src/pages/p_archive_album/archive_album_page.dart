@@ -66,6 +66,7 @@ class ArchiveAlbumPage implements OnActivate
       hasCover: true,
       title:"songs",
       database: 'media',
+      allowAdd: false,
       collection:"song",
       query: {'albumId': albumID},
       dbFields: SystemSchema.injectSubfields('categories', SystemSchema.song, _categoryService.getGroups()),

@@ -1,0 +1,8 @@
+<div *ngIf="album != null">
+	<h2>{{getTitle()}}</h2>
+
+	<div class="upload-section">
+		<input type="file" extractor (onExtract)="getElement($event)">
+	</div>
+
+</div>

@@ -13,6 +13,7 @@ export 'admin/permission_manager/permission_manager.dart';
 export 'admin/tariff_manager/tariff_manager.dart';
 export 'admin/user_manager/user_manager.dart';
 export 'admin/slideshow_editor/slideshow_editor.dart';
+export 'admin/music_uploader/music_uploader.dart';
 
 // app shell
 export 'app_shell/app_shell_component.dart';
