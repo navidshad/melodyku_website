@@ -5,3 +5,9 @@ h2{
 .upload-section{
 	min-width: 400px;
 }
+
+.error-section, .upload-section{
+	max-height: 250px;
+	overflow-y: auto;
+	margin: 5px 0px;
+}

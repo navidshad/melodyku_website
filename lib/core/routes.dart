@@ -25,7 +25,6 @@ import 'package:melodyku/src/pages/p_archive_album/archive_album_page.template.d
 import 'package:melodyku/src/pages/p_advanced_settings/advanced_settings_page.template.dart' as advanced_settings_template;
 import 'package:melodyku/src/pages/p_archive_categories/archive_categories_page.template.dart' as archive_categories_template;
 import 'package:melodyku/src/pages/p_archive_convert/archive_convert_page.template.dart' as archive_convert_template;
-import 'package:melodyku/src/pages/p_archive_upload/archive_upload_page.template.dart' as archive_upload_template;
 import 'package:melodyku/src/pages/p_downloads/downloads_page.template.dart' as downloads_template;
 import 'package:melodyku/src/pages/p_favorites/favorites_page.template.dart' as favorites_template;
 import 'package:melodyku/src/pages/p_history/history_page.template.dart' as history_template;
@@ -231,17 +230,6 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'archive-album/:_id'),
                       component: archive_album_template.ArchiveAlbumPageNgFactory,
-                    ),
-    iconImgRef    : 'assets/imgs/icons/more.png',
-  ),
-
-  'archive_upload' : PageDefinition(
-    title         : 'archive_upload',
-    position      : MenuPosition.profileDrawer,
-    permissionType: PermissionType.archive_manager,
-    route         : RouteDefinition(
-                      routePath: RoutePath(path: 'archive-upload'),
-                      component: archive_upload_template.ArchiveUploadPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

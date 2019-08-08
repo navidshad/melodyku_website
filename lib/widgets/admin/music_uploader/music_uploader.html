@@ -1,8 +1,15 @@
 <div *ngIf="album != null">
-	<h2>{{getTitle()}}</h2>
+	<h2>{{title}}</h2>
 
 	<div class="upload-section">
-		<input type="file" extractor (onExtract)="getElement($event)">
+		<input type="file" extractor (onExtract)="setupFilePond($event)">
 	</div>
 
+	<div class="error-section" 
+		extractor (onExtract)="getErrorSection($event)">
+	</div>
+
+	<div class="flex-row flex-center">
+		<div class="btn-sl" (click)="clearAll()">Clear All</div>
+	</div>
 </div>

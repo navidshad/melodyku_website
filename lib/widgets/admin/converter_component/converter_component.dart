@@ -27,6 +27,8 @@ class ConverterComponent
 	IO.Socket socket;
 
 	ResultWithNavigator<Song> navigator;
+	List<Song> list= [];
+
 	List<DbField> presets = [];
 	List<String> logs = [];
 	String selectedPreset;
@@ -34,7 +36,6 @@ class ConverterComponent
 
 	ConverterComponent(this.lang, this._mongodb)
 	{
-		navigator = ResultWithNavigator<Song>(perPage: 10);
 		_getPresets();
 		connectToSocket();
 	}
@@ -71,14 +72,20 @@ class ConverterComponent
 	void onSelectPreset(String title)
 	{
 		selectedPreset = title;
+		list = [];
 		Map query = { 'versions.title': { '\$ne': title } };
-		navigator.customQuery = query;
-		navigator.loadNextPage(goto:1);
+
+		navigator = ResultWithNavigator<Song>(
+			perPage: 10, customQuery: query);
+
+		navigator.initialize();
+		navigator.loadNextPage(goto:1, resetList: true)
+			.then((songs) => list = songs);
 	}
 
 	void connectToSocket()
 	{
-		String orgine = window.location.origin.toString();
+		String orgine = Vars.host;
 		socket = IO.io(orgine);
 		socket.on('connect', (_) {
 		  print('connected to socket');
