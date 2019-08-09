@@ -75,7 +75,7 @@ class SlideShowEditorComponent implements OnChanges
 		);
 	}
 
-	Function addNewSlide()
+	Function addNewSlide(ButtonOptions op)
 	{
 		addBtnOptions.doWaiting(true);
 

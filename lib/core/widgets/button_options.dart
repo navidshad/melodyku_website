@@ -6,15 +6,20 @@ class ButtonOptions
 {
 	String lable;
 	ButtonType type;
-	Function callback;
+	dynamic arg;
+	
+	Function(ButtonOptions options) callback;
+	Function(dynamic arg, ButtonOptions options) callbackWithArg;
+	
 
-	bool isWaiting = false;
+	bool _isWaiting = false;
+  bool get isWaiting => _isWaiting;
 
 	StreamController<bool> waitingController;
 	StreamController<bool> statusController;
 	StreamController<String> colorController;
 
-	ButtonOptions({this.lable, this.type, this.callback})
+	ButtonOptions({this.lable, this.type, this.callback, this.callbackWithArg})
 	{
 		waitingController = StreamController();
 		statusController = StreamController();
@@ -25,7 +30,7 @@ class ButtonOptions
 		statusController.add(key);
 
 	void doWaiting(bool key) {
-		isWaiting = key;
+		_isWaiting = key;
 		waitingController.add(isWaiting);
 	}
 
@@ -33,5 +38,11 @@ class ButtonOptions
 		colorController.add(color);
 
 	String getType() =>
-		type.toString().replaceAll('ButtonType.', '');
+		type.toString().replaceAll('ButtonType.', '').replaceAll('_', '-');
+
+	void done()
+	{
+		if(callback != null) callback(this);
+		else if(callbackWithArg != null) callbackWithArg(arg, this);
+	}
 }

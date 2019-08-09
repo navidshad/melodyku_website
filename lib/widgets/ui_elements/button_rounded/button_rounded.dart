@@ -13,16 +13,19 @@ import 'package:melodyku/directives/directives.dart';
     	ElementExtractorDirective
   	],
 )
-class ButtonRounded implements OnInit
+class ButtonRounded implements OnChanges
 {
 	@Input()
 	ButtonOptions options;
+
+	@Input()
+	dynamic arg;
 
 	bool isWaiting = false;
 	bool isActive = true;
 	HtmlElement btnElement;
 
-	void ngOnInit()
+	void ngOnChanges(Map<String, SimpleChange> changes)
 	{
 		options.waitingController.stream
 			.listen(doWaiting);
@@ -34,9 +37,12 @@ class ButtonRounded implements OnInit
 			.listen(setStatus);
 	}
 
-	void onClick(){
+	void onClick()
+	{
 		if(isWaiting || !isActive) return;
-		options.callback();
+    print(options.hashCode);
+		options.arg = arg;
+		options.done();
 	}
 
 	void setStatus(bool key) =>

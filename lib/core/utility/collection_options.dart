@@ -4,6 +4,7 @@ library collectionOptions;
 import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/mongodb/field.dart';
+import 'package:melodyku/core/core.dart';
 
 class LinkButton 
 {
@@ -32,12 +33,20 @@ class LinkButton
 class ActionButton
 {
 	String title;
-	Function onEvent;
+	Function(Map doc, ButtonOptions options) onEvent;
+	ButtonOptions options;
 
-	ActionButton({this.title, this.onEvent});
+	ActionButton({this.title, this.onEvent})
+	{
+		options = ButtonOptions(
+			lable: title, 
+			type: ButtonType.sl_x,
+			callbackWithArg: _onClick);
+	}
 
-	void onClick(Map doc){
-		if(onEvent != null) onEvent(doc);
+	void _onClick(dynamic doc, ButtonOptions op)
+	{
+		if(onEvent != null) onEvent(doc as Map, op);
 	}
 }
 
@@ -63,6 +72,7 @@ class CollectionOptions
 	bool allowQuery = true;
 	bool hasNavigator = true;
 	bool hasCover = false;
+	bool autoGet = true;
 
 	dynamic id;
 	dynamic document;
@@ -78,7 +88,7 @@ class CollectionOptions
 		this.query=const{},			
 		this.addOnCreate=const{},
 		this.sort,			
-		this.dbFields,
+		this.dbFields=const[],
 		this.createNew	 = false,
 		this.showHidenField	 = false,
 		this.allowAdd 	 = true, 		 	 	
@@ -86,7 +96,8 @@ class CollectionOptions
 		this.allowRemove = true,
 		this.allowQuery  = true, 
 		this.hasNavigator=true, 
-		this.hasCover 	 = false,	
+		this.hasCover 	 = false,
+		this.autoGet	 =true,
 	});
 
 	List<DbField> getValidFields()
@@ -96,5 +107,11 @@ class CollectionOptions
 			if(!f.isHide || showHidenField) list.add(f); 
 		});
 		return list;
+	}
+
+	ActionButton getCloneButton(ActionButton ab)
+	{
+		ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
+		return newBtn;
 	}
 }

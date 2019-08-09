@@ -2,14 +2,10 @@
 library converterComponent;
 
 import 'package:angular/angular.dart';
-import 'dart:html';
-
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/widgets/widgets.dart';
-import 'package:melodyku/archive/archive.dart';
 
 @Component(
 	selector: 'converter',
@@ -18,31 +14,37 @@ import 'package:melodyku/archive/archive.dart';
 	directives: [
 		coreDirectives,
 		SelectField,
+		DbCollectionTableEditorComponent,
 	]
 )
 class ConverterComponent 
 {
 	LanguageService lang;
 	MongoDBService _mongodb;
-	IO.Socket socket;
+	CollectionOptions collectionOptions;
 
-	ResultWithNavigator<Song> navigator;
-	List<Song> list= [];
+	ConvertService convertService;
 
+	String getMode = "hasn't";
 	List<DbField> presets = [];
-	List<String> logs = [];
-	String selectedPreset;
-	bool isConverting = false;
+	String selectedPreset = '';
+
+	List<DbField> getmodes = [
+		DbField("hasn't", strvalue: "hasn't"),
+		DbField('has', strvalue: 'has'),
+	];
 
 	ConverterComponent(this.lang, this._mongodb)
 	{
-		_getPresets();
-		connectToSocket();
+		convertService = ConvertService();
+		convertService.connectToSocket();
+
+		_prepare();
 	}
 
-	void _getPresets() async
+	void _prepare() async
 	{
-		_mongodb.find(database: 'cms', collection: 'convert_preset')
+		await _mongodb.find(database: 'cms', collection: 'convert_preset')
 			.then((dynamic docs) 
 			{
 				docs.forEach((dynamic doc) {
@@ -51,50 +53,97 @@ class ConverterComponent
 					presets.add(field);
 				});
 			});
+
+		if(presets.length > 0)
+			selectedPreset = presets[0].title;
+
+		collectionOptions = CollectionOptions(
+			database: 'media',
+			collection: 'song',
+			allowAdd: false,
+			allowUpdate: false,
+			allowRemove: false,
+			autoGet: false,
+			dbFields: [
+				DbField('title'),
+				DbField('album'),
+				DbField('artist'),
+				DbField('versions', 
+					dataType: DataType.array_object,
+					fieldType: FieldType.array,
+					subFields: [
+						DbField('title'),
+						DbField('type'),
+						DbField('size'),
+						DbField('duration'),
+				]),
+			],
+		);
+
+		selectPreset(selectedPreset);
+	}
+
+	List<ActionButton> getActionButtons()
+	{
+		List<ActionButton> list = [];
+
+		if(getMode == "hasn't")
+			list = [ActionButton(title: 'convert', onEvent: convertById)];
+
+		else if(getMode == "has")
+			list = [ActionButton(title: 'remove $selectedPreset', onEvent: removeSongVersion)];
+
+		return list;
+	}
+
+	Map<String, dynamic> getQuery()
+	{
+		if(getMode == "hasn't")
+			return { 'versions.title': { '\$ne': selectedPreset } };
+		else if(getMode == "has")
+			return { 'versions.title': { '\$eq': selectedPreset } };
+	}
+
+	void selectPreset(String title)
+	{
+		selectedPreset = title;
+		collectionOptions.query = getQuery();
+		collectionOptions.actionButtons = getActionButtons();
+	}
+
+	void onSelectGetMode(String mode)
+	{
+		getMode = mode;
+		selectPreset(selectedPreset);
 	}
 
 	void convertAll()
 	{
-		if(isConverting || selectedPreset == null) return;
-
-		isConverting = true;
-		socket.emit('convertAll', selectedPreset);
+		if(convertService.isConverting || selectedPreset == null) return;
+		convertService.convertAll(selectedPreset);
 	}
 
-	void stop()
+	void convertById(Map doc, ButtonOptions options) async
 	{
-		if(!isConverting) return;
+    options.doWaiting(true);
 
-		isConverting = false;
-		socket.emit('stopConvert');
+		convertService.convertById(selectedPreset, doc['_id'])
+      .then((r) {
+        options.doWaiting(false);
+        options.setActivation(false);
+      })
+      .catchError((err) => options.doWaiting(false));
 	}
 
-	void onSelectPreset(String title)
+	void removeSongVersion(Map doc, ButtonOptions options)
 	{
-		selectedPreset = title;
-		list = [];
-		Map query = { 'versions.title': { '\$ne': title } };
+    options.doWaiting(true);
 
-		navigator = ResultWithNavigator<Song>(
-			perPage: 10, customQuery: query);
-
-		navigator.initialize();
-		navigator.loadNextPage(goto:1, resetList: true)
-			.then((songs) => list = songs);
+		convertService.removeById(selectedPreset, doc['_id'])
+      .then((r) {
+        options.doWaiting(false);
+        options.setActivation(false);
+      })
+      .catchError((err) => options.doWaiting(false));
 	}
-
-	void connectToSocket()
-	{
-		String orgine = Vars.host;
-		socket = IO.io(orgine);
-		socket.on('connect', (_) {
-		  print('connected to socket');
-		  socket.emit('getConverterStatus');
-		});
-
-		socket.on('getConverterStatus', (result) => isConverting = result['isConverting']);
-		socket.on('onConvertReport', (msg) => logs.add(msg));
-	}
-
-	void clearLog() => logs = [];
 }

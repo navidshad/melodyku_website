@@ -1,6 +1,6 @@
 .shell {
 
-    max-height: 700px;
+    max-height: 400px;
     min-height: 300px;
     background-color: black;
     overflow: auto;
@@ -18,5 +18,17 @@
 }
 
 .preset{
-	margin: auto 10px;
+    margin: 10px 10px;
+    width: 120px;
+}
+
+.tableDivider{
+    display: none;
+}
+
+@media screen and (max-width: 425px) 
+{
+    .tableDivider{
+        display: block;
+    }
 }

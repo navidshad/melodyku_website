@@ -1,6 +1,6 @@
 @import '../../../styles/colors';
 
-.head {
+.head, .footer {
 	display: flex;
     align-items: center;
     justify-content: space-between;
@@ -54,4 +54,31 @@ form {
 
 .modal-card, .modal-content {
 	width: 100%;
+}
+
+@media screen and (max-width: 425px) 
+{
+    .query {
+
+		lable {
+		    margin: 0px 5px;
+		    font-size: 15px;
+
+		}
+	}
+
+	.head, .footer {
+		flex-flow: column-reverse;
+	}
+
+	.footer{
+		input {
+			min-width: auto;
+			width: 50px;
+		}
+	}
+
+	.navigator{
+		margin: 10px 0px;
+	}
 }

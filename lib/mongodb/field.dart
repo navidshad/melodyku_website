@@ -1,7 +1,7 @@
 /// {@nodoc}
 library mongo_field;
 
-enum FieldType {text, textbox, checkbox, select, multiSelect, object}
+enum FieldType {text, textbox, checkbox, select, multiSelect, object, array}
 
 
 enum DataType {string, bool, int, float, object, array_string, array_object, dateTime}
@@ -108,6 +108,18 @@ class DbField {
 			value = '';
 			tempObj.keys.forEach((key) 
 				=> value += '${tempObj[key]}, ');
+		}
+
+		else if(fieldType == FieldType.array && dataType == DataType.array_object)
+		{
+			value = '';
+			row[key].forEach((Map obj) 
+			{
+				value = "\n";
+				obj.remove('_id');
+				obj.keys.forEach((key) 
+					=> value += '${obj[key]}, ');
+			});
 		}
 		return value;
 	}

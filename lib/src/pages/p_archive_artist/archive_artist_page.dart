@@ -99,7 +99,7 @@ class ArchiveArtistPage implements OnActivate
     );
   }
 
-  Function openUpload(Map doc)
+  Function openUpload(Map doc, ButtonOptions options)
   {
     album = doc;
     modal.show();

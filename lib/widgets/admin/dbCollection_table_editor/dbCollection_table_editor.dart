@@ -23,16 +23,16 @@ import 'package:melodyku/widgets/widgets.dart';
 		formDirectives,
     	ElementExtractorDirective,
     	DbCollectionItemEditorComponent,
+    	ButtonRounded,
 	]
 )
-class DbCollectionTableEditorComponent
+class DbCollectionTableEditorComponent implements OnChanges
 {
 	ModalService _modalService;
   	Modal modal;
 
 	MongoDBService _mongodb;
 
-	CollectionOptions options;
 	CollectionOptions editableItemOptions;
 
 	List<dynamic> list = [];
@@ -45,7 +45,7 @@ class DbCollectionTableEditorComponent
 	String formType;
 
 	int perPage = 25;
-	int total = 0;
+	int total_items = 0;
 	int total_pages = 0;
 	int current_page = 1;
 
@@ -60,14 +60,16 @@ class DbCollectionTableEditorComponent
 		}
 	}
 
-	@Input('options')
-	void set setOptions(CollectionOptions value)
-	{
-		options = value;
-		getPage();
-	}
+	@Input()
+	CollectionOptions options;
 
 	DbCollectionTableEditorComponent(this._mongodb, this._modalService);
+
+	ngOnChanges(dynamic changes)
+	{
+		if(options != null && options.autoGet)
+			getPage();
+	}
 
 	// get and register modal to modal Manager
 	void getElement(Element el) 
@@ -120,7 +122,7 @@ class DbCollectionTableEditorComponent
 	{
 		try{
 			_searchQuery = json.decode(searchQuery);
-			getPage();
+			if(options.autoGet) getPage();
 		}
 		catch(e){
 			_searchQuery = {};
@@ -131,14 +133,15 @@ class DbCollectionTableEditorComponent
 	void setPage(String enteredPage)
 	{
 		int tempPage = int.tryParse(enteredPage);
-		if(tempPage != null) getPage(page: tempPage);
+		if(tempPage != null && options.autoGet)
+			getPage(page: tempPage);
 	}
 
 	void navigate(int value) => getPage(navigate: value);
 
-	Map getSearchQuery()
+	Map<String, dynamic> getSearchQuery()
 	{
-		Map tempQuery;
+		Map<String, dynamic> tempQuery;
 
 		if(_searchQuery.keys.length > 0)
 			tempQuery = {};
@@ -155,11 +158,17 @@ class DbCollectionTableEditorComponent
 		if(navigate != null) current_page += navigate;
 
 		// combine queries objects 
-		Map combinedQueries = getSearchQuery() ?? options.query;
+		Map<String, dynamic> combinedQueries = options.query;
 
-		// _searchQuery.keys.forEach((key) {
-		// 		if(!_searchQuery.containsKey(key)) combinedQueries[key] = _searchQuery[key];
-		// 	});
+		print('combinedQueries $combinedQueries');
+
+		// add search query
+		// inject searcjQuery if options.query is raw
+		if(combinedQueries.keys.length == 0)
+			combinedQueries = getSearchQuery() ?? {};
+		// else combine custom with search query
+		else if(getSearchQuery() != null)
+			combinedQueries.addAll(getSearchQuery());
 
 		// get total items
 		//print('_mainQuery $_mainQuery');
@@ -167,13 +176,13 @@ class DbCollectionTableEditorComponent
       	collection: options.collection, query: combinedQueries)
 			.then((count)
 			{
-				total = count;
-				total_pages = (total / perPage).ceil();
+				total_items = count;
+				total_pages = (total_items / perPage).ceil();
 			}).catchError(_catchError);
 
 		// setup navigator option
 		Map avigatorDetail = getNavigatorDetail(
-								total: total, 
+								total: total_items, 
 								page: current_page, 
 								perPage: perPage);
 

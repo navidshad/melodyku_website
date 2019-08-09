@@ -4,19 +4,23 @@
 	<!-- header -->
 	<div class="head">
 		<div class="buttons" *ngIf="options.allowAdd">
-			<div class="btn-sl" (click)="showForm()">add new</div>
+			<div class="btn-sl-x" (click)="showForm()">add new</div>
+		</div>
+
+		<div class="buttons" *ngIf="!options.autoGet">
+			<div class="btn-sl-x" (click)="getPage()">get</div>
 		</div>
 
 		<div class="query">
+			<lable>TOTAL</lable>
 			<input 	#total [ngModel]="perPage" (change)="totalPerPage = total.value"
 					class="input-text" type="text">
-			<lable>TOTAL</lable>
 		</div>
 
 		<div class="query" *ngIf="options.allowQuery">
+			<lable>SEARCH</lable>
 			<input 	[(ngModel)]="searchQuery" (change)="search()"
 					class="input-text" type="text" placeholder='{"field":"val"}'>
-			<lable>SEARCH</lable>
 		</div>
 
 		<div class="widget-title none-margine">
@@ -51,9 +55,11 @@
 					<a class="btn-sl-x" *ngFor="let lb of options.linkButtons" 
 						href="{{lb.toUrl(item)}}">{{lb.title}}</a>
 
-					<div class="btn-sl-x" 
+					<rounded-button 
 						*ngFor="let actionBtn of options.actionButtons" 
-						(click)="actionBtn.onClick(item)">{{actionBtn.title}}</div>
+						[options]="options.getCloneButton(actionBtn).options"
+						[arg]="item">
+					</rounded-button>
 					
 				</td>
 			</tr>
@@ -61,23 +67,25 @@
 	</div>
 
 	<!-- footer -->
-	<div class="head">
+	<div class="footer">
 
 		<div class="info">
 			<span>page {{current_page}}</span>
 			<span>of {{total_pages}}</span>
+			<br><span>total {{total_items}}</span>
 		</div>
 
 		<div class="navigator flex-row" *ngIf="options.hasNavigator">
 			<div class="btn-sl-x" (click)="navigate(1)">
-				<img src="/assets/svg/icon_right-arrow.svg" alt="next">
+				<img src="/assets/svg/icon_right-arrow.svg" alt="next"
+				style="transform: rotate(-180deg);">
 			</div>
 
 			<input class="input-text" type="text" value="{{current_page}}"
 				#enteredPage (change)="setPage(enteredPage.value)">
 
 			<div class="btn-sl-x" (click)="navigate(-1)">
-				<img src="/assets/svg/icon_right-arrow.svg" alt="back" style="transform: rotate(180deg);">
+				<img src="/assets/svg/icon_right-arrow.svg" alt="back">
 			</div>
 		</div>
 

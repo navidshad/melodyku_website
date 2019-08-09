@@ -37,7 +37,7 @@ class ArchiveArtistListPage
     );
 
     options = CollectionOptions(
-        title:    'new field system',
+        title: 'new field system',
         database: 'media',
         collection:'artist',
         allowUpdate: false,

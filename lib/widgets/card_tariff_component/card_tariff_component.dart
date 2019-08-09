@@ -116,12 +116,12 @@ class CardTariffComponent implements OnChanges
 		});
 	}
 
-	Function openPaymentLink() {
+	Function openPaymentLink(ButtonOptions op) {
 		payBtnOptions.doWaiting(true);
 		Navigator.goToRawPath(paylink);
 	}
 
-	Function makePurchase()
+	Function makePurchase(ButtonOptions op)
 	{
 		payBtnOptions.doWaiting(true);
 		_peymentService.createFactor('tariff', detail['_id'].toString(), selectedGate.currency)

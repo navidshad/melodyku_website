@@ -11,4 +11,5 @@ export 'auth_service.dart';
 export 'subscription_service.dart';
 export 'payment_service.dart';
 export 'category_service.dart';
+export 'convert_service.dart';
 export 'google_analytic/google_analytic_service.dart';
