@@ -2,148 +2,178 @@
 library converterComponent;
 
 import 'package:angular/angular.dart';
+import 'dart:html';
 
 import 'package:melodyku/services/services.dart';
+
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/directives/directives.dart';
+
 import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
-	selector: 'converter',
-	templateUrl: 'converter_component.html',
-	styleUrls: ['converter_component.css'],
-	directives: [
-		coreDirectives,
-		SelectField,
-		DbCollectionTableEditorComponent,
-	]
-)
-class ConverterComponent 
-{
-	LanguageService lang;
-	MongoDBService _mongodb;
-	CollectionOptions collectionOptions;
+    selector: 'converter',
+    templateUrl: 'converter_component.html',
+    styleUrls: [
+      'converter_component.css'
+    ],
+    directives: [
+      coreDirectives,
+      SelectField,
+      DbCollectionTableEditorComponent,
+      ElementExtractorDirective,
+    ])
+class ConverterComponent {
+  LanguageService lang;
+  MongoDBService _mongodb;
+  Modal modal;
 
-	ConvertService convertService;
+  CollectionOptions songCollectionOptions;
+  CollectionOptions presetCollectionOptions;
 
-	String getMode = "hasn't";
-	List<DbField> presets = [];
-	String selectedPreset = '';
+  ConvertService convertService;
 
-	List<DbField> getmodes = [
-		DbField("hasn't", strvalue: "hasn't"),
-		DbField('has', strvalue: 'has'),
-	];
+  String getMode = "hasn't";
 
-	ConverterComponent(this.lang, this._mongodb)
-	{
-		convertService = ConvertService();
-		convertService.connectToSocket();
+  List<DbField> presets = [];
 
-		_prepare();
-	}
+  String selectedPreset = '';
 
-	void _prepare() async
-	{
-		await _mongodb.find(database: 'cms', collection: 'convert_preset')
-			.then((dynamic docs) 
-			{
-				docs.forEach((dynamic doc) {
-					Map converted = validateFields(doc, SystemSchema.convert_preset);
-					DbField field = DbField(converted['title'], strvalue: converted['title']);
-					presets.add(field);
-				});
-			});
+  List<DbField> getmodes = [
+    DbField("hasn't", strvalue: "hasn't"),
+    DbField('has', strvalue: 'has'),
+  ];
 
-		if(presets.length > 0)
-			selectedPreset = presets[0].title;
+  ConverterComponent(this.lang, this._mongodb) {
+    convertService = ConvertService();
 
-		collectionOptions = CollectionOptions(
-			database: 'media',
-			collection: 'song',
-			allowAdd: false,
-			allowUpdate: false,
-			allowRemove: false,
-			autoGet: false,
-			dbFields: [
-				DbField('title'),
-				DbField('album'),
-				DbField('artist'),
-				DbField('versions', 
-					dataType: DataType.array_object,
-					fieldType: FieldType.array,
-					subFields: [
-						DbField('title'),
-						DbField('type'),
-						DbField('size'),
-						DbField('duration'),
-				]),
-			],
-		);
+    convertService.connectToSocket();
 
-		selectPreset(selectedPreset);
-	}
+    _prepare();
+  }
 
-	List<ActionButton> getActionButtons()
-	{
-		List<ActionButton> list = [];
+  void _prepare() async {
+    await _mongodb
+        .find(database: 'cms', collection: 'convert_preset')
+        .then((dynamic docs) {
+      docs.forEach((dynamic doc) {
+        Map converted = validateFields(doc, SystemSchema.convert_preset);
 
-		if(getMode == "hasn't")
-			list = [ActionButton(title: 'convert', onEvent: convertById)];
+        DbField field =
+            DbField(converted['title'], strvalue: converted['title']);
 
-		else if(getMode == "has")
-			list = [ActionButton(title: 'remove $selectedPreset', onEvent: removeSongVersion)];
+        presets.add(field);
+      });
+    });
 
-		return list;
-	}
+    if (presets.length > 0) selectedPreset = presets[0].title;
 
-	Map<String, dynamic> getQuery()
-	{
-		if(getMode == "hasn't")
-			return { 'versions.title': { '\$ne': selectedPreset } };
-		else if(getMode == "has")
-			return { 'versions.title': { '\$eq': selectedPreset } };
-	}
+    songCollectionOptions = CollectionOptions(
+      database: 'media',
+      collection: 'song',
+      allowAdd: false,
+      allowUpdate: false,
+      allowRemove: false,
+      autoGet: false,
+      dbFields: [
+        DbField('title'),
+        DbField('album'),
+        DbField('artist'),
+        DbField('versions',
+            dataType: DataType.array_object,
+            fieldType: FieldType.array,
+            subFields: [
+              DbField('title'),
+              DbField('type'),
+              DbField('size'),
+              DbField('duration'),
+            ]),
+      ],
+    );
 
-	void selectPreset(String title)
-	{
-		selectedPreset = title;
-		collectionOptions.query = getQuery();
-		collectionOptions.actionButtons = getActionButtons();
-	}
+    selectPreset(selectedPreset);
+  }
 
-	void onSelectGetMode(String mode)
-	{
-		getMode = mode;
-		selectPreset(selectedPreset);
-	}
+  List<ActionButton> getActionButtons() {
+    List<ActionButton> list = [];
 
-	void convertAll()
-	{
-		if(convertService.isConverting || selectedPreset == null) return;
-		convertService.convertAll(selectedPreset);
-	}
+    if (getMode == "hasn't")
+      list = [ActionButton(title: 'convert', onEvent: convertById)];
+    else if (getMode == "has")
+      list = [
+        ActionButton(
+            title: 'remove $selectedPreset', onEvent: removeSongVersion)
+      ];
 
-	void convertById(Map doc, ButtonOptions options) async
-	{
+    return list;
+  }
+
+  Map<String, dynamic> getQuery() {
+    if (getMode == "hasn't")
+      return {
+        'versions.title': {'\$ne': selectedPreset}
+      };
+    else if (getMode == "has")
+      return {
+        'versions.title': {'\$eq': selectedPreset}
+      };
+  }
+
+  void selectPreset(String title) {
+    selectedPreset = title;
+
+    songCollectionOptions.query = getQuery();
+
+    songCollectionOptions.actionButtons = getActionButtons();
+  }
+
+  void onSelectGetMode(String mode) {
+    getMode = mode;
+
+    selectPreset(selectedPreset);
+  }
+
+  void convertAll() {
+    if (convertService.isConverting || selectedPreset == null) return;
+
+    convertService.convertAll(selectedPreset);
+  }
+
+  void convertById(Map doc, ButtonOptions options) async {
     options.doWaiting(true);
 
-		convertService.convertById(selectedPreset, doc['_id'])
-      .then((r) {
-        options.doWaiting(false);
-        options.setActivation(false);
-      })
-      .catchError((err) => options.doWaiting(false));
-	}
+    convertService.convertById(selectedPreset, doc['_id']).then((r) {
+      options.doWaiting(false);
 
-	void removeSongVersion(Map doc, ButtonOptions options)
-	{
+      options.setActivation(false);
+    }).catchError((err) => options.doWaiting(false));
+  }
+
+  void removeSongVersion(Map doc, ButtonOptions options) {
     options.doWaiting(true);
 
-		convertService.removeById(selectedPreset, doc['_id'])
-      .then((r) {
-        options.doWaiting(false);
-        options.setActivation(false);
-      })
-      .catchError((err) => options.doWaiting(false));
-	}
+    convertService.removeById(selectedPreset, doc['_id']).then((r) {
+      options.doWaiting(false);
+
+      options.setActivation(false);
+    }).catchError((err) => options.doWaiting(false));
+  }
+
+  void setupPresetModal(Element el)
+  {
+    modal = Modal(el, onClose: _prepare);
+
+    presetCollectionOptions = CollectionOptions(
+        title: 'Presets',
+        database: 'cms',
+        collection: 'convert_preset',
+        allowQuery: false,
+        dbFields: SystemSchema.convert_preset,
+      );
+  }
+
+  void showPresets()
+  {
+    modal.show();
+  }
 }
