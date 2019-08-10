@@ -15,6 +15,7 @@ import 'package:melodyku/archive/archive.dart';
     ListWideComponent,
     GridComponent,
     SlideShowComponent,
+    CategoryPresentorComponent,
   ],
 )
 class VitrinPage

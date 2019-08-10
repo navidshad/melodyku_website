@@ -35,3 +35,14 @@ class Language
     return detail;
   }
 }
+
+String getLocalValue(Map localObj, String languageCode)
+{
+  String tempTitle = '';
+
+  if(localObj.containsKey(languageCode) && 
+      localObj[languageCode].length > 0)
+    tempTitle = localObj[languageCode];
+
+  return tempTitle;
+}

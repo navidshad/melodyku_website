@@ -23,10 +23,12 @@ export 'login_form2_component/login_form2_component.dart';
 // widgets components
 export 'album_single_wrapper_component/album_single_wrapper_component.dart';
 export 'artists_explorer_component/artists_explorer_component.dart';
+export 'card_fullsize_component/card_fullsize_component.dart';
 export 'card_rect_component/card_rect_component.dart';
 export 'card_tariff_component/card_tariff_component.dart';
 export 'card_wide_component/card_wide_component.dart';
 export 'grid_component/grid_component.dart';
+export 'grid_masonry_component/grid_masonry_component.dart';
 export 'item_menu_component/ItemMenuComponent.dart';
 export 'like_component/like_component.dart';
 export 'media_cover/media_cover_component.dart';
@@ -40,6 +42,7 @@ export 'toast_component/toast_component.dart';
 export 'translate_btn_component/translate_btn_component.dart';
 export 'search_component/search_component.dart';
 export 'slideshow_component/slideshow_component.dart';
+export 'catergory_presentor_component/catergory_presentor_component.dart';
 
 export 'user/profile_editor/profile_editor.dart';
 export 'user/user_activity_detail/user_activity_detail.dart';

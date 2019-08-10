@@ -1,0 +1,78 @@
+@import '../../styles/colors';
+@import '../../styles/effects';
+
+.card-container{
+	background: grey;
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+
+	padding: 20px;
+	overflow: hidden;
+}
+
+.card-container:hover{
+	transform: scale(1.02);
+
+	.hover-content{
+		opacity: 1;
+	}
+
+	.not-hover-content{
+		opacity: 0;
+		transform: translateY(200%);
+	}
+
+	.overlay {
+	    opacity: 1;
+	}
+}
+
+.background {
+	background-position: center;
+	background-size: cover;
+}
+
+.hover-content{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+.not-hover-content{
+	width: 100%;
+	height: 20px;
+	position: relative;
+	bottom: -50%;
+}
+
+.overlay {
+    @include overlay_card;
+    background: $hoverGradient;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    transform: scale(2) translateY(0);
+}
+
+@media screen and (min-width: 768px) 
+{
+    .hover-content{
+		.title{
+			font-size: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) 
+{
+    .not-hover-content{
+		display: none;
+	}
+
+	.hover-content{
+		opacity: 1;
+	}
+}

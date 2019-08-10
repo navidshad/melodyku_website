@@ -87,8 +87,8 @@ class SystemSchema
 	[
 		DbField('groupId', fieldType: FieldType.select, subFields: []),
 		DbField('title'),
-    DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
-    DbField('imgStamp', isDisable:true),
+    	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+    	DbField('imgStamp', isDisable:true),
 	];
 
 	static List<DbField> category_group =

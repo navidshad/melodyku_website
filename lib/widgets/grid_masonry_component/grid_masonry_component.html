@@ -1,0 +1,11 @@
+<div class="widget-container"
+	*ngIf="cards != null">
+
+	<div class="masonry-container">
+		<div class="cell"
+			*ngFor="let card of cards">
+			<card-fullsize [card]="card"></card-fullsize>
+		</div>
+	</div>
+	
+</div>

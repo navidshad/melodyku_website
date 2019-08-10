@@ -1,0 +1,13 @@
+<div class="widget-container">
+
+	<div class="widget-title" 
+        [direction]="lang.getDir()">
+        
+        <h2>{{getTitle()}}</h2>
+        <div class="_line-title"></div>
+    </div>
+
+    <div class="categories">
+    	<grid-masonry [cards]="categories"></grid-masonry>
+    </div>
+</div>
