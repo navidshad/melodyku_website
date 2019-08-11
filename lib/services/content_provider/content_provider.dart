@@ -22,16 +22,17 @@ class ContentProvider
 	}
 
 	String getImage({
-		String database='', String type='', String id, String imgStamp=''})
+		String database='', String type='', 
+		String id, String imgStamp='', randomPattern=true})
 	{
-		String link;
+		String link = '';
 
 		if(imgStamp.length > 0)
 		{
 			Uri imageLink = Uri.https(Vars.dataHost, 'images/$database-$type/$id-$imgStamp.jpg');
 			link = imageLink.toString();
 		}
-		else link = getRandomPatterns();
+		else if(randomPattern) link = getRandomPatterns();
 		//print('$type, $imgStamp, $imgStamp_album, $imgStamp_artist \n$link');
 
 		return link;

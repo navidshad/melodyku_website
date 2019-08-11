@@ -41,7 +41,11 @@ class Slide
 	String getImgLink()
 	{
 		return Injector.get<ContentProvider>()
-			.getImage(database:'cms', type: 'slide', id: id, imgStamp: imgStamp);
+			.getImage(
+				database:'cms', 
+				type: 'slide', id: id, 
+				imgStamp: imgStamp,
+				randomPattern: false);
 	}
 
 	void removeImg()

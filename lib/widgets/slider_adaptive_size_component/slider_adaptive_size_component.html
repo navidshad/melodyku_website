@@ -1,0 +1,23 @@
+<div class="">
+    <div id="{{cards.hashCode}}" 
+        class="swiper-container animatable"
+        [class.no-opacity]="!initilized"
+        style="height:{{(height ?? 200) + 40}}px;">
+
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide"
+                *ngFor="let item of cards; let i=index"
+                style="width:{{width ?? 200}}px; height:{{height ?? 200}}px;">
+                <card-fullsize 
+                    class="item" 
+                    [card]="item">
+                </card-fullsize>
+            </div>
+
+        </div>
+        <!-- Add Arrows -->
+        <div class="navigator swiper-button-next"></div>
+        <div class="navigator swiper-button-prev"></div>
+    </div>
+</div>

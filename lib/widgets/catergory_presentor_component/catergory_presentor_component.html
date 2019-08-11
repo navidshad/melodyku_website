@@ -8,6 +8,15 @@
     </div>
 
     <div class="categories">
-    	<grid-masonry [cards]="categories"></grid-masonry>
+    	
+        <grid-masonry 
+    		*ngIf="type == 'masonry'"
+    		[cards]="categories"></grid-masonry>
+
+        <slider-adaptive_size
+            *ngIf="type == 'slider'"
+            [cards]="categories"
+            [width]="200"
+            [height]="120"></slider-adaptive_size>
     </div>
 </div>

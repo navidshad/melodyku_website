@@ -13,7 +13,8 @@ import 'package:melodyku/directives/directives.dart';
 		coreDirectives,
 		DirectionDirective,
 		GridMasonryComponent,
-	]
+		SliderAdaptiveSizeComponent,
+	],
 )
 class CategoryPresentorComponent implements OnInit
 {
@@ -23,6 +24,9 @@ class CategoryPresentorComponent implements OnInit
 
 	@Input()
 	String id;
+
+	@Input()
+	String type;
 
 	Map categoryGroup;
 	List<Card> categories = [];

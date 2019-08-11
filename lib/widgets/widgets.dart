@@ -36,6 +36,7 @@ export 'list_wide_component/list_wide_component.dart';
 export 'player_bar_component/player_bar_component.dart';
 export 'slider_rect_component/slider_rect_component.dart';
 export 'slider_wide_component/slider_wide_component.dart';
+export 'slider_adaptive_size_component/slider_adaptive_size_component.dart';
 export 'subscription_plans_component/subscription_plans_component.dart';
 export 'table_media_component/table_media_component.dart';
 export 'toast_component/toast_component.dart';
