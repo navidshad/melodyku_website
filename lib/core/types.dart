@@ -11,6 +11,7 @@ enum ItemMenuAction {like, share}
 enum MenuPosition {mainMenuDrawer, profileDrawer, none}
 
 enum PermissionType{
+  anonymous_access,
   customer_access,
   archive_manager,
   categorizing,

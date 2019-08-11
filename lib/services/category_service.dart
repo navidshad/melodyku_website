@@ -75,4 +75,14 @@ class CategoryService
 
 		return list;
 	}
+
+	Map getCategoryById(String id)
+	{
+		Map category;
+
+		int index = _categories.indexWhere((Map cat) => cat['_id'] == id ? true : false);
+		if(index >= 0) category = _categories[index];
+
+		return category;
+	}
 }

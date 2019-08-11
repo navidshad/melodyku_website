@@ -17,6 +17,7 @@ import 'package:melodyku/swiper/swiper.dart';
   styleUrls: [ 'slider_rect_component.css' ],
   directives: [ 
     coreDirectives,
+    DirectionDirective,
     CardRectComponent,
     ElementExtractorDirective,
    ],

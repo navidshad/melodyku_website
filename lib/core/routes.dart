@@ -39,6 +39,7 @@ import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
 import 'package:melodyku/src/pages/s_playlist/playlist_page.template.dart' as playlist_template;
 import 'package:melodyku/src/pages/s_search/search_page.template.dart' as search_template;
+import 'package:melodyku/src/pages/s_category/category_page.template.dart' as category_template;
 
 Map<String, PageDefinition> pageDefinitions = pageDefinitions = 
 {
@@ -46,7 +47,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'login' : PageDefinition(
     title         : 'login',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'login'),
                       component: login_template.LoginPageNgFactory,
@@ -58,7 +59,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'vitrin' : PageDefinition(
     title         : 'vitrin',
     position      : MenuPosition.mainMenuDrawer,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'vitrin'),
                       component: vitrin_page_template.VitrinPageNgFactory,
@@ -69,7 +70,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'albums' : PageDefinition(
     title         : 'albums',
     position      : MenuPosition.mainMenuDrawer,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'albums'),
                       component: albums_page_template.AlbumsPageNgFactory,
@@ -80,7 +81,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'playlists' : PageDefinition(
     title         : 'playlists',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'playlists'),
                       component: playlists_page_template.PlaylistsPageNgFactory,
@@ -91,7 +92,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'artists' : PageDefinition(
     title         : 'artists',
     position      : MenuPosition.mainMenuDrawer,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'artists'),
                       component: artists_page_template.ArtistsPageNgFactory,
@@ -102,7 +103,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'genres' : PageDefinition(
     title         : 'genres',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'genres'),
                       component: genres_page_template.GenresPageNgFactory,
@@ -113,7 +114,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'top_tracks' : PageDefinition(
     title         : 'topTracks',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'top-tracks'),
                       component: top_tracks_page_template.TopTracksPageNgFactory,
@@ -284,7 +285,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'artist' : PageDefinition(
     title         : 'artist',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'artist/:id'),
                       component: artsit_template.ArtistPageNgFactory,
@@ -295,7 +296,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'album' : PageDefinition(
     title         : 'album',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'album/:id'),
                       component: album_template.AlbumPageNgFactory,
@@ -306,7 +307,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'playlist' : PageDefinition(
     title         : 'playlist',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'playlist/:id'),
                       component: playlist_template.PlaylistPageNgFactory,
@@ -317,12 +318,23 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
   'search' : PageDefinition(
     title         : 'search',
     position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
+    permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'search'),
                       component: search_template.SearchPageNgFactory,
                     ),
     iconImgRef    : 'assets/svg/icon_search.svg',
+  ),
+
+  'category' : PageDefinition(
+    title         : 'category',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.anonymous_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'category/:id'),
+                      component: category_template.CategoryPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/svg/more.svg',
   ),
 };
 

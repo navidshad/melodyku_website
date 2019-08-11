@@ -57,6 +57,10 @@ class Permission
     bool has = false;
 
     switch (type) {
+      case PermissionType.anonymous_access:
+        has = anonymous_access;
+        break;
+
       case PermissionType.customer_access:
         has = customer_access;
         break;

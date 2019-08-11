@@ -1,0 +1,24 @@
+<list-wide 
+    *ngIf="songs.length > 0"
+    [title]="lang.getStr('songs')" 
+    [numerical]="true"
+    [items]="songs"
+    [exploreBtn]="false"
+    [playBtn]="true">
+</list-wide>
+
+<slider-rect    
+    *ngIf="albums.length > 0"
+    [title]="lang.getStr('albums')" 
+    [items]="albums"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</slider-rect>
+
+<slider-rect
+    *ngIf="artists.length > 0" 
+    [title]="lang.getStr('artists')" 
+    [items]="artists"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</slider-rect>

@@ -233,6 +233,11 @@ dynamic languageStrings = [
     'fa_IR'  : 'هنرمندان',
   },
   {
+    'name': 'songs',
+    'en'  : 'Songs',
+    'fa_IR'  : 'ترانه ها',
+  },
+  {
     'name': 'genres',
     'en'  : 'Genres',
     'fa_IR'  : 'ژانر ها',

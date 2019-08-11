@@ -8,7 +8,6 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
-import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/swiper/swiper.dart';
 
 @Component(
@@ -17,6 +16,7 @@ import 'package:melodyku/swiper/swiper.dart';
   styleUrls: [ 'slider_adaptive_size_component.css' ],
   directives: [ 
     coreDirectives,
+    DirectionDirective,
     CardFullsizeComponent,
     ElementExtractorDirective,
    ],

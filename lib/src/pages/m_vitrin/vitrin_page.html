@@ -2,7 +2,8 @@
     <img class="w3-image" src="/assets/imgs/fake_slider.png" alt="">    
 </div> -->
 <slideshow
-    [title]="'vitrin'"></slideshow>
+    [title]="'vitrin'">
+</slideshow>
 
 <slider-rect    
     [title]="lang.getStr('bestAllTime')" 
@@ -19,6 +20,11 @@
     [playBtn]="true">
 </list-wide>
 
+<category-presentor 
+    [id]="'5d08ff5d177343326d1060fc'"
+    [type]="'slider'">
+</category-presentor>
+
 <slider-rect    
     [title]="lang.getStr('forYou')" 
     [items]="card_for_you"
@@ -28,5 +34,5 @@
 
 <category-presentor 
     [id]="'5d17574b707c3801477eca74'"
-    [type]="'slider'">
+    [type]="'masonry'">
 </category-presentor>

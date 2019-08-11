@@ -1,7 +1,5 @@
-<div class="card-container" dir="{{lang.getDir()}}">
+<div class="card-container hoverScale" [direction]="lang.getDir()">
 
-    <!-- <a [attr.href]="(item.titleLink != null) ? item.titleLink.toString() : null"> -->
-        
         <div class="card flex-row" [class.not-numerical]="!numerical">
 
             <div class="detail pointer" 

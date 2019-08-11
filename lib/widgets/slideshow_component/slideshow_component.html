@@ -1,9 +1,9 @@
 <div *ngIf="slideshow != null">
 	
 	<div id="{{slideshow.hashCode}}" 
-		class="swiper-container animatable" 
-		[class.no-opacity]="!initilized"
-		*ngIf="slideshow.initilized">
+		class="swiper-container animatable"
+		*ngIf="slideshow.initilized"
+		[class.no-opacity]="!initilized">
 
 	    <div class="swiper-wrapper">
 	        <!-- Slides -->

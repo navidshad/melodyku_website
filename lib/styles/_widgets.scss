@@ -7,7 +7,8 @@
 
     ._line-title{
         @extend ._line;
-        width: 40%;
+        min-width: 50px;
+        max-width: 100px;
         height: 2px;
     }
 }

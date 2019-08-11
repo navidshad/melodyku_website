@@ -1,6 +1,7 @@
 <div class="">
     <div id="{{cards.hashCode}}" 
         class="swiper-container animatable"
+        [direction]="lang.getDir()"
         [class.no-opacity]="!initilized"
         style="height:{{(height ?? 200) + 40}}px;">
 

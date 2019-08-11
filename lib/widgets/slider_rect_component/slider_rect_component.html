@@ -1,7 +1,7 @@
 <div class="widget-container">
 
     <div class="widget-header flex-row flex-space-between"
-        dir="{{lang.getDir()}}">
+        [direction]="lang.getDir()">
         <div class="widget-title">
             <h2>{{title}}</h2>
             <div class="_line-title"></div>
@@ -14,6 +14,7 @@
 
     <div id="{{items.hashCode}}" 
         class="swiper-container animatable" 
+        [direction]="lang.getDir()"
         [class.no-opacity]="!initilized">
 
         <div class="swiper-wrapper">

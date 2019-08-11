@@ -1,22 +1,24 @@
-<div class="card-container background animatable flex-column flex-center"
-	[style.background-image]="image"
-	[direction]="lang.getDir()" [align]="true">
-	
-	<div class="hover-content animatable flex-column flex-center">
-		<div>
+<a href="{{card.titleLink}}">
+	<div class="card-container hoverScale background animatable flex-column flex-center"
+		[style.background-image]="image"
+		[direction]="lang.getDir()" [align]="true">
+		
+		<div class="hover-content animatable flex-column flex-center">
+			<div>
+				<span class="title">{{card.getTitle(lang.getCode())}}</span><br>
+		        <span class="subtitle" 
+		        	*ngIf="card.subtitle != null">{{card.subtitle}}</span>
+			</div>
+		</div>
+
+		<div class="not-hover-content animatable">
 			<span class="title">{{card.getTitle(lang.getCode())}}</span><br>
 	        <span class="subtitle" 
 	        	*ngIf="card.subtitle != null">{{card.subtitle}}</span>
 		</div>
-	</div>
 
-	<div class="not-hover-content animatable">
-		<span class="title">{{card.getTitle(lang.getCode())}}</span><br>
-        <span class="subtitle" 
-        	*ngIf="card.subtitle != null">{{card.subtitle}}</span>
+		<div class="overlay">
+	        <!-- blue overlay -->
+	    </div>
 	</div>
-
-	<div class="overlay">
-        <!-- blue overlay -->
-    </div>
-</div>
+</a>

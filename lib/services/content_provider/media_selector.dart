@@ -45,10 +45,33 @@ class MediaSelector
     return navigator;
   }
 
+  Future<List<Artist>> artist_getRandomList({int total=15, Map<String, dynamic> query}) async
+  {
+    List<Artist> artists = [];
+    List<Map<String, dynamic>> piplines = [];
+
+    if(query != null) 
+      piplines.add({ '\$match': query });
+      
+    piplines.add({'\$sample': {'size': total}});
+
+    await _mongoDBService.aggregate(database:'media', collection: 'artist', piplines: piplines)
+      .then((docs) 
+      {
+        docs.forEach((doc) {
+          Map converted = validateFields(doc, SystemSchema.artist);
+          Artist artist = Artist.fromjson(converted);
+          artists.add(artist);
+        });
+      }).catchError(_handleError);
+
+    return artists;
+  }
+
   // album ------------------------------------------------
   Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
-    Map query = {'artistId': artistId};
+    Map<String, dynamic> query = {'artistId': artistId};
 
     ResultWithNavigator navigator = ResultWithNavigator<Album>(customQuery: query, perPage: total);
 
@@ -66,16 +89,17 @@ class MediaSelector
     return navigator;
   }
 
-  Future<List<Album>> album_getRandomList({int total=15}) async
+  Future<List<Album>> album_getRandomList({int total=15, Map<String, dynamic> query}) async
   {
     List<Album> albums = [];
-    dynamic pipeLine = [
-        {
-          '\$sample': {'size': total}
-        }
-      ];
+    List<Map<String, dynamic>> piplines = [];
 
-    await _mongoDBService.aggregate(database:'media', collection: 'album', piplines: pipeLine)
+    if(query != null) 
+      piplines.add({ '\$match': query });
+      
+    piplines.add({'\$sample': {'size': total}});
+
+    await _mongoDBService.aggregate(database:'media', collection: 'album', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {
@@ -100,7 +124,7 @@ class MediaSelector
 
   Future<ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
-    Map query = {'artistId': artistId};
+    Map<String, dynamic> query = {'artistId': artistId};
 
     ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
 
@@ -120,7 +144,7 @@ class MediaSelector
     return navigator;
   }
 
-  Future<Playlist> playlist_getRamdom(String title, {int total=15}) async
+  Future<Playlist> playlist_getRamdom(String title, {int total=15, Map<String, dynamic> query}) async
   {
     Playlist playlist;
 
@@ -131,13 +155,14 @@ class MediaSelector
 
     playlist = Playlist.fromjson(playlistDetail);
 
-    List<Map> pipeLine = [
-        {
-          '\$sample': {'size': total}
-        }
-    ];
+    List<Map<String, dynamic>> piplines = [];
 
-    await _mongoDBService.aggregate( database: 'media', collection: 'song', piplines: pipeLine)
+    if(query != null) 
+      piplines.add({ '\$match': query });
+      
+    piplines.add({'\$sample': {'size': total}});
+
+    await _mongoDBService.aggregate( database: 'media', collection: 'song', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {

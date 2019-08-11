@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import 'package:melodyku/core/core.dart';
+import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/swiper/swiper.dart';
 
@@ -8,7 +8,8 @@ import 'package:melodyku/swiper/swiper.dart';
 	templateUrl: 'slideshow_component.html',
 	styleUrls: ['slideshow_component.css'],
 	directives: [
-		coreDirectives
+		coreDirectives,
+		DirectionDirective,
 	]
 )
 class SlideShowComponent implements OnChanges

@@ -60,6 +60,13 @@
     transition: all ease 0.5s;
 }
 
+.hoverScale{
+    transition: all ease 0.5s;
+}
+.hoverScale:hover{
+    transform: scale(1.02);
+}
+
 ._line {
     //position: relative;
     //content: "";

@@ -1,7 +1,7 @@
 <div class='widget-container'>
 
     <div class="flex-row flex-space-between"
-        dir="{{lang.getDir()}}"> 
+        [direction]="lang.getDir()"> 
         
         <div class="widget-title">
             <h3>{{title}}</h3>
@@ -13,7 +13,8 @@
         </div>
     </div>
 
-    <div class="grid">
+    <div class="grid"
+        [direction]="lang.getDir()">
         <card-wide  
             *ngFor="let item of items; let i=index"
             [item]='item' [number]='i' [numerical]='numerical'

@@ -74,7 +74,8 @@ class CategoryPresentorComponent implements OnInit
 		return Card('',
 			id			: cat['_id'],
 			localTitle	: cat['local_title'],
-			thumbnail	: _provider.getRandomPatterns(),
+			titleLink	: '/#/category/${cat['_id']}',
+			thumbnail	: _provider.getImage(database: 'media', type: 'category', id: cat['_id'], imgStamp: cat['imgStamp']),
 		);
 	}
 }
