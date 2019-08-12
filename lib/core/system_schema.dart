@@ -53,7 +53,7 @@ class SystemSchema
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
 		DbField('size', dataType: DataType.float, isHide:true),
-		DbField('bitrate', dataType: DataType.int, isHide:true),
+		DbField('bitrate', dataType: DataType.float, isHide:true),
 		DbField('versions', isHide:true, dataType: DataType.array_object, subFields: song_version),
 		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
 		DbField('imgStamp', isDisable:true),

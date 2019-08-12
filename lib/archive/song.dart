@@ -28,7 +28,7 @@ class Song implements MediaItem
 
   int year;
   double duration, size;
-  int bitrate;
+  double bitrate;
 
   String imgStamp;
   String imgStamp_album;
