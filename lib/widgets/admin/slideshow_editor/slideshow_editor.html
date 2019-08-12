@@ -1,4 +1,5 @@
 <div class="" *ngIf="slideshow != null">
+
 	<div class="w3-row">
 		<div class="w3-half">
 			<p class="float-left">
@@ -12,21 +13,22 @@
 				[options]="addBtnOptions"></rounded-button>	
 		</div>
 	</div>
+
 	<div class="preview-container swiper-container"
 		*ngIf="slideshow.initilized">
 	    <div class="swiper-wrapper animatable" 
 	    	[class.no-opacity]="addBtnOptions.isWaiting">
 	        <!-- Slides -->
 	        <div class="swiper-slide flex-column flex-center"
-	        	*ngFor="let slide of slideshow.slides; let i=index">
+	        	*ngFor="let slide of slideshow.slides.reversed.toList(); let i=index">
 	        	<div class="preview-slide"
-		        	style="max-width: {{slideshow.width/3}}px; max-height: {{slideshow.height/3}}px;"
-	        		(click)="openSlideOption(i)">
+		        	style="width: {{slideshow.width/3}}px; height: {{slideshow.height/3}}px;"
+	        		(click)="openSlideOption(i - slideshow.slides.length)">
 	        		<img *ngIf="(slide.imgStamp ?? '').length > 0" src="{{slide.getImgLink()}}">
 	        	</div>
-	        	<div><span>s{{i}}</span></div>
+	        	<div><span>s{{i - slideshow.slides.length}}</span></div>
 	        	<div class="btn-close"
-	        		(click)="removeSlide(i)">
+	        		(click)="removeSlide(i - slideshow.slides.length)">
 	        		<img src="/assets/svg/icon_close.svg"> 		
 	        	</div>
 			</div>

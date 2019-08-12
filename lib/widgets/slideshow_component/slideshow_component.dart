@@ -47,6 +47,7 @@ class SlideShowComponent implements OnChanges
 				spaceBetween: 10,
 				initialSlide: 1,
 				centeredSlides: true,
+				loop: true,
 				navigation: SwiperNavigation(
 					nextEl: '.swiper-button-next',
 					prevEl: '.swiper-button-prev',),
@@ -65,4 +66,7 @@ class SlideShowComponent implements OnChanges
 
 		initilized = true;
 	}
+
+	String getImage(slide) =>
+		'Url("${slide.getImgLink()}")';
 }

@@ -6,7 +6,8 @@
 		[class.no-opacity]="!initilized">
 
 	    <div class="swiper-wrapper">
-	        <!-- Slides -->
+
+	        <!-- no Slide -->
 	        <div class="swiper-slide no-slide flex-row flex-center"
 	        	*ngIf="slideshow.slides.length == 0"
 	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;">
@@ -14,18 +15,26 @@
 	        		<h4>slides not found</h4>
 	        	</div>
 	        </div> 
+
+	        <!-- Slides -->
 	        <div class="swiper-slide" 
-	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;"
-	        	*ngFor="let slide of slideshow.slides; let i=index">
-	        	<img class="background" src="{{slide.getImgLink()}}">
-	        	
-        		<div class="active-content animatable"
-        			*ngIf="slide.showDetail">
-        			<a class="" href="{{slide.link}}">
-    					<h2>{{slide.getTitle(lang.getCode())}}</h2>
-    					<h4>{{slide.getSubTitle(lang.getCode())}}</h4>
-    				</a>
-        		</div>
+	        	*ngFor="let slide of slideshow.slides; let i=index"
+	        	style="width:{{slideshow.width}}px; height:{{slideshow.height}}px;">
+
+	        	<a class="" href="{{slide.link}}">
+		        	<div class="background"
+		        		[style.background-image]="getImage(slide)">
+
+		        		<!-- <img class="background" src="{{slide.getImgLink()}}"> -->
+		        	
+		        		<div class="active-content animatable"
+		        			*ngIf="slide.showDetail">
+	    					<h2>{{slide.getTitle(lang.getCode())}}</h2>
+	    					<h4>{{slide.getSubTitle(lang.getCode())}}</h4>
+		        		</div>
+		        		
+		        	</div>
+	        	</a>
 	        	
 			</div>
 
