@@ -159,7 +159,7 @@ class SystemSchema
 
   static List<DbField> slideshow = 
   [
-    DbField('title'),
+    DbField('title', isDisable: true),
     DbField('width', dataType: DataType.int),
     DbField('height', dataType: DataType.int),
   ];

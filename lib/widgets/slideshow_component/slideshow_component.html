@@ -10,7 +10,7 @@
 	        <!-- no Slide -->
 	        <div class="swiper-slide no-slide flex-row flex-center"
 	        	*ngIf="slideshow.slides.length == 0"
-	        	style="max-width: {{slideshow.width}}px; max-height: {{slideshow.height}}px;">
+	        	style="width: {{slideshow.width}}px; height: {{slideshow.height}}px;">
 	        	<div>
 	        		<h4>slides not found</h4>
 	        	</div>
@@ -25,7 +25,7 @@
 		        	<div class="background"
 		        		[style.background-image]="getImage(slide)">
 
-		        		<!-- <img class="background" src="{{slide.getImgLink()}}"> -->
+		        		<!-- <img class="no-opacity" src="{{slide.getImgLink()}}"> -->
 		        	
 		        		<div class="active-content animatable"
 		        			*ngIf="slide.showDetail">

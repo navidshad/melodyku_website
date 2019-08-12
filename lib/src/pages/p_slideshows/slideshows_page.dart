@@ -37,13 +37,13 @@ class SlideShowsPage
 			database: 'cms',
 			collection: 'slideshow',
 			allowAdd: true,
-	        allowUpdate: false,
+	        allowUpdate: true,
 	        allowRemove: true,
 	        allowQuery: false,
 	        dbFields: SystemSchema.slideshow,
 	        linkButtons: [
 	          LinkButton(
-	            title: 'edite', 
+	            title: 'edite slides', 
 	            route: pageDefinitions['slideshow'].route, 
 	            parameters: ['_id']),
 	        ]
