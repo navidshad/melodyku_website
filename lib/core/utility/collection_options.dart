@@ -1,6 +1,7 @@
 /// {@nodoc}
 library collectionOptions;
 
+import 'dart:async';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/mongodb/field.dart';
@@ -52,6 +53,9 @@ class ActionButton
 
 class CollectionOptions 
 {
+	StreamController _clearControler;
+	Stream get clearStream => _clearControler.stream;
+
 	String title;
 	String database;
 	String collection;
@@ -98,7 +102,9 @@ class CollectionOptions
 		this.hasNavigator=true, 
 		this.hasCover 	 = false,
 		this.autoGet	 =true,
-	});
+	}){
+		_clearControler = StreamController();
+	}
 
 	List<DbField> getValidFields()
 	{
@@ -113,5 +119,10 @@ class CollectionOptions
 	{
 		ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
 		return newBtn;
+	}
+
+	void clear()
+	{
+		_clearControler.add(true);
 	}
 }

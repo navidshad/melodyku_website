@@ -1,0 +1,41 @@
+<div class="widget-container">
+	
+	<!-- seletors -->
+	<div class="flex-row flex-center">
+		
+		<div class="controller">
+			<label>Archive Type</label>
+			<select-field 
+				[field]="selectedMediaType"
+				[options]="mediaTypes"
+				(onChange)="onSelectorChanged($event, 'mediaType')">
+			</select-field>
+		</div>
+
+		<div class="controller">
+			<label>Category</label>
+			<select-field 
+				[field]="selectedCategory"
+				[options]="categories"
+				(onChange)="onSelectorChanged($event, 'category')">
+			</select-field>
+		</div>
+
+		<div class="controller">
+			<label>Get Mod</label>
+			<select-field 
+				[field]="selectedGetmod"
+				[options]="getmodes"
+				(onChange)="onSelectorChanged($event, 'getmode')">
+			</select-field>
+		</div>
+
+	</div>
+
+	<!-- table -->
+	<div class="_line tableDivider"></div>
+
+	<db-collection-table-editor [options]="options">
+	</db-collection-table-editor>
+
+</div>

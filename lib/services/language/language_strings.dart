@@ -434,6 +434,11 @@ dynamic languageStrings = [
     'en'  : 'Category Manager',
     'fa_IR'  : 'مدیریت دسته بندی ها',
   },
+  {
+    'name'  : 'multi_categorizing',
+    'en'    : 'Multi Categorizing',
+    'fa_IR' : 'دسته بندی جمعی'
+  },
 
   // administrator
   {

@@ -67,9 +67,16 @@ class DbCollectionTableEditorComponent implements OnChanges
 
 	ngOnChanges(dynamic changes)
 	{
-		if(options != null && options.autoGet)
-			getPage();
+		if(options != null)
+		{
+			if(options.autoGet) getPage();
+
+			options.clearStream.listen(clearList);
+		}
 	}
+
+	void clearList([dynamic data]) =>
+		list = [];
 
 	// get and register modal to modal Manager
 	void getElement(Element el) 
@@ -154,13 +161,13 @@ class DbCollectionTableEditorComponent implements OnChanges
 
 	void getPage({int page, int navigate}) async
 	{
+		clearList();
+
 		if(page != null) current_page = page;
 		if(navigate != null) current_page += navigate;
 
 		// combine queries objects 
 		Map<String, dynamic> combinedQueries = options.query;
-
-		print('combinedQueries $combinedQueries');
 
 		// add search query
 		// inject searcjQuery if options.query is raw

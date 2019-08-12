@@ -6,6 +6,14 @@ import 'package:melodyku/mongodb/mongodb.dart';
 class SystemSchema
 {
 	// Media ====================================
+	static List<DbField> mediaItems = 
+	[
+		DbField('artist'),
+		DbField('album'),
+		DbField('song'),
+		//DbField('playlist'),
+	];
+
 	static List<DbField> artist = 
 	[
 		DbField('name'),

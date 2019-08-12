@@ -112,7 +112,7 @@ class ConvertService
 
 	void clearLog() => logs = [];
 
-  dynamic _convert(String jsonString) => jsonDecode(jsonString);
+  	dynamic _convert(String jsonString) => jsonDecode(jsonString);
 
 	dynamic analizeResult(Response r)
 	{

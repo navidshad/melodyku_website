@@ -24,6 +24,7 @@ import 'package:melodyku/src/pages/p_archive_album/archive_album_page.template.d
 
 import 'package:melodyku/src/pages/p_advanced_settings/advanced_settings_page.template.dart' as advanced_settings_template;
 import 'package:melodyku/src/pages/p_archive_categories/archive_categories_page.template.dart' as archive_categories_template;
+import 'package:melodyku/src/pages/p_multi_categorizing/archive_multi_categorizing_page.template.dart' as archive_multi_categorizing_template;
 import 'package:melodyku/src/pages/p_archive_convert/archive_convert_page.template.dart' as archive_convert_template;
 import 'package:melodyku/src/pages/p_downloads/downloads_page.template.dart' as downloads_template;
 import 'package:melodyku/src/pages/p_favorites/favorites_page.template.dart' as favorites_template;
@@ -31,9 +32,9 @@ import 'package:melodyku/src/pages/p_history/history_page.template.dart' as hist
 import 'package:melodyku/src/pages/p_profile/profile_page.template.dart' as profile_template;
 import 'package:melodyku/src/pages/p_users/users_page.template.dart' as users_template;
 import 'package:melodyku/src/pages/p_subscription/subscription_page.template.dart' as subscription_template;
+
 import 'package:melodyku/src/pages/p_slideshows/slideshows_page.template.dart' as slideshows_template;
 import 'package:melodyku/src/pages/p_slideshow/slideshow_page.template.dart' as slideshow_template;
-
 
 import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit_template;
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
@@ -254,6 +255,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'archive-categories'),
                       component: archive_categories_template.ArchiveCategoriesPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'multi_categorizing' : PageDefinition(
+    title         : 'multi_categorizing',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.categorizing,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'archive-multi-categorizing'),
+                      component: archive_multi_categorizing_template.ArchiveMultiCategorizingPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

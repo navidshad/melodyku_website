@@ -2,14 +2,12 @@
 	*ngIf="options != null">
 
 	<!-- header -->
+	<div class="widget-title none-margine">
+        <h3>{{options.title}}</h3>
+        <!-- <div class="_line-title"></div> -->
+    </div>
+	    
 	<div class="head">
-		<div class="buttons" *ngIf="options.allowAdd">
-			<div class="btn-sl-x" (click)="showForm()">add new</div>
-		</div>
-
-		<div class="buttons" *ngIf="!options.autoGet">
-			<div class="btn-sl-x" (click)="getPage()">get</div>
-		</div>
 
 		<div class="query">
 			<lable>TOTAL</lable>
@@ -23,10 +21,14 @@
 					class="input-text" type="text" placeholder='{"field":"val"}'>
 		</div>
 
-		<div class="widget-title none-margine">
-	        <h3>{{options.title}}</h3>
-	        <!-- <div class="_line-title"></div> -->
-	    </div>
+		<div class="buttons" *ngIf="options.allowAdd">
+			<div class="btn-sl-x" (click)="showForm()">add new</div>
+		</div>
+
+		<div class="buttons" *ngIf="!options.autoGet">
+			<div class="btn-sl-x" (click)="getPage()">get</div>
+		</div>
+
 	</div>
 
 	<!-- table -->

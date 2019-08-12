@@ -41,7 +41,7 @@ class CategoryService
 			});
 	}
 
-	List<DbField> _getCategoriesByGroup(groupId)
+	List<DbField> getCategoriesByGroup(groupId)
 	{
 		List<DbField> list = [];
 
@@ -49,6 +49,21 @@ class CategoryService
 		{
 			if(category['groupId'] != groupId) return;
 
+			DbField field = DbField(category['title'], 
+					strvalue: category['_id'].toString());
+
+			list.add(field);
+		});
+
+		return list;
+	}
+
+	List<DbField> getCategories()
+	{
+		List<DbField> list = [];
+
+		_categories.forEach((category) 
+		{
 			DbField field = DbField(category['title'], 
 					strvalue: category['_id'].toString());
 
@@ -68,7 +83,7 @@ class CategoryService
 					strvalue: group['_id'].toString());
 
 			// subfields
-			field.subFields = _getCategoriesByGroup(group['_id'].toString());
+			field.subFields = getCategoriesByGroup(group['_id'].toString());
 
 			list.add(field);
 		});

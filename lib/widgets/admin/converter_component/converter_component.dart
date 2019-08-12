@@ -98,48 +98,46 @@ class ConverterComponent {
     List<ActionButton> list = [];
 
     if (getMode == "hasn't")
-      list = [ActionButton(title: 'convert', onEvent: convertById)];
+      list = [ ActionButton(title: 'convert', onEvent: convertById) ];
+
     else if (getMode == "has")
-      list = [
-        ActionButton(
-            title: 'remove $selectedPreset', onEvent: removeSongVersion)
-      ];
+      list = [ ActionButton( title: 'remove $selectedPreset', onEvent: removeSongVersion) ];
 
     return list;
   }
 
   Map<String, dynamic> getQuery() {
     if (getMode == "hasn't")
-      return {
-        'versions.title': {'\$ne': selectedPreset}
-      };
+      return { 'versions.title': {'\$ne': selectedPreset} };
     else if (getMode == "has")
-      return {
-        'versions.title': {'\$eq': selectedPreset}
-      };
+      return { 'versions.title': {'\$eq': selectedPreset} };
   }
 
-  void selectPreset(String title) {
+  void selectPreset(String title) 
+  {
     selectedPreset = title;
-
     songCollectionOptions.query = getQuery();
-
     songCollectionOptions.actionButtons = getActionButtons();
+
+    songCollectionOptions.clear();
   }
 
-  void onSelectGetMode(String mode) {
+  void onSelectGetMode(String mode) 
+  {
     getMode = mode;
-
     selectPreset(selectedPreset);
+
+    songCollectionOptions.clear();
   }
 
-  void convertAll() {
+  void convertAll() 
+  {
     if (convertService.isConverting || selectedPreset == null) return;
-
     convertService.convertAll(selectedPreset);
   }
 
-  void convertById(Map doc, ButtonOptions options) async {
+  void convertById(Map doc, ButtonOptions options) async 
+  {
     options.doWaiting(true);
 
     convertService.convertById(selectedPreset, doc['_id']).then((r) {
@@ -152,9 +150,10 @@ class ConverterComponent {
   void removeSongVersion(Map doc, ButtonOptions options) {
     options.doWaiting(true);
 
-    convertService.removeById(selectedPreset, doc['_id']).then((r) {
+    convertService.removeById(selectedPreset, doc['_id'])
+    .then((r) 
+    {
       options.doWaiting(false);
-
       options.setActivation(false);
     }).catchError((err) => options.doWaiting(false));
   }
