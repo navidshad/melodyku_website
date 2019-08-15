@@ -65,6 +65,8 @@ class CategoryPresentorComponent implements OnInit
 		{
 			docs.forEach((cat) =>
 				categories.add(getCardFromCategorydoc(cat)));
+
+			categories.shuffle();
 		});
 	}
 

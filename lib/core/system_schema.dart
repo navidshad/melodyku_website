@@ -116,6 +116,12 @@ class SystemSchema
 		DbField('direction'),
 	];
 
+	static List<DbField> languageStr = 
+	[
+		DbField('title'),
+		DbField('local_str', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+	];
+
 	static List<DbField> tariff = 
 	[
 		DbField('title'),

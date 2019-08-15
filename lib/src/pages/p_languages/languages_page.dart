@@ -7,14 +7,13 @@ import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',
-  templateUrl: 'advanced_settings_page.html',
-  styleUrls: [ 'advanced_settings_page.css' ],
+  templateUrl: 'languages_page.html',
+  styleUrls: [ 'languages_page.css' ],
   directives: [
     DbCollectionTableEditorComponent,
-    TariffManagerComponent,
   ]
 )
-class AdvancedSettingsPage 
+class LanguagesPage 
 {
   Page _page;
   LanguageService lang;
@@ -22,16 +21,32 @@ class AdvancedSettingsPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
+  CollectionOptions optionsLanguages;
+  CollectionOptions optionsStrs;
 
   // constructor ==================================
-  AdvancedSettingsPage(this._contentProvider, this._messageService, this._userservice)
+  LanguagesPage(this._contentProvider, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.advanced_settings,
       needLogedIn: true,
-      title: 'advanced_settings'
+      title: 'Languages'
+    );
+
+    optionsStrs = CollectionOptions(
+      title: 'Manage Strings',
+      database: 'cms',
+      collection: 'languageStr',
+      dbFields: SystemSchema.languageStr
+    );
+
+    optionsLanguages = CollectionOptions(
+      title: 'Manage Languages',
+      database: 'cms',
+      collection: 'language_config',
+      dbFields: SystemSchema.language
     );
   }
 }

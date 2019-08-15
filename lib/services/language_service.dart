@@ -4,7 +4,6 @@ library languageService;
 import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
-import 'package:melodyku/services/language/language_strings.dart';
 import 'package:melodyku/services/services.dart';
 
 class LanguageService 
@@ -33,7 +32,8 @@ class LanguageService
     _saveSession();
   }
 
-  String getStr(String name) {
+  String getStr(String name) 
+  {
     if(_current != null)
       return _languageList[_current].getStr(name);
     else return name;
@@ -66,7 +66,7 @@ class LanguageService
   }
 
   // prepration =================================
-  void prepareLanguages()
+  void prepareLanguages(List<dynamic> strs)
   {
     for (var i = 0; i < languageDocs.length; i++) 
     {
@@ -76,7 +76,7 @@ class LanguageService
       if(!ld['isActive']) continue;
 
       // get lang strings
-      dynamic strings = extractStringsByCode(ld['code']);
+      dynamic strings = extractStringsByCode(ld['code'], strs);
 
       // create lang
       Language language = Language(
@@ -97,18 +97,23 @@ class LanguageService
     loaded = true;
   }
 
-  dynamic extractStringsByCode(String code)
+  dynamic extractStringsByCode(String code, List<dynamic> strings)
   {
     dynamic extracted = {};
     
-    for (var i = 0; i < languageStrings.length; i++) 
+    for (var i = 0; i < strings.length; i++) 
     {
       // get string detail
-      dynamic langString = languageStrings[i];
-      String name = langString['name'];
+      dynamic langString = strings[i];
+      String title = langString['title'];
 
       // extract
-      extracted[name] = langString[code];
+      try{
+        extracted[title] = langString['local_str'][code];
+      }catch(e)
+      {
+        extracted[title] = null;
+      }
     }
 
     // return
@@ -118,17 +123,25 @@ class LanguageService
   Future<void> getLanguages() async
   {
     await _mongodb.find(database: 'cms', collection: 'language_config')
-        .then((list) 
+    .then((list) 
+    {
+        list.forEach((doc) 
         {
-            list.forEach((doc) 
-            {
-                Map converted = validateFields(doc, SystemSchema.language);
-                languageDocs.add(converted);
-            });
+            Map converted = validateFields(doc, SystemSchema.language);
+            languageDocs.add(converted);
         });
+    })
+    .then((r) => getLanguageStr())
+    .then((strs) 
+    {
+      prepareLanguages(strs as List<dynamic>);
+      _loadSession();
+    });
+  }
 
-    prepareLanguages();
-    _loadSession();
+  Future<void> getLanguageStr() async
+  {
+    return _mongodb.find(database: 'cms', collection: 'languageStr');
   }
 
   List<DbField> getLanguageFiels()

@@ -23,6 +23,7 @@ import 'package:melodyku/src/pages/p_archive_artist/archive_artist_page.template
 import 'package:melodyku/src/pages/p_archive_album/archive_album_page.template.dart' as archive_album_template;
 
 import 'package:melodyku/src/pages/p_advanced_settings/advanced_settings_page.template.dart' as advanced_settings_template;
+import 'package:melodyku/src/pages/p_languages/languages_page.template.dart' as languages_template;
 import 'package:melodyku/src/pages/p_archive_categories/archive_categories_page.template.dart' as archive_categories_template;
 import 'package:melodyku/src/pages/p_multi_categorizing/archive_multi_categorizing_page.template.dart' as archive_multi_categorizing_template;
 import 'package:melodyku/src/pages/p_archive_convert/archive_convert_page.template.dart' as archive_convert_template;
@@ -289,6 +290,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'advanced-settings'),
                       component: advanced_settings_template.AdvancedSettingsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'languages' : PageDefinition(
+    title         : 'languages',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.advanced_settings,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'languages'),
+                      component: languages_template.LanguagesPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

@@ -71,9 +71,9 @@ class CategoryPage implements OnActivate
 
     // get songs
     _provider.mediaselector.playlist_getRamdom(
-      'songs', query: query) .then((playlist) 
+      'songs', query: query, total: 30) .then((playlist) 
     {
-      songs = playlist.getChildsAsWidgets<ListItem>(total: 15);
+      songs = playlist.getChildsAsWidgets<ListItem>(total: 30);
     });
 
     // get albums

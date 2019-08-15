@@ -23,6 +23,7 @@ class ArchiveAlbumPage implements OnActivate
   UserService _userservice;
   MessageService _messageService;
   CategoryService _categoryService;
+  PlayerService _playerService;
 
   String albumID;
   List<DbField> languages = [];
@@ -31,7 +32,7 @@ class ArchiveAlbumPage implements OnActivate
   
 
   // constructor ==================================
-  ArchiveAlbumPage(this._categoryService, this._messageService, this.lang, this._userservice)
+  ArchiveAlbumPage(this._playerService, this._categoryService, this._messageService, this.lang, this._userservice)
   {
     _page = Page(
       userService: _userservice,
@@ -70,7 +71,15 @@ class ArchiveAlbumPage implements OnActivate
       collection:"song",
       query: {'albumId': albumID},
       dbFields: SystemSchema.injectSubfields('categories', SystemSchema.song, _categoryService.getGroups()),
+      actionButtons: [
+        ActionButton(title:'play', onEvent: play),
+      ],
     );
+  }
+
+  void play(Map doc, ButtonOptions options)
+  {
+    _playerService.playByMap(doc);
   }
 
   void _catchError(Error) => print(Error);

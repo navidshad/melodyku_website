@@ -15,4 +15,10 @@ class PlayerService
 
   void play(Song song)  => _player.playByTrack(song);
   void playByList(List<Song> list) => _player.playByList(list);
+
+  void playByMap(Map doc)
+  {
+  	Song song = Song.fromjson(doc);
+  	play(song);
+  }
 }
