@@ -1,0 +1,111 @@
+@import '../../styles/colors';
+@import '../../styles/buttons';
+
+.widget-container{
+    padding: 10px 60px 0px 60px;
+    padding-bottom: 70px;
+    background-color: darken($back-color, 5%);
+
+    p{
+        text-align: justify;
+    }
+}
+
+.social{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.social-icon, .email{
+    img{
+        width: 20px;
+    }
+
+    li{
+        list-style: none;
+    }
+}
+
+.social-icon{
+    @extend .button;
+    background: $lightblue-color;
+    //border: 1px solid white;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center;
+    width: 70px;
+    height: 65px;
+    margin: 0px 5px;
+
+    a{
+        text-decoration: none;
+    }
+}
+
+.section{
+    padding: 0px 10px;
+
+    div{
+        max-width: 300px;
+    }
+}
+
+.install_warning{
+    color: #eaeaea;
+    width: 100%;
+    //background: #000000d4;
+    position: fixed;
+    margin-top: 50px;
+    padding: 0px 10px;
+
+    .button{
+        color: #eaeaea;
+        border-color: #eaeaea;
+        border-radius: 20px;
+        padding: 3px 15px;
+        margin: 0px 15px;
+    }
+}
+
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 375px) 
+{
+    .install_warning{
+        margin-top: 35px;
+    }
+}
+
+@media only screen and (max-width: 425px) 
+{
+    .widget-container {
+        padding: 0px 10px;
+        padding-bottom: 50px;
+    }
+
+    .install_warning{
+        font-size: 12px
+    }
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px)
+{
+	.widget-container {
+        padding: 0px 30px;
+        padding-bottom: 60px;
+    }
+
+    .social-icon{
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) 
+{
+
+
+}  

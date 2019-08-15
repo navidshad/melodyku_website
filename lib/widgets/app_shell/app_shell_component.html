@@ -44,7 +44,6 @@
                     *ngIf="!isLogedIn"  
                     (click)="openlogin()">{{lang.getStr('login')}}</div>
             </div>
-
         </header>
         
         <!-- <div class="install_warning flex-row flex-center"
@@ -57,12 +56,12 @@
             </div>
         </div> -->
 
-        <!-- page -->
+        <!-- body -->
         <div class="content-body" *ngIf="isFirstLoggined">
             <router-outlet [routes]="pageRoutes.getAll()" ></router-outlet>
         </div>
 
-        <div style="height:100px"></div>
+        <footer-section></footer-section>
     </div>
     <!-- end mainContent -->
 
@@ -132,7 +131,4 @@
 
     </div>
 </div>
-
-<!-- login form -->
-<!-- <login-form *ngIf="allowLoadShell"></login-form> -->
 

@@ -29,7 +29,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     coreDirectives, 
     routerDirectives,
     ElementExtractorDirective,
-    //LoginFormComponent,
+    FooterComponent,
     TranslateBtnComponent,
     DirectionDirective,
   ],
@@ -71,9 +71,6 @@ class AppShellComponent
     if(message.detail['title'] != null) 
       _titleBar = message.detail['title'];
   }
-
-  bool get isInstalled => getInstallStatus();
-  void installApp() => installPWA();
 
   // user =======================================
   bool _isReady = false;

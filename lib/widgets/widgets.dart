@@ -46,6 +46,8 @@ export 'search_component/search_component.dart';
 export 'slideshow_component/slideshow_component.dart';
 export 'catergory_presentor_component/catergory_presentor_component.dart';
 
+export 'footer_component/footer_component.dart';
+
 export 'user/profile_editor/profile_editor.dart';
 export 'user/user_activity_detail/user_activity_detail.dart';
 

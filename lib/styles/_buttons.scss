@@ -36,6 +36,7 @@
 
 .button:hover {
     background-color: darken($lightblue-color, 20);
+    border-color: #00000000 !important;
 }
 
 .btn-sl-x {
@@ -116,6 +117,10 @@ $selectedBtn : #ff4fea;
 
 .btn-green{
     background-color: green;
+}
+
+.border-white{
+    background-color: #00000000;
 }
 
 @media screen and (max-width: 425px) 

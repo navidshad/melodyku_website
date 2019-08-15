@@ -1,0 +1,82 @@
+<div class="widget-container">
+	
+	<div class="w3-row"
+		[direction]="lang.getDir()">
+		
+		<div class="w3-third section flex-column flex-center"
+			[direction]="lang.getDir()">
+			<div class="widget-title">
+		        <h2>{{lang.getStr('aboutUs')}}</h2>
+		        <div class="_line-title"></div>
+		    </div>
+		    <div class="description">
+                <p>{{lang.getStr('aboutUsShort')}}</p>
+            </div>
+		</div>
+
+		<div class="w3-third section flex-column flex-center"
+			[direction]="lang.getDir()">
+			<div class="widget-title">
+		        <h2>{{lang.getStr('download')}}</h2>
+		        <div class="_line-title"></div>
+		    </div>
+
+		    <div class="description">
+                <p>{{lang.getStr('install_warning')}}</p>
+            </div>
+            <div class="btn-sl border-white {{isInstalled ? 'btn-disabled': ''}}" 
+            	(click)="installApp()">
+                {{lang.getStr('install')}}
+            </div>
+		</div>
+
+		<div class="w3-third section flex-column flex-center"
+			[direction]="lang.getDir()">
+			<div class="widget-title">
+		        <h2>{{lang.getStr('contactUs')}}</h2>
+		        <div class="_line-title"></div>
+		    </div>
+		    <div class="description">
+                <div class="social">
+	                <!-- <h4>{{lang.getStr('socialNetworks')}}</h4> -->
+	                <div class="flex-row flex-center">
+	                	<div class="social-icon flex-column flex-center">
+	                		<div>
+	                			<a target="_blank" href="https://www.instagram.com/Melodyku_com/">
+	                				<img src="/assets/svg/icon_instagram.svg" alt="">
+	                				<br><label>Instagram</label>
+	                			</a>
+	                		</div>
+	                	</div>
+
+	                	<div class="social-icon flex-column flex-center">
+	                		<div>
+	                			<a target="_blank" href="https://goo.gl/pCFuL8">
+	                				<img src="/assets/svg/icon_telegram.svg" alt="">
+	                				<br><label>Telegram Channel</label>	
+	                			</a>
+	                		</div>
+	                	</div>
+	                	
+	                	<div class="social-icon flex-column flex-center">
+	                		<div>
+	                			<a target="_blank" href="https://telegram.me/steryobot">
+	                				<img src="/assets/svg/icon_telegram.svg" alt="">
+	                				<br><label>Telegram Bot</label>
+	                			</a>
+	                		</div>
+	                	</div>
+	                </div>
+                </div>
+
+                <h4>{{lang.getStr('email')}}</h4>
+                <li class="email">
+                	<img src="/assets/svg/icon_gmail.svg" alt="">
+                	<label>meloodyku@gmail.com</label>
+                </li>
+            </div>
+		</div>
+
+	</div>
+
+</div>
