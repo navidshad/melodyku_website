@@ -11,14 +11,18 @@
 
 		<div class="query">
 			<lable>TOTAL</lable>
-			<input 	#total [ngModel]="perPage" (change)="totalPerPage = total.value"
-					class="input-text" type="text">
+			<input class="input-text" type="text"	
+				#total [ngModel]="perPage" 
+				(change)="totalPerPage = total.value">
 		</div>
 
 		<div class="query" *ngIf="options.allowQuery">
 			<lable>SEARCH</lable>
-			<input 	[(ngModel)]="searchQuery" (change)="search()"
-					class="input-text" type="text" placeholder='{"field":"val"}'>
+			<textarea class="input-text" type="text" 
+				placeholder='{"field":"val"}'
+				[(ngModel)]="searchQuery" 
+				(change)="search()">
+			</textarea>
 		</div>
 
 		<div class="buttons" *ngIf="options.allowAdd">

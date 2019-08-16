@@ -23,6 +23,14 @@
                     	class="input-text input-wide" type="text"
                         [attr.disable]="field.isDisable">
 
+                <!-- textbox -->
+                <textarea class="input-text input-wide"
+                    *ngIf="field.fieldType == FieldType.textbox"
+                    [(ngModel)]="object[field.key]"
+                    [attr.disable]="field.isDisable">
+                    
+                </textarea>
+
                 <!-- checkbocx field -->
                 <input 	*ngIf="field.fieldType == FieldType.checkbox"
                 		[(ngModel)]="object[field.key]"

@@ -3,9 +3,7 @@ library userService;
 
 import 'dart:async';
 import 'dart:html';
-import 'dart:convert';
 
-import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/user/user.dart';
 

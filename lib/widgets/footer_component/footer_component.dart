@@ -16,9 +16,12 @@ import 'package:melodyku/directives/directives.dart';
 class FooterComponent
 {
 	LanguageService lang;
+	AppshellService _appshell;
 
-	FooterComponent(this.lang);
+	FooterComponent(this.lang, this._appshell);
 
 	bool get isInstalled => getInstallStatus();
   	void installApp() => installPWA();
+
+  	String getVersion() => _appshell.version;
 }

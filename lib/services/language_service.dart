@@ -149,7 +149,7 @@ class LanguageService
     List<DbField> list = [];
 
     languageDocs.forEach((mapDoc) =>
-        list.add( DbField(mapDoc['code']) ));
+        list.add( DbField(mapDoc['code'], fieldType: FieldType.textbox) ));
 
     return list;
   }

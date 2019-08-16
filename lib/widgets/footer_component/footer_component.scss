@@ -11,6 +11,18 @@
     }
 }
 
+.version{
+    font-size: 12px;
+    text-align: center;
+    font-style: oblique;
+    font-weight: bold;
+    color: grey;
+    margin-top: 30px;
+
+    border-top: 1px solid $menu-color;
+    padding: 15px;
+}
+
 .social{
     margin-top: 20px;
     margin-bottom: 30px;

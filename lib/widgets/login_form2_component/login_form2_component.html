@@ -162,12 +162,27 @@
                 </div>
 
                 <!-- identity -->
-                <div class="full-wide">
-                    <label>{{lang.getStr('insertPhone')}}</label>
-                    <input dir="ltr" [(ngModel)]="phone" 
+                <div class="full-wide margin-h-20">
+                    <div>
+                        <label>{{lang.getStr('selectCountry')}}</label>
+                        <select-field 
+                            [field]="countryCode"
+                            [options]="countries" 
+                            [icons]="flags"
+                            (onChange)="countryCode = $event">
+                        </select-field>
+                    </div>
+                </div>
+
+                <div class="flex-row flex-center" dir="ltr"
+                    style="justify-content: flex-start;">
+                    <div><label>+{{countryCode}}</label></div>
+                    <div>
+                        <input dir="ltr" [(ngModel)]="phone" 
                             class="input-text input-wide" 
                             name="identity" type="text" 
                             placeholder="{{lang.getStr('phone')}}">
+                    </div>
                 </div>
 
                 <!-- btn -->

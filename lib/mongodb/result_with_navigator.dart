@@ -96,9 +96,10 @@ class ResultWithNavigator<T>
       String userid = Injector.get<UserService>().user.id;
       piplines = [
         { '\$match': { 'refId': userid } },
-        { '\$sort': {'_id': -1} }
       ];
     }
+
+    piplines.add({ '\$sort': {'_id': -1} });
 
     return piplines;
   }

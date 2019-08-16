@@ -40,6 +40,7 @@ import 'package:melodyku/core/injector.dart' as CI;
 )
 class AppShellComponent
 {
+  AppshellService appshellService;
   LanguageService lang;
   PageRoutes pageRoutes;
   UserService _userService;
@@ -56,7 +57,7 @@ class AppShellComponent
   List<MenuItem> profileItems = [];
 
   // constructor ================================
-  AppShellComponent(this._userService, this._messageService, this.lang, this.pageRoutes)
+  AppShellComponent(this.appshellService, this._userService, this._messageService, this.lang, this.pageRoutes)
   {
     CI.Injector.register(InjectorMember('PageRoutes', pageRoutes));
     _messageService.addListener('appShell', resiveMessage);
