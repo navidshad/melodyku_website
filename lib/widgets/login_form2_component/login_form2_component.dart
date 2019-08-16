@@ -7,7 +7,10 @@ import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
+
+import 'countries.dart';
 
 @Component(
   selector: 'login-form2',
@@ -16,7 +19,9 @@ import 'package:melodyku/directives/directives.dart';
   directives: [
     coreDirectives,
     ElementExtractorDirective,
+    DirectionDirective,
     formDirectives,
+    SelectField,
   ]
 )
 class LoginForm2Component
@@ -29,7 +34,12 @@ class LoginForm2Component
   
   Element base;
   SectionSwitcher swicher;
+
+  List<DbField> countries = [];
+  List<String> flags = [];
   
+  String countryCode = '98';
+  String normalizedPhone = '';
   String phone = '';
   String password = '';
   String code = '';
@@ -37,7 +47,10 @@ class LoginForm2Component
   String errorMessage;
 
   // constructor --------------------------------
-  LoginForm2Component(this.lang, this._userService);
+  LoginForm2Component(this.lang, this._userService)
+  {
+    getCountries();
+  }
 
   // get and register modal to modal Manager
   void getElement(Element el) 
@@ -55,11 +68,24 @@ class LoginForm2Component
     showForm('login');
   }
 
+  void normalizePhone()
+  {
+    normalizedPhone = phone;
+    normalizedPhone.replaceAll('+', '');
+
+    if(normalizedPhone.startsWith(countryCode))
+      normalizedPhone = normalizedPhone.replaceRange(0, countryCode.length, '');
+
+    if(normalizedPhone.startsWith('0'))
+      normalizedPhone = normalizedPhone.replaceRange(0, 1, '');
+
+    normalizedPhone = countryCode + normalizedPhone;
+  }
+
   // visibility of form -------------------------
   void showForm(sectionid) async
   {
     // clear text boxes
-    phone = '';
     password = '';
 
     // hide modal content
@@ -70,9 +96,9 @@ class LoginForm2Component
   {
     swicher.hideAll();
 
-    phone = phone.replaceAll('+', '');
+    normalizePhone();
     
-    await _userService.login(identity: phone, identityType: 'phone', password: password)
+    await _userService.login(identity: normalizedPhone, identityType: 'phone', password: password)
       .then((r) async
       {
         Navigator.gotTo('');
@@ -86,15 +112,18 @@ class LoginForm2Component
 
   void registerPhone() async
   {
+    normalizePhone();
+
     swicher.hideAll();
 
     if(!validatePhone())
     {
       errorMessage = 'Wrong phone number';
+      showForm('register-phone');
       return;
     }
 
-    await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
+    await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
       .then((r) async
       {
         errorMessage = 'Your phone number has been submitted';
@@ -117,7 +146,7 @@ class LoginForm2Component
 
     // submite password
     await _userService.auth
-      .registerSubmitPass(identity: phone, password: password, serial: code)
+      .registerSubmitPass(identity: normalizedPhone, password: password, serial: code)
       .then((r) async
       {
         errorMessage = 'Success';
@@ -134,6 +163,8 @@ class LoginForm2Component
 
   void registerPhoneForChangePassword() async
   {
+    normalizePhone();
+
     swicher.hideAll();
 
     if(!validatePhone())
@@ -142,7 +173,7 @@ class LoginForm2Component
       return;
     }
 
-    await _userService.auth.registerSubmitId(identity: phone, identityType:'phone')
+    await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
       .then((r) async
       {
         errorMessage = 'Your phone number has been submitted';
@@ -161,11 +192,13 @@ class LoginForm2Component
   {
     if(phone == '' || password == '' || code == '') return;
 
+    normalizePhone();
+
     swicher.hideAll();
 
     // submite password
     await _userService.auth
-      .changePass(identity: phone, password: password, serial: code)
+      .changePass(identity: normalizedPhone, password: password, serial: code)
       .then((r) async
       {
         errorMessage = 'Success';
@@ -182,10 +215,19 @@ class LoginForm2Component
 
   bool validatePhone()
   {
-    phone = phone.replaceAll('+', '');
     String pattern = r'^\d{8,15}$';
     RegExp reg = RegExp(pattern, caseSensitive: false);
 
     return reg.hasMatch(phone);
+  }
+
+  List<DbField> getCountries()
+  {
+    countriesRawDetail.forEach((raw) 
+    {
+      DbField field = DbField(raw['nativeName'], strvalue: raw['callingCode']);
+      countries.add(field);
+      //flags.add(raw['flag']);
+    });
   }
 }

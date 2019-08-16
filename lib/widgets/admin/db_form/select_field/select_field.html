@@ -4,6 +4,9 @@
 		class="w3-select">
 
 	<option value="" selected="selected" hidden="hidden">Choose here</option>
-	<option *ngFor="let field of fields" 
-			[value]="field.strvalue" selected>{{field.title}}</option>
+	<option *ngFor="let field of fields; let i=index" 
+			[value]="field.strvalue"
+			[style.background-image]="getIcon(i)">
+				<label>{{field.title}}</label>
+			</option>
 </select>

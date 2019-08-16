@@ -28,6 +28,9 @@ class SelectField
 	String field;
 
 	@Input()
+	List<String> icons;
+
+	@Input()
 	void set options(List<DbField> value) => fields = value;
 
 	@Output()
@@ -37,5 +40,16 @@ class SelectField
 	{
 		if(field == null) field = '';
 		return true;
+	}
+
+	String getIcon(int index)
+	{
+		String link = '';
+
+		try{
+			link = icons[index];
+		}catch(e){}
+
+		return 'Url($link)';
 	}
 }

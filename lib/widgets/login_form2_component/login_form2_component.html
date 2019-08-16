@@ -1,10 +1,5 @@
 <div class="widget-container">
 
-    <!-- message -->
-    <div class="w3-center w3-text-yellow">
-        <p>{{errorMessage}}</p>
-    </div>
-
     <div class="flex-row flex-center"
         extractor (onExtract)="getElement($event)">
         <!-- logo -->
@@ -13,28 +8,48 @@
         </div> -->
 
         <!-- forms -->
-        <div class="form">
+        <div class="form" [direction]="lang.getDir()">
 
             <!-- login form -->
             <div id="login" class="animatable none flex-column flex-center">
-                <div class="w3-center">
+                <div class="w3-center margin-h-20">
                     <h5>{{lang.getStr('loginToAccount')}}</h5>
                 </div>
 
                 <!-- identity -->
-                <div class="full-wide">
-                    <input dir="ltr" [(ngModel)]="phone" 
+                <div class="full-wide margin-h-20">
+                    <div>
+                        <label>{{lang.getStr('selectCountry')}}</label>
+                        <select-field 
+                            [field]="countryCode"
+                            [options]="countries" 
+                            [icons]="flags"
+                            (onChange)="countryCode = $event">
+                        </select-field>
+                    </div>
+                </div>
+
+                <div class="flex-row flex-center" dir="ltr"
+                    style="justify-content: flex-start;">
+                    <div><label>+{{countryCode}}</label></div>
+                    <div>
+                        <input dir="ltr" [(ngModel)]="phone" 
                             class="input-text input-wide" 
                             name="identity" type="text" 
                             placeholder="{{lang.getStr('phone')}}">
+                    </div>
                 </div>
 
                 <!-- password -->
-                <div class="full-wide">
-                    <input dir="ltr" [(ngModel)]="password"
+                <div class="flex-row flex-center" dir="ltr"
+                    style="justify-content: flex-start;">
+                    <div class="no-opacity"><label>+{{countryCode}}</label></div>
+                    <div>
+                        <input dir="ltr" [(ngModel)]="password"
                             class="input-text input-wide" 
                             name="password" type="password" 
                             placeholder="{{lang.getStr('password')}}">
+                    </div>
                 </div>
 
                 <!-- btn -->
@@ -52,18 +67,38 @@
             </div>
 
             <!-- register phone -->
-            <div id="register-phone" class="animatable none flex-column flex-center">
-                <div class="w3-center">
+            <div id="register-phone" 
+                class="animatable none flex-column flex-center">
+                <div class="w3-center margin-h-20">
                     <h5>{{lang.getStr('createAccount')}}</h5>
                 </div>
 
                 <!-- identity -->
                 <div class="full-wide">
-                    <label>{{lang.getStr('insertPhone')}}</label>
-                    <input dir="ltr" [(ngModel)]="phone" 
-                            class="input-text input-wide" 
-                            name="identity" type="text" 
-                            placeholder="{{lang.getStr('phone')}}">
+                    
+                    <div class="margin-h-20">
+                        <label>{{lang.getStr('selectCountry')}}</label>
+                        <select-field 
+                            [field]="countryCode"
+                            [options]="countries" 
+                            [icons]="flags"
+                            (onChange)="countryCode = $event">
+                        </select-field>
+                    </div>
+
+                    <div class="margin-h-20">
+                        <label>{{lang.getStr('insertPhone')}}</label>
+                        <div class="flex-row flex-center" dir="ltr">
+                            <div><label>+{{countryCode}}</label></div>
+                            <div>
+                                <input dir="ltr" [(ngModel)]="phone" 
+                                    class="input-text input-wide" 
+                                    name="identity" type="text" 
+                                    placeholder="{{lang.getStr('phone')}}">
+                            </div>
+                        </div>    
+                    </div>
+                    
                 </div>
 
                 <!-- btn -->
@@ -80,17 +115,14 @@
 
             <!-- submite-password -->
             <div id="submite-password" class="animatable none flex-column flex-center">
-                <div class="w3-center">
+                <div class="w3-center margin-h-20">
                     <h5>{{lang.getStr('createAccount')}}</h5>
                 </div>
 
                 <!-- identity -->
-                <div class="full-wide">
+                <div class="full-wide margin-h-20">
                     <label>{{lang.getStr('insertPhone')}}</label>
-                    <input dir="ltr" [(ngModel)]="phone" 
-                            class="input-text input-wide" 
-                            name="identity" type="text" 
-                            placeholder="{{lang.getStr('phone')}}">
+                    <label>{{normalizedPhone}}</label>
                 </div>
 
                 <!-- code -->
@@ -125,7 +157,7 @@
 
             <!-- register phone for change password -->
             <div id="register-phone-for-change-password" class="animatable none flex-column flex-center">
-                <div class="w3-center">
+                <div class="w3-center margin-h-20">
                     <h5>{{lang.getStr('changePassword')}}</h5>
                 </div>
 
@@ -152,17 +184,14 @@
 
             <!-- submite-password for change -->
             <div id="submite-password-for-change" class="animatable none flex-column flex-center">
-                <div class="w3-center">
+                <div class="w3-center margin-h-20">
                     <h5>{{lang.getStr('changePassword')}}</h5>
                 </div>
 
                 <!-- identity -->
-                <div class="full-wide">
+                <div class="full-wide margin-h-20">
                     <label>{{lang.getStr('insertPhone')}}</label>
-                    <input dir="ltr" [(ngModel)]="phone" 
-                            class="input-text input-wide" 
-                            name="identity" type="text" 
-                            placeholder="{{lang.getStr('phone')}}">
+                    <label>{{normalizedPhone}}</label>
                 </div>
 
                 <!-- code -->
@@ -196,5 +225,10 @@
             </div>
         </div>
         <!-- end forms -->
+    </div>
+
+    <!-- message -->
+    <div class="w3-center w3-text-yellow">
+        <p>{{errorMessage}}</p>
     </div>
 </div>
