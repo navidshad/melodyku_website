@@ -3,9 +3,17 @@ import 'g_interop.dart';
 import 'package:js/js_util.dart' as js;
 import 'dart:html';
 
+import 'package:melodyku/services/services.dart';
+
 class AnalyticService {
 
 	String trackID = 'UA-133720746-2';
+	UserService _userService;
+
+	AnalyticService(this._userService)
+	{
+		_userService.loginEvent.listen(onLoginEvent)
+	}
 
 	void trackPage(String name) 
 	{
@@ -39,5 +47,14 @@ class AnalyticService {
   				'value': value
 			})
 		);
+	}
+
+	void onLoginEvent(bool isLogedIn)
+	{
+		Map config = {'user_id': ''};
+
+		if(isLogedIn) config['user_id'] = _userService.user.id;
+
+		send('config', 'GA_MEASUREMENT_ID', js.jsify(config));
 	}
 }

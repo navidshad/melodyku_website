@@ -13,13 +13,15 @@ export 'package:melodyku/core/types.dart';
 class UserService 
 {
   AuthService auth;
+
+  StreamController<bool> _loginController;
+  Stream get loginEvent => _loginController.stream;
   
   String token;
   User _user;
   User get user => _user;
 
   bool isLogedIn = false;
-  //bool get isLogedIn => _isLogedIn;
 
   UserService(this.auth);
 
@@ -75,7 +77,10 @@ class UserService
     _saveSession(payload);
 
     if(type == UserType.user)
+    {
       isLogedIn = true;
+      _loginController.add(isLogedIn);
+    }
   }
 
   void _saveSession(Map payload)
@@ -83,51 +88,10 @@ class UserService
     window.localStorage['token'] = token;
   }
 
-  // Future<dynamic> loginWithAPIKey(String key) async
-  // {
-  //   dynamic result;
-
-  //   await _stitch.loginWithAPIKey(key)
-  //     .then((r)
-  //     {
-  //       user = User(_stitch.user.id, fullAccess: true);
-  //       result = r;
-  //       if(result['done']) isLogedIn = true;
-  //     }).catchError((onError)
-  //     {
-  //       result = onError;
-  //     });
-
-  //   return result;
-  // }
-
   void logout() async
   {
-    // await promiseToFuture(_stitch.appClient.auth.logout())
-    //   .then((r) 
-    //   {
-    //     _user = null;
-    //     isLogedIn = false;
-
-    //     Navigator.goToRawPath('/#');
-    //   });
-
     _loginAnonymous();
     isLogedIn = false;
+    _loginController.add(isLogedIn);
   }
-
-  // Future<dynamic> register(String email, String password) async
-  // {
-  //   dynamic result = {'done':false, 'message':''};
-
-  //   await _stitch.registerWithEmailPassword(email, password)
-  //   .then((r) {
-  //     result = r;
-  //   })
-  //   .catchError((onError){
-  //       result['message'] = onError;
-  //   });
-
-  //   return result;    
-  // }
 }
