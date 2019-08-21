@@ -7,11 +7,13 @@ export 'dart:indexed_db';
 
 class IndexedDBService
 {
+	StorageQuta storageQuota;
 	bool isSupport = false;
 
 	IndexedDBService()
 	{
-		isSupport = IdbFactory.supported;	
+		isSupport = IdbFactory.supported;
+		storageQuota = StorageQuta(this);
 	}
 
 	Future<dynamic> getStorageQuotaInfo()
@@ -40,6 +42,12 @@ class IndexedDBService
 	{
 		return getCollection(dbName, collName)
 			.then((coll) => coll.add(doc));
+	}
+
+	Future<dynamic> updateOne(String dbName, String collName, dynamic doc)
+	{
+		return getCollection(dbName, collName)
+			.then((coll) => coll.put(doc));
 	}
 
 	Future<dynamic> removeOne(String dbName, String collName, String id)

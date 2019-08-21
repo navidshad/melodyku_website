@@ -6,7 +6,7 @@
 
 @media screen and (max-width: 479px)
 {
-    .album, .duration {
+    .album {
         display: none;
     }
 
@@ -14,7 +14,7 @@
         width: 15%;
     }
 
-    .title{
+    .stitle{
     	width: 60%;
     }
 
@@ -29,7 +29,7 @@
         display: none;
     }
 
-    .title{
+    .stitle{
     	width: 85%;
     }
 }

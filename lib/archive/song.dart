@@ -180,7 +180,9 @@ class Song implements MediaItem
     {
       await Injector.get<IndexedDBService>()
         .getOne('media', 'file', 'song-$id')
-        .then((doc) => link = doc['base64']);
+        .then((doc) {
+          if(doc != null) link = doc['base64'];
+        });
     }
     //get online link
     else

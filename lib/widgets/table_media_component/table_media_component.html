@@ -1,10 +1,13 @@
 <div class='table-div'>
     <div class='row header'>
         <div class='cell index'>#</div>
-        <div class='cell title'>{{lang.getStr("songTitle")}}</div>
+        <div class='cell stitle'>{{lang.getStr("songTitle")}}</div>
         <div class='cell album'>{{lang.getStr("album")}}</div>
         <div class='cell artist'>{{lang.getStr("artist")}}</div>
         <div class='cell duration'>{{lang.getStr("duration")}}</div>
+        
+        <div class='cell option' 
+            *ngIf="actionButtons != null">...</div>
     </div>
 
     <div class="_line"></div>
@@ -27,10 +30,18 @@
             </media-cover>
         </div>
 
-        <div class='cell title subtitle'>{{song.title}}</div>
+        <div class='cell stitle subtitle'>{{song.title}}</div>
         <div class='cell album subtitle'>{{song.album}}</div>
         <div class='cell artist subtitle'>{{song.artist}}</div>
         <div class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
+
+        <div class="cell" *ngIf="actionButtons != null">
+            <rounded-button 
+                *ngFor="let actionBtn of actionButtons" 
+                [options]="getCloneButton(actionBtn).options"
+                [arg]="song.getAsMap()">
+            </rounded-button>
+        </div>
     </div>
 
     <div class="load-more" *ngIf="navigator != null && navigator.hasMore">

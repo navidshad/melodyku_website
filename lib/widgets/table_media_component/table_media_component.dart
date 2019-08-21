@@ -15,9 +15,10 @@ import 'package:melodyku/archive/archive.dart';
   directives: [
     coreDirectives,
     MediaCoverComponent,
+    ButtonRounded,
   ]
 )
-class TableSong
+class TableSong implements OnChanges
 {
   PlayerService _playerService;
   Player _player;
@@ -27,6 +28,11 @@ class TableSong
   List<Song> list;
 
   TableSong(this.lang, this._playerService, this._player);
+
+  void ngOnChanges(Map<String, SimpleChange> changes)
+  {
+    if(navigator != null) navigator.onUpdated.listen((key) => list = navigator.list);
+  }
 
   @Input('songNavigator')
   ResultWithNavigator<Song> navigator;
@@ -39,6 +45,9 @@ class TableSong
 
   @Input()
   bool hideMore;
+
+  @Input()
+  List<ActionButton> actionButtons;
 
   int hoverNumber = -1;
 
@@ -75,5 +84,11 @@ class TableSong
       key = !hideMore;
 
     return key;
+  }
+
+  ActionButton getCloneButton(ActionButton ab)
+  {
+    ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
+    return newBtn;
   }
 }

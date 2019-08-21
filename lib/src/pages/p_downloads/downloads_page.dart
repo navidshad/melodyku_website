@@ -11,7 +11,7 @@ import 'package:melodyku/page/page.dart';
   templateUrl: 'downloads_page.html',
   styleUrls: [ 'downloads_page.css' ],
   directives: [
-    QuotaUsage,
+    QuotaUsageComponent,
     TableSong,
   ]
   )
@@ -22,11 +22,13 @@ class DownloadsPage
   UserService _userservice;
   MessageService _messageService;
   IndexedDBService _idb;
+  ContentProvider _provider;
 
   List<Song> songs = [];
+  List<ActionButton> actions = [];
 
   // constructor ==================================
-  DownloadsPage(this._idb, this._messageService, this._userservice)
+  DownloadsPage(this._provider, this._idb, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 
@@ -35,11 +37,16 @@ class DownloadsPage
       needLogedIn: true,
       title: 'downloads');
 
+    actions = [
+      ActionButton(title: 'delete', onEvent: removeSong),
+    ];
+
     prepare();
   }
 
   void prepare() async
   {
+    songs = [];
     ObjectStore songColl = await _idb.getCollection('media', 'song');
 
     songColl.openCursor()
@@ -52,5 +59,18 @@ class DownloadsPage
         Song song = Song.fromjson(songDetail, isLocal: true);
         songs.add(song);
       });
+  }
+
+  Function removeSong(Map song, ButtonOptions options)
+  {
+    options.doWaiting(true);
+
+    _provider.removeDownloadedSong(song['_id'] as String)
+    .then((r) => prepare())
+    .catchError((e) {
+      options.doWaiting(false);
+      options.setActivation(true);
+      options.setColor('red');
+    });
   }
 }

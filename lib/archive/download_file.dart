@@ -19,13 +19,12 @@ class DownloadFile
 
   static String getBase64Link(String contentType, ByteBuffer buffer)
   {
-    // List<int> bytes = [];
-
-    // bytesList.forEach((item) => bytes.add(item));
-
     String header = 'data:${contentType};base64,';
   	String data = base64.encode(buffer.asUint8List());
   	String src = '${header}${data}';
+
+    print('base46 size: ${src.length}');
+
   	return src;
   }
 }

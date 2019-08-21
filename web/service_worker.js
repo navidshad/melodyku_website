@@ -22,20 +22,20 @@ const CACHE_NAME = 'static-cache-v1';
 
 // CODELAB: Add list of files to cache here.
 const FILES_TO_CACHE = [
-  '/',
-  "/styles.css",
-  "favicon.png",
-  "/assets/css/w3.css",
-  '/assets/js/install.js',
-  "/assets/thirdparty/swiper/swiper.min.css",
-  "/assets/thirdparty/swiper/swiper.min.js",
-  "/assets/thirdparty/filepond/filepond.min.css",
-  "/assets/thirdparty/filepond/filepond-plugin-file-metadata.js",
-  "/assets/thirdparty/filepond/filepond.min.js",
-  "main.dart.js",
-  "/assets/imgs/logo.png",
-  "/assets/svg/loading.svg",
-  '/service_worker.js',
+  // '/',
+  // "/styles.css",
+  // "favicon.png",
+  // "/assets/css/w3.css",
+  // '/assets/js/install.js',
+  // "/assets/thirdparty/swiper/swiper.min.css",
+  // "/assets/thirdparty/swiper/swiper.min.js",
+  // "/assets/thirdparty/filepond/filepond.min.css",
+  // "/assets/thirdparty/filepond/filepond-plugin-file-metadata.js",
+  // "/assets/thirdparty/filepond/filepond.min.js",
+  // "main.dart.js",
+  // "/assets/imgs/logo.png",
+  // "/assets/svg/loading.svg",
+  // '/service_worker.js',
 ];
 
 self.addEventListener('install', (evt) => {

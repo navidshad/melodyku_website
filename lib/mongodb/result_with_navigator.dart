@@ -11,7 +11,10 @@ enum GetType {mediaItems, favorites, history}
 
 class ResultWithNavigator<T>
 {
-  Aggregate _aggregator; 
+  Aggregate _aggregator;
+
+  StreamController<bool> _updateController;
+  Stream<bool> get onUpdated => _updateController.stream;
 
   int _pages = 0;
   int _perPage;
@@ -31,6 +34,8 @@ class ResultWithNavigator<T>
   ResultWithNavigator({this.getType = GetType.mediaItems, 
     this.customQuery, this.customSort, int perPage=20})
   {
+    _updateController = StreamController<bool>();
+
     _perPage = perPage;
     collection = getCollection<T>();
     initialize();
@@ -164,7 +169,7 @@ class ResultWithNavigator<T>
       hasMore = true;
     else hasMore = false;
 
-    //print('loadNextPage list ${list.length}');
+    _updateController.add(true);
     return list;
   }
 

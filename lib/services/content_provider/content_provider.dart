@@ -144,6 +144,9 @@ class ContentProvider
 				'base64': DownloadFile.getBase64Link(file['contentType'], file['buffer'])
 			};
 
+			// add size
+			songDetail['size_local'] = (doc['base64'].length / 1000);
+
 			return _idb.insertOne('media', 'file', doc)
 				.then((r) => print('song downloaded'));
 		})
@@ -166,9 +169,16 @@ class ContentProvider
 				'base64': DownloadFile.getBase64Link(file['contentType'], file['buffer'])
 			};
 
+			// add size
+			songDetail['size_local'] += (doc['base64'].length / 1000);
+
 			return _idb.insertOne('media', 'file', doc)
 				.then((r) => print('thumbnail downloaded'));
 		})
+		// update song size
+		.then((r) => _idb.updateOne('media', 'song', songDetail))
+		// update quota info
+		.then((r) => _idb.storageQuota.updateInfo())
 
 		// remove song detail on error
 		.catchError((err) 
@@ -178,6 +188,16 @@ class ContentProvider
 			_idb.removeOne('media', 'file', 'img-' + songDetail['_id']);
 
 			print('song store process error $err');
+			return throw(err);
 		});
+	}
+
+	Future<dynamic> removeDownloadedSong(String id)
+	{
+		return _idb.removeOne('media', 'song', id)
+		.then((r) => _idb.removeOne('media', 'file', 'song-' + id))
+		.then((r) => _idb.removeOne('media', 'file', 'img-' + id))
+		// update quota info
+		.then((r) => _idb.storageQuota.updateInfo());
 	}
 }
