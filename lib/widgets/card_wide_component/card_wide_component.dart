@@ -4,6 +4,7 @@ library cardWideComponent;
 import 'package:angular/angular.dart';
 
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
@@ -17,6 +18,7 @@ import 'package:melodyku/directives/directives.dart';
     DirectionDirective,
     LikeComponent,
     MediaCoverComponent,
+    ButtonDownloadSong,
   ]
 )
 class CardWideComponent 
@@ -25,6 +27,9 @@ class CardWideComponent
   Player _player;
   PlayerService _playerService;
   UserService _userService;
+
+  ButtonOptions downloadOptions;
+  bool isDownloaded = false;
 
   int boxSize = 50;
 

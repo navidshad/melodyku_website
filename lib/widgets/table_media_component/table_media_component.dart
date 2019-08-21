@@ -24,29 +24,42 @@ class TableSong
   LanguageService lang;
   
   String title = '';
+  List<Song> list;
 
   TableSong(this.lang, this._playerService, this._player);
 
   @Input('songNavigator')
   ResultWithNavigator<Song> navigator;
 
+  @Input('songs')
+  set setSongs(List<Song> value)
+  {
+    list = value;
+  }
+
   @Input()
   bool hideMore;
 
   int hoverNumber = -1;
 
-  int get selectedNumber {
+  int get selectedNumber 
+  {
     int selected = -1;
-    for(int i =0; i < navigator.list.length; i++) {
-      if(_player.current?.id == navigator.list[i].id) 
+    for(int i =0; i < list.length; i++) {
+      if(_player.current?.id == list[i].id) 
         selected = i;
     };
 
     return selected;
   }
 
+  void getMore()
+  {
+    navigator.loadNextPage().then((newSongs) => list.addAll(newSongs));
+  }
+
   void play(int i) {
-    _playerService.play(navigator.list[i]);
+    _playerService.play(list[i]);
   }
 
   // when mose go into

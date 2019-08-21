@@ -12,7 +12,7 @@ class AnalyticService {
 
 	AnalyticService(this._userService)
 	{
-		_userService.loginEvent.listen(onLoginEvent)
+		_userService.loginEvent.listen(onLoginEvent);
 	}
 
 	void trackPage(String name) 

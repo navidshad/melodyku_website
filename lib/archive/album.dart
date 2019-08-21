@@ -217,5 +217,6 @@ class Album implements MediaItem
   }
 
   @override
-  bool isLiked;
+  bool isLiked = false;
+  bool isLocal = false;
 }

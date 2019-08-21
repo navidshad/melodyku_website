@@ -2,6 +2,7 @@ library services;
 
 export 'content_provider/content_provider.dart';
 export 'mongodb_service.dart';
+export 'indexeddb_service.dart';
 export 'language_service.dart';
 export 'message_service.dart';
 export 'modal_service.dart';

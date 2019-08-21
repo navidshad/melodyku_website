@@ -1,3 +1,14 @@
 {
-	"web-client": "0.5.1"
+	"web-client": "0.6.0",
+
+	"log": {
+		
+		"0.6.0": [
+			"Added download ability for using offline"
+		],
+
+		"0.5.0": [
+			"start point"
+		]
+	}
 }

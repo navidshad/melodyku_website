@@ -7,7 +7,9 @@ abstract class MediaItem
 {
   final dynamic id;
   final ArchiveTypes type;
+  
   bool isLiked = false;
+  bool isLocal = false;
 
   MediaItem(this.id, this.type)
   {

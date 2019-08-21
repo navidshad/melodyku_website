@@ -119,18 +119,26 @@ class Player
     hasSong = false;
     await Future.delayed(Duration(milliseconds: 200));
 
+    String source;
+
     // define version of Song
     version = 'demo';
     if(_userServide.isLogedIn && _userServide.user.subscription.hasSubscription())
       version = 'original';
 
     // get stream link
-    String streamLink = await current.getStreamLink(version);
+    source = await current.getStreamLink(version);
+
     //print('streamLink $streamLink , duration ${current.duration}');
-    audio.src = streamLink;
+    audio.src = source;
 
     play();
     hasSong = true;
+  }
+
+  void playBase64Track(String base64Source)
+  {
+    
   }
 
   void playByList(List<Song> list)

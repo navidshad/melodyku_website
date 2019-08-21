@@ -11,7 +11,8 @@ class Artist implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
-  bool isLiked;
+  bool isLiked = false;
+  bool isLocal = false;
 
   String name;
   String description;

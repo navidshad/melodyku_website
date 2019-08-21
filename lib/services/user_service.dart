@@ -15,7 +15,7 @@ class UserService
   AuthService auth;
 
   StreamController<bool> _loginController;
-  Stream get loginEvent => _loginController.stream;
+  Stream<bool> get loginEvent => _loginController.stream;
   
   String token;
   User _user;
@@ -23,7 +23,10 @@ class UserService
 
   bool isLogedIn = false;
 
-  UserService(this.auth);
+  UserService(this.auth)
+  {
+    _loginController = StreamController();
+  }
 
   void loginWithLastSession() async
   {

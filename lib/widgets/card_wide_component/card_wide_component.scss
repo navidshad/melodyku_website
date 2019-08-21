@@ -31,7 +31,7 @@ $columnGap: 10px;
     align-content: space-between;
     align-items: center;
     padding: 10px 0px;
-    width: 90%;
+    width: 80%;
 }
 
 .number {
@@ -81,16 +81,22 @@ $columnGap: 10px;
 }
 
 .more {
-    //grid-area: m;
-    //justify-self: center;
-
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 20px;
+    width: 15%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
     img{
         filter: brightness(30%);
         -webkit-filter: brightness(30%);
+    }
+
+    .like{
+        margin-right: 5px;
     }
 }
 
@@ -143,11 +149,9 @@ $columnGap: 10px;
         font-size: 30px;
     }
 
-    // .cover {
-    //     width: 40px;
-    //     height: 40px;
-    //     flex-basis: 40px;
-    // }
+    .like{
+        margin-right: 0px;
+    }
 
     .titles{
         .title {

@@ -1,0 +1,11 @@
+<div 	class="btn-{{options.getType()}} btn-transparent center {{isWaiting ? 'removeBackOnHover':''}} {{!isActive || isWaiting ? 'btn-disabled':''}}"
+		extractor (onExtract)="onEaxtractElement($event)"
+		(click)="onClick()">
+	
+	<label class="progress" 
+		 *ngIf="isWaiting">{{options.lable}}</label>
+
+	<img *ngIf="!isWaiting" src="{{options.icon}}">
+	<img *ngIf="isWaiting"  src="{{options.watingIcon}}" class="watingIcon">
+
+</div>

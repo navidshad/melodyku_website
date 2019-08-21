@@ -9,6 +9,7 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 
 import 'media_item.dart';
+import 'download_file.dart';
 
 class Song implements MediaItem
 {
@@ -18,11 +19,12 @@ class Song implements MediaItem
 
   ArchiveTypes type;
   bool isLiked = false;
+  bool isLocal = false;
 
   String title;
   String artist;
   String album;
-  List<String> genre;
+  List<String> categories;
   String lyric;
   String thumbnail;
 
@@ -37,6 +39,7 @@ class Song implements MediaItem
   Map localTitle;
 
   List<Map> versions = [];
+  DownloadFile file;
 
   Song({
     this.id,
@@ -46,7 +49,7 @@ class Song implements MediaItem
     this.artist, 
     this.album, 
     this.year, 
-    this.genre,
+    this.categories,
     this.lyric,
     this.duration,
     this.bitrate,
@@ -56,7 +59,9 @@ class Song implements MediaItem
     this.imgStamp,
     this.imgStamp_album,
     this.imgStamp_artist,
-    this.localTitle
+    this.localTitle,
+    this.file,
+    this.isLocal = false,
   })
   {
     type = ArchiveTypes.media;
@@ -66,17 +71,18 @@ class Song implements MediaItem
     getThumbnailLink();
   }
 
-  factory Song.fromjson(Map detail)
+  factory Song.fromjson(Map detail, {isLocal = false})
   {
-    List<String> genre_list = [];
+    // download file
+    DownloadFile file;
 
-    // if(detail['genre'] != null)
-    //   detail['genre'].forEach((gn) { genre_list.add(gn.toString()); } );
+    if(detail.containsValue('file'))
+      file = DownloadFile.fromMap(detail['file']);
+
 
     Song mFromJson;
     try {
       //print('Song.fromjson $detail');
-
       mFromJson = Song(
       id        : (detail['_id'] != null) ? detail['_id'].toString() : '',
       artistId  : (detail['artistId'] != null) ? detail['artistId'] : '',
@@ -84,7 +90,7 @@ class Song implements MediaItem
       title     : (detail['title'] != null) ? detail['title'] : '',
       artist    : (detail['artist'] != null) ? detail['artist'] : '',
       album     : (detail['album'] != null) ? detail['album'] : '',
-      genre     : genre_list,
+      categories: (detail['categories'] != null) ? detail['categories'] : '',
       lyric     : (detail['lyric'] != null) ? detail['lyric'] : '',
       year      : (detail['year']   != null) ? detail['year'] : null,
       duration  : (detail['duration']   != null) ? detail['duration'] : 0,
@@ -95,6 +101,8 @@ class Song implements MediaItem
       imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
       versions  : detail['versions'],
       localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
+      file      : file,
+      isLocal   : isLocal,
     );
 
     } catch (e) {
@@ -105,11 +113,40 @@ class Song implements MediaItem
     return mFromJson;
   }
 
-  void getThumbnailLink()
+  Map getAsMap()
+  {
+    return {
+      '_id'       : id,
+      'artistId'  : artistId,
+      'albumId'   : albumId,
+      'title'     : title,
+      'artist'    : artist,
+      'album'     : album,
+      'categories': categories,
+      'lyric'     : lyric,
+      'year'      : year,
+      'duration'  : duration,
+      'bitrate'   : bitrate,
+      'size'      : size,
+      'imgStamp'  : imgStamp,
+      'imgStamp_album'  : imgStamp_album,
+      'imgStamp_artist'  : imgStamp_artist,
+      'versions'  : versions,
+      'localTitle': localTitle,
+    };
+  }
+
+  void getThumbnailLink() async
   {
     String link;
 
-    if(imgStamp.length > 10)
+    if(isLocal)
+    {
+      await Injector.get<IndexedDBService>()
+        .getOne('media', 'file', 'img-$id')
+        .then((doc) => link = doc['base64']);
+    }
+    else if(imgStamp.length > 10)
     {
      link = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'song', id:id, imgStamp:imgStamp);
@@ -124,11 +161,52 @@ class Song implements MediaItem
      link = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'artist', id:artistId, imgStamp:imgStamp_artist);
     }
+    else {
+      link = Injector.get<ContentProvider>()
+        .getImage(database:'media', type:'song', id:id, imgStamp:imgStamp);
+    }
 
     thumbnail = link;
   }
 
   Future<String> getStreamLink(String version) async
+  {
+    String cBitrate;
+    bool isOrginal = false;
+    String link;
+
+    // if local exist
+    if(isLocal)
+    {
+      await Injector.get<IndexedDBService>()
+        .getOne('media', 'file', 'song-$id')
+        .then((doc) => link = doc['base64']);
+    }
+    //get online link
+    else
+    {
+      if(version == 'original')
+      {
+        cBitrate = bitrate.toString();
+        isOrginal = true;
+      }
+      else {
+        versions.forEach((Map SongVersion) {
+          if(SongVersion['title'] == version)
+            cBitrate = SongVersion['title'];
+        });
+      }
+
+      // create stream link
+      link = Uri.https(Vars.mainHost, 'stream', 
+        {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
+        .toString();
+    }
+    
+    return link;
+  }
+
+  String getDownloadLink(String version)
   {
     String cBitrate;
     bool isOrginal = false;
@@ -147,8 +225,7 @@ class Song implements MediaItem
     }
 
     // create stream link
-
-    Uri link = Uri.https(Vars.mainHost, 'stream', 
+    Uri link = Uri.https(Vars.mainHost, 'stream/downloadsong', 
       {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()});
 
     return link.toString();
@@ -256,5 +333,11 @@ class Song implements MediaItem
   Future<bool> getPlayStatus() {
     // TODO: implement getPlayStatus
     return null;
+  }
+
+  Future<bool> getDownloadedStatus() 
+  {
+    return Injector.get<IndexedDBService>().getOne('media', 'song', id)
+      .then((doc) => doc != null ? true : false);
   }
 }

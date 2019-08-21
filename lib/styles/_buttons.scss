@@ -120,7 +120,12 @@ $selectedBtn : #ff4fea;
 }
 
 .border-white{
-    background-color: #00000000;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.btn-transparent{
+    background-color: transparent;
 }
 
 @media screen and (max-width: 425px) 

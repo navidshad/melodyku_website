@@ -1,4 +1,4 @@
-<div class='table-div' *ngIf="navigator != null">
+<div class='table-div'>
     <div class='row header'>
         <div class='cell index'>#</div>
         <div class='cell title'>{{lang.getStr("songTitle")}}</div>
@@ -9,7 +9,7 @@
 
     <div class="_line"></div>
 
-    <div *ngFor="let song of navigator.list; let i=index"
+    <div *ngFor="let song of list; let i=index"
         class="row hoverScale body {{selectedNumber == i ? 'selected':''}}" 
         (click)="play(i)"
         (mouseenter)="onmouseenter(i)"
@@ -30,12 +30,12 @@
         <div class='cell title subtitle'>{{song.title}}</div>
         <div class='cell album subtitle'>{{song.album}}</div>
         <div class='cell artist subtitle'>{{song.artist}}</div>
-        <div class='cell duration subtitle'>{{song.getDuration()}}</div>
+        <div class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
     </div>
 
-    <div class="load-more" *ngIf="navigator.hasMore">
+    <div class="load-more" *ngIf="navigator != null && navigator.hasMore">
         <div class="btn-sl margin-h-20"
-            (click)="navigator.loadNextPage()">
+            (click)="getMore()">
             {{lang.getStr('more')}}</div>
     </div>
 </div>

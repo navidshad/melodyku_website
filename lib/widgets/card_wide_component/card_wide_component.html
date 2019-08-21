@@ -2,7 +2,7 @@
 
         <div class="card flex-row" [class.not-numerical]="!numerical">
 
-            <div class="detail pointer" 
+            <div class="detail pointer {{isLogedIn ? '' : 'full-wide'}}" 
                 [class.not-numerical]="!numerical" 
                 (click)="play()"
                 (mouseenter)="onmouseenter(number)"
@@ -37,11 +37,17 @@
         
             <div *ngIf="isLogedIn" class="more">
                 
-                <div>
+                <div class="like">
                     <like class='like-btn'
                         *ngIf="item != null" 
                         (onlike)="like()"
                         [isLiked]="item.origin.isLiked"></like>
+                </div>
+
+                <div class="download">
+                    <button-download-song
+                        [song]="item.origin">
+                    </button-download-song>
                 </div>
                 
             </div>

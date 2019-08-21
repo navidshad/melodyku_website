@@ -21,6 +21,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     PlayerBareComponent,
   ],
   providers: [
+    ClassProvider(IndexedDBService),
     ClassProvider(AuthService),
     ClassProvider(UserService),
     ClassProvider(AppshellService),
@@ -42,13 +43,14 @@ import 'package:melodyku/core/injector.dart' as CI;
 class AppComponent
 {
   
-  AppComponent(  MongoDBService mongodb, AuthService auth, 
+  AppComponent(  IndexedDBService idb, MongoDBService mongodb, AuthService auth, 
     PaymentService ps, AppshellService appshell,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
   {
 
     // register this userService into Injectory.
+    CI.Injector.register(CI.InjectorMember('IndexedDBService', idb));
     CI.Injector.register(CI.InjectorMember('AnalyticService', ga));
     CI.Injector.register(CI.InjectorMember('AuthService', auth));
     CI.Injector.register(CI.InjectorMember('AppshellService', appshell));

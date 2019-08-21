@@ -5,6 +5,8 @@ enum ButtonType {sl_x, sl, md, bg}
 class ButtonOptions
 {
 	String lable;
+	String icon;
+	String watingIcon;
 	ButtonType type;
 	dynamic arg;
 	
@@ -13,7 +15,7 @@ class ButtonOptions
 	
 
 	bool _isWaiting = false;
-  bool get isWaiting => _isWaiting;
+  	bool get isWaiting => _isWaiting;
 
 	StreamController<bool> waitingController;
 	StreamController<bool> statusController;

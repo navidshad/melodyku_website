@@ -14,7 +14,8 @@ class Playlist implements MediaItem
 {
   dynamic id;
   ArchiveTypes type;
-  bool isLiked;
+  bool isLiked = false;
+  bool isLocal = false;
 
   String title;
   List<Song> list;
