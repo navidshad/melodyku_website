@@ -10,6 +10,10 @@ class AuthService
 
 	AuthService(this._http);
 
+	Map<String, String> headers = {
+		  'Content-Type': 'application/json',
+		};
+
 	Future<dynamic> login({String identity, String identityType, String password})
 	{
 		String url = Vars.host + '/user/login';
@@ -20,7 +24,7 @@ class AuthService
 			'password': password
 		};
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult)
 			.then((rBody) => rBody['token']);
 	}
@@ -34,12 +38,12 @@ class AuthService
 			.then((rBody) => rBody['token']);
 	}
 
-  Future<dynamic> varifyToken(String token)
+  	Future<dynamic> varifyToken(String token)
 	{
 		String url = Vars.host + '/varify/token';
 		Map body = { 'token': token };
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult)
 			.then((rBody) => rBody['peyload']);
 	}
@@ -53,7 +57,7 @@ class AuthService
 			'idType': identityType,
 		};
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
@@ -67,7 +71,7 @@ class AuthService
 			'serial': serial
 		};
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
@@ -81,7 +85,7 @@ class AuthService
 			'serial': serial
 		};
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
@@ -93,7 +97,7 @@ class AuthService
 			'id': permissionId,
 		};
 
-		return _http.post(url, body: body)
+		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult)
 			.then((result) => result['permission']);
 	}

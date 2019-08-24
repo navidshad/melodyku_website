@@ -10,12 +10,19 @@
 
       gtag('config', 'UA-133720746-2', { 'send_page_view': false });
 
-      // WARNING: DO NOT set the <base href> like this in production!
-      // Details: https://webdev.dartlang.org/angular/guide/router
+      // Url chenger function for angular router
       (function () {
         var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
         document.write('<base href="' + (m ? m[0] : '/') + '" />');
       }());
+
+      // Check that service workers are supported
+      if ('serviceWorker' in navigator) {
+        // register Melodyku service-worker
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
     </script>
 
     <title>ملودیکو</title>
@@ -61,17 +68,5 @@
         <div><img class="loading-svg" src="/assets/svg/loading.svg"></div>
       </div>
     </my-app>
-
-    <script>
-      // Register service worker.
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service_worker.js')
-              .then((reg) => {
-                console.log('Service worker registered.', reg);
-              });
-        });
-      }
-    </script>
   </body>
 </html>
