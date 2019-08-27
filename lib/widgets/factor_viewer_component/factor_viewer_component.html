@@ -1,0 +1,42 @@
+<div class="widget-container flex-column flex-center">
+	
+	<div class="not-found" 
+		*ngIf="wasNotFound"
+		[direction]="lang.getDir()" [align]="true">
+		<p>{{lang.getStr('factorNotFound')}}</p>
+	</div>
+
+	<div class="factor"
+		[direction]="lang.getDir()" [align]="true"
+		*ngIf="factor != null">
+		
+		<div class="success-pay w3-center" 
+			*ngIf="factor.isPaid">
+
+			<img src="/assets/svg/icon_checked.svg">
+			<h4>{{lang.getStr('successfulPay')}}</h4>
+			
+			<p [direction]="lang.getDir()" [align]="true">
+				{{lang.getStr('successfulPayDes')}}
+			</p>
+
+			<a href="#/profile" class="btn-sl">
+				{{lang.getStr('profile')}}
+			</a>
+		</div>
+
+		<div class="unsuccess-pay" 
+			*ngIf="!factor.isPaid">
+
+			<img src="/assets/svg/icon_warning.svg">
+			<h4>{{lang.getStr('unsuccessfulPay')}}</h4>
+			<p>{{lang.getStr('unsuccessfulPayDes')}}</p>	
+			
+			<a href="#/subscription" class="btn-sl">
+				{{lang.getStr('subscription')}}
+			</a>
+		</div>
+
+	</div>
+
+</div>

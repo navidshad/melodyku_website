@@ -32,11 +32,18 @@ class LanguageService
     _saveSession();
   }
 
-  String getStr(String name) 
+  String getStr(String name, [Map replacment]) 
   {
-    if(_current != null)
-      return _languageList[_current].getStr(name);
-    else return name;
+    String strTemp = name;
+
+    if(_current != null) 
+      strTemp = _languageList[_current].getStr(name);
+
+    if(replacment != null)
+      replacment.forEach((key, value) 
+        => strTemp = strTemp.replaceAll(key, value.toString()));
+    
+    return strTemp;
   }
 
   Direction getDirection() 
@@ -66,7 +73,17 @@ class LanguageService
   }
 
   // prepration =================================
-  void prepareLanguages(List<dynamic> strs)
+  void _saveSession() =>
+    window.localStorage['current_language'] = current.toString();
+
+  void _loadSession()
+  {
+    try{
+      _current = int.parse(window.localStorage['current_language']);
+    }catch(e){}
+  }
+
+  void _prepareLanguages(List<dynamic> strs)
   {
     for (var i = 0; i < languageDocs.length; i++) 
     {
@@ -76,7 +93,7 @@ class LanguageService
       if(!ld['isActive']) continue;
 
       // get lang strings
-      dynamic strings = extractStringsByCode(ld['code'], strs);
+      dynamic strings = _extractStringsByCode(ld['code'], strs);
 
       // create lang
       Language language = Language(
@@ -97,7 +114,7 @@ class LanguageService
     loaded = true;
   }
 
-  dynamic extractStringsByCode(String code, List<dynamic> strings)
+  dynamic _extractStringsByCode(String code, List<dynamic> strings)
   {
     dynamic extracted = {};
     
@@ -120,6 +137,11 @@ class LanguageService
     return extracted;
   }
 
+  Future<void> _getLanguageStr() async
+  {
+    return _mongodb.find(database: 'cms', collection: 'languageStr');
+  }
+
   Future<void> getLanguages() async
   {
     await _mongodb.find(database: 'cms', collection: 'language_config')
@@ -131,17 +153,12 @@ class LanguageService
             languageDocs.add(converted);
         });
     })
-    .then((r) => getLanguageStr())
+    .then((r) => _getLanguageStr())
     .then((strs) 
     {
-      prepareLanguages(strs as List<dynamic>);
+      _prepareLanguages(strs as List<dynamic>);
       _loadSession();
     });
-  }
-
-  Future<void> getLanguageStr() async
-  {
-    return _mongodb.find(database: 'cms', collection: 'languageStr');
   }
 
   List<DbField> getLanguageFiels()
@@ -162,13 +179,15 @@ class LanguageService
     return langs;
   }
 
-  void _saveSession() =>
-    window.localStorage['current_language'] = current.toString();
-
-  void _loadSession()
+  String getLocalValue(Map localTitle)
   {
-    try{
-      _current = int.parse(window.localStorage['current_language']);
-    }catch(e){}
+    String code = getCode();
+    String tempTitle = '';
+
+    if(localTitle.containsKey(code) && 
+        localTitle[code].length > 0)
+
+    tempTitle = localTitle[code];
+    return tempTitle;
   }
 }

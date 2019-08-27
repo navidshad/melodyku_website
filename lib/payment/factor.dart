@@ -12,6 +12,9 @@ class Factor
 	int amount;
 	Currency currency;
 
+	int discount;
+	String coupenId;
+
 	DateTime createdAt;
 	DateTime updatedAt;
 
@@ -22,6 +25,8 @@ class Factor
 		this.isPaid,
 		this.amount,
 		this.currency,
+		this.discount,
+		this.coupenId,
 		this.createdAt,
 		this.updatedAt
 	);
@@ -35,8 +40,10 @@ class Factor
 			detail['isPaid'],
 			detail['amount'],
 			getCurrencyFromStr(detail['currency']),
+			detail['discount'],
+			detail['coupenId'],
 			detail['createdAt'],
-			detail['updatedAt']
+			detail['updatedAt'],
 		);
 	}
 

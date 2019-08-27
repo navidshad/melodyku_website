@@ -113,7 +113,7 @@ class PlayerBareComponent
 
   String isitCurrentPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
 
-  void buy() =>
+  void buy() => 
     _subscriptionService.goToSubscriptionPage();
 
   bool isNeedWarning()

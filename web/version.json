@@ -1,7 +1,14 @@
 {
-	"web-client": "0.6.1",
+	"web-client": "0.6.6",
 
 	"log": {
+
+		"0.6.0": [
+			"added offline mode",
+			"added discount coupen",
+			"added factor view affter payment",
+			"scroll will resered when new page loaded"
+		],
 		
 		"0.6.0": [
 			"Added download ability for using offline"

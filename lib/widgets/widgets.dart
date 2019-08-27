@@ -27,6 +27,7 @@ export 'artists_explorer_component/artists_explorer_component.dart';
 export 'card_fullsize_component/card_fullsize_component.dart';
 export 'card_rect_component/card_rect_component.dart';
 export 'card_tariff_component/card_tariff_component.dart';
+export 'factor_viewer_component/factor_viewer_component.dart';
 export 'card_wide_component/card_wide_component.dart';
 export 'grid_component/grid_component.dart';
 export 'grid_masonry_component/grid_masonry_component.dart';

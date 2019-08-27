@@ -32,7 +32,9 @@ import 'package:melodyku/src/pages/p_favorites/favorites_page.template.dart' as 
 import 'package:melodyku/src/pages/p_history/history_page.template.dart' as history_template;
 import 'package:melodyku/src/pages/p_profile/profile_page.template.dart' as profile_template;
 import 'package:melodyku/src/pages/p_users/users_page.template.dart' as users_template;
+
 import 'package:melodyku/src/pages/p_subscription/subscription_page.template.dart' as subscription_template;
+import 'package:melodyku/src/pages/s_factor/factor_page.template.dart' as factor_template;
 
 import 'package:melodyku/src/pages/p_slideshows/slideshows_page.template.dart' as slideshows_template;
 import 'package:melodyku/src/pages/p_slideshow/slideshow_page.template.dart' as slideshow_template;
@@ -177,6 +179,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'subscription'),
                       component: subscription_template.SubscriptionPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'factor' : PageDefinition(
+    title         : 'factor',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'factor/:id'),
+                      component: factor_template.FactorPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

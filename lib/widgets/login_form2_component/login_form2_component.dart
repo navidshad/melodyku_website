@@ -101,7 +101,7 @@ class LoginForm2Component
     await _userService.login(identity: normalizedPhone, identityType: 'phone', password: password)
       .then((r) async
       {
-        Navigator.gotTo('');
+        Navigator.gotTo('vitrin');
       })
       .catchError((e) {
         print('login error $e');

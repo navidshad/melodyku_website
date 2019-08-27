@@ -125,18 +125,29 @@ class SystemSchema
 	static List<DbField> tariff = 
 	[
 		DbField('title'),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('local_description', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
 		DbField('days', dataType: DataType.int),
 		DbField('price_irt', dataType: DataType.int),
 		DbField('price_eur', dataType: DataType.int),
 		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
+	static List<DbField> coupen = 
+	[
+		DbField('title'),
+		DbField('code'),
+      	DbField('total', dataType: DataType.int),
+		DbField('discount_percent', dataType: DataType.int),
+		DbField('isUnlimited', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	];
+
 	static List<DbField> convert_preset =
 	[
 		DbField('title'),
 		DbField('type'),
-		DbField('input'),
-		DbField('output'),
+		DbField('input', fieldType: FieldType.textbox),
+		DbField('output', fieldType: FieldType.textbox),
 	];
 
 	static List<DbField> permission =
@@ -153,22 +164,22 @@ class SystemSchema
 		DbField('user_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
-  static List<DbField> slide = 
-  [
-  	DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
-  	DbField('refId', isHide: true),
-    DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
-    DbField('local_subtitle', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
-    DbField('imgStamp', isHide: true),
-    DbField('link'),
-  ];
+	static List<DbField> slide = 
+	[
+		DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('refId', isHide: true),
+		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+		DbField('local_subtitle', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+		DbField('imgStamp', isHide: true),
+		DbField('link'),
+	];
 
-  static List<DbField> slideshow = 
-  [
-    DbField('title', isDisable: true),
-    DbField('width', dataType: DataType.int),
-    DbField('height', dataType: DataType.int),
-  ];
+	static List<DbField> slideshow = 
+	[
+		DbField('title', isDisable: true),
+		DbField('width', dataType: DataType.int),
+		DbField('height', dataType: DataType.int),
+	];
 
 	// user ====================================
 	static List<DbField> userAuth = 
@@ -210,6 +221,9 @@ class SystemSchema
 		DbField('description'),
 		DbField('createdAt', dataType: DataType.dateTime),
 		DbField('updatedAt', dataType: DataType.dateTime),
+		
+		DbField('discount', dataType: DataType.int),
+		DbField('coupenId', ),
 	];
 
 	// methods ==================================

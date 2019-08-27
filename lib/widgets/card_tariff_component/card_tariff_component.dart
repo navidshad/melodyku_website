@@ -33,9 +33,11 @@ class CardTariffComponent implements OnChanges
 	ButtonOptions payBtnOptions;
 
 	List<Getway> getways = [];
+	
 	Getway selectedGate;
+	String coupen;
 
-	String price = '';
+	Factor factor;
 
 	@Input()
 	Map detail;
@@ -76,11 +78,6 @@ class CardTariffComponent implements OnChanges
 				selectedGate = getways[0];
 				payBtnOptions.setActivation(true);
 			});
-
-		if(currency == Currency.irt)
-			price = '${detail['price_irt']} ${lang.getStr('irt')}';
-		else if(currency == Currency.eur)
-			price = '${detail['price_eur']} ${lang.getStr('eur')}';
 	}
 
 	void showPayform()
@@ -124,10 +121,37 @@ class CardTariffComponent implements OnChanges
 	Function makePurchase(ButtonOptions op)
 	{
 		payBtnOptions.doWaiting(true);
-		_peymentService.createFactor('tariff', detail['_id'].toString(), selectedGate.currency)
-			.then((factor) => factor.getPayLink(selectedGate.title))
+		_peymentService.createFactor(
+				type	: 'tariff', 
+				id		: detail['_id'].toString(), 
+				currency: selectedGate.currency,
+				coupen	: coupen
+			)
+			.then((f) => factor = f)
+			.then((r) async
+			{
+				// if factor is paied go to factor page
+				if(factor.isPaid)
+				{
+					payBtnOptions.lable = lang.getStr('wasPaied');
+					payBtnOptions.doWaiting(false);
+					payBtnOptions.setColor('green');
+					payBtnOptions.setActivation(false);
+
+					await Future.delayed(Duration(seconds:2));
+					// update subscription detail
+					_userService.user.subscription.getUserSubscription();
+					// got to factor view
+					Navigator.gotTo('factor', parameters: {'id': factor.id});
+				}
+
+				// get factor link
+				else return factor.getPayLink(selectedGate.title);
+			})
 			.then((String link) 
 			{
+				if(link == null) return; 
+
 				paylink = link;
 				payBtnOptions.lable = lang.getStr('pay');
 				payBtnOptions.callback = openPaymentLink;
@@ -135,4 +159,19 @@ class CardTariffComponent implements OnChanges
 				payBtnOptions.setColor('green');
 			});
 	}
+
+	String getPrice()
+	{
+		String price = '';
+
+		if(currency == Currency.irt)
+			price = '${detail['price_irt']} ${lang.getStr('irt')}';
+		else if(currency == Currency.eur)
+			price = '${detail['price_eur']} ${lang.getStr('eur')}';
+
+		return price;
+	}
+
+	List<String> getFeatureList() =>
+		lang.getLocalValue(detail['local_description']).split('\n');
 }

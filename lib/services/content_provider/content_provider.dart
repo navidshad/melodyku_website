@@ -137,11 +137,11 @@ class ContentProvider
 			return downloadAsBuffer(link, onDownloading: onDownloading);
 		})
 		// store song file
-		.then((Map file)
+		.then((Map file) async
 		{
 			Map doc = {
 				'_id': 'song-' + songDetail['_id'],
-				'base64': DownloadFile.getBase64Link(file['contentType'], file['buffer'])
+				'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
 			};
 
 			// add size
@@ -162,11 +162,11 @@ class ContentProvider
 			return downloadAsBuffer(link, onDownloading: (int percent) => print('thumbnail downloading $percent'));
 		})
 		// store thumbnail file
-		.then((Map file)
+		.then((Map file) async
 		{
 			Map doc = {
 				'_id': 'img-' + songDetail['_id'],
-				'base64': DownloadFile.getBase64Link(file['contentType'], file['buffer'])
+				'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
 			};
 
 			// add size

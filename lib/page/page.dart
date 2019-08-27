@@ -25,6 +25,7 @@ class Page
     Injector.get<AnalyticService>().trackPage(title);
 
     print('.: the $title page loaded :.');
+    window.scrollTo(0,0);
   }
 
   void checkAccess() async

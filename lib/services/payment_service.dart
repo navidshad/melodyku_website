@@ -9,8 +9,9 @@ class PaymentService
 {
 	Client _http;
 	UserService _userService;
+	MongoDBService _mongodb;
 
-	PaymentService(this._http, this._userService);
+	PaymentService(this._http, this._userService, this._mongodb);
 	
 	Future<Map<String, String>> _getHeaders() async
 	{
@@ -53,7 +54,7 @@ class PaymentService
 			});
 	}
 
-	Future<Factor> createFactor(String type, String id, Currency currency) async
+	Future<Factor> createFactor({String type, String id, Currency currency, String coupen}) async
 	{
 		String url = Vars.host + '/payment/createFactor';
 
@@ -62,8 +63,11 @@ class PaymentService
 		Map body = {
 			'currency': getCurrencyAsStr(currency),
 			'type': type,
-			'id': id
+			'id': id,
 		};
+
+		if(coupen != null && coupen.length > 0)
+			body['coupen'] = coupen;
 
 		return _http.post(url, headers: headers, body: json.encode(body))
 			.then(analizeResult)
@@ -72,6 +76,24 @@ class PaymentService
 				Factor factor = Factor.fromMap(detail);
 				return factor;
 			});
+	}
+
+	Future<Factor> getFactor(String id) async
+	{
+		Map query = {
+			'_id'	: id,
+			'refId'	: _userService.user.id,
+		};
+
+		return _mongodb.findOne(database: 'user', collection: 'factor', query: query)
+			.then((result) 
+			{
+				if(result == null) return null;
+
+				Map detail = validateFields(result, SystemSchema.factor);
+				Factor factor = Factor.fromMap(detail);
+				return factor;
+			}).catchError(print);
 	}
 
 	Future<String> getPaylink(String factorid, String getway) async

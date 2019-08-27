@@ -2,7 +2,7 @@
 
 	<div class="s_tariff">
 		<div class="head flex-column flex-center">
-			<h2>{{detail['title']}}</h2>
+			<h2>{{lang.getLocalValue(detail['local_title'])}}</h2>
 		</div>
 
 		<div class="body flex-column flex-wide">
@@ -10,12 +10,15 @@
 			<div class="full-wide" 
 				dir="{{lang.getDir()}}">
 				<ul class="detail">
-					<li>{{lang.getStr('downloadSongs')}}</li>
-					<li>{{lang.getStr('offlineAccess')}}</li>
-					<li>{{lang.getStr('multipleQuality')}}</li>
-					<li><span>{{detail['days'].toString()}}</span> <span>روز</span></li>
-					<li>{{price}}</li>
+					<li *ngFor="let feature of getFeatureList()">
+						<span>{{feature}}</span>
+					</li>
 				</ul>
+			</div>
+
+			<div class="full-wide detail w3-center" 
+				dir="{{lang.getDir()}}">
+				<h4>{{getPrice()}}</h4>
 			</div>
 
 			<div class="btn-sl" 
@@ -27,7 +30,7 @@
 	<div class="s_payment">
 
 		<div class="navigator" 
-			dir="{{lang.getDir()}}">
+			dir="ltr">
 			<div class="button back" (click)="back()">
 				<img src="/assets/svg/icon_border_arrow_up.svg">
 			</div>
@@ -35,11 +38,16 @@
 
 		<div class="flex-column flex-center">
 
-			<div class="getways" 
-				dir="{{lang.getDir()}}">
-				<p class="description">
-				{{lang.getStr('surTopayment')}}	
+			<div class="description" dir="{{lang.getDir()}}">
+				<p *ngIf="factor == null">{{lang.getStr('sureTopayment')}}</p>
+				<p *ngIf="factor != null">
+					{{lang.getStr('successfulFactor', {'discount': factor.discount})}}
 				</p>
+			</div>
+
+			<div class="getways full-wide" 
+				dir="{{lang.getDir()}}"
+				*ngIf="factor == null">
 
 				<select class="select w3-select"
 					*ngIf="getways.length > 0"
@@ -52,6 +60,14 @@
 					</option>
 
 				</select>
+			</div>
+
+			<div class="discount full-wide" 
+				dir="{{lang.getDir()}}"
+				*ngIf="factor == null">
+				<label>{{lang.getStr('coupen')}}</label>
+				<input dir="ltr" class="w3-input" type="text" placeholder="code"
+					[(ngModel)]="coupen">
 			</div>
 
 			<div class="margin-h-20"></div>

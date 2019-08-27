@@ -19,6 +19,7 @@ import 'package:melodyku/core/core.dart';
 class TariffManagerComponent 
 {
 	CollectionOptions options;
+	CollectionOptions coupenOptions;
 
 	TariffManagerComponent()
 	{
@@ -28,6 +29,14 @@ class TariffManagerComponent
 	      	collection: 'tariff',
 			allowQuery: false,
 	      	dbFields: SystemSchema.tariff,
+		);
+
+		coupenOptions = CollectionOptions(
+	      	title: 'Manage Coupens',
+	      	database: 'cms',
+	      	collection: 'coupen',
+			allowQuery: false,
+	      	dbFields: SystemSchema.coupen,
 		);
 	}
 }

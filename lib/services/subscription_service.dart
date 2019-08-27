@@ -81,7 +81,7 @@ class SubscriptionService
 
 	void goToSubscriptionPage()
 	{
-		if(!_userService.isLogedIn) _modalService.show('login');
+		if(!_userService.isLogedIn) Navigator.gotTo('login');
 		else Navigator.gotTo('subscription');
 	}
 

@@ -1,6 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:js/js_util.dart' as js;
+
+void encodeToBase64(ByteBuffer buffer, Function(String encoded) callback)
+{
+  String encoded = base64.encode(buffer.asUint8List());
+  callback(encoded);
+}
 
 class DownloadFile
 {
@@ -17,14 +24,19 @@ class DownloadFile
   	);
   }
 
-  static String getBase64Link(String contentType, ByteBuffer buffer)
+  static Future<String> getBase64Link(String contentType, ByteBuffer buffer)
   {
-    String header = 'data:${contentType};base64,';
-  	String data = base64.encode(buffer.asUint8List());
-  	String src = '${header}${data}';
+    Completer<String> completer = Completer();
 
-    print('base46 size: ${src.length}');
+    encodeToBase64(buffer, (String encoded)
+    {
+      String header = 'data:${contentType};base64,';
+      String src = '${header}${encoded}';
+      print('base46 size: ${src.length}');
 
-  	return src;
+      completer.complete(src);
+    });
+
+  	return completer.future;
   }
 }
