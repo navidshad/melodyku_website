@@ -3,13 +3,17 @@ import 'package:angular/angular.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/page/page.dart';
+import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',
-  templateUrl: 'genres_page.html',
-  styleUrls: [ 'genres_page.css' ],
-  )
-class GenresPage 
+  templateUrl: 'categories_page.html',
+  styleUrls: [ 'categories_page.css' ],
+  directives: [
+    CategoryPresentorComponent,
+  ]
+)
+class CategoriesPage 
 {
   Page _page;
   LanguageService lang;
@@ -18,14 +22,14 @@ class GenresPage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  GenresPage(this._contentProvider, this._messageService, this._userservice)
+  CategoriesPage(this._contentProvider, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.customer_access,
       needLogedIn: false,
-      title: 'genres'
+      title: 'categories'
     );
   }
 }

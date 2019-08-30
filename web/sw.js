@@ -78,6 +78,54 @@ workbox.precaching.precacheAndRoute([
     "revision": "fcb3cc3f981ba3e4d9a68f1a3520370a"
   },
   {
+    "url": "assets/fonts/woff/IRANSansWeb_Black.woff",
+    "revision": "818f7796aeb3cc761b74334bb0b9aa35"
+  },
+  {
+    "url": "assets/fonts/woff/IRANSansWeb_Bold.woff",
+    "revision": "d44408d0941f077f60b1306e1331e806"
+  },
+  {
+    "url": "assets/fonts/woff/IRANSansWeb_Light.woff",
+    "revision": "aac7a640c059ee7f46c35c2019434117"
+  },
+  {
+    "url": "assets/fonts/woff/IRANSansWeb_Medium.woff",
+    "revision": "7bfa046de6ec101d790ba8a54886dc9a"
+  },
+  {
+    "url": "assets/fonts/woff/IRANSansWeb_UltraLight.woff",
+    "revision": "2097362beeb263fdd902ad249202cd79"
+  },
+  {
+    "url": "assets/fonts/woff/IRANSansWeb.woff",
+    "revision": "50f4bba2f37081daeca8c423abdced8b"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb_Black.woff2",
+    "revision": "63911f38b2d0bb0650d18555d793dad3"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb_Bold.woff2",
+    "revision": "2f6f164c3e1f1329cc658b3c725bfd98"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb_Light.woff2",
+    "revision": "7c207019aa62aa4778add0c2b3372720"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb_Medium.woff2",
+    "revision": "7c1c84da23760b0d3f59f8de58c47605"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb_UltraLight.woff2",
+    "revision": "e0e6c92f90cf30782f81d80a37c22c54"
+  },
+  {
+    "url": "assets/fonts/woff2/IRANSansWeb.woff2",
+    "revision": "9d38733b8a7b9153f2bf9bfe476ef8e3"
+  },
+  {
     "url": "assets/imgs/fake_slider.png",
     "revision": "e1e4a08563dc3874325d4f31d8428522"
   },
@@ -451,11 +499,11 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "sw_build.js",
-    "revision": "cf67dc66842fca8ebe553a935151627d"
+    "revision": "49fa5320216e594e8c4bad486263524c"
   },
   {
     "url": "version.json",
-    "revision": "07f6da193fd317f21d7d562e817a0fff"
+    "revision": "ac3e90e54cd52725b3369b95456d67b4"
   },
   {
     "url": "workbox_build.js",

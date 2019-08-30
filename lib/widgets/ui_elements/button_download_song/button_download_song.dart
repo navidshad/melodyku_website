@@ -61,10 +61,16 @@ class ButtonDownloadSong implements OnChanges
 		  op.doWaiting(false);
 		  op.setActivation(false);
 		})
-		.catchError((r){
+		.catchError((r) async {
 		  op.lable = '';
 		  op.icon = '/assets/svg/icon_warning.svg';
 		  op.doWaiting(false);
+
+		  Future.delayed(Duration(seconds:2)).then((r)
+		  {
+		  	op.lable = '';
+		  	op.icon = 'assets/imgs/icons/downloads.png';
+		  });
 		});
 	}
 }

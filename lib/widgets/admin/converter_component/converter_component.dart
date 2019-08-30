@@ -7,6 +7,7 @@ import 'dart:html';
 import 'package:melodyku/services/services.dart';
 
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/pips/pips.dart';
 import 'package:melodyku/directives/directives.dart';
 
 import 'package:melodyku/widgets/widgets.dart';
@@ -22,7 +23,11 @@ import 'package:melodyku/widgets/widgets.dart';
       SelectField,
       DbCollectionTableEditorComponent,
       ElementExtractorDirective,
-    ])
+    ],
+    pipes: [
+      BytesToMb,
+    ]
+)
 class ConverterComponent {
   LanguageService lang;
   MongoDBService _mongodb;

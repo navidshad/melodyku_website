@@ -4,10 +4,27 @@
     margin: 20px 0px;
 }
 
+.small-artist{
+    display: none;
+}
+
+.cell {
+    display: block;
+    text-align: unset;
+}
+
+.download{
+    display: flex;
+}
+
 @media screen and (max-width: 479px)
 {
-    .album {
+    .album, .artist {
         display: none;
+    }
+
+    .small-artist{
+        display: block;
     }
 
     .index{
@@ -25,11 +42,11 @@
 
 @media screen and (max-width: 375px) 
 {
-    .artist {
-        display: none;
-    }
-
     .stitle{
     	width: 85%;
+    }
+
+    .index{
+        margin: 0 10px;
     }
 }

@@ -4,6 +4,7 @@ import 'dart:html';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/indexeddb/indexeddb.dart';
+import 'package:melodyku/pips/pips.dart';
 
 
 @Component(
@@ -12,6 +13,9 @@ import 'package:melodyku/indexeddb/indexeddb.dart';
 	styleUrls: ['quota_storage.css'],
 	directives: [
 		DirectionDirective,
+	],
+	pipes: [
+		BytesToMb,
 	]
 )
 class QuotaUsageComponent

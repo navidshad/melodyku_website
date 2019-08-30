@@ -5,7 +5,7 @@ import 'package:melodyku/services/services.dart';
 
 class StorageQuta 
 {
-	int quota;
+	double quota;
 	double usage;
 	double remain;
 	bool isPersisted = false;
@@ -48,8 +48,8 @@ class StorageQuta
 			await window.navigator.storage.estimate()
 			.then((obj) 
 			{
-				quota = ((obj['quota'] as double) ~/ 1000000).toInt();
-				usage = ((obj['usage'] as double) / 1000000);
+				quota = obj['quota'];//((obj['quota'] as double) ~/ 1000000).toInt();
+				usage = obj['usage'];//((obj['usage'] as double) / 1000000);
 				remain = quota - usage;
 			});
 

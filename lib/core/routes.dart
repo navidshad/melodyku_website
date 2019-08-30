@@ -14,7 +14,7 @@ import 'package:melodyku/src/pages/_login/login.template.dart' as login_template
 import 'package:melodyku/src/pages/m_albums/albums_page.template.dart' as albums_page_template;
 import 'package:melodyku/src/pages/m_playlists/playlists_page.template.dart' as playlists_page_template;
 import 'package:melodyku/src/pages/m_artists/artists_page.template.dart' as artists_page_template;
-import 'package:melodyku/src/pages/m_genres/genres_page.template.dart' as genres_page_template;
+import 'package:melodyku/src/pages/m_categories/categories_page.template.dart' as categories_page_template;
 import 'package:melodyku/src/pages/m_top_tracks/top_tracks_page.template.dart' as top_tracks_page_template;
 import 'package:melodyku/src/pages/m_vitrin/vitrin_page.template.dart' as vitrin_page_template;
 
@@ -104,13 +104,13 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     iconImgRef    : 'assets/imgs/icons/artists.png', 
   ),
 
-  'genres' : PageDefinition(
-    title         : 'genres',
-    position      : MenuPosition.none,
+  'categories' : PageDefinition(
+    title         : 'categories',
+    position      : MenuPosition.mainMenuDrawer,
     permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
-                      routePath: RoutePath(path: 'genres'),
-                      component: genres_page_template.GenresPageNgFactory,
+                      routePath: RoutePath(path: 'categories'),
+                      component: categories_page_template.CategoriesPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/genres.png',
   ),

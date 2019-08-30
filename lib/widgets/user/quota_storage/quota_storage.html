@@ -12,12 +12,12 @@
 
 	    <div class="row body no-hover">
 	    	<div class='cell'>{{lang.getStr("totalQuota")}}</div>
-	        <div class='cell' dir="ltr">{{storageQuota.quota}} mb</div>
+	        <div class='cell' dir="ltr">{{storageQuota.quota | BytesToMb}} mb</div>
 	    </div>
 	    
 	    <div class="row body no-hover">
 	    	<div class='cell'>{{lang.getStr("usedQuota")}}</div>
-	        <div class='cell' dir="ltr">{{storageQuota.usage}} mb</div>
+	        <div class='cell' dir="ltr">{{storageQuota.usage | BytesToMb}} mb</div>
 	    </div>
 	</div>
 </div>

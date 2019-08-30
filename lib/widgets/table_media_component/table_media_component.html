@@ -1,4 +1,5 @@
-<div class='table-div'>
+<div class='table-div'
+    [direction]="lang.getDir()" [align]="true">
     <div class='row header'>
         <div class='cell index'>#</div>
         <div class='cell stitle'>{{lang.getStr("songTitle")}}</div>
@@ -6,6 +7,10 @@
         <div class='cell artist'>{{lang.getStr("artist")}}</div>
         <div class='cell duration'>{{lang.getStr("duration")}}</div>
         
+        <div class="cell download">
+            {{lang.getStr("download")}}
+        </div>
+
         <div class='cell option' 
             *ngIf="actionButtons != null">...</div>
     </div>
@@ -30,10 +35,20 @@
             </media-cover>
         </div>
 
-        <div (click)="play(i)" class='cell stitle subtitle'>{{song.title}}</div>
+        <div (click)="play(i)" class='cell stitle subtitle'>
+            <span>{{song.title}}</span>
+            <div class="small-artist ssubtitle">{{song.artist}}</div>
+        </div>
+
         <div (click)="play(i)" class='cell album subtitle'>{{song.album}}</div>
         <div (click)="play(i)" class='cell artist subtitle'>{{song.artist}}</div>
         <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
+
+        <div class="cell download">
+            <button-download-song
+                [song]="song">
+            </button-download-song>
+        </div>
 
         <div class="cell" *ngIf="actionButtons != null">
             <rounded-button 

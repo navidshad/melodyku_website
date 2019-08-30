@@ -39,7 +39,6 @@ class Song implements MediaItem
   Map localTitle;
 
   List<Map> versions = [];
-  DownloadFile file;
 
   Song({
     this.id,
@@ -60,7 +59,6 @@ class Song implements MediaItem
     this.imgStamp_album,
     this.imgStamp_artist,
     this.localTitle,
-    this.file,
     this.isLocal = false,
   })
   {
@@ -73,13 +71,6 @@ class Song implements MediaItem
 
   factory Song.fromjson(Map detail, {isLocal = false})
   {
-    // download file
-    DownloadFile file;
-
-    // if(detail.containsValue('file'))
-    //   file = DownloadFile.fromMap(detail['file']);
-
-
     Song mFromJson;
     try {
       //print('Song.fromjson $detail');
@@ -101,8 +92,7 @@ class Song implements MediaItem
       imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
       versions  : detail['versions'],
       localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
-      file      : file,
-      //isLocal   : isLocal,
+      isLocal   : isLocal,
     );
 
     } catch (e) {

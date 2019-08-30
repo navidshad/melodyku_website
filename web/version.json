@@ -1,14 +1,21 @@
 {
-	"web-client": "0.6.8",
+	"web-client": "0.6.9",
 
 	"log": {
 
+		"0.6.9": [
+			"added categories page to menu",
+			"added download button for all lists.",
+			"improved search button on header.",
+			"added BytesToMb pip."
+		],
+
 		"0.6.8": [
-			"added new service-worker system."
-			"added new song download system (using cache)."
-			"added play-all for download page."
-			"shown footer only in vitrine page."
-			"some UI improvements."
+			"added new service-worker system.",
+			"added new song download system (using cache).",
+			"added play-all for download page.",
+			"shown footer only in vitrine page.",
+			"some UI improvements.",
 			"some changes on other components."
 		],
 

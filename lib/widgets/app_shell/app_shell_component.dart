@@ -125,6 +125,12 @@ class AppShellComponent
     Navigator.gotTo('login');
   }
 
+  void onPressSearch()
+  {
+    String path = window.location.href;
+    if(path.contains('search')) Navigator.gotTo('vitrin');
+    else Navigator.gotTo('search');
+  }
 
   // drawers ====================================
   void setupMenuDrawer(Element shell)

@@ -9,7 +9,6 @@ class AppshellService
 {
 	Client _http;
 
-	bool needUpdate = false;
 	String version = '';
 	String serverVersion;
 
@@ -35,14 +34,7 @@ class AppshellService
 			.then(analizeResult)
 			.then((result) 
 			{
-				serverVersion = result['web-client'];
-
-				if(version == null || version == '')
-					version = result['web-client'];
-				else if(version != serverVersion)
-					needUpdate = true;
-
-				print('version $version | serverVersion $serverVersion');
+				version = result['web-client'];
 				_saveSession();
 			});
 	}

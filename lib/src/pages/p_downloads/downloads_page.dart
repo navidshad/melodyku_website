@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/archive/archive.dart';
@@ -67,6 +68,9 @@ class DownloadsPage
 
   Function removeSong(Map song, ButtonOptions options)
   {
+    bool isConfirmed = window.confirm('Do you want to remove this item?');
+    if(!isConfirmed) return null;
+
     options.doWaiting(true);
 
     Song s = Song.fromjson(song);

@@ -29,10 +29,10 @@
 
             <div class="profile flex-row flex-center">
                 <div class="icon"
-                    [routerLinkActive]="'active'">
-                    <a [routerLink]="pageRoutes.getRouterUrl('search')">
-                        <img src="/assets/svg/icon_search.svg">
-                    </a>
+                    (click)="onPressSearch()"
+                    [routerLinkActive]="'active'"
+                    [routerLink]="pageRoutes.getRouterUrl('search')">
+                    <img src="/assets/svg/icon_search.svg">
                 </div>
 
                 <div class="icon unselectable profile-btn"
@@ -45,17 +45,6 @@
                     (click)="openlogin()">{{lang.getStr('login')}}</div>
             </div>
         </header>
-        
-        <div class="update_warning flex-row flex-center"
-            *ngIf="appshellService.needUpdate"
-            [direction]="lang.getDir()" [align]="true">
-            <div class="description">
-                <p>{{lang.getStr('needUpdate')}}</p>
-            </div>
-            <div class="button border-white" (click)="appshellService.update()">
-                {{lang.getStr('update')}}
-            </div>
-        </div>
 
         <!-- body -->
         <div class="content-body" *ngIf="isFirstLoggined">
