@@ -1,13 +1,26 @@
 {
-	"web-client": "0.6.6",
+	"web-client": "0.6.8",
 
 	"log": {
 
-		"0.6.0": [
+		"0.6.8": [
+			"added new service-worker system."
+			"added new song download system (using cache)."
+			"added play-all for download page."
+			"shown footer only in vitrine page."
+			"some UI improvements."
+			"some changes on other components."
+		],
+
+		"0.6.7": [
+			"Added eur getway"
+		],
+
+		"0.6.5": [
 			"added offline mode",
-			"added discount coupen",
-			"added factor view affter payment",
-			"scroll will resered when new page loaded"
+			"added discount coupon",
+			"added factor view after payment",
+			"scroll will reseted when new page loaded"
 		],
 		
 		"0.6.0": [

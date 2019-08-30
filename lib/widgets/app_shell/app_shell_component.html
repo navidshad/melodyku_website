@@ -46,7 +46,7 @@
             </div>
         </header>
         
-        <div class="install_warning flex-row flex-center"
+        <div class="update_warning flex-row flex-center"
             *ngIf="appshellService.needUpdate"
             [direction]="lang.getDir()" [align]="true">
             <div class="description">
@@ -62,7 +62,8 @@
             <router-outlet [routes]="pageRoutes.getAll()" ></router-outlet>
         </div>
 
-        <footer-section></footer-section>
+        <div class="shell-footer-space"></div>
+
     </div>
     <!-- end mainContent -->
 

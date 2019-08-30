@@ -6,7 +6,7 @@
     padding: 10px 60px 0px 60px;
 }
 
-.install_warning{
+.update_warning{
     color: #eaeaea;
     width: 100%;
     background: #000000d4;
@@ -23,11 +23,15 @@
     }
 }
 
+.shell-footer-space{
+    height: 55px;
+}
+
 
 /* SMARTPHONES PORTRAIT */
 @media only screen and (max-width: 375px) 
 {
-    .install_warning{
+    .update_warning{
         margin-top: 35px;
     }
 }
@@ -38,7 +42,7 @@
         padding: 0px 10px;
     }
 
-    .install_warning{
+    .update_warning{
         font-size: 12px
     }
 }

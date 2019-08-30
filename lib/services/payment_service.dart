@@ -42,12 +42,17 @@ class PaymentService
 			{
 				List<Getway> gates = [];
 
+				print(result['getways']);
+
 				result['getways'].forEach((detail) 
 				{
-					Getway gate = Getway(detail['title'], detail['currency']);
+					detail['currencies'].forEach((cur)
+					{
+						Getway gate = Getway(detail['title'], cur);
 					
-					if(gate.currency == currency)
-						gates.add(gate);
+						if(gate.currency == currency)
+							gates.add(gate);
+					});
 				});
 
 				return gates;

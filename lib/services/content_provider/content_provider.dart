@@ -130,53 +130,53 @@ class ContentProvider
 		return _idb.insertOne('media', 'song', songDetail)
 
 		// download song file
-		.then((r) 
+		.then((r) async
 		{
-			String link = song.getDownloadLink('original');
+			String link = await song.getStreamLink('original');
 			print('begin to download song $link');
 			return downloadAsBuffer(link, onDownloading: onDownloading);
 		})
-		// store song file
-		.then((Map file) async
-		{
-			Map doc = {
-				'_id': 'song-' + songDetail['_id'],
-				'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
-			};
+		// // store song file
+		// .then((Map file) async
+		// {
+		// 	Map doc = {
+		// 		'_id': 'song-' + songDetail['_id'],
+		// 		'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
+		// 	};
 
-			// add size
-			songDetail['size_local'] = (doc['base64'].length / 1000);
+		// 	// add size
+		// 	songDetail['size_local'] = (doc['base64'].length / 1000);
 
-			return _idb.insertOne('media', 'file', doc)
-				.then((r) => print('song downloaded'));
-		})
+		// 	// return _idb.insertOne('media', 'file', doc)
+		// 	// 	.then((r) => print('song downloaded'));
+		// })
 
 		// download song thumbnail
-		.then((r)
-		{
-			String imglink = song.thumbnail;
-			String link = Uri.https(Vars.mainHost, 'stream/downloadfile', {'link': imglink}).toString();
+		// .then((r)
+		// {
+		// 	String imglink = song.thumbnail;
+		// 	String link = Uri.https(Vars.mainHost, 'stream/downloadfile', {'link': imglink}).toString();
 
-			print('begin to download img $link');
+		// 	print('begin to download img $link');
 
-			return downloadAsBuffer(link, onDownloading: (int percent) => print('thumbnail downloading $percent'));
-		})
-		// store thumbnail file
-		.then((Map file) async
-		{
-			Map doc = {
-				'_id': 'img-' + songDetail['_id'],
-				'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
-			};
+		// 	return downloadAsBuffer(link, onDownloading: (int percent) => print('thumbnail downloading $percent'));
+		// })
+		// // store thumbnail file
+		// .then((Map file) async
+		// {
+		// 	Map doc = {
+		// 		'_id': 'img-' + songDetail['_id'],
+		// 		'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
+		// 	};
 
-			// add size
-			songDetail['size_local'] += (doc['base64'].length / 1000);
+		// 	// add size
+		// 	songDetail['size_local'] += (doc['base64'].length / 1000);
 
-			return _idb.insertOne('media', 'file', doc)
-				.then((r) => print('thumbnail downloaded'));
-		})
+		// 	// return _idb.insertOne('media', 'file', doc)
+		// 	// 	.then((r) => print('thumbnail downloaded'));
+		// })
 		// update song size
-		.then((r) => _idb.updateOne('media', 'song', songDetail))
+		//.then((r) => _idb.updateOne('media', 'song', songDetail))
 		// update quota info
 		.then((r) => _idb.storageQuota.updateInfo())
 
@@ -192,11 +192,24 @@ class ContentProvider
 		});
 	}
 
-	Future<dynamic> removeDownloadedSong(String id)
+	Future<dynamic> removeDownloadedSong(Song song) async
 	{
+		String id = song.id;
+		String link = await song.getStreamLink('original');
+		String CACHE_NAME = "user_downloads";
+
+		window.navigator.serviceWorker.getRegistration('/sw.js')
+			.then((sw)
+			{
+				Map<String,String> data = {
+					'action': 'REMOVE_CACHE',
+					'cacheName':CACHE_NAME, 
+					'url':link
+				};
+				sw.active.postMessage(data);
+			});
+
 		return _idb.removeOne('media', 'song', id)
-		.then((r) => _idb.removeOne('media', 'file', 'song-' + id))
-		.then((r) => _idb.removeOne('media', 'file', 'img-' + id))
 		// update quota info
 		.then((r) => _idb.storageQuota.updateInfo());
 	}

@@ -34,7 +34,7 @@ class Factor
 	factory Factor.fromMap(Map detail)
 	{
 		return Factor(
-			detail['_id'],
+			detail['_id'].toString(),
 			detail['refId'],
 			detail['description'],
 			detail['isPaid'],

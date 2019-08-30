@@ -1,4 +1,9 @@
 <quota></quota>
-<table-media 
-	[songs]="songs"
-	[actionButtons]="actions"></table-media>
+
+<div class='widget-container'>
+	<div class="btn-sl margin-h-20 play-all" (click)="playAll()">{{lang.getStr('playAll')}}</div>
+	<table-media 
+		[songs]="songs"
+		[actionButtons]="actions">
+	</table-media>
+</div>

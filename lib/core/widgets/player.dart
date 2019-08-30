@@ -136,11 +136,6 @@ class Player
     hasSong = true;
   }
 
-  void playBase64Track(String base64Source)
-  {
-    
-  }
-
   void playByList(List<Song> list)
   {
     _list = list;

@@ -15,15 +15,10 @@
         var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
         document.write('<base href="' + (m ? m[0] : '/') + '" />');
       }());
-
-      // Check that service workers are supported
-      if ('serviceWorker' in navigator) {
-        // register Melodyku service-worker
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
-        });
-      }
     </script>
+
+    <!-- service worker -->
+    <script src="/assets/js/sw_installation.js" type="module"></script>
 
     <title>ملودیکو</title>
     <meta charset="utf-8">

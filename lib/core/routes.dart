@@ -128,6 +128,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
 
   // profile drawer ===========================
   // user
+  'profile' : PageDefinition(
+    title         : 'profile',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'profile'),
+                      component: profile_template.ProfilePageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+  
   'favorites' : PageDefinition(
     title         : 'favorites',
     position      : MenuPosition.profileDrawer,
@@ -148,17 +159,6 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
                       component: history_template.HistoryPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/history.png',
-  ),
-
-  'profile' : PageDefinition(
-    title         : 'profile',
-    position      : MenuPosition.none,
-    permissionType: PermissionType.customer_access,
-    route         : RouteDefinition(
-                      routePath: RoutePath(path: 'profile'),
-                      component: profile_template.ProfilePageNgFactory,
-                    ),
-    iconImgRef    : 'assets/imgs/icons/more.png',
   ),
 
   'downloads' : PageDefinition(

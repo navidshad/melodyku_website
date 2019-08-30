@@ -14,11 +14,11 @@
 
     <div *ngFor="let song of list; let i=index"
         class="row hoverScale body {{selectedNumber == i ? 'selected':''}}" 
-        (click)="play(i)"
         (mouseenter)="onmouseenter(i)"
         (mouseleave)="onmouseleave()">
 
-        <div class='cell index'>
+        <div class='cell index'
+            (click)="play(i)">
             <media-cover 
                 [lable]="(i+1).toString()"
                 [id]="song.id"
@@ -30,10 +30,10 @@
             </media-cover>
         </div>
 
-        <div class='cell stitle subtitle'>{{song.title}}</div>
-        <div class='cell album subtitle'>{{song.album}}</div>
-        <div class='cell artist subtitle'>{{song.artist}}</div>
-        <div class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
+        <div (click)="play(i)" class='cell stitle subtitle'>{{song.title}}</div>
+        <div (click)="play(i)" class='cell album subtitle'>{{song.album}}</div>
+        <div (click)="play(i)" class='cell artist subtitle'>{{song.artist}}</div>
+        <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
 
         <div class="cell" *ngIf="actionButtons != null">
             <rounded-button 

@@ -157,6 +157,14 @@ class CardTariffComponent implements OnChanges
 				payBtnOptions.callback = openPaymentLink;
 				payBtnOptions.doWaiting(false);
 				payBtnOptions.setColor('green');
+			})
+			.catchError((e)
+			{
+				print(e);
+				
+				payBtnOptions.lable = lang.getStr('pay');
+				payBtnOptions.doWaiting(false);
+				payBtnOptions.setColor('red');
 			});
 	}
 

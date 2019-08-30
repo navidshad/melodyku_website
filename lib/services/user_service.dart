@@ -81,6 +81,7 @@ class UserService
 
     if(type == UserType.user)
     {
+      print('== user has been logined from local token');
       isLogedIn = true;
       _loginController.add(isLogedIn);
     }

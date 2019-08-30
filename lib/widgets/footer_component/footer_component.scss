@@ -3,12 +3,19 @@
 
 .widget-container{
     padding: 10px 60px 0px 60px;
-    padding-bottom: 70px;
     background-color: darken($back-color, 5%);
+
+    margin: 0;
+    margin-top: 20px;
 
     p{
         text-align: justify;
     }
+}
+
+.widget-container {
+    margin: 0;
+    margin-top: 20px;
 }
 
 .version{
@@ -99,7 +106,6 @@
 {
     .widget-container {
         padding: 0px 10px;
-        padding-bottom: 50px;
     }
 
     .install_warning{
@@ -112,7 +118,6 @@
 {
 	.widget-container {
         padding: 0px 30px;
-        padding-bottom: 60px;
     }
 
     .social-icon{

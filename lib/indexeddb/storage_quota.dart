@@ -22,18 +22,18 @@ class StorageQuta
 		usage = 0;
 
 		// calculate stored songs
-		await _idb.getCollection('media', 'song')
-		.then((songColl) 
-		{
-			songColl.openCursor()
-			.listen((CursorWithValue cursor) 
-			{
-				if(cursor != null) cursor.next();
-				else return;
+		// await _idb.getCollection('media', 'song')
+		// .then((songColl) 
+		// {
+		// 	songColl.openCursor()
+		// 	.listen((CursorWithValue cursor) 
+		// 	{
+		// 		if(cursor != null) cursor.next();
+		// 		else return;
 
-				usage += cursor.value['size_local'] / 1000;
-			});
-		});
+		// 		usage += cursor.value['size'] / 1000;
+		// 	});
+		// });
 
 		String origin = window.location.origin;
 		if(origin.contains('melodyku') || origin.contains('localhost'))
@@ -49,8 +49,8 @@ class StorageQuta
 			.then((obj) 
 			{
 				quota = ((obj['quota'] as double) ~/ 1000000).toInt();
-				//usage = ((obj['usage'] as double) ~/ 1000000).toInt();
-				//remain = quota - usage;
+				usage = ((obj['usage'] as double) / 1000000);
+				remain = quota - usage;
 			});
 
 			// calculate remain storage

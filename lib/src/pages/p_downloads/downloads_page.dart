@@ -23,12 +23,13 @@ class DownloadsPage
   MessageService _messageService;
   IndexedDBService _idb;
   ContentProvider _provider;
+  PlayerService _playerService;
 
   List<Song> songs = [];
   List<ActionButton> actions = [];
 
   // constructor ==================================
-  DownloadsPage(this._provider, this._idb, this._messageService, this._userservice)
+  DownloadsPage(this.lang, this._provider, this._idb, this._messageService, this._userservice, this._playerService)
   {
     _page = Page(
       userService: _userservice, 
@@ -43,6 +44,9 @@ class DownloadsPage
 
     prepare();
   }
+
+  void playAll() =>
+    _playerService.playByList(songs);
 
   void prepare() async
   {
@@ -65,7 +69,8 @@ class DownloadsPage
   {
     options.doWaiting(true);
 
-    _provider.removeDownloadedSong(song['_id'] as String)
+    Song s = Song.fromjson(song);
+    _provider.removeDownloadedSong(s)
     .then((r) => prepare())
     .catchError((e) {
       options.doWaiting(false);

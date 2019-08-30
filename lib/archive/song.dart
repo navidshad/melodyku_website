@@ -76,8 +76,8 @@ class Song implements MediaItem
     // download file
     DownloadFile file;
 
-    if(detail.containsValue('file'))
-      file = DownloadFile.fromMap(detail['file']);
+    // if(detail.containsValue('file'))
+    //   file = DownloadFile.fromMap(detail['file']);
 
 
     Song mFromJson;
@@ -102,7 +102,7 @@ class Song implements MediaItem
       versions  : detail['versions'],
       localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
       file      : file,
-      isLocal   : isLocal,
+      //isLocal   : isLocal,
     );
 
     } catch (e) {
@@ -140,13 +140,13 @@ class Song implements MediaItem
   {
     String link;
 
-    if(isLocal)
-    {
-      await Injector.get<IndexedDBService>()
-        .getOne('media', 'file', 'img-$id')
-        .then((doc) => link = doc['base64']);
-    }
-    else if(imgStamp.length > 10)
+    // if(isLocal)
+    // {
+    //   await Injector.get<IndexedDBService>()
+    //     .getOne('media', 'file', 'img-$id')
+    //     .then((doc) => link = doc['base64']);
+    // }
+    if(imgStamp.length > 10)
     {
      link = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'song', id:id, imgStamp:imgStamp);
@@ -176,17 +176,17 @@ class Song implements MediaItem
     String link;
 
     // if local exist
-    if(isLocal)
-    {
-      await Injector.get<IndexedDBService>()
-        .getOne('media', 'file', 'song-$id')
-        .then((doc) {
-          if(doc != null) link = doc['base64'];
-        });
-    }
+    // if(isLocal)
+    // {
+    //   await Injector.get<IndexedDBService>()
+    //     .getOne('media', 'file', 'song-$id')
+    //     .then((doc) {
+    //       if(doc != null) link = doc['base64'];
+    //     });
+    // }
     //get online link
-    else
-    {
+    // else
+    // {
       if(version == 'original')
       {
         cBitrate = bitrate.toString();
@@ -203,7 +203,7 @@ class Song implements MediaItem
       link = Uri.https(Vars.mainHost, 'stream', 
         {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
         .toString();
-    }
+    // }
     
     return link;
   }

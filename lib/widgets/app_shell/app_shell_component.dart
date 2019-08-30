@@ -29,7 +29,6 @@ import 'package:melodyku/core/injector.dart' as CI;
     coreDirectives, 
     routerDirectives,
     ElementExtractorDirective,
-    FooterComponent,
     TranslateBtnComponent,
     DirectionDirective,
   ],
