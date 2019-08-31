@@ -6,17 +6,41 @@ importScripts('/assets/js/sw_message.js');
 importScripts('/assets/js/sw_idb.js');
 importScripts('/assets/js/sw_strategies.js');
 
-let version = "0.6.8";
-
 // Updating SW lifecycle to update the app after user triggered refresh
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
+// catche scripts
+workbox.routing.registerRoute(
+   /\.(?:js|json)$/,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+// catche index.html
+workbox.routing.registerRoute(
+  ({event}) => event.request.destination === 'document',
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+// catche images
+// workbox.routing.registerRoute(
+//   /^https:\/\/data.melodyku.(?:ir|com)\/images\/.*.(?:jpg|jpeg)/,
+//   new workbox.strategies.CacheFirst({
+//     cacheName: 'images',
+//     plugins: [
+//       new workbox.expiration.Plugin({
+//         maxEntries: 200,
+//         maxAgeSeconds: 15 * 24 * 60 * 60, // 15 Days
+//       }),
+//     ],
+//   })
+// );
+
 // catch content provider
 workbox.routing.registerRoute(
   ({url, event}) => {
-  	return isMatch(url, 
-  	['aggregate', 'find', 'findOne'])
+    return isMatch(url, 
+    ['aggregate', 'find', 'findOne'])
   },
   catchFirstPostRequest_bodyAsKey,
   'POST'
@@ -35,9 +59,9 @@ workbox.routing.registerRoute(
 // catch defualt value for some apis
 workbox.routing.registerRoute(
   ({url, event}) => {
-  	let pathes = ['count'];
-  	if(isMatch(url, pathes)) return {body:0};
-  	else false;
+    let pathes = ['count'];
+    if(isMatch(url, pathes)) return {body:0};
+    else false;
   },
   defultBodyWhenOffline,
   'POST'

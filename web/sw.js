@@ -6,17 +6,41 @@ importScripts('/assets/js/sw_message.js');
 importScripts('/assets/js/sw_idb.js');
 importScripts('/assets/js/sw_strategies.js');
 
-let version = "0.6.8";
-
 // Updating SW lifecycle to update the app after user triggered refresh
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
+// catche scripts
+workbox.routing.registerRoute(
+   /\.(?:js|json)$/,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+// catche index.html
+workbox.routing.registerRoute(
+   /(localhost|melodyku.ir|melodyku.com)/,
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+// catche images
+workbox.routing.registerRoute(
+  /^https:\/\/data.melodyku.(?:ir|com)\/images\/.*.(?:jpg|jpeg)/,
+  new workbox.strategies.CacheFirst({
+    cacheName: 'images',
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 200,
+        maxAgeSeconds: 15 * 24 * 60 * 60, // 15 Days
+      }),
+    ],
+  })
+);
+
 // catch content provider
 workbox.routing.registerRoute(
   ({url, event}) => {
-  	return isMatch(url, 
-  	['aggregate', 'find', 'findOne'])
+    return isMatch(url, 
+    ['aggregate', 'find', 'findOne'])
   },
   catchFirstPostRequest_bodyAsKey,
   'POST'
@@ -35,9 +59,9 @@ workbox.routing.registerRoute(
 // catch defualt value for some apis
 workbox.routing.registerRoute(
   ({url, event}) => {
-  	let pathes = ['count'];
-  	if(isMatch(url, pathes)) return {body:0};
-  	else false;
+    let pathes = ['count'];
+    if(isMatch(url, pathes)) return {body:0};
+    else false;
   },
   defultBodyWhenOffline,
   'POST'
@@ -69,14 +93,6 @@ workbox.routing.registerRoute(
 );
 
 workbox.precaching.precacheAndRoute([
-  {
-    "url": "assets/css/fontiran.css",
-    "revision": "88da660788884c70665db7947085a73d"
-  },
-  {
-    "url": "assets/css/w3.css",
-    "revision": "fcb3cc3f981ba3e4d9a68f1a3520370a"
-  },
   {
     "url": "assets/fonts/woff/IRANSansWeb_Black.woff",
     "revision": "818f7796aeb3cc761b74334bb0b9aa35"
@@ -266,26 +282,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "6f861c35e66c2ef18d6459859ffa8c97"
   },
   {
-    "url": "assets/js/install.js",
-    "revision": "06b728bd9720d19191ad2249561f4ec2"
-  },
-  {
-    "url": "assets/js/sw_idb.js",
-    "revision": "ec1be29f8df13c96df401ad762ba6cfd"
-  },
-  {
-    "url": "assets/js/sw_installation.js",
-    "revision": "231bc57c3663906b9ac458e1a8a0cbe0"
-  },
-  {
-    "url": "assets/js/sw_message.js",
-    "revision": "205bb43bcd924fa5c23b43e4f9b2909a"
-  },
-  {
-    "url": "assets/js/sw_strategies.js",
-    "revision": "c498741cdff3dd6d81fe39d4f44f0c70"
-  },
-  {
     "url": "assets/svg/equalizer01.svg",
     "revision": "f824b40d3aeb2b1190321c8fd68cca34"
   },
@@ -426,26 +422,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "b0693962a9d5d90123f315bbf517ac5d"
   },
   {
-    "url": "assets/thirdparty/filepond/filepond-plugin-file-metadata.js",
-    "revision": "b27b5498b67ac1d3af2eff4243398447"
-  },
-  {
-    "url": "assets/thirdparty/filepond/filepond.min.css",
-    "revision": "d4790019d7cdabb03b42993e29bd1500"
-  },
-  {
-    "url": "assets/thirdparty/filepond/filepond.min.js",
-    "revision": "f1fb3e82a6d410144462f9b831cd99a1"
-  },
-  {
-    "url": "assets/thirdparty/swiper/swiper.min.css",
-    "revision": "9097e7972b059ecae0f5bb78a0186f71"
-  },
-  {
-    "url": "assets/thirdparty/swiper/swiper.min.js",
-    "revision": "53fc0155c6c3cb55f34b749325ebb370"
-  },
-  {
     "url": "favicon.png",
     "revision": "6e6157506f1989504f7c0bf9f7fe498d"
   },
@@ -480,33 +456,5 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "images/icons/icon-96x96.png",
     "revision": "7cca8b4603d7c3e731086fb6db465039"
-  },
-  {
-    "url": "index.html",
-    "revision": "4904e3995b41ff2cfa5c40d2f32d43f6"
-  },
-  {
-    "url": "manifest.json",
-    "revision": "e3280431c920355923a4c79e605bd2bc"
-  },
-  {
-    "url": "offline.html",
-    "revision": "3cc6a78968b55a0613836c00076875f4"
-  },
-  {
-    "url": "styles.css",
-    "revision": "9890394c13c4c194570985de95b7f6d3"
-  },
-  {
-    "url": "sw_build.js",
-    "revision": "49fa5320216e594e8c4bad486263524c"
-  },
-  {
-    "url": "version.json",
-    "revision": "ac3e90e54cd52725b3369b95456d67b4"
-  },
-  {
-    "url": "workbox_build.js",
-    "revision": "d405547f9373e190988a93581d88d9ff"
   }
 ]);

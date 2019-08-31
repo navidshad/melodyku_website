@@ -7,7 +7,10 @@ function isMatch(url, arr)
 	let key = false;
 	
 	arr.forEach(str => {
-		if(url.href.includes(str)) key = true;
+		if(url.href.includes(str)) {
+			key = true;
+			//console.log('.sw matched', url.href)
+		}
 	});
 
 	return key;
@@ -223,7 +226,6 @@ async function defultBodyWhenOffline({url, event, params})
 
 async function catchFirstSongRequest({url, event, params})
 {
-	console.log(url);
 	let songid = url.searchParams.get('si');
 	let CACHE_NAME = "user_downloads";
 
@@ -238,7 +240,7 @@ async function catchFirstSongRequest({url, event, params})
 
 	let catchTheSong = (response) => 
 	{
-		console.log('sw == store song', response);
+		//console.log('sw == store song', response);
 		return caches.open(CACHE_NAME)
 			.then((cache) => cache.put(req.clone(), response));
 	}
@@ -246,7 +248,7 @@ async function catchFirstSongRequest({url, event, params})
 	let getCache = () => 
 	{
 		return caches.open(CACHE_NAME)
-			.then((cache) => caches.matche(url.href));
+			.then((cache) => cache.match(url.href));
 	}
 
 	return IDB_media.get('song', songid)
@@ -264,7 +266,8 @@ async function catchFirstSongRequest({url, event, params})
 		// download => store => return to browser
 		.catch((e) => 
 		{
-			console.log('download => store => return to browser');
+			console.log(e);
+			//console.log('download => store => return to browser');
 			return fetch(req)
 			// store and
 			.then(res => 
@@ -276,7 +279,7 @@ async function catchFirstSongRequest({url, event, params})
 	})
 	// response from server if is not in the download table
 	.catch((e) => {
-		console.error('response from server if is not in the download table', e);
+		console.error('response from server if song is not in the download caches', e);
 		return responsFromServer();
 	});
 }
