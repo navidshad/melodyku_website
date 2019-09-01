@@ -122,7 +122,7 @@ class MultiCategorizingComponent
 		Map query = { '_id': doc['_id'] };
 		Map update = {'\$push': {'categories': selectedCategory}};
 
-		_mongodb.updateOne(database: 'media', collection: selectedMediaType, 
+		_mongodb.updateOne(isLive:true, database: 'media', collection: selectedMediaType, 
 			query: query, update: update)
 		.then((r) 
 	    {
@@ -138,7 +138,7 @@ class MultiCategorizingComponent
 		Map query = { '_id': doc['_id'] };
 		Map update = {'\$pull': {'categories': selectedCategory}};
 
-		_mongodb.updateOne(database: 'media', collection: selectedMediaType, 
+		_mongodb.updateOne(isLive:true, database: 'media', collection: selectedMediaType, 
 			query: query, update: update)
 		.then((r) 
 	    {

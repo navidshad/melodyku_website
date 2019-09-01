@@ -55,7 +55,7 @@ class MediaSelector
       
     piplines.add({'\$sample': {'size': total}});
 
-    await _mongoDBService.aggregate(database:'media', collection: 'artist', piplines: piplines)
+    await _mongoDBService.aggregate(isLive:true, database:'media', collection: 'artist', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {
@@ -99,7 +99,7 @@ class MediaSelector
       
     piplines.add({'\$sample': {'size': total}});
 
-    await _mongoDBService.aggregate(database:'media', collection: 'album', piplines: piplines)
+    await _mongoDBService.aggregate(isLive:true, database:'media', collection: 'album', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {

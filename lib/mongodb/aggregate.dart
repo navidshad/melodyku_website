@@ -4,7 +4,7 @@ import 'package:melodyku/services/services.dart';
 class Aggregate 
 {
 	MongoDBService _mongodb;
-  String database;
+  	String database;
 	String collection;
 	List<Map> pipline;
 	Map accessQuery;

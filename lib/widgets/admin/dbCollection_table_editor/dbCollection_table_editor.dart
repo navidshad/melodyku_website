@@ -179,7 +179,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 
 		// get total items
 		//print('_mainQuery $_mainQuery');
-    	await _mongodb.count(database: options.database, 
+    	await _mongodb.count(isLive:true, database: options.database, 
       	collection: options.collection, query: combinedQueries)
 			.then((count)
 			{
@@ -211,7 +211,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 		//print('pipline for ${_collection.namespace} $pipline');
 
 		// get by aggregate
-    	await _mongodb.aggregate(database: options.database, collection: options.collection,
+    	await _mongodb.aggregate(isLive:true, database: options.database, collection: options.collection,
       piplines: piplines)
       .then((documents) 
       {
@@ -245,7 +245,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 		// create remove query
 		dynamic query = {'_id': item['_id']};
 
-    	_mongodb.removeOne(database: options.database, collection: options.collection, query: query)
+    	_mongodb.removeOne(isLive:true, database: options.database, collection: options.collection, query: query)
 	      .then((d)
 	      {
 	        getPage();

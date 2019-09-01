@@ -58,12 +58,34 @@ class DownloadsPage
       .listen((CursorWithValue cursor) 
       {
         if(cursor != null) cursor.next();
-        else return;
+        else {
+          sortlist();
+          return;
+        }
 
         Map songDetail =  validateFields(cursor.value, SystemSchema.song);
+        songDetail['storedDate'] = cursor.value['storedDate'];
+
         Song song = Song.fromjson(songDetail, isLocal: true);
         songs.add(song);
-      });
+      },
+      onDone: sortlist);
+  }
+
+  void sortlist() 
+  {
+    List<int> tempInts = [];
+    songs.forEach((s) => tempInts.add(s.storedDate));
+    tempInts.sort();
+
+    List<Song> sortedSongs = [];
+    tempInts.forEach((date) 
+    {
+      int index = songs.indexWhere((item) => item.storedDate == date);
+      sortedSongs.add(songs[index]);
+    });
+
+    songs = sortedSongs;
   }
 
   Function removeSong(Map song, ButtonOptions options)
@@ -75,7 +97,7 @@ class DownloadsPage
 
     Song s = Song.fromjson(song);
     _provider.removeDownloadedSong(s)
-    .then((r) => prepare())
+    .then((r) => songs.removeWhere((item) => (s.id == item.id) ?true:false))
     .catchError((e) {
       options.doWaiting(false);
       options.setActivation(true);

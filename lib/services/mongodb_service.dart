@@ -14,7 +14,7 @@ class MongoDBService
 
 	MongoDBService(this._http, this._userService);
 
-	Future<Map<String, String>> _getHeaders() async
+	Future<Map<String, String>> _getHeaders([isLive=false]) async
 	{
 		await Future.doWhile(() async
 		{
@@ -28,10 +28,12 @@ class MongoDBService
 		  'authorization': _userService.token
 		};
 
+		if(isLive) headers['live'] = 'true';
+
 		return headers;
 	}
 
-	Future<dynamic> find({String database, String collection, Map query=const{}, Map options=const{}}) async
+	Future<dynamic> find({bool isLive=false, String database, String collection, Map query=const{}, Map options=const{}}) async
 	{
 		String url = Vars.host + '/contentProvider/find';
 
@@ -42,13 +44,13 @@ class MongoDBService
       		'options': options
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 		
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-	Future<dynamic> findOne({String database, String collection, Map query}) async
+	Future<dynamic> findOne({bool isLive=false, String database, String collection, Map query}) async
 	{
 		String url = Vars.host + '/contentProvider/findOne';
 
@@ -58,13 +60,13 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> count({String database, String collection, Map query=const{}}) async
+  	Future<dynamic> count({bool isLive=false, String database, String collection, Map query=const{}}) async
 	{
 		String url = Vars.host + '/contentProvider/count';
 
@@ -74,13 +76,14 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
-			.then(analizeResult);
+			.then(analizeResult)
+			.catchError((e) => 0);
 	}
 
-  	Future<dynamic> updateOne({String database, String collection, Map query, Map update, Map options=const{}}) async
+  	Future<dynamic> updateOne({bool isLive=false, String database, String collection, Map query, Map update, Map options=const{}}) async
 	{
 		String url = Vars.host + '/contentProvider/updateOne';
 
@@ -92,13 +95,13 @@ class MongoDBService
 			'options': options
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> insertOne({String database, String collection, Map doc}) async
+  	Future<dynamic> insertOne({bool isLive=false, String database, String collection, Map doc}) async
 	{
 		String url = Vars.host + '/contentProvider/insertOne';
 
@@ -108,13 +111,13 @@ class MongoDBService
 			'doc': doc,
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> removeOne({String database, String collection, Map query}) async
+  	Future<dynamic> removeOne({bool isLive=false, String database, String collection, Map query}) async
 	{
 		String url = Vars.host + '/contentProvider/removeOne';
 
@@ -124,13 +127,13 @@ class MongoDBService
 			'query': query,
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> aggregate({String database, String collection, List<Map> piplines, 
+  	Future<dynamic> aggregate({bool isLive=false, String database, String collection, List<Map> piplines, 
   		Map accessQuery=const{}, String bodyKey='', List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/aggregate';
@@ -146,13 +149,13 @@ class MongoDBService
 
 		types.forEach((tc) => body['types'].add(tc.getMap()));
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> findByIds({String database, String collection, List<String> ids}) async
+  	Future<dynamic> findByIds({bool isLive=false, String database, String collection, List<String> ids}) async
 	{
 		String url = Vars.host + '/contentProvider/getByIds';
 
@@ -162,13 +165,13 @@ class MongoDBService
 			'IDs': ids,
 		};
 
-		Map<String, String> headers = await _getHeaders();
+		Map<String, String> headers = await _getHeaders(isLive);
 
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> findById({String database, String collection, String id}) async
+  	Future<dynamic> findById({bool isLive=false, String database, String collection, String id}) async
 	{
 		dynamic body = {
 			'database': database,

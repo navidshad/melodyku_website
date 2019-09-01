@@ -17,7 +17,8 @@ import 'package:melodyku/archive/archive.dart';
     coreDirectives,
     CardWideComponent,
     DirectionDirective,
-    ]
+    WidgetLoading,
+  ]
 )
 class ListWideComponent
 {

@@ -10,39 +10,62 @@ importScripts('/assets/js/sw_strategies.js');
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
-// catche scripts
+// activate offline analitic tracking
+workbox.googleAnalytics.initialize({
+  parameterOverrides: {
+    cd1: 'offline',
+  },
+});
+
+// catche scripts and css
 workbox.routing.registerRoute(
-   /\.(?:js|json)$/,
+  ({url, event}) => {
+    return isMatch(url, 
+    ['.js', '.json', '.css'])
+  },
   new workbox.strategies.StaleWhileRevalidate()
 );
 
 // catche index.html
 workbox.routing.registerRoute(
-   /(localhost|melodyku.ir|melodyku.com)/,
+  ({event}) => event.request.destination === 'document',
   new workbox.strategies.StaleWhileRevalidate()
 );
 
 // catche images
 workbox.routing.registerRoute(
-  /^https:\/\/data.melodyku.(?:ir|com)\/images\/.*.(?:jpg|jpeg)/,
-  new workbox.strategies.CacheFirst({
-    cacheName: 'images',
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 200,
-        maxAgeSeconds: 15 * 24 * 60 * 60, // 15 Days
-      }),
-    ],
-  })
+  ({url, event}) => {
+    return isMatch(url, 
+    ['data.melodyku.ir/images', 'data.melodyku.com/images'])
+  },
+  returnPatternImageOn404
 );
 
 // catch content provider
 workbox.routing.registerRoute(
   ({url, event}) => {
-    return isMatch(url, 
-    ['aggregate', 'find', 'findOne'])
+    if(ignoreIfHasLivePropertyInHeader(event.request))
+      return false;
+    else return isMatch(url, ['contentProvider'], ['count'])
   },
   catchFirstPostRequest_bodyAsKey,
+  'POST'
+);
+
+// return defual body to count query
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    if(isMatch(url, ['count'])) return {body: 0};
+    else return false;
+  },
+  defultBodyWhenOffline,
+  'POST'
+);
+
+// network first sterategy for other MongoQuery
+workbox.routing.registerRoute(
+  ({url, event}) => isMatch(url, ['contentProvider']),
+  networkFirstPostRequest_bodyAsKey,
   'POST'
 );
 
@@ -52,7 +75,7 @@ workbox.routing.registerRoute(
     return isMatch(url, 
     ['loginAnonymous', 'varify/token', 'getPermission'])
   },
-  catchFirstPostRequest_pathAsKey,
+  networkFirstPostRequest_pathAsKey,
   'POST'
 );
 
@@ -68,13 +91,13 @@ workbox.routing.registerRoute(
 );
 
 // response from network first
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, ['findOne']) 
-  },
-  networkFirstPostRequest_bodyAsKey,
-  'POST'
-);
+// workbox.routing.registerRoute(
+//   ({url, event}) => {
+//     return isMatch(url, ['findOne']) 
+//   },
+//   networkFirstPostRequest_bodyAsKey,
+//   'POST'
+// );
 
 // response from network first
 workbox.routing.registerRoute(
@@ -410,12 +433,24 @@ workbox.precaching.precacheAndRoute([
     "revision": "357ea27abee6d5bf8d4525b292dfa111"
   },
   {
+    "url": "assets/svg/loading_boxes.svg",
+    "revision": "e2508262110c50738c5cdaeeb25c3a87"
+  },
+  {
     "url": "assets/svg/loading_cycle.svg",
     "revision": "45e3cd710f0072fe82b7037bfe037360"
   },
   {
+    "url": "assets/svg/loading_dna.svg",
+    "revision": "c9c0679eb1a4eb4694514e54a9508a13"
+  },
+  {
     "url": "assets/svg/loading_ellipsis.svg",
     "revision": "5e0f346f7205687c28473f3130ce925f"
+  },
+  {
+    "url": "assets/svg/loading_music_notes.svg",
+    "revision": "b22f11cf7e60726d6ef9965ef410ec5a"
   },
   {
     "url": "assets/svg/loading.svg",

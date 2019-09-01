@@ -1,7 +1,16 @@
 {
-	"web-client": "0.6.9",
+	"web-client": "0.7.0",
 
 	"log": {
+
+		"0.7.0": [
+			"added loading svg for content sections",
+			"sort downloads by date",
+			"improve service worker and cache process",
+			"added offline tracking mode for google analytic",
+			"added userid to analytic",
+			"debug and improves other little component sides"
+		],
 
 		"0.6.9": [
 			"added categories page to menu",

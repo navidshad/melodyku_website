@@ -19,7 +19,9 @@ class Song implements MediaItem
 
   ArchiveTypes type;
   bool isLiked = false;
+
   bool isLocal = false;
+  int storedDate;
 
   String title;
   String artist;
@@ -60,6 +62,7 @@ class Song implements MediaItem
     this.imgStamp_artist,
     this.localTitle,
     this.isLocal = false,
+    this.storedDate = 0,
   })
   {
     type = ArchiveTypes.media;
@@ -92,7 +95,9 @@ class Song implements MediaItem
       imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
       versions  : detail['versions'],
       localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
+
       isLocal   : isLocal,
+      storedDate : (detail.containsKey('storedDate')) ? detail['storedDate'] : 0,
     );
 
     } catch (e) {

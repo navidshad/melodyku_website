@@ -59,7 +59,7 @@ class ConverterComponent {
 
   void _prepare() async {
     await _mongodb
-        .find(database: 'cms', collection: 'convert_preset')
+        .find(isLive:true, database: 'cms', collection: 'convert_preset')
         .then((dynamic docs) {
       docs.forEach((dynamic doc) {
         Map converted = validateFields(doc, SystemSchema.convert_preset);

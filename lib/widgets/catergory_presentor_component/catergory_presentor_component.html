@@ -7,6 +7,10 @@
         <div class="_line-title"></div>
     </div>
 
+    <loading 
+        *ngIf="categories == null || categories.length == 0"
+        [type]="'points'"></loading>
+
     <div class="categories">
     	
         <grid-masonry 

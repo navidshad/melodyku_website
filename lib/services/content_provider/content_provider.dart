@@ -125,6 +125,7 @@ class ContentProvider
 	{
 		// store song
 		Map songDetail = song.getAsMap();
+		songDetail['storedDate'] = DateTime.now().microsecondsSinceEpoch;
 
 		// save song detail
 		return _idb.insertOne('media', 'song', songDetail)
@@ -136,47 +137,6 @@ class ContentProvider
 			print('begin to download song $link');
 			return downloadAsBuffer(link, onDownloading: onDownloading);
 		})
-		// // store song file
-		// .then((Map file) async
-		// {
-		// 	Map doc = {
-		// 		'_id': 'song-' + songDetail['_id'],
-		// 		'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
-		// 	};
-
-		// 	// add size
-		// 	songDetail['size_local'] = (doc['base64'].length / 1000);
-
-		// 	// return _idb.insertOne('media', 'file', doc)
-		// 	// 	.then((r) => print('song downloaded'));
-		// })
-
-		// download song thumbnail
-		// .then((r)
-		// {
-		// 	String imglink = song.thumbnail;
-		// 	String link = Uri.https(Vars.mainHost, 'stream/downloadfile', {'link': imglink}).toString();
-
-		// 	print('begin to download img $link');
-
-		// 	return downloadAsBuffer(link, onDownloading: (int percent) => print('thumbnail downloading $percent'));
-		// })
-		// // store thumbnail file
-		// .then((Map file) async
-		// {
-		// 	Map doc = {
-		// 		'_id': 'img-' + songDetail['_id'],
-		// 		'base64': await DownloadFile.getBase64Link(file['contentType'], file['buffer'])
-		// 	};
-
-		// 	// add size
-		// 	songDetail['size_local'] += (doc['base64'].length / 1000);
-
-		// 	// return _idb.insertOne('media', 'file', doc)
-		// 	// 	.then((r) => print('thumbnail downloaded'));
-		// })
-		// update song size
-		//.then((r) => _idb.updateOne('media', 'song', songDetail))
 		// update quota info
 		.then((r) => _idb.storageQuota.updateInfo())
 

@@ -25,7 +25,7 @@ class SlideShow
 		if(id != null) query['_id'] = id;
 		else if(title != null) query['title'] = title;
 
-		return _mongodb.findOne(database: 'cms', collection: 'slideshow', query: query)
+		return _mongodb.findOne(isLive:true, database: 'cms', collection: 'slideshow', query: query)
 			.then((doc)
 			{
 				Map detail = validateFields(doc, SystemSchema.slideshow);
@@ -44,7 +44,7 @@ class SlideShow
 	{
 		slides = [];
 		Map query = { 'refId': id };
-		return _mongodb.find(database: 'cms', collection: 'slide', query: query)
+		return _mongodb.find(isLive:true, database: 'cms', collection: 'slide', query: query)
 			.then((docs){
 				docs.forEach((doc) 
 				{
@@ -77,13 +77,13 @@ class SlideShow
 			"\$set": detail
 		};
 
-		return _mongodb.updateOne(database: 'cms', collection: 'slide', query: query, update: update);
+		return _mongodb.updateOne(isLive:true, database: 'cms', collection: 'slide', query: query, update: update);
 	}
 
 	Future<void> addSlide()
 	{
 		Map doc = { 'refId': id };
-		return _mongodb.insertOne(database: 'cms', collection: 'slide', doc:doc)
+		return _mongodb.insertOne(isLive:true, database: 'cms', collection: 'slide', doc:doc)
 			.then((r) => getSlides());
 	}
 
@@ -92,7 +92,7 @@ class SlideShow
 		slides[i].removeImg();
 		Map query = {'_id': slides[i].id };
 
-		return _mongodb.removeOne(database: 'cms', collection: 'slide', query:query)
+		return _mongodb.removeOne(isLive:true, database: 'cms', collection: 'slide', query:query)
 			.then((r) => slides.removeAt(i));
 	}
 }

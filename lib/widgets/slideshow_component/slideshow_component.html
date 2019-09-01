@@ -1,6 +1,10 @@
 <div *ngIf="slideshow != null">
+
+	<loading 
+        *ngIf="!initilized"
+        [type]="'points'"></loading>
 	
-	<div id="{{slideshow.hashCode}}" 
+	<div id="{{slideshow.hashCode}}"
 		class="swiper-container animatable"
 		*ngIf="slideshow.initilized"
 		[class.no-opacity]="!initilized">

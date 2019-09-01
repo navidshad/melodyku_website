@@ -29,7 +29,7 @@ class UserManagerComponent
 
 	void getPermissions() async
 	{
-    await _mongodb.find(database: 'cms', collection: 'permission')
+    await _mongodb.find(isLive:true, database: 'cms', collection: 'permission')
       .then((documents) 
       {
         List<DbField> permissions = [];

@@ -55,6 +55,6 @@ class AnalyticService {
 
 		if(isLogedIn) config['user_id'] = _userService.user.id;
 
-		send('config', 'GA_MEASUREMENT_ID', js.jsify(config));
+		setOptions('set', js.jsify(config));
 	}
 }

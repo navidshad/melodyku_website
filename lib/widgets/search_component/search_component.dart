@@ -19,6 +19,7 @@ import 'package:melodyku/services/services.dart';
 		formDirectives,
 		GridComponent,
 		ListWideComponent,
+		WidgetLoading,
 	],
 )
 class SearchComponent
@@ -37,6 +38,8 @@ class SearchComponent
 	List<Card> cards_artist = [];
   	List<ListItem> listItems_song = [];
 
+  	bool isPending = false;
+
 	void changeType(String t) {
 		type = t;
 		aggregator = null;
@@ -46,6 +49,8 @@ class SearchComponent
 	void search() async
 	{
 		if(word.trim().length == 0) return;
+
+		isPending = true;
 
 		word = word.toLowerCase();
 
@@ -68,24 +73,25 @@ class SearchComponent
 			}
 		];
 
-		print(pipline);
-
 		if(type == 'artist') {
 			aggregator = Aggregate(
-        database: 'media',
+        		database: 'media',
 				collection: 'artist',
-				pipline: pipline);
+				pipline: pipline
+			);
 		}
 
 		else if(type == 'song') {
 			aggregator = Aggregate(
 				database: 'media',
 				collection: 'song',
-				pipline: pipline);
+				pipline: pipline
+			);
 		}
 
 		await aggregator.initialize();
-		loadNextPage();
+		await loadNextPage();
+		isPending = false;
 	}
 
 	void loadNextPage() async
@@ -95,6 +101,7 @@ class SearchComponent
 		{
 			if(docs.length == 0) nothingFound = true;
 
+			int counter = 0;
 			docs.forEach((doc) 
 			{
 				if(type == 'artist')
@@ -107,8 +114,11 @@ class SearchComponent
 				{
 					Map converted = validateFields(doc, SystemSchema.song);
 					Song song = Song.fromjson(converted);
-					listItems_song.add(song.getAsWidget<ListItem>());
+					ListItem lItem = song.getAsWidget<ListItem>(itemNumber: counter);
+					listItems_song.add(lItem);
 				}
+
+				counter++;
 			});
 		});
 	}

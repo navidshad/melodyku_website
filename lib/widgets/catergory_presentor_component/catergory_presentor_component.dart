@@ -14,6 +14,7 @@ import 'package:melodyku/directives/directives.dart';
 		DirectionDirective,
 		GridMasonryComponent,
 		SliderAdaptiveSizeComponent,
+		WidgetLoading,
 	],
 )
 class CategoryPresentorComponent implements OnInit

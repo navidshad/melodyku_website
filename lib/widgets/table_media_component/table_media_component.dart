@@ -19,6 +19,7 @@ import 'package:melodyku/archive/archive.dart';
     ButtonRounded,
     DirectionDirective,
     ButtonDownloadSong,
+    WidgetLoading,
   ]
 )
 class TableSong implements OnChanges
@@ -67,7 +68,7 @@ class TableSong implements OnChanges
 
   void getMore()
   {
-    navigator.loadNextPage().then((newSongs) => list.addAll(newSongs));
+    navigator.loadNextPage();
   }
 
   void play(int i) {

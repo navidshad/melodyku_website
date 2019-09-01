@@ -21,7 +21,6 @@ import 'package:melodyku/directives/directives.dart';
 class SlideShowEditorComponent implements OnChanges
 {
 	Modal modal;
-	MongoDBService _mongodb;
 
 	Map selectedSlideMap;
 	String tempStamp;
@@ -35,7 +34,7 @@ class SlideShowEditorComponent implements OnChanges
 	@Input()
 	String id;
 
-	SlideShowEditorComponent(this._mongodb)
+	SlideShowEditorComponent()
 	{
 		addBtnOptions = ButtonOptions(
 			lable: 'Add New Slide', type: ButtonType.sl, callback: addNewSlide);

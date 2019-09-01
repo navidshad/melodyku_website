@@ -17,6 +17,10 @@
 
     <div class="_line"></div>
 
+    <loading 
+        *ngIf="list == null || list.length == 0"
+        [type]="'points'"></loading>
+
     <div *ngFor="let song of list; let i=index"
         class="row hoverScale body {{selectedNumber == i ? 'selected':''}}" 
         (mouseenter)="onmouseenter(i)"

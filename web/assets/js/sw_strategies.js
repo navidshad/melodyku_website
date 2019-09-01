@@ -1,19 +1,42 @@
 /*
 	coustom strategies of melodyku service worker
 */
+let patterns = [
+	'/assets/imgs/patterns/01.jpg',
+	'/assets/imgs/patterns/02.jpg',
+	'/assets/imgs/patterns/03.jpg',
+	'/assets/imgs/patterns/04.jpg',
+	'/assets/imgs/patterns/05.jpg',
+	'/assets/imgs/patterns/06.jpg',
+	'/assets/imgs/patterns/07.jpg',
+	'/assets/imgs/patterns/08.jpg',
+	'/assets/imgs/patterns/09.jpg',
+];
 
-function isMatch(url, arr)
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function isMatch(url, arr=[], except=[])
 {
 	let key = false;
 	
 	arr.forEach(str => {
-		if(url.href.includes(str)) {
+		if(url.href.includes(str))
 			key = true;
-			//console.log('.sw matched', url.href)
-		}
+	});
+
+	except.forEach(str => {
+		if(url.href.includes(str))
+			key = false;
 	});
 
 	return key;
+}
+
+function ignoreIfHasLivePropertyInHeader(request)
+{
+	return request.headers.get('live');
 }
 
 async function catchFirstPostRequest_bodyAsKey({url, event})
@@ -81,6 +104,67 @@ async function catchFirstPostRequest_bodyAsKey({url, event})
 		});
 
 	//return fetch(event.request);
+}
+
+async function networkFirstPostRequest_bodyAsKey({url, event})
+{
+	let request = event.request.clone();
+
+	let body = await request.json();
+	let id = `${url.pathname}-${JSON.stringify(body)}`;
+
+	let serializeResponse = async function (response) 
+	{
+	  let serializedHeaders = {};
+
+	  for (var entry of response.headers.entries()) {
+	    serializedHeaders[entry[0]] = entry[1];
+	  }
+    
+	  let serialized = {
+	    headers: serializedHeaders,
+	    status: response.status,
+	    statusText: response.statusText
+	  };
+
+	  serialized.body = await response.json();
+	  return serialized;
+	}
+
+	storeResponse = async function (resid, res)
+	{
+		let doc = await serializeResponse(res);
+		doc['_id'] = resid;
+    
+    	return IDB_request.put('post', doc);
+	}
+
+	getResponse = function (resid)
+	{
+		//return idbKeyval
+		return IDB_request.get('post', resid)
+		.then((doc) =>
+		{
+			if(!doc) return null;
+			else return new Response(JSON.stringify(doc.body), doc);
+		})
+	}
+
+	return fetch(event.request)
+		.then((networkRes) => 
+		{
+			// not cached
+			if(!networkRes) {
+				throw('not respond');
+				return;
+			}
+
+			// store updated response
+			storeResponse(id, networkRes.clone());
+
+			return networkRes;
+		})
+		.catch(async e => getResponse(id));
 }
 
 async function catchFirstPostRequest_pathAsKey({url, event})
@@ -152,12 +236,12 @@ async function catchFirstPostRequest_pathAsKey({url, event})
 	//return fetch(event.request);
 }
 
-async function networkFirstPostRequest_bodyAsKey({url, event})
+async function networkFirstPostRequest_pathAsKey({url, event})
 {
 	let request = event.request.clone();
 
 	let body = await request.json();
-	let id = `${url.pathname}-${JSON.stringify(body)}`;
+	let id = url.pathname;
 
 	let serializeResponse = async function (response) 
 	{
@@ -181,12 +265,14 @@ async function networkFirstPostRequest_bodyAsKey({url, event})
 	{
 		let doc = await serializeResponse(res);
 		doc['_id'] = resid;
-		return idbKeyval.set(resid, doc);
+    
+    	return IDB_request.put('post', doc);
 	}
 
 	getResponse = function (resid)
 	{
-		return idbKeyval.get(resid)
+		//return idbKeyval
+		return IDB_request.get('post', resid)
 		.then((doc) =>
 		{
 			if(!doc) return null;
@@ -282,4 +368,20 @@ async function catchFirstSongRequest({url, event, params})
 		console.error('response from server if song is not in the download caches', e);
 		return responsFromServer();
 	});
+}
+
+async function returnPatternImageOn404({url, event, params})
+{
+	return fetch(event.request)
+		.catch(async fe => {
+
+			// retrive precached pattern
+			const cache = await caches.open(workbox.core.cacheNames.precache);
+			const response = await cache.match(
+			  workbox.precaching.getCacheKeyForURL(patterns[getRandomInt(8)])
+			);
+
+			if(response) return response;
+			return fe;
+		});
 }

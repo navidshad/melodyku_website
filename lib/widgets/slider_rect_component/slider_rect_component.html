@@ -12,6 +12,10 @@
             (click)="playAll()">{{lang.getStr('playAll')}}</div>
     </div>
 
+    <loading 
+        *ngIf="!initilized"
+        [type]="'points'"></loading>
+
     <div id="{{items.hashCode}}" 
         class="swiper-container animatable" 
         [direction]="lang.getDir()"

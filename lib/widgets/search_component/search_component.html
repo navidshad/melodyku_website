@@ -13,12 +13,19 @@
 		</div>
 	</div>
 
-	<div class="notfound flex-column flex-center" *ngIf="nothingFound && aggregator != null">
+	<loading 
+        *ngIf="isPending"
+        [type]="'music'">
+    </loading>
+
+	<div class="notfound flex-column flex-center" 
+		*ngIf="nothingFound && aggregator != null">
 		<div>{{lang.getStr('notFound')}}</div>
 	</div>
 
 	<list-wide 
 		*ngIf="type == 'song' && listItems_song.length > 0"
+		[title]="word"
 	    [numerical]="true"
 	    [items]="listItems_song"
 	    [exploreBtn]="false"

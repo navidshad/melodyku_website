@@ -16,6 +16,7 @@ import 'package:melodyku/directives/directives.dart';
     coreDirectives,
     CardRectComponent,
     DirectionDirective,
+    WidgetLoading,
   ],
 )
 class GridComponent
