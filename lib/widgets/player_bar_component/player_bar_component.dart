@@ -32,6 +32,7 @@ class PlayerBareComponent
   //PlayerService _playerService;
   LanguageService lang;
   SubscriptionService _subscriptionService;
+  UserService _userService;
   Player player;
 
   // controller buttons
@@ -44,7 +45,7 @@ class PlayerBareComponent
   Song get current => player.current;
   
 
-  PlayerBareComponent(this.player, this.lang, this._subscriptionService)
+  PlayerBareComponent(this.player, this.lang, this._subscriptionService, this._userService)
   {
     player.audio = AudioElement();
   }
@@ -115,6 +116,11 @@ class PlayerBareComponent
 
   void buy() => 
     _subscriptionService.goToSubscriptionPage();
+
+  void login() => Navigator.gotTo('login');
+
+  bool getLoginStatus()
+    => _userService.isLogedIn;
 
   bool isNeedWarning()
   {

@@ -27,7 +27,7 @@ class Subscription
 	{
 		Map query = {'refId': refId };
     
-		_mongodb.findOne(database: 'user', collection: 'subscription', query: query)
+		_mongodb.findOne(isLive:true, database: 'user', collection: 'subscription', query: query)
 			.then((result) 
 			{
 				Map converted = validateFields(result, SystemSchema.subscription);

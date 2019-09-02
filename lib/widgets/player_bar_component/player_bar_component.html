@@ -4,13 +4,20 @@
     <div class="warning" *ngIf="isNeedWarning()">
         <p>
             <span>{{lang.getStr('warningPlayingDemo')}} | </span>
-            <span class="buy pointer" (click)="buy()">{{lang.getStr('buySubscription')}}</span>
+
+            <span class="buy pointer" 
+                *ngIf="getLoginStatus()"
+                (click)="buy()">{{lang.getStr('buySubscription')}}</span>
+
+            <span class="buy pointer" 
+                *ngIf="!getLoginStatus()"
+                (click)="login()">{{lang.getStr('loginOrRegister')}}</span>
         </p>
     </div>
 
     <!-- queue body -->
     <div [class]="getQueueClass()">
-        <h4>لیست پخش</h4>
+        <h4 (click)="SwitchQueue()">لیست پخش</h4>
 
         <div class="queue-list">
 
@@ -84,7 +91,8 @@
         </div>
 
         <!-- queue button -->
-        <div class="queue {{isQueueVisible ? 'rotate-half' : ''}}" (click)="SwitchQueue()">
+        <div class="queue {{isQueueVisible ? 'rotate-half' : ''}}" 
+            (click)="SwitchQueue()">
             <img src="assets/svg/icon_list.svg">
         </div>
     </div>

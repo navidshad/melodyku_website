@@ -20,6 +20,13 @@
     <!-- service worker -->
     <script src="/assets/js/sw_installation.js" type="module"></script>
 
+    <!-- initialize Pushe Notofication service -->
+    <script src="https://static.pushe.co/pusheweb.js"></script>
+    <script>
+        Pushe.init("8ep68wjwww84z16d");
+        Pushe.subscribe();
+    </script>
+
     <title>ملودیکو</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">

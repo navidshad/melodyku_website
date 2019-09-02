@@ -142,7 +142,7 @@ class CardTariffComponent implements OnChanges
 					// update subscription detail
 					_userService.user.subscription.getUserSubscription();
 					// got to factor view
-					Navigator.gotTo('factor', parameters: {'id': factor.id});
+					Navigator.gotTo('factor', parameters: {'id': factor.id.toString()});
 				}
 
 				// get factor link

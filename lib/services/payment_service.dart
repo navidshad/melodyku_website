@@ -101,7 +101,7 @@ class PaymentService
 			}).catchError(print);
 	}
 
-	Future<String> getPaylink(String factorid, String getway) async
+	Future<String> getPaylink(int factorid, String getway) async
 	{
 		String url = Vars.host + '/payment/getPayLink';
 

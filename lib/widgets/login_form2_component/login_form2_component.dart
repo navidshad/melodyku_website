@@ -68,9 +68,23 @@ class LoginForm2Component
     showForm('login');
   }
 
-  void normalizePhone()
+  bool normalizePhone()
   {
-    normalizedPhone = phone;
+    errorMessage = '';
+    bool key = false;
+
+    int temp = int.tryParse(phone);
+
+    if(temp == null) {
+      phone = '';
+      errorMessage = 'enterEnglishPhone';
+      swicher.showLast();
+      return key;
+    }
+
+    normalizedPhone = temp.toString();
+    key = true;
+    
     normalizedPhone.replaceAll('+', '');
 
     if(normalizedPhone.startsWith(countryCode))
@@ -80,6 +94,8 @@ class LoginForm2Component
       normalizedPhone = normalizedPhone.replaceRange(0, 1, '');
 
     normalizedPhone = countryCode + normalizedPhone;
+
+    return key;
   }
 
   // visibility of form -------------------------
@@ -96,7 +112,7 @@ class LoginForm2Component
   {
     swicher.hideAll();
 
-    normalizePhone();
+    if(!normalizePhone()) return;
     
     await _userService.login(identity: normalizedPhone, identityType: 'phone', password: password)
       .then((r) async
@@ -105,20 +121,20 @@ class LoginForm2Component
       })
       .catchError((e) {
         print('login error $e');
-        errorMessage = 'wrong phone or password';
+        errorMessage = 'wrongPhoneOrPassword';
         showForm('login');
       });
   }
 
   void registerPhone() async
   {
-    normalizePhone();
+    if(!normalizePhone()) return;
 
     swicher.hideAll();
 
     if(!validatePhone())
     {
-      errorMessage = 'Wrong phone number';
+      errorMessage = 'wrongPhoneNumber';
       showForm('register-phone');
       return;
     }
@@ -126,14 +142,14 @@ class LoginForm2Component
     await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
       .then((r) async
       {
-        errorMessage = 'Your phone number has been submitted';
+        errorMessage = 'yourPhoneNumberHasBeenSubmitted';
 
         await Future.delayed(Duration(milliseconds: 500));
         showForm('submite-password');
       })
       .catchError((e) {
         print('registerPhone error $e');
-        errorMessage = 'wrong phone';
+        errorMessage = 'phoneIsWrong';
         showForm('register-phone');
       });
   }
@@ -149,41 +165,41 @@ class LoginForm2Component
       .registerSubmitPass(identity: normalizedPhone, password: password, serial: code)
       .then((r) async
       {
-        errorMessage = 'Success';
+        errorMessage = 'success';
 
         await Future.delayed(Duration(milliseconds: 2000));
         showForm('login');
       })
       .catchError((e) {
         print('submitePassword error $e');
-        errorMessage = 'Check your information please, and submite again';
+        errorMessage = 'checkYourInfoAndSubmiteAgain';
         showForm('submite-password');
       });
   }
 
   void registerPhoneForChangePassword() async
   {
-    normalizePhone();
+    if(!normalizePhone()) return;
 
     swicher.hideAll();
 
     if(!validatePhone())
     {
-      errorMessage = 'Wrong phone number';
+      errorMessage = 'phoneIsWrong';
       return;
     }
 
     await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
       .then((r) async
       {
-        errorMessage = 'Your phone number has been submitted';
+        errorMessage = 'yourPhoneNumberHasBeenSubmitted';
 
         await Future.delayed(Duration(milliseconds: 500));
         showForm('submite-password-for-change');
       })
       .catchError((e) {
         print('registerPhoneForChangePassword error $e');
-        errorMessage = 'wrong phone';
+        errorMessage = 'phoneIsWrong';
         showForm('register-phone-for-change-password');
       });
   }
@@ -192,7 +208,7 @@ class LoginForm2Component
   {
     if(phone == '' || password == '' || code == '') return;
 
-    normalizePhone();
+    if(!normalizePhone()) return;
 
     swicher.hideAll();
 
@@ -201,14 +217,14 @@ class LoginForm2Component
       .changePass(identity: normalizedPhone, password: password, serial: code)
       .then((r) async
       {
-        errorMessage = 'Success';
+        errorMessage = 'success';
 
         await Future.delayed(Duration(milliseconds: 2000));
         showForm('login');
       })
       .catchError((e) {
         print('submitePasswordForChange error $e');
-        errorMessage = 'Check your information please, and submite again';
+        errorMessage = 'checkYourInfoAndSubmiteAgain';
         showForm('submite-password-for-change');
       });
   }

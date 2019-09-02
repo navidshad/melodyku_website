@@ -1,7 +1,19 @@
 {
-	"web-client": "0.7.0",
+	"web-client": "0.7.2",
 
 	"log": {
+
+		"0.7.2": [
+			"improve player queue height",
+			"attached category detail to tracked songs",
+			"some UI improvements"
+		],
+
+		"0.7.1": [
+			"added Pushe library as Notification service",
+			"solved farsi number problem at login form",
+			"solved factor problem"
+		],
 
 		"0.7.0": [
 			"added loading svg for content sections",

@@ -39,6 +39,7 @@ class ActivityTracker
 			'songId'	: song.id,
 			'artistId'	: song.artistId,
 			'refId'		: _userId,
+			'categories': song.categories,
 		};
 
 		await _mongodb.insertOne( database: 'user', collection: collName, doc: recentDoc)
@@ -72,6 +73,7 @@ class ActivityTracker
 				'songId'	: song.id,
 				'artistId'	: song.artistId,
 				'refId'		: _userId,
+				'categories': song.categories,
 			};
 
 			await _mongodb.insertOne(database: 'user', collection: collName, doc: recentDoc)

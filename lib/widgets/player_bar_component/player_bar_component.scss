@@ -57,7 +57,7 @@ $playerHeight: 60px;
     width: 100%;
     background: #00000050;
     bottom: $playerHeight;
-    height: 22px;
+    height: 30px;
 
     P{
         margin: 3px 0px 0px 0px;
@@ -350,6 +350,10 @@ $tempBorder: 0px solid white;
 
 @media screen and (max-width: 479px) 
 {
+    .queue-container {
+        margin-top: 40px;
+    }
+
     .play-btns {
         transform: scale(0.8);
     }

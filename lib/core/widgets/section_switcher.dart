@@ -3,6 +3,7 @@ import 'dart:html';
 class SectionSwitcher
 {
 	List<HtmlElement> selectors;
+	String lastSection = '';
 
 	SectionSwitcher(this.selectors)
 	{
@@ -25,6 +26,7 @@ class SectionSwitcher
 
 	Future<void> show(String selector) async
 	{
+		lastSection = selector;
 		await hideAll();
 
 		Element el;
@@ -45,4 +47,6 @@ class SectionSwitcher
 		el.style.setProperty('display', 'block');
 		el.style.setProperty('opacity', '1');
 	}
+
+	Future<void> showLast() => show(lastSection);
 }

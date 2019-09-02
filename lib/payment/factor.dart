@@ -4,7 +4,7 @@ import 'package:melodyku/services/services.dart';
 
 class Factor
 {
-	String id;
+	int id;
 	String refId;
 	String description;
 	bool isPaid;
@@ -34,7 +34,7 @@ class Factor
 	factory Factor.fromMap(Map detail)
 	{
 		return Factor(
-			detail['_id'].toString(),
+			detail['_id'],
 			detail['refId'],
 			detail['description'],
 			detail['isPaid'],

@@ -210,6 +210,7 @@ class SystemSchema
 		DbField('refId'),
 		DbField('songId'),
 		DbField('artistId', dataType: DataType.dateTime),
+		DbField('categories', dataType: DataType.array_string),
 	];
 
 	static List<DbField> factor = 
