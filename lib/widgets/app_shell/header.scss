@@ -4,8 +4,7 @@ $barHeight: 50px;
 $barHeight_small: 40px;
 .bar {
     background: $menu-color;
-    height: $barHeight;
-    padding: 0px 10px;
+    //height: $barHeight;
     box-shadow: -20px 0px 10px 10px #080b1f52;
 
     position: sticky;
@@ -20,13 +19,35 @@ $barHeight_small: 40px;
     .active
     {
         background: $lightblue-color;
-        height: $barHeight;
-        padding-top: 9.5px;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
     }
+
+    div:first-child{
+        margin-left: 5px;
+        padding-left: 0px;
+    }
+
+    div:last-child{
+        margin-right: 5px;
+        padding-right: 0px;
+    }
+
+    div{
+        div{
+            padding: 5px 0;
+        }
+    }
+}
+
+.auth{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
 }
 
 .header-title{
     h3{
+        margin: 0px;
         font-size: 24px;
     }
 }
@@ -40,6 +61,10 @@ $barHeight_small: 40px;
     img {
         width: 32px;
         height: 32px;
+    }
+
+    div{
+        margin: 0px 3px;
     }
 }
 
@@ -56,17 +81,22 @@ $barHeight_small: 40px;
     .push{
         display: none;
     }
+
+    .auth{
+        font-size: 10px;
+        padding: 5px;
+    }
 }
 
 @media only screen and (max-width: 375px) 
 {
     .bar {
-        height: $barHeight_small;
+        //height: $barHeight_small;
 
         .active
         {
-            height: $barHeight_small;
-            padding-top: 8.5px;
+            //height: $barHeight_small;
+            //padding-top: 8.5px;
         }
     }
 
@@ -79,7 +109,7 @@ $barHeight_small: 40px;
 
     .header-title{
         h3{
-            font-size: 20px;
+            font-size: 15px;
         }
     }
 }

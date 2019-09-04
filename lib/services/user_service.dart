@@ -15,7 +15,14 @@ class UserService
   AuthService auth;
 
   StreamController<bool> _loginController;
-  Stream<bool> get loginEvent => _loginController.stream;
+  Stream<bool> _broadCast;
+  
+  Stream<bool> get loginEvent {
+    if(_broadCast == null)
+      _broadCast = _loginController.stream.asBroadcastStream();
+
+    return _broadCast;
+  } 
   
   String token;
   User _user;

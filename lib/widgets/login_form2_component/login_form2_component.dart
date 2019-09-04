@@ -24,7 +24,7 @@ import 'countries.dart';
     SelectField,
   ]
 )
-class LoginForm2Component
+class LoginForm2Component implements OnChanges
 {
   LanguageService lang;
   UserService _userService;
@@ -46,10 +46,18 @@ class LoginForm2Component
 
   String errorMessage;
 
+  @Input('form')
+  String form;
+
   // constructor --------------------------------
   LoginForm2Component(this.lang, this._userService)
   {
     getCountries();
+  }
+
+  ngOnChanges(dynamic changes)
+  {
+    if(form != null) showForm(form);
   }
 
   // get and register modal to modal Manager
@@ -65,7 +73,7 @@ class LoginForm2Component
       el.querySelector('#submite-password-for-change'), 
     ]);
 
-    showForm('login');
+    //showForm(form ?? 'login');
   }
 
   bool normalizePhone()
@@ -168,7 +176,8 @@ class LoginForm2Component
         errorMessage = 'success';
 
         await Future.delayed(Duration(milliseconds: 2000));
-        showForm('login');
+        //showForm('login');
+        login();
       })
       .catchError((e) {
         print('submitePassword error $e');

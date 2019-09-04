@@ -27,11 +27,12 @@ class TableSong implements OnChanges
   PlayerService _playerService;
   Player _player;
   LanguageService lang;
+  UserService _userService;
   
   String title = '';
   List<Song> list;
 
-  TableSong(this.lang, this._playerService, this._player);
+  TableSong(this.lang, this._playerService, this._player, this._userService);
 
   void ngOnChanges(Map<String, SimpleChange> changes)
   {
@@ -79,6 +80,8 @@ class TableSong implements OnChanges
   void onmouseenter(int i) => hoverNumber = i;
   // when mose go out from
   void onmouseleave() => hoverNumber = -1;
+
+  bool get isLogedIn => _userService.isLogedIn;
 
   bool getAccessToShowMore()
   {

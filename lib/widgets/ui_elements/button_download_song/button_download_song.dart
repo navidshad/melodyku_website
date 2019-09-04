@@ -18,6 +18,7 @@ import 'package:melodyku/services/services.dart';
 class ButtonDownloadSong implements OnChanges
 {
 	ContentProvider _provider;
+	AnalyticService _analytic;
 
 	ButtonOptions options;
 	bool isDownloaded = false;
@@ -25,7 +26,7 @@ class ButtonDownloadSong implements OnChanges
 	@Input()
 	Song song;
 
-	ButtonDownloadSong(this._provider)
+	ButtonDownloadSong(this._provider, this._analytic)
 	{
 		options = ButtonOptions(lable:'0', type:ButtonType.sl_x, callback: download);
     	options.icon = 'assets/imgs/icons/downloads.png';
@@ -51,6 +52,8 @@ class ButtonDownloadSong implements OnChanges
 	void download(ButtonOptions op)
 	{
 		op.doWaiting(true);
+
+		_analytic.trackEvent('download song', category:'download');
 
 		_provider.downloadSong(song, 
 		  (int percent) => op.lable = percent.toString())

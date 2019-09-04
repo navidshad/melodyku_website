@@ -7,7 +7,8 @@
         <div class='cell artist'>{{lang.getStr("artist")}}</div>
         <div class='cell duration'>{{lang.getStr("duration")}}</div>
         
-        <div class="cell download">
+        <div class="cell download"
+            *ngIf="isLogedIn">
             {{lang.getStr("download")}}
         </div>
 
@@ -48,7 +49,8 @@
         <div (click)="play(i)" class='cell artist subtitle'>{{song.artist}}</div>
         <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
 
-        <div class="cell download">
+        <div class="cell download"
+            *ngIf="isLogedIn">
             <button-download-song
                 [song]="song">
             </button-download-song>

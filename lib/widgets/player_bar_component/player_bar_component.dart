@@ -27,13 +27,14 @@ import 'package:melodyku/pips/pips.dart';
 )
 class PlayerBareComponent
 {
-  bool isVisible = true;
-  bool isQueueVisible = false;
-  //PlayerService _playerService;
   LanguageService lang;
+  AnalyticService _analytic;
   SubscriptionService _subscriptionService;
   UserService _userService;
   Player player;
+
+  bool isVisible = true;
+  bool isQueueVisible = false;
 
   // controller buttons
   ImageButton nextBtn;
@@ -45,7 +46,7 @@ class PlayerBareComponent
   Song get current => player.current;
   
 
-  PlayerBareComponent(this.player, this.lang, this._subscriptionService, this._userService)
+  PlayerBareComponent(this.player, this.lang, this._subscriptionService, this._userService, this._analytic)
   {
     player.audio = AudioElement();
   }
@@ -107,17 +108,25 @@ class PlayerBareComponent
   }
 
   // queue metods
-  void SwitchQueue() => isQueueVisible = !isQueueVisible;
+  void SwitchQueue() {
+    _analytic.trackEvent('switch player queue', category: 'player');
+    isQueueVisible = !isQueueVisible;
+  }
 
   String getQueueClass() => 
     (isQueueVisible) ? 'queue-container queue-swipup' : 'queue-container queue-swipdown';
 
   String isitCurrentPlaying(id) => (player.current?.id == id) ? 'queue-current' : '';
 
-  void buy() => 
+  void buy() {
+    _analytic.trackEvent('goto subscription', category: 'player');
     _subscriptionService.goToSubscriptionPage();
+  }
 
-  void login() => Navigator.gotTo('login');
+  void login() {
+    _analytic.trackEvent('goto login', category: 'player');
+    Navigator.gotTo('login', parameters:{'form':'login'});
+  }
 
   bool getLoginStatus()
     => _userService.isLogedIn;

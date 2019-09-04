@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -80,5 +81,11 @@ class CategoryPresentorComponent implements OnInit
 			titleLink	: '/#/category/${cat['_id']}',
 			thumbnail	: _provider.getImage(database: 'media', type: 'category', id: cat['_id'], imgStamp: cat['imgStamp']),
 		);
+	}
+
+	int getWidth(){
+		if(window.screen.width <= 500)
+			return 120;
+		else return 200;
 	}
 }

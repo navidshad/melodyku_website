@@ -2,29 +2,31 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:html';
 
-import 'package:melodyku/core/core.dart';
-import 'package:melodyku/js_interop/js_interop.dart';
+import 'package:melodyku/core/core.dart' as core;
+import 'package:melodyku/services/services.dart';
+import 'package:melodyku/purechat/purechat_js.dart';
 
 class AppshellService
 {
 	Client _http;
+	UserService _userService;
+  PureChatAPI purechatAPI;
 
 	String version = '';
 	String serverVersion;
 
-	AppshellService()
+	AppshellService(this._userService)
 	{
-		_loadSession();
 		_http = Client();
 		getVersion();
+
+		_userService.loginEvent.listen(onLoginEvent);
+    getPureChatApi().then((api) => purechatAPI = api);
 	}
 
-	void update() async
+	void onLoginEvent(bool isLoggedIn)
 	{
-		version = serverVersion;
-		_saveSession();
-
-		reloadPage(true);
+		if(!isLoggedIn) core.Navigator.gotTo('vitrin');
 	}
 
 	void getVersion()
@@ -32,21 +34,7 @@ class AppshellService
 		String path = window.location.origin + '/version.json';
 		_http.get(path)
 			.then(analizeResult)
-			.then((result) 
-			{
-				version = result['web-client'];
-				_saveSession();
-			});
-	}
-
-	void _loadSession()
-	{
-		version = window.localStorage['version'];
-	}
-
-	void _saveSession()
-	{
-		window.localStorage['version'] = version;
+			.then((result) => version = result['web-client']);
 	}
 
 	dynamic _convert(String jsonString) => jsonDecode(jsonString);

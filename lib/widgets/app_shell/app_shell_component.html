@@ -11,15 +11,28 @@
     <div class="main-content" id="mainContent">
 
         <!-- header -->
-        <header class="bar" dir="rtl">
+        <header class="bar" dir="ltr">
 
-            <!-- muenu button -->
-            <div class="icon">
-                <div class="menu-btn push unselectable">
-                    <img src="/assets/svg/icon_menu.svg">
+            <div class="icon flex-row flex-center">
+                <div class='btn-group'
+                    *ngIf="!isLogedIn">
+                    <div class="btn-sl auth"
+                        (click)="openlogin('login')">{{lang.getStr('login')}}</div>
+
+                    <div class="btn-sl auth"
+                        (click)="openlogin('register-phone')">{{lang.getStr('register')}}</div> 
                 </div>
-                <div class="menu-btn nopush unselectable">
-                    <img src="/assets/svg/icon_menu.svg">
+
+                <div class="unselectable profile-btn"
+                    *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)">
+                    <img src="/assets/svg/icon_user_m.svg">
+                </div>
+
+                <div class="animatable"
+                    (click)="onPressSearch()"
+                    [routerLinkActive]="'active'"
+                    [routerLink]="pageRoutes.getRouterUrl('search')">
+                    <img src="/assets/svg/icon_search.svg">
                 </div>
             </div>
 
@@ -27,22 +40,26 @@
                 <h3>{{titleBar}}</h3>
             </div>
 
-            <div class="profile flex-row flex-center">
-                <div class="icon"
-                    (click)="onPressSearch()"
-                    [routerLinkActive]="'active'"
-                    [routerLink]="pageRoutes.getRouterUrl('search')">
-                    <img src="/assets/svg/icon_search.svg">
+            <!-- muenu button -->
+            <div class="flex-row icon">
+                <div class="animatable"
+                    [routerLinkActive]="'active'">
+                    <a [routerLink]="pageRoutes.getRouterUrl('vitrin')">
+                        <div class="flex-column flex-center rect-item">
+                            <img class="drawer-icon"
+                                src="{{pageRoutes.getMenuItem('vitrin').img_ref}}"> 
+                        </div>
+                    </a>
                 </div>
 
-                <div class="icon unselectable profile-btn"
-                    *ngIf="isLogedIn" extractor (onExtract)="setupProfileDrawer(shell)">
-                    <img src="/assets/svg/icon_user_m.svg">
+                <div class="">
+                    <div class="menu-btn push unselectable">
+                        <img src="/assets/svg/icon_menu.svg">
+                    </div>
+                    <div class="menu-btn nopush unselectable">
+                        <img src="/assets/svg/icon_menu.svg">
+                    </div>
                 </div>
-                
-                <div class="btn-sl"
-                    *ngIf="!isLogedIn"  
-                    (click)="openlogin()">{{lang.getStr('loginOrRegister')}}</div>
             </div>
         </header>
 
@@ -83,7 +100,20 @@
             </li>
         </ul>
 
-        <translate-btn></translate-btn>
+        <div class="menu-group"
+            *ngIf="appshellService.purechatAPI != null">
+            <div class="d-menu-item w3-center"
+                (click)="appshellService.purechatAPI.openChat()">
+                <div class="flex-column flex-center rect-item pointer">
+                    <img src="/assets/svg/icon_support.svg" class="drawer-icon">
+                    <span class="subtitle">{{lang.getStr('onlineSupport')}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <translate-btn></translate-btn>
+        </div>
     </div>
     <!-- end drawer_main menu -->
 

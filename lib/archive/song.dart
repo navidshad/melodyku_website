@@ -76,7 +76,7 @@ class Song implements MediaItem
   {
     Song mFromJson;
     try {
-      print('Song.fromjson $detail');
+      //print('Song.fromjson $detail');
       mFromJson = Song(
       id        : (detail['_id'] != null) ? detail['_id'].toString() : '',
       artistId  : (detail['artistId'] != null) ? detail['artistId'] : '',

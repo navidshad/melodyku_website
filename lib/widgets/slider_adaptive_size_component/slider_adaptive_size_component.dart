@@ -56,7 +56,11 @@ class SliderAdaptiveSizeComponent implements OnChanges
         spaceBetween: 50,
         navigation: SwiperNavigation(
           nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',),
+          prevEl: '.swiper-button-prev',
+        ),
+        more: {
+          'watchOverflow': true,
+        }
       )
     );
 

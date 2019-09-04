@@ -12,6 +12,7 @@ class Player
 {
   // variables
   UserService _userServide;
+  AnalyticService _analytic;
   
   List<Song> _list = [];
   List<ListItem> listItems = [];
@@ -43,6 +44,8 @@ class Player
   Player()
   {
     _userServide = Injector.get<UserService>();
+    _analytic = Injector.get<AnalyticService>();
+
     // create an audio element
     audio = AudioElement();
   }
@@ -56,6 +59,7 @@ class Player
       //print('seeking: $seeking');
       if(!seeking) currentTime = audio.currentTime.toInt().toDouble();
     });
+
     // stop when current was ended
     _audio.onEnded.listen((e) 
     {
@@ -95,8 +99,8 @@ class Player
       playBtn.clicked(true);
 
       // track playling
-      Injector.get<AnalyticService>()
-        .trackEvent('play', category: 'song', label: current.title, value: current.artist);
+      String lable = '${current.artist}-${current.title}';
+      _analytic.trackEvent('play', category: 'player', label: lable, value: current.id);
     }
     else {
       audio.pause();
@@ -148,8 +152,15 @@ class Player
     _list.removeWhere((item) => (item.id == id) ? true : false);
     listItems.removeWhere((item) => (item.id == id) ? true : false);
   }
-  void repeat() => isLoop = !isLoop;
-  void shuffle() => isShuffle = !isShuffle;
+  void repeat() {
+    _analytic.trackEvent('repeat play', category: 'player');
+    isLoop = !isLoop;
+  }
+
+  void shuffle() {
+    _analytic.trackEvent('play shuffle', category: 'player');
+    isShuffle = !isShuffle;
+  }
   
   void add(Song track) 
   {
@@ -169,6 +180,8 @@ class Player
 
   void next() 
   {
+    _analytic.trackEvent('play next song', category: 'player');
+
     // shuffle
     if(isShuffle) {
       playShuffle();
@@ -191,6 +204,8 @@ class Player
 
   void previous() 
   {
+    _analytic.trackEvent('play previous song', category: 'player');
+
     // shuffle
     if(isShuffle) {
       playShuffle();

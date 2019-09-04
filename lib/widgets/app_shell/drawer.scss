@@ -41,21 +41,28 @@
 
     .d-menu-item
     {
+        cursor: pointer;
+        
         a {
             text-decoration: none;
+        }
 
-            .rect-item{
-                padding-top: 8px;
+        .rect-item{
+            padding-top: 8px;
 
-                .subtitle{
-                    font-size: 0.6rem;
-                    padding-top: 3px;
-                }
+            //for button tag
+            background: unset;
+            border: unset;
+            color: white;
+
+            .subtitle{
+                font-size: 0.6rem;
+                padding-top: 3px;
             }
+        }
 
-            .wide-item{
-                padding: 10px 30px;
-            }
+        .wide-item{
+            padding: 10px 30px;
         }
     }
 

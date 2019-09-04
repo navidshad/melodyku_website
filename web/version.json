@@ -1,7 +1,17 @@
 {
-	"web-client": "0.7.2",
+	"web-client": "0.7.3",
 
 	"log": {
+
+		"0.7.3": [
+			"separated login/register's route.",
+			"added more analytic.",
+			"added group buttons class.",
+			"added customer support live chat.",
+			"fixed a problem with staying on the same page after logout.",
+			"fix 3x refresh after first view.",
+			"added home button on header bar."
+		],
 
 		"0.7.2": [
 			"improve player queue height",

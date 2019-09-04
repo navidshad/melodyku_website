@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator)
     	// let confirmation = window.confirm('Melodyku has been updated, do you ready for reload this page?');
     	// if(confirmation) window.location.reload();
 
-    	window.location.reload();
+    	//window.location.reload();
     });
 
 	wb.register();

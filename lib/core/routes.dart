@@ -53,7 +53,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     position      : MenuPosition.none,
     permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
-                      routePath: RoutePath(path: 'login'),
+                      routePath: RoutePath(path: 'login/:form'),
                       component: login_template.LoginPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/home.png',
@@ -398,6 +398,16 @@ class PageRoutes
       });
 
     return list;
+  }
+
+  MenuItem getMenuItem(String name)
+  {
+    MenuItem item;
+
+    pageDefinitions.forEach((String itemName, PageDefinition page) 
+    { if(itemName == name) item = page.toMenuItem(); });
+    
+    return item;
   }
 
   List<MenuItem> getMainMenuItems()

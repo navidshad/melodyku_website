@@ -413,6 +413,10 @@ workbox.precaching.precacheAndRoute([
     "revision": "7da7d4931c8baefacd2e1bf4c8dc8f22"
   },
   {
+    "url": "assets/svg/icon_support.svg",
+    "revision": "fa288ca6b48b22f9777d6c158886927b"
+  },
+  {
     "url": "assets/svg/icon_telegram.svg",
     "revision": "22e8952dacbaa536985e34b4abe2c493"
   },

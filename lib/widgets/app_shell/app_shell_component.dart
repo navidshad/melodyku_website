@@ -120,9 +120,9 @@ class AppShellComponent
   }
 
   // register form ------------------------------
-  void openlogin() {
+  void openlogin(String form) {
     //_messageService.send(MessageDetail(visible: true, type: MessageType.modal, detail: {'name': 'login'}));
-    Navigator.gotTo('login');
+    Navigator.gotTo('login', parameters: {'form':form});
   }
 
   void onPressSearch()

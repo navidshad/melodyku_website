@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/services/services.dart';
@@ -13,12 +14,14 @@ import 'package:melodyku/page/page.dart';
     LoginForm2Component
   ]
 )
-class LoginPage
+class LoginPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
   UserService _userservice;
   MessageService _messageService;
+
+  String form;
 
   // constructor ==================================
   LoginPage(this.lang, this._messageService, this._userservice)
@@ -30,5 +33,11 @@ class LoginPage
       needLogedIn: false,
       title: 'login',
     );
+  }
+
+  @override
+  void onActivate(_, RouterState current) async 
+  {
+    form = current.parameters['form'];
   }
 }

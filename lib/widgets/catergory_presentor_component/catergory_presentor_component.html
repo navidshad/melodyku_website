@@ -12,7 +12,6 @@
         [type]="'points'"></loading>
 
     <div class="categories">
-    	
         <grid-masonry 
     		*ngIf="type == 'masonry'"
     		[cards]="categories"></grid-masonry>
@@ -20,7 +19,7 @@
         <slider-adaptive_size
             *ngIf="type == 'slider'"
             [cards]="categories"
-            [width]="200"
+            [width]="getWidth()"
             [height]="120"></slider-adaptive_size>
     </div>
 </div>

@@ -38,7 +38,7 @@ class AnalyticService {
 		);
 	}
 
-	void trackEvent(String action, {String category, String label, String value}) 
+	void trackEvent(String action, {String category='', String label='', String value=''}) 
 	{
 		send('event', action, js.jsify(
 			{
