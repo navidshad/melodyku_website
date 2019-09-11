@@ -10,7 +10,7 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
 
-import 'countries.dart';
+//import 'countries.dart';
 
 @Component(
   selector: 'login-form2',
@@ -21,7 +21,8 @@ import 'countries.dart';
     ElementExtractorDirective,
     DirectionDirective,
     formDirectives,
-    SelectField,
+    //SelectField,
+    PhoneNumberField,
   ]
 )
 class LoginForm2Component implements OnChanges
@@ -34,26 +35,18 @@ class LoginForm2Component implements OnChanges
   
   Element base;
   SectionSwitcher swicher;
-
-  List<DbField> countries = [];
-  List<String> flags = [];
   
-  String countryCode = '98';
-  String normalizedPhone = '';
-  String phone = '';
+  int phone;
   String password = '';
-  String code = '';
+  int smsCode;
 
-  String errorMessage;
+  String errorMessage = '';
 
   @Input('form')
   String form;
 
   // constructor --------------------------------
-  LoginForm2Component(this.lang, this._userService)
-  {
-    getCountries();
-  }
+  LoginForm2Component(this.lang, this._userService);
 
   ngOnChanges(dynamic changes)
   {
@@ -65,52 +58,28 @@ class LoginForm2Component implements OnChanges
   {
     base = el;
 
-    swicher = SectionSwitcher([
+    swicher = SectionSwitcher(
+    [
       el.querySelector('#login'),  
+      
       el.querySelector('#register-phone'), 
+      el.querySelector('#confirm-phone'),
+      el.querySelector('#submite-smsCode'),
       el.querySelector('#submite-password'), 
+
       el.querySelector('#register-phone-for-change-password'), 
-      el.querySelector('#submite-password-for-change'), 
+      el.querySelector('#confirm-phone-for-change-password'),
+      el.querySelector('#submite-smsCode-for-change-password'),
+      el.querySelector('#submite-password-for-change'),
     ]);
-
-    //showForm(form ?? 'login');
-  }
-
-  bool normalizePhone()
-  {
-    errorMessage = '';
-    bool key = false;
-
-    int temp = int.tryParse(phone);
-
-    if(temp == null) {
-      phone = '';
-      errorMessage = 'enterEnglishPhone';
-      swicher.showLast();
-      return key;
-    }
-
-    normalizedPhone = temp.toString();
-    key = true;
-    
-    normalizedPhone.replaceAll('+', '');
-
-    if(normalizedPhone.startsWith(countryCode))
-      normalizedPhone = normalizedPhone.replaceRange(0, countryCode.length, '');
-
-    if(normalizedPhone.startsWith('0'))
-      normalizedPhone = normalizedPhone.replaceRange(0, 1, '');
-
-    normalizedPhone = countryCode + normalizedPhone;
-
-    return key;
   }
 
   // visibility of form -------------------------
-  void showForm(sectionid) async
+  void showForm(sectionid, {String error}) async
   {
     // clear text boxes
-    password = '';
+    if(error != null) errorMessage = error;
+    else errorMessage = '';
 
     // hide modal content
     swicher.show(sectionid);
@@ -119,58 +88,87 @@ class LoginForm2Component implements OnChanges
   void login() async 
   {
     swicher.hideAll();
-
-    if(!normalizePhone()) return;
     
-    await _userService.login(identity: normalizedPhone, identityType: 'phone', password: password)
+    await _userService.login(identity: phone.toString(), identityType: 'phone', password: password)
       .then((r) async
       {
         Navigator.gotTo('vitrin');
       })
       .catchError((e) {
         print('login error $e');
-        errorMessage = 'wrongPhoneOrPassword';
-        showForm('login');
+        showForm('login', error:'wrongPhoneOrPassword');
       });
   }
 
   void registerPhone() async
   {
-    if(!normalizePhone()) return;
-
     swicher.hideAll();
 
-    if(!validatePhone())
-    {
-      errorMessage = 'wrongPhoneNumber';
-      showForm('register-phone');
-      return;
-    }
-
-    await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
+    await _userService.auth.registerSubmitId(identity: phone.toString(), identityType:'phone')
       .then((r) async
       {
         errorMessage = 'yourPhoneNumberHasBeenSubmitted';
 
         await Future.delayed(Duration(milliseconds: 500));
-        showForm('submite-password');
+        showForm('submite-smsCode');
       })
       .catchError((e) {
         print('registerPhone error $e');
-        errorMessage = 'phoneIsWrong';
-        showForm('register-phone');
+        showForm('register-phone', error:'wrongPhoneNumber');
+      });
+  }
+
+  void submiteSmsCode() async
+  {
+    swicher.hideAll();
+
+    _userService.auth.validateSMSCode(id: phone.toString(),  code: smsCode)
+      .then((isValid)
+      {
+        print(isValid);
+        if(isValid) showForm('submite-password');
+        else{
+          errorMessage = 'wrongSMSCode';
+          swicher.showLast();
+        }
+      })
+      .catchError((e)
+      {
+          errorMessage = e.toString();
+          swicher.showLast();
+      });
+  }
+
+  submiteSmsCodeForChangePassword()
+  {
+    swicher.hideAll();
+
+    _userService.auth.validateSMSCode(id: phone.toString(),  code: smsCode)
+      .then((isValid)
+      {
+        print(isValid);
+        if(isValid) showForm('submite-password-for-change');
+        else{
+          errorMessage = 'wrongSMSCode';
+          swicher.showLast();
+        }
+      })
+      .catchError((e)
+      {
+          errorMessage = e.toString();
+          swicher.showLast();
       });
   }
 
   void submitePassword() async
   {
-    if(phone == '' || password == '' || code == '') return;
+    if(phone == null || password == '') return;
 
     swicher.hideAll();
 
     // submite password
     await _userService.auth
-      .registerSubmitPass(identity: normalizedPhone, password: password, serial: code)
+      .registerSubmitPass(identity: phone.toString(), password: password, serial: smsCode)
       .then((r) async
       {
         errorMessage = 'success';
@@ -181,24 +179,23 @@ class LoginForm2Component implements OnChanges
       })
       .catchError((e) {
         print('submitePassword error $e');
-        errorMessage = 'checkYourInfoAndSubmiteAgain';
-        showForm('submite-password');
+        showForm('submite-password', error:'checkYourInfoAndSubmiteAgain');
       });
   }
 
   void registerPhoneForChangePassword() async
   {
-    if(!normalizePhone()) return;
+    //if(!normalizePhone()) return;
 
     swicher.hideAll();
 
-    if(!validatePhone())
-    {
-      errorMessage = 'phoneIsWrong';
-      return;
-    }
+    // if(!validatePhone())
+    // {
+    //   errorMessage = 'phoneIsWrong';
+    //   return;
+    // }
 
-    await _userService.auth.registerSubmitId(identity: normalizedPhone, identityType:'phone')
+    await _userService.auth.registerSubmitId(identity: phone.toString(), identityType:'phone')
       .then((r) async
       {
         errorMessage = 'yourPhoneNumberHasBeenSubmitted';
@@ -208,22 +205,21 @@ class LoginForm2Component implements OnChanges
       })
       .catchError((e) {
         print('registerPhoneForChangePassword error $e');
-        errorMessage = 'phoneIsWrong';
-        showForm('register-phone-for-change-password');
+        showForm('register-phone-for-change-password', error:'phoneIsWrong');
       });
   }
 
   void submitePasswordForChange() async
   {
-    if(phone == '' || password == '' || code == '') return;
+    if(phone == null || password == '') return;
 
-    if(!normalizePhone()) return;
+    //if(!normalizePhone()) return;
 
     swicher.hideAll();
 
     // submite password
     await _userService.auth
-      .changePass(identity: normalizedPhone, password: password, serial: code)
+      .changePass(identity: phone.toString(), password: password, serial: smsCode)
       .then((r) async
       {
         errorMessage = 'success';
@@ -233,26 +229,9 @@ class LoginForm2Component implements OnChanges
       })
       .catchError((e) {
         print('submitePasswordForChange error $e');
-        errorMessage = 'checkYourInfoAndSubmiteAgain';
-        showForm('submite-password-for-change');
+        showForm('submite-password-for-change', error:'checkYourInfoAndSubmiteAgain');
       });
   }
 
-  bool validatePhone()
-  {
-    String pattern = r'^\d{8,15}$';
-    RegExp reg = RegExp(pattern, caseSensitive: false);
-
-    return reg.hasMatch(phone);
-  }
-
-  List<DbField> getCountries()
-  {
-    countriesRawDetail.forEach((raw) 
-    {
-      DbField field = DbField(raw['nativeName'], strvalue: raw['callingCode']);
-      countries.add(field);
-      //flags.add(raw['flag']);
-    });
-  }
+  
 }

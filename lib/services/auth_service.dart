@@ -61,7 +61,7 @@ class AuthService
 			.then(analizeResult);
 	}
 
-	Future<dynamic> registerSubmitPass({String identity, String password, String serial})
+	Future<dynamic> registerSubmitPass({String identity, String password, int serial})
 	{
 		String url = Vars.host + '/user/register_submit_pass';
 
@@ -75,7 +75,7 @@ class AuthService
 			.then(analizeResult);
 	}
 
-	Future<dynamic> changePass({String identity, String password, String serial})
+	Future<dynamic> changePass({String identity, String password, int serial})
 	{
 		String url = Vars.host + '/user/change_pass';
 
@@ -100,6 +100,20 @@ class AuthService
 		return _http.post(url, body: json.encode(body), headers: headers)
 			.then(analizeResult)
 			.then((result) => result['permission']);
+	}
+
+	Future<bool> validateSMSCode({String id, int code})
+	{
+		String url = Vars.host + '/user/validateSMSCode';
+
+		Map body = {
+			'id': id,
+			'serial': code
+		};
+
+		return _http.post(url, body: json.encode(body), headers: headers)
+			.then(analizeResult)
+			.then((result) => result['isValid'] as bool);
 	}
 
 	dynamic _convert(String jsonString) => jsonDecode(jsonString);

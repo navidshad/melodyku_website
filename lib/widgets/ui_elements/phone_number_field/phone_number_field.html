@@ -1,0 +1,44 @@
+<div class="full-wide margin-h-20">
+    <div>
+        <label>{{lang.getStr('selectCountry')}}</label>
+        <select-field 
+            [field]="code"
+            [options]="countries" 
+            [icons]="flags"
+            (onChange)="setCode($event)">
+        </select-field>
+    </div>
+</div>
+
+
+<div class="flex-row flex-center" dir="ltr"
+    style="justify-content: flex-start;">
+
+    <div class="codeDiv flex-column">
+       <!--  <label [direction]="lang.getDir()">
+            {{lang.getStr('code')}}
+        </label> -->
+        <input
+            class="input-text input-wide" 
+            type="text" dir="ltr" 
+
+            [ngModel]="code" 
+            (ngModelChange)="setCode($event)">
+    </div>
+
+    <div class="phoneDiv flex-column">
+        <!-- <label [direction]="lang.getDir()">
+            {{lang.getStr('phone')}}
+        </label> -->
+        <input 
+            class="input-text input-wide" 
+            name="identity" 
+            type="number" 
+
+            placeholder="{{lang.getStr('phone')}}"
+            dir="ltr" 
+
+            [ngModel]="phone" 
+            (ngModelChange)="setPhone($event)">
+    </div>
+</div>

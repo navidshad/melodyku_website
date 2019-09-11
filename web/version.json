@@ -1,7 +1,11 @@
 {
-	"web-client": "0.7.3",
+	"web-client": "0.7.4",
 
 	"log": {
+
+		"0.7.4": [
+			"improved login form",
+		],
 
 		"0.7.3": [
 			"separated login/register's route.",
@@ -9,7 +13,7 @@
 			"added group buttons class.",
 			"added customer support live chat.",
 			"fixed a problem with staying on the same page after logout.",
-			"fix 3x refresh after first view.",
+			"fixed 3x refresh after first view.",
 			"added home button on header bar."
 		],
 

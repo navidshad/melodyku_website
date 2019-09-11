@@ -91,15 +91,6 @@ workbox.routing.registerRoute(
 );
 
 // response from network first
-// workbox.routing.registerRoute(
-//   ({url, event}) => {
-//     return isMatch(url, ['findOne']) 
-//   },
-//   networkFirstPostRequest_bodyAsKey,
-//   'POST'
-// );
-
-// response from network first
 workbox.routing.registerRoute(
   ({url, event}) => {
     return isMatch(url, ['/versions.js', '/sw.js']) 

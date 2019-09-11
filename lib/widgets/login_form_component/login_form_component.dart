@@ -31,7 +31,7 @@ class LoginFormComponent
   
   String phone = '';
   String password = '';
-  String code = '';
+  int code;
 
   String errorMessage;
 
