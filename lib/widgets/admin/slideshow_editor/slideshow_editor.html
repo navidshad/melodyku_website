@@ -20,13 +20,16 @@
 	    	[class.no-opacity]="addBtnOptions.isWaiting">
 	        <!-- Slides -->
 	        <div class="swiper-slide flex-column flex-center"
-	        	*ngFor="let slide of slideshow.slides.reversed.toList(); let i=index">
+	        	*ngFor="let slide of slideshow.slides; let i=index">
 	        	<div class="preview-slide"
 		        	style="width: {{slideshow.width/3}}px; height: {{slideshow.height/3}}px;"
 	        		(click)="openSlideOption(i - slideshow.slides.length)">
 	        		<img *ngIf="(slide.imgStamp ?? '').length > 0" src="{{slide.getImgLink()}}">
 	        	</div>
-	        	<div><span>s{{i - slideshow.slides.length}}</span></div>
+	        	<div>
+	        		<span>s-{{i}}</span><br>
+	        		<span>order {{slide.order}}</span>
+	        	</div>
 	        	<div class="btn-close"
 	        		(click)="removeSlide(i - slideshow.slides.length)">
 	        		<img src="/assets/svg/icon_close.svg"> 		

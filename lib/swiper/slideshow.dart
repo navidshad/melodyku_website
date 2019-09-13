@@ -43,7 +43,9 @@ class SlideShow
 	Future<void> getSlides()
 	{
 		slides = [];
+
 		Map query = { 'refId': id };
+
 		return _mongodb.find(isLive:true, database: 'cms', collection: 'slide', query: query)
 			.then((docs){
 				docs.forEach((doc) 
@@ -52,7 +54,8 @@ class SlideShow
 					Slide s = Slide.fromMap(detail);
 					slides.add(s);
 				});
-			});
+			})
+			.then((r) => sortSlides());
 	}
 
 	Future<void> updateSlide(Map detail)
@@ -77,8 +80,12 @@ class SlideShow
 			"\$set": detail
 		};
 
-		return _mongodb.updateOne(isLive:true, database: 'cms', collection: 'slide', query: query, update: update);
+		return _mongodb.updateOne(isLive:true, database: 'cms', collection: 'slide', query: query, update: update)
+			.then((r) => sortSlides());
 	}
+
+	void sortSlides() =>
+		slides.sort((a, b) => b.order.compareTo(a.order));
 
 	Future<void> addSlide()
 	{

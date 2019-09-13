@@ -172,11 +172,12 @@ class SystemSchema
 		DbField('local_subtitle', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
 		DbField('imgStamp', isHide: true),
 		DbField('link'),
+		DbField('order', dataType: DataType.int, fieldType: FieldType.number),
 	];
 
 	static List<DbField> slideshow = 
 	[
-		DbField('title', isDisable: true),
+		DbField('title'),
 		DbField('width', dataType: DataType.int),
 		DbField('height', dataType: DataType.int),
 	];

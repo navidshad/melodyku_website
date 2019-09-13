@@ -23,6 +23,11 @@
                     	class="input-text input-wide" type="text"
                         [attr.disable]="field.isDisable">
 
+                <input  *ngIf="field.fieldType == FieldType.number"
+                        [(ngModel)]="object[field.key]"
+                        class="input-text input-wide" type="number"
+                        [attr.disable]="field.isDisable">
+
                 <!-- textbox -->
                 <textarea class="input-text input-wide"
                     *ngIf="field.fieldType == FieldType.textbox"

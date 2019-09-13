@@ -10,8 +10,13 @@ class Slide
 	String imgStamp;
 	String link;
 	bool showDetail;
+	int order;
 
-	Slide({this.id, this.refId, this.showDetail, this.localTitle, this.localSubTitle, this.imgStamp, this.link});
+	Slide({
+		this.id, this.refId, 
+		this.showDetail, this.localTitle, 
+		this.localSubTitle, this.imgStamp, 
+		this.link, this.order});
 
 	factory Slide.fromMap(Map detail)
 	{
@@ -23,6 +28,7 @@ class Slide
 			imgStamp		: detail['imgStamp'],
 			link			: detail['link'],
 			showDetail		: detail['showDetail'],
+			order			: detail['order'],
 		);
 	}
 
