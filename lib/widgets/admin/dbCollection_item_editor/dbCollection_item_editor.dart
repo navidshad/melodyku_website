@@ -74,7 +74,7 @@ class DbCollectionItemEditorComponent
 			query.addAll(op.query);
 
 		// get by aggregate
-    await _mongodb.findOne(isLive:true, database: op.database, collection: op.collection, query: query)
+	await _mongodb.findOne(isLive:true, database: op.database, collection: op.collection, query: query)
       .then((document) 
       {
         // List<String> keies = getKeies(document, removes: ['_id']);
@@ -134,14 +134,14 @@ class DbCollectionItemEditorComponent
 		Map update = { '\$set': editable };
 
 		await _mongodb.updateOne(isLive:true, database: op.database, collection: op.collection, 
-      query: query, update: update)
-      .then((d)
-      {
-        getItem();
-        changeMode(false);
-        eventController.add(true);
-      })
-      .catchError(_catchError);
+		query: query, update: update)
+		.then((d)
+		{
+			getItem();
+			changeMode(false);
+			eventController.add(true);
+		})
+		.catchError(_catchError);
 
 		isUpdating = false;
 		viewMode = true;

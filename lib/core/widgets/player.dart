@@ -145,6 +145,9 @@ class Player
     _list = list;
     listItems = list.map((song) => song.getAsWidget<ListItem>()).toList();
     playByTrack(list[0]);
+
+    // track playling
+    _analytic.trackEvent('play all', category: 'player');
   }
 
   // playlisy method ----------------------------

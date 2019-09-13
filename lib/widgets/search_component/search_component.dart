@@ -26,6 +26,7 @@ class SearchComponent
 {
 	LanguageService lang;
 	MongoDBService _mongodb;
+	AnalyticService _analitic;
 
 	SearchComponent(this.lang, this._mongodb);
 
@@ -91,7 +92,6 @@ class SearchComponent
 
 		await aggregator.initialize();
 		await loadNextPage();
-		isPending = false;
 	}
 
 	void loadNextPage() async
@@ -120,6 +120,17 @@ class SearchComponent
 
 				counter++;
 			});
+
+			return docs.length;
+		})
+		.then((int total) 
+		{
+			isPending = false;
+			_analitic.trackEvent(
+				'searching $type', 
+				category: 'search', 
+				label: word, 
+				value: '$total result');
 		});
 	}
 }

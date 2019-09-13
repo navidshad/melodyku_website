@@ -7,34 +7,8 @@ import 'package:melodyku/services/services.dart';
 
 @Component(
 	selector: 'image-uploader',
-	template: '''
-		<div class="options flex-row">
-			<form #form enctype="multipart/form-data">
-
-		    	<input class="btn-sl pick" type="file" #upload name='image'>
-				
-		    	<div class="flex-row flex-center">
-					<div class="btn-sl {{isUploading ? 'btn-disabled': ''}}" 
-						 (click)="uploadFiles(form)">upload {{progress}}</div>
-						 
-					<div class="btn-close {{isUploading ? 'btn-disabled': ''}}" 
-						 (click)="removeImage()">
-						<img src="/assets/svg/icon_close.svg">
-					</div>
-				</div>
-		  	</form>
-		</div>
-	''',
-	styles: [ '''
-		.options {
-			margin: 10px 0px;
-		}
-
-		.pick{
-			max-width: 200px;
-		    padding: 0;
-		}
-	'''],
+	templateUrl: 'image_uploader.html',
+	styleUrls: ['image_uploader.css'],
 	directives: [
 		coreDirectives,
 		formDirectives,
