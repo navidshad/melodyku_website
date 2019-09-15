@@ -4,17 +4,17 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133720746-2"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'UA-133720746-2', { 'send_page_view': false });
+        gtag('config', 'UA-133720746-2', { 'send_page_view': false });
 
-      // Url chenger function for angular router
-      (function () {
+        // Url chenger function for angular router
+        (function () {
         var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
         document.write('<base href="' + (m ? m[0] : '/') + '" />');
-      }());
+        }());
     </script>
 
     <!-- service worker -->

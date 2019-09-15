@@ -10,18 +10,21 @@ class AppshellService
 {
 	Client _http;
 	UserService _userService;
-  PureChatAPI purechatAPI;
+	LanguageService lang;
+  	PureChatAPI purechatAPI;
 
 	String version = '';
 	String serverVersion;
 
-	AppshellService(this._userService)
+	AppshellService(this._userService, this.lang)
 	{
 		_http = Client();
 		getVersion();
 
 		_userService.loginEvent.listen(onLoginEvent);
-    getPureChatApi().then((api) => purechatAPI = api);
+    	getPureChatApi().then((api) => purechatAPI = api);
+
+    	registerListeners();
 	}
 
 	void onLoginEvent(bool isLoggedIn)
@@ -35,6 +38,27 @@ class AppshellService
 		_http.get(path)
 			.then(analizeResult)
 			.then((result) => version = result['web-client']);
+	}
+
+	void checkUpdate() async
+	{
+		bool allowReload = window.confirm(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
+		if(allowReload) window.location.reload();
+	}
+
+	void registerListeners()
+	{
+		if(window.navigator.serviceWorker == null) return;
+		
+		window.navigator.serviceWorker.onMessage.listen((mess)
+		{
+			print('resive a mesage from sw ${mess.data}');
+
+			String action = mess.data['action'];
+
+			if(action == 'PROMPT_UPDATE_MESSAGE')
+				checkUpdate();
+		});
 	}
 
 	dynamic _convert(String jsonString) => jsonDecode(jsonString);

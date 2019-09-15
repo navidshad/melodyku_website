@@ -6,6 +6,9 @@ importScripts('/assets/js/sw_message.js');
 importScripts('/assets/js/sw_idb.js');
 importScripts('/assets/js/sw_strategies.js');
 
+// Force production builds
+workbox.setConfig({ debug: false });
+
 // Updating SW lifecycle to update the app after user triggered refresh
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
@@ -17,11 +20,21 @@ workbox.googleAnalytics.initialize({
   },
 });
 
+// install event
+self.addEventListener('install', (event) => 
+{
+  // send message to show Page Refresh Confirmation popup
+  send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
+});
+
+// routing precaches
+workbox.precaching.precacheAndRoute([]);
+
 // catche scripts and css
 workbox.routing.registerRoute(
   ({url, event}) => {
     return isMatch(url, 
-    ['.js', '.json', '.css'])
+    ['.json', '.js'])
   },
   new workbox.strategies.StaleWhileRevalidate()
 );
@@ -29,7 +42,7 @@ workbox.routing.registerRoute(
 // catche index.html
 workbox.routing.registerRoute(
   ({event}) => event.request.destination === 'document',
-  new workbox.strategies.StaleWhileRevalidate()
+  returnIndexFromPrecaches
 );
 
 // catche images
@@ -105,5 +118,3 @@ workbox.routing.registerRoute(
   },
   catchFirstSongRequest
 );
-
-workbox.precaching.precacheAndRoute([]);

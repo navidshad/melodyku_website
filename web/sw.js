@@ -6,6 +6,9 @@ importScripts('/assets/js/sw_message.js');
 importScripts('/assets/js/sw_idb.js');
 importScripts('/assets/js/sw_strategies.js');
 
+// Force production builds
+workbox.setConfig({ debug: false });
+
 // Updating SW lifecycle to update the app after user triggered refresh
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
@@ -17,105 +20,23 @@ workbox.googleAnalytics.initialize({
   },
 });
 
-// catche scripts and css
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, 
-    ['.js', '.json', '.css'])
-  },
-  new workbox.strategies.StaleWhileRevalidate()
-);
+// install event
+self.addEventListener('install', (event) => 
+{
+  // send message to show Page Refresh Confirmation popup
+  send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
+});
 
-// catche index.html
-workbox.routing.registerRoute(
-  ({event}) => event.request.destination === 'document',
-  new workbox.strategies.StaleWhileRevalidate()
-);
-
-// catche images
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, 
-    ['data.melodyku.ir/images', 'data.melodyku.com/images'])
-  },
-  returnPatternImageOn404
-);
-
-// catch content provider
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    if(ignoreIfHasLivePropertyInHeader(event.request))
-      return false;
-    else return isMatch(url, ['contentProvider'], ['count'])
-  },
-  catchFirstPostRequest_bodyAsKey,
-  'POST'
-);
-
-// return defual body to count query
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    if(isMatch(url, ['count'])) return {body: 0};
-    else return false;
-  },
-  defultBodyWhenOffline,
-  'POST'
-);
-
-// network first sterategy for other MongoQuery
-workbox.routing.registerRoute(
-  ({url, event}) => isMatch(url, ['contentProvider']),
-  networkFirstPostRequest_bodyAsKey,
-  'POST'
-);
-
-// catch auth requests
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, 
-    ['loginAnonymous', 'varify/token', 'getPermission'])
-  },
-  networkFirstPostRequest_pathAsKey,
-  'POST'
-);
-
-// catch defualt value for some apis
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    let pathes = ['count'];
-    if(isMatch(url, pathes)) return {body:0};
-    else false;
-  },
-  defultBodyWhenOffline,
-  'POST'
-);
-
-// response from network first
-// workbox.routing.registerRoute(
-//   ({url, event}) => {
-//     return isMatch(url, ['findOne']) 
-//   },
-//   networkFirstPostRequest_bodyAsKey,
-//   'POST'
-// );
-
-// response from network first
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, ['/versions.js', '/sw.js']) 
-  },
-  new workbox.strategies.NetworkFirst()
-);
-
-// catch songs
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, ['/stream?ai']) 
-  },
-  catchFirstSongRequest
-);
-
+// routing precaches
 workbox.precaching.precacheAndRoute([
+  {
+    "url": "assets/css/fontiran.css",
+    "revision": "88da660788884c70665db7947085a73d"
+  },
+  {
+    "url": "assets/css/w3.css",
+    "revision": "fcb3cc3f981ba3e4d9a68f1a3520370a"
+  },
   {
     "url": "assets/fonts/woff/IRANSansWeb_Black.woff",
     "revision": "818f7796aeb3cc761b74334bb0b9aa35"
@@ -305,6 +226,30 @@ workbox.precaching.precacheAndRoute([
     "revision": "6f861c35e66c2ef18d6459859ffa8c97"
   },
   {
+    "url": "assets/js/install.js",
+    "revision": "06b728bd9720d19191ad2249561f4ec2"
+  },
+  {
+    "url": "assets/js/purechat_adapter.js",
+    "revision": "e98ae03758778f4214d2995d2e32b1f6"
+  },
+  {
+    "url": "assets/js/sw_idb.js",
+    "revision": "ec1be29f8df13c96df401ad762ba6cfd"
+  },
+  {
+    "url": "assets/js/sw_installation.js",
+    "revision": "a14a5000fb2430cfd83d43357f55331d"
+  },
+  {
+    "url": "assets/js/sw_message.js",
+    "revision": "60aab701044afcbcebc806d8ea0321a9"
+  },
+  {
+    "url": "assets/js/sw_strategies.js",
+    "revision": "a519e08becb02d2f9ca3082a8fda10e0"
+  },
+  {
     "url": "assets/svg/equalizer01.svg",
     "revision": "f824b40d3aeb2b1190321c8fd68cca34"
   },
@@ -461,6 +406,30 @@ workbox.precaching.precacheAndRoute([
     "revision": "b0693962a9d5d90123f315bbf517ac5d"
   },
   {
+    "url": "assets/thirdparty/filepond/filepond-plugin-file-metadata.js",
+    "revision": "b27b5498b67ac1d3af2eff4243398447"
+  },
+  {
+    "url": "assets/thirdparty/filepond/filepond-plugin-file-validate-size.js",
+    "revision": "335d02238195e21b191f541ce4ba5bf8"
+  },
+  {
+    "url": "assets/thirdparty/filepond/filepond.min.css",
+    "revision": "d4790019d7cdabb03b42993e29bd1500"
+  },
+  {
+    "url": "assets/thirdparty/filepond/filepond.min.js",
+    "revision": "f1fb3e82a6d410144462f9b831cd99a1"
+  },
+  {
+    "url": "assets/thirdparty/swiper/swiper.min.css",
+    "revision": "9097e7972b059ecae0f5bb78a0186f71"
+  },
+  {
+    "url": "assets/thirdparty/swiper/swiper.min.js",
+    "revision": "53fc0155c6c3cb55f34b749325ebb370"
+  },
+  {
     "url": "favicon.png",
     "revision": "6e6157506f1989504f7c0bf9f7fe498d"
   },
@@ -495,5 +464,118 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "images/icons/icon-96x96.png",
     "revision": "7cca8b4603d7c3e731086fb6db465039"
+  },
+  {
+    "url": "index.html",
+    "revision": "6891c40b8d15be045f672d9b600ea8aa"
+  },
+  {
+    "url": "manifest.json",
+    "revision": "e3280431c920355923a4c79e605bd2bc"
+  },
+  {
+    "url": "pushe-sw.js",
+    "revision": "963768062b89d64e5b5a9ba79695f653"
+  },
+  {
+    "url": "styles.css",
+    "revision": "6812b302d0b627ba1ef5a05ed4421b42"
+  },
+  {
+    "url": "sw_build.js",
+    "revision": "1fce9e18e153b20dffafb8057f011867"
+  },
+  {
+    "url": "version.json",
+    "revision": "5e728c40ccd47423fdbfa8b7a86f36c4"
   }
 ]);
+
+// catche scripts and css
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    return isMatch(url, 
+    ['.json', '.js'])
+  },
+  new workbox.strategies.StaleWhileRevalidate()
+);
+
+// catche index.html
+workbox.routing.registerRoute(
+  ({event}) => event.request.destination === 'document',
+  returnIndexFromPrecaches
+);
+
+// catche images
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    return isMatch(url, 
+    ['data.melodyku.ir/images', 'data.melodyku.com/images'])
+  },
+  returnPatternImageOn404
+);
+
+// catch content provider
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    if(ignoreIfHasLivePropertyInHeader(event.request))
+      return false;
+    else return isMatch(url, ['contentProvider'], ['count'])
+  },
+  catchFirstPostRequest_bodyAsKey,
+  'POST'
+);
+
+// return defual body to count query
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    if(isMatch(url, ['count'])) return {body: 0};
+    else return false;
+  },
+  defultBodyWhenOffline,
+  'POST'
+);
+
+// network first sterategy for other MongoQuery
+workbox.routing.registerRoute(
+  ({url, event}) => isMatch(url, ['contentProvider']),
+  networkFirstPostRequest_bodyAsKey,
+  'POST'
+);
+
+// catch auth requests
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    return isMatch(url, 
+    ['loginAnonymous', 'varify/token', 'getPermission'])
+  },
+  networkFirstPostRequest_pathAsKey,
+  'POST'
+);
+
+// catch defualt value for some apis
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    let pathes = ['count'];
+    if(isMatch(url, pathes)) return {body:0};
+    else false;
+  },
+  defultBodyWhenOffline,
+  'POST'
+);
+
+// response from network first
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    return isMatch(url, ['/versions.js', '/sw.js']) 
+  },
+  new workbox.strategies.NetworkFirst()
+);
+
+// catch songs
+workbox.routing.registerRoute(
+  ({url, event}) => {
+    return isMatch(url, ['/stream?ai']) 
+  },
+  catchFirstSongRequest
+);

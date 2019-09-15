@@ -385,3 +385,19 @@ async function returnPatternImageOn404({url, event, params})
 			return fe;
 		});
 }
+
+async function returnIndexFromPrecaches({url, event})
+{
+	// retrive precached pattern
+	// const cache = await caches.open(workbox.core.cacheNames.precache);
+	// const response = await cache.match(
+	//   workbox.precaching.getCacheKeyForURL('/index.html')
+	// );
+
+	return caches.match('/index.html')
+		.then(matched => 
+		{
+			if(matched) return matched;
+			else return fetch(event.request);
+		})
+}

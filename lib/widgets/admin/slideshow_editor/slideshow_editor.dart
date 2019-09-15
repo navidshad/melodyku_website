@@ -102,11 +102,10 @@ class SlideShowEditorComponent implements OnChanges
 	void openSlideOption(int index)
 	{
 		tempStamp = null;
-		selectedSlideMap = slideshow.slides[index.abs() - 1].getAsMap();
-		print(selectedSlideMap);
+		selectedSlideMap = slideshow.slides[index].getAsMap();
 		modal.show();
 	}
 
 	void removeSlide(int index) =>
-		slideshow.removeSlide(index.abs() - 1);
+		slideshow.removeSlide(index);
 }

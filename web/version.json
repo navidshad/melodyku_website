@@ -4,7 +4,10 @@
 	"log": {
 
 		"0.7.4": [
-			"improved login form"
+			"improved login form",
+			"added update confirmation for refresh main page.",
+			"added orderize ability for slideshow",
+			"all (play all) are hide until list will be loaded."
 		],
 
 		"0.7.3": [

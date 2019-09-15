@@ -23,7 +23,7 @@
 	        	*ngFor="let slide of slideshow.slides; let i=index">
 	        	<div class="preview-slide"
 		        	style="width: {{slideshow.width/3}}px; height: {{slideshow.height/3}}px;"
-	        		(click)="openSlideOption(i - slideshow.slides.length)">
+	        		(click)="openSlideOption(i)">
 	        		<img *ngIf="(slide.imgStamp ?? '').length > 0" src="{{slide.getImgLink()}}">
 	        	</div>
 	        	<div>
@@ -31,7 +31,7 @@
 	        		<span>order {{slide.order}}</span>
 	        	</div>
 	        	<div class="btn-close"
-	        		(click)="removeSlide(i - slideshow.slides.length)">
+	        		(click)="removeSlide(i)">
 	        		<img src="/assets/svg/icon_close.svg"> 		
 	        	</div>
 			</div>

@@ -6,8 +6,7 @@ if ('serviceWorker' in navigator)
 
 	wb.addEventListener('waiting', (event) => 
 	{
-	 	// let confirmation = window.confirm('Melodyku has been updated, are you ready for reload this page?');
-   		// if(confirmation) window.location.reload();
+
 	});
 
 	wb.addEventListener('activated', (event) => 

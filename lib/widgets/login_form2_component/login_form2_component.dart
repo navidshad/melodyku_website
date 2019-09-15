@@ -179,7 +179,7 @@ class LoginForm2Component implements OnChanges
       })
       .catchError((e) {
         print('submitePassword error $e');
-        showForm('submite-password', error:'checkYourInfoAndSubmiteAgain');
+        showForm('submite-password', error:'passwordIsWrong');
       });
   }
 
