@@ -1,0 +1,80 @@
+<div class="w3-row margin-h-20">
+
+	<div class="w3-half">
+		<!-- body -->
+		<div class='table-div'>
+		    <!-- header -->
+		    <div class='row header'>
+		        <div class='cell'>Today</div>
+		    </div>
+
+		    <!-- divider -->
+		    <div class="_line"></div>
+
+		    <!-- row -->
+		    <div class="row"
+		    	*ngFor="let key of todayDataTable.keys.toList()">
+		        <!-- cells -->
+		        <div class='cell' style="display: block; text-align: left; width: 60%">
+		        	<span>{{key}}</span>     		
+		        </div>
+		        <div class='cell'>
+		        	<span>{{todayDataTable[key]}}</span>     		
+		        </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="w3-half">
+		<!-- body -->
+		<div class='table-div'>
+		    <!-- header -->
+		    <div class='row header'>
+		        <div class='cell'>Total</div>
+		    </div>
+
+		    <!-- divider -->
+		    <div class="_line"></div>
+
+		    <!-- row -->
+		    <div class="row"
+		    	*ngFor="let key of totalDataTable.keys.toList()">
+		        <!-- cells -->
+		        <div class='cell' style="display: block; text-align: left; width: 60%">
+		        	<span>{{key}}</span>     		
+		        </div>
+		        <div class='cell'>
+		        	<span>{{totalDataTable[key]}}</span>     		
+		        </div>
+		    </div>
+		</div>
+	</div>
+
+</div>
+
+<div class="w3-row margin-h-20">
+	<div class="w3-half">
+		<!-- body -->
+		<div class='table-div'>
+		    <!-- header -->
+		    <div class='row header'>
+		        <div class='cell'>Categories</div>
+		    </div>
+
+		    <!-- divider -->
+		    <div class="_line"></div>
+
+		    <!-- row -->
+		    <div class="row"
+		    	*ngFor="let key of categoriesDataTable.keys.toList()">
+		        <!-- cells -->
+		        <div class='cell' style="display: block; text-align: left; width: 60%">
+		        	<span>{{key}}</span>     		
+		        </div>
+		        <div class='cell'>
+		        	<span>{{categoriesDataTable[key]}}</span>     		
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>

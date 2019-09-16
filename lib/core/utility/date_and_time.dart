@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 DateTime getDate(DateTime dt)
 {
-  	// create today Date as String
+  	// create Date as String
     DateFormat formatter = new DateFormat('yyyy-MM-dd');
     String strDate = formatter.format(dt);
 

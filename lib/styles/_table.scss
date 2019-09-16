@@ -1,5 +1,27 @@
 @import 'colors';
 
+/*
+	this is how to use table classes
+	
+	<!-- body -->
+	<div class='table-div'>
+
+	    <!-- header -->
+	    <div class='row header'>
+	        <div class='cell index'>#</div>
+	    </div>
+
+	    <!-- divider -->
+	    <div class="_line"></div>
+
+	    <!-- row -->
+	    <div class="row">
+	        <!-- cells -->
+	        <div class='cell'></div>
+	    </div>
+	</div>
+*/
+
 .table-header {
 	background-color: $menu-color;
 	color : $darker-white-color;
