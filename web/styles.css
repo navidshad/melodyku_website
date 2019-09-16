@@ -46,9 +46,30 @@ h1, h2, h3, h4, h5, h6 {
   width: 50px;
 }
 
-@media screen and (max-width: 375px) 
+.chrome-warning{
+  margin-top: 20px;
+  text-align: justify;
+  max-width: 300px;
+  padding: 0px 10px;
+  font-size: 12px;
+  /*position: absolute;
+  bottom: 0;*/
+}
+
+.loading-logo{
+  width: 300px;
+}
+
+@media screen and (max-width: 470px) 
 {
-    .loading-logo{
-      width: 200px;
-    }
+  .loading-logo{
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) 
+{
+  .loading-logo{
+    width: 250px;
+  }
 }
