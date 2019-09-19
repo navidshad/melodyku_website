@@ -21,7 +21,7 @@ class ButtonOptions
 	StreamController<bool> statusController;
 	StreamController<String> colorController;
 
-	ButtonOptions({this.lable, this.type, this.callback, this.callbackWithArg})
+	ButtonOptions({this.lable, this.type, this.icon, this.callback, this.callbackWithArg})
 	{
 		waitingController = StreamController();
 		statusController = StreamController();

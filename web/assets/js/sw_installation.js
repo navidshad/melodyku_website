@@ -11,10 +11,8 @@ if ('serviceWorker' in navigator)
 
 	wb.addEventListener('activated', (event) => 
     {
-    	// let confirmation = window.confirm('Melodyku has been updated, do you ready for reload this page?');
-    	// if(confirmation) window.location.reload();
-
     	//window.location.reload();
+    	wb.messageSW({action: 'PROMPT_UPDATE_MESSAGE'});
     });
 
 	wb.register();

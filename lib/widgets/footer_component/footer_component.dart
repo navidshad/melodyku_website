@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
 
-import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 
@@ -20,8 +19,8 @@ class FooterComponent
 
 	FooterComponent(this.lang, this._appshell);
 
-	bool get isInstalled => getInstallStatus();
-  	void installApp() => installPWA();
+	bool get isInstalled => _appshell.getInstallSupportStatus();
+  	void installApp() => _appshell.installPWA();
 
   	String getVersion() => _appshell.version;
 }

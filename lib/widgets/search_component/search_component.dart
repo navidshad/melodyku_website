@@ -20,15 +20,24 @@ import 'package:melodyku/services/services.dart';
 		GridComponent,
 		ListWideComponent,
 		WidgetLoading,
+		ButtonCircle,
 	],
 )
 class SearchComponent
 {
 	LanguageService lang;
 	MongoDBService _mongodb;
-	AnalyticService _analitic;
+	AnalyticService _analytic;
 
-	SearchComponent(this.lang, this._mongodb);
+	ButtonOptions sBtnOptions;
+
+	SearchComponent(this.lang, this._mongodb, this._analytic)
+	{
+		sBtnOptions = ButtonOptions(
+			type: ButtonType.sl_x, 
+			callback: onPressSearchButton,
+			icon: '/assets/svg/icon_search.svg');
+	}
 
 	String type = 'song';
 	String word = '';
@@ -41,16 +50,31 @@ class SearchComponent
 
   	bool isPending = false;
 
-	void changeType(String t) {
+	void changeType(String t) 
+	{
 		type = t;
 		aggregator = null;
-		search();
+
+		onPressSearchButton();
 	}
 
-	void search() async
+	Function onPressSearchButton([ButtonOptions btnOp])
 	{
-		if(word.trim().length == 0) return;
+		if(btnOp == null) btnOp = sBtnOptions;
 
+		if(word.trim().length == 0) return null;
+
+		btnOp.doWaiting(true);
+		btnOp.setActivation(false);
+		
+		search().then((r) {
+			btnOp.doWaiting(false);
+			btnOp.setActivation(true);
+		});
+	}
+
+	Future<void> search()
+	{
 		isPending = true;
 
 		word = word.toLowerCase();
@@ -90,8 +114,8 @@ class SearchComponent
 			);
 		}
 
-		await aggregator.initialize();
-		await loadNextPage();
+		return aggregator.initialize()
+			.then((r) => loadNextPage());
 	}
 
 	void loadNextPage() async
@@ -126,7 +150,7 @@ class SearchComponent
 		.then((int total) 
 		{
 			isPending = false;
-			_analitic.trackEvent(
+			_analytic.trackEvent(
 				'searching $type', 
 				category: 'search', 
 				label: word, 

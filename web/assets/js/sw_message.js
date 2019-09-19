@@ -2,10 +2,8 @@ self.addEventListener('message', function(event)
 {
     console.log("SW Received Message: " + event.data);
 
-    if (event.data && event.data.type === 'SKIP_WAITING'){
-    	console.log('being to skip waiting')
-		//skipWaiting();
-    }
+    if (event.data && event.data.action === 'PROMPT_UPDATE_MESSAGE')
+    	send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
 
     // using this for remove a downloaded Song
     else if(event.data.action == 'REMOVE_CACHE') 

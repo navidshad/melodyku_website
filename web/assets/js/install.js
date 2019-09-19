@@ -3,9 +3,10 @@
 let deferredInstallPrompt = null;
 let isInstalled = true;
 
-function getInstallStatus()
+function getInstallSupportStatus()
 {
-  return isInstalled;
+  if ('serviceWorker' in navigator) return isInstalled;
+  else return true;
 }
 
 // CODELAB: Add event listener for beforeinstallprompt event
@@ -20,18 +21,20 @@ function saveBeforeInstallPromptEvent(evt) {
 function installPWA() {
   // CODELAB: Add code show install prompt & hide the install button.
   deferredInstallPrompt.prompt();
-  isInstalled = true;
+  isInstalled = false;
   
   // CODELAB: Log user response to prompt.
-  deferredInstallPrompt.userChoice
+  return deferredInstallPrompt.userChoice
     .then((choice) => {
       if (choice.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt', choice);
+        isInstalled = true;
       } else {
         console.log('User dismissed the A2HS prompt', choice);
       }
-      deferredInstallPrompt = null;
-    });
+      //deferredInstallPrompt = null;
+    })
+    .then((r) => isInstalled);
 }
 
 // CODELAB: Add event listener for appinstalled event

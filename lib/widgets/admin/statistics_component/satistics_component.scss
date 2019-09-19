@@ -1,0 +1,11 @@
+@import '../../../styles/colors';
+
+.make-left{
+	display: block; 
+	text-align: left; 
+	width: 60%
+}
+
+.category-row:nth-child(3n+2){
+	border-bottom: 1px solid lighten($menu-color, 10%);
+}

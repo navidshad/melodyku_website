@@ -1,10 +1,21 @@
 <div class="widget-container">
 
 	<div class="form flex-column flex-center">
-		<input class="input-text" type="text" placeholder="{{lang.getStr('whatAreYouSearchingFor')}}" 
-			[(ngModel)]="word" (change)="search()">
+
+		<div class="searchInput flex-row flex-center">
+			<div class="textSection">
+				<input class="input-text" type="text" 
+					placeholder="{{lang.getStr('whatAreYouSearchingFor')}}" 
+					[(ngModel)]="word" (change)="onPressSearchButton()">	
+			</div>
+			
+			<div class="btnSection">
+				<circle-button [options]="sBtnOptions"></circle-button>	
+			</div>
+		</div>
 		
-		<div class="types flex-row flex-center">
+		
+		<div class="btn-group types">
 			<div class="btn-sl pointer {{type == 'artist' ? 'btn-selected' : 'btn-disabled'}}"
 				(click)="changeType('artist')">{{lang.getStr('artist')}}</div>
 

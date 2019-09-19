@@ -21,13 +21,13 @@ class MessageService
 
   void send(MessageDetail message) 
   {
-    print('send message to: ${message.type}, ${message.visible}, ${message.detail}');
+    //print('send message to: ${message.type}, ${message.visible}, ${message.detail}');
     _messageController.add(message);
   }
 
   void addListener(String name, fn) 
   {
-    print('addListener $name');
+    //print('addListener $name');
     // check if added already
     bool isAdded = false;
     for (var i = 0; i < listeners.length; i++)
@@ -48,7 +48,7 @@ class MessageService
     // create new controller
     _messageController = StreamController<MessageDetail>();
     
-    print('listeners.length ${listeners.length}');
+    //print('listeners.length ${listeners.length}');
 
     // add listeners
     for (var i = 0; i < listeners.length; i++){

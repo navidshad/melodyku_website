@@ -1,7 +1,17 @@
 {
-	"web-client": "0.7.4",
+	"web-client": "0.7.6",
 
 	"log": {
+
+		"0.7.6": [
+			"improved statistic page",
+			"improved update warning page"
+		],
+
+		"0.7.5": [
+			"added browser warning at loading state",
+			"added statistic page"
+		],
 
 		"0.7.4": [
 			"improved login form",

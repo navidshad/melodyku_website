@@ -21,11 +21,15 @@ workbox.googleAnalytics.initialize({
 });
 
 // install event
-self.addEventListener('install', (event) => 
-{
-  // send message to show Page Refresh Confirmation popup
-  send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
-});
+// self.addEventListener('install', (event) => 
+// {
+//   // send message to show Page Refresh Confirmation popup
+//   send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
+// });
+//gsdfgsdffghdfg
+console.log();
+console.log();
+
 
 // routing precaches
 workbox.precaching.precacheAndRoute([

@@ -6,10 +6,13 @@ import 'package:melodyku/core/core.dart' as core;
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/purechat/purechat_js.dart';
 
+import 'package:melodyku/js_interop/app_installer.dart' as installer;
+
 class AppshellService
 {
 	Client _http;
 	UserService _userService;
+	AnalyticService _analytic;
 	LanguageService lang;
   	PureChatAPI purechatAPI;
 
@@ -32,6 +35,14 @@ class AppshellService
 		if(!isLoggedIn) core.Navigator.gotTo('vitrin');
 	}
 
+	bool getInstallSupportStatus() => installer.getInstallSupportStatus();
+	
+	void installPWA() {
+		installer.installPWA()
+		.then((value) => _analytic.trackEvent('installing', 
+			category: 'PWA', value: value.toString()));
+	}
+
 	void getVersion()
 	{
 		String path = window.location.origin + '/version.json';
@@ -42,8 +53,9 @@ class AppshellService
 
 	void checkUpdate() async
 	{
-		bool allowReload = window.confirm(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
-		if(allowReload) window.location.reload();
+		// bool allowReload = window.confirm(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
+		// if(allowReload) window.location.reload();
+		window.alert(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
 	}
 
 	void registerListeners()
@@ -59,6 +71,10 @@ class AppshellService
 			if(action == 'PROMPT_UPDATE_MESSAGE')
 				checkUpdate();
 		});
+
+		// window.onError.listen((Event e){
+		// 	e.target.
+		// });
 	}
 
 	dynamic _convert(String jsonString) => jsonDecode(jsonString);

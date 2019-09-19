@@ -20,7 +20,9 @@
         </label> -->
         <input
             class="input-text input-wide" 
-            type="text" dir="ltr" 
+            type="text"  
+            name="code"
+            dir="ltr"
 
             [ngModel]="code" 
             (ngModelChange)="setCode($event)">
@@ -32,7 +34,7 @@
         </label> -->
         <input 
             class="input-text input-wide" 
-            name="identity" 
+            name="username" 
             type="number" 
 
             placeholder="{{lang.getStr('phone')}}"

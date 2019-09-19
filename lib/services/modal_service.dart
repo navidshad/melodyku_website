@@ -13,12 +13,12 @@ class ModalService
   ModalService(this._messageService)
   {
     _modalList = Map<String, Modal>();
-    _messageService.addListener('modalService', resiveMessage);
+    //_messageService.addListener('modalService', resiveMessage);
   }
 
   void resiveMessage(MessageDetail message) async
   {
-    print('modal service recived a message');
+    //print('modal service recived a message');
     if(message.type != MessageType.modal) return;
 
     // get modal detail
@@ -38,7 +38,7 @@ class ModalService
 
   void show(String name) {
     _modalList[name].show();
-    print('show modal $name by modal manager');
+    //print('show modal $name by modal manager');
   }
 
   void _hideAll(String except) =>

@@ -1,0 +1,12 @@
+<div 	class="base btn-{{options.getType()}}"
+		extractor (onExtract)="onEaxtractElement($event)"
+		[class.btn-disabled]="!isActive"
+		(click)="onClick()">
+	
+	<!-- <label 	class="unselectable" 
+			*ngIf="!isWaiting">{{options.lable}}</label> -->
+
+	<img *ngIf="isWaiting" src="/assets/svg/loading_cycle.svg">
+	<img *ngIf="!isWaiting" src="{{options.icon}}">
+
+</div>

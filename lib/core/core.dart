@@ -1,6 +1,5 @@
 library core;
 
-export 'app_intaller.dart';
 export 'injector.dart';
 export 'navigator.dart';
 export 'routes.dart';
