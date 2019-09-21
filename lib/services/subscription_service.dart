@@ -12,14 +12,16 @@ class SubscriptionService
 {
 	MongoDBService _mongoDBService;
 	UserService _userService;
+	PaymentService _payment;
 	List<Map> _tariffs = [];
 
-	SubscriptionService(this._mongoDBService, this._userService);
+	SubscriptionService(this._mongoDBService, this._userService, this._payment);
 
 	Future<Map> getTariffById(dynamic id) async
 	{
 		Map selectedTariff;
 		List<Map> tempList = await getTariffs();
+		
 		tempList.forEach((t) 
 		{
 			if(t['_id'] == id) selectedTariff = t;
@@ -37,7 +39,8 @@ class SubscriptionService
 				{
 					result.forEach((doc) 
 					{
-						Map tariff = validateFields(doc, SystemSchema.tariff);
+						List<DbField> fields = SystemSchema.injectSubfields('currencies', SystemSchema.tariff, _payment.getCurrenciesDbFields());
+						Map tariff = validateFields(doc, fields);
 						_tariffs.add(tariff);
 					});
 				})

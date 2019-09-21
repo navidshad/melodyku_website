@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/payment/payment.dart';
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/services/services.dart';
 
 class PaymentService
 {
@@ -11,7 +12,32 @@ class PaymentService
 	UserService _userService;
 	MongoDBService _mongodb;
 
-	PaymentService(this._http, this._userService, this._mongodb);
+	List<String> currencies = [];
+
+	PaymentService(this._http, this._userService, this._mongodb)
+	{
+		getCurrencies().then((r) => currencies = r);
+	}
+
+	List<DbField> getCurrenciesDbFields()
+	{
+		List<DbField> list = [];
+
+		currencies.forEach((cur)
+		{
+			DbField base = DbField(cur, 
+				dataType: DataType.object, 
+				fieldType: FieldType.object, 
+				subFields: [
+					DbField('isActive', customTitle: 'isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
+					DbField('price', dataType: DataType.int, fieldType: FieldType.number),
+				]);
+
+			list.add(base);
+		});
+
+		return list;
+	}
 	
 	Future<Map<String, String>> _getHeaders() async
 	{
@@ -30,7 +56,7 @@ class PaymentService
 		return headers;
 	}
 
-	Future<List<Getway>> getWays(Currency currency) async
+	Future<List<Getway>> getWays(String currency) async
 	{
 		String url = Vars.host + '/payment/getways';
 
@@ -59,14 +85,32 @@ class PaymentService
 			});
 	}
 
-	Future<Factor> createFactor({String type, String id, Currency currency, String coupen}) async
+	Future<List<String>> getCurrencies() async
+	{
+		String url = Vars.host + '/payment/getCurrencies';
+
+		Map<String, String> headers = await _getHeaders();
+		
+		return _http.get(url, headers: headers)
+			.then(analizeResult)
+			.then((r) 
+			{
+				List<String> list = [];
+
+				r['list'].forEach((vl) => list.add(vl as String));
+
+				return list;
+			});
+	}
+
+	Future<Factor> createFactor({String type, String id, String currency, String coupen}) async
 	{
 		String url = Vars.host + '/payment/createFactor';
 
 		Map<String, String> headers = await _getHeaders();
 
 		Map body = {
-			'currency': getCurrencyAsStr(currency),
+			'currency': currency,
 			'type': type,
 			'id': id,
 		};

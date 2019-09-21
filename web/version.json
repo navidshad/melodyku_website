@@ -1,7 +1,15 @@
 {
-	"web-client": "0.7.6",
+	"web-client": "0.7.8",
+
+	"0.7.8": [
+		"added more currencies."
+	],
 
 	"log": {
+
+		"0.7.7": [
+			"improved search UI"
+		],
 
 		"0.7.6": [
 			"improved statistic page",

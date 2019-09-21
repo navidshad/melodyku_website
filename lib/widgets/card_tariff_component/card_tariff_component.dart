@@ -43,7 +43,7 @@ class CardTariffComponent implements OnChanges
 	Map detail;
 
 	@Input()
-	Currency currency;
+	String currency;
 
 	@Input()
 	bool allowPayment;
@@ -170,14 +170,10 @@ class CardTariffComponent implements OnChanges
 
 	String getPrice()
 	{
-		String price = '';
+		int price = detail['currencies'][currency]['price'];
+		String lable = '$price ${lang.getStr(currency)}';
 
-		if(currency == Currency.irt)
-			price = '${detail['price_irt']} ${lang.getStr('irt')}';
-		else if(currency == Currency.eur)
-			price = '${detail['price_eur']} ${lang.getStr('eur')}';
-
-		return price;
+		return lable;
 	}
 
 	List<String> getFeatureList() =>

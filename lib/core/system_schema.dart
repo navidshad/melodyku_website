@@ -128,9 +128,10 @@ class SystemSchema
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
       	DbField('local_description', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
 		DbField('days', dataType: DataType.int),
-		DbField('price_irt', dataType: DataType.int),
-		DbField('price_eur', dataType: DataType.int),
+		// DbField('price_irt', dataType: DataType.int),
+		// DbField('price_eur', dataType: DataType.int),
 		DbField('suggested', dataType: DataType.bool, fieldType: FieldType.checkbox),
+		DbField('currencies', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
 	];
 
 	static List<DbField> coupen = 

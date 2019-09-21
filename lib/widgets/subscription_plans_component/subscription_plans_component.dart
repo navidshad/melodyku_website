@@ -23,28 +23,46 @@ import 'package:melodyku/directives/directives.dart';
 class SubscriptionPlansComponent 
 {
 	SubscriptionService _subService;
+	PaymentService _payService;
 	LanguageService lang;
 	List<Map> tariffs = [];
 
-	Currency currency = Currency.irt;
+	List<String> currencies = [];
+	String currency = '';
 
 	bool allowPayment = true;
 
-	SubscriptionPlansComponent(this._subService, this.lang)
+	SubscriptionPlansComponent(this._subService, this._payService, this.lang)
 	{
-		getTariffs();
+		prepare();
 	}
 
-	void getTariffs() async
+	void prepare() async
 	{
-		tariffs = await _subService.getTariffs();
+		currencies = _payService.currencies;
+		
+		if(currencies.length > 0)
+			currency = currencies[0];
+
+		getTariffsByCurrency();
+	}
+
+	void getTariffsByCurrency()
+	{
+		_subService.getTariffs()
+		.then((list)
+		{	if(currency == '') return;
+			tariffs = list.where((doc) => doc['currencies'][currency]['isActive']).toList();
+		});
 	}
 
 	void onChangeCurrency(String str)
 	{
+		currency = str;
+		getTariffsByCurrency();
 		print('onChangeCurrency $str');
-		if(str == 'irt') currency = Currency.irt;
-		else if(str == 'eur') currency = Currency.eur;
+		// if(str == 'irt') currency = Currency.irt;
+		// else if(str == 'eur') currency = Currency.eur;
 	}
 
 	void _catchError(error) => print(error);

@@ -10,7 +10,7 @@ class Factor
 	bool isPaid;
 
 	int amount;
-	Currency currency;
+	String currency;
 
 	int discount;
 	String coupenId;
@@ -39,7 +39,7 @@ class Factor
 			detail['description'],
 			detail['isPaid'],
 			detail['amount'],
-			getCurrencyFromStr(detail['currency']),
+			detail['currency'],//getCurrencyFromStr(detail['currency']),
 			detail['discount'],
 			detail['coupenId'],
 			detail['createdAt'],

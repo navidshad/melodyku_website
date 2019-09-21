@@ -60,8 +60,8 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
-    CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
     CI.Injector.register(CI.InjectorMember('PaymentService', ps));
+    CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
 
     // login with last session
     us.loginWithLastSession();

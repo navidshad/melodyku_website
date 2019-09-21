@@ -1,28 +1,28 @@
 import 'package:melodyku/core/core.dart';
 
-enum Currency { irt, eur }
+// enum Currency { irt, eur }
 
-Currency getCurrencyFromStr(String str)
-{
-	if(str == 'irt') return Currency.irt;
-	else if(str == 'eur') return Currency.eur;
-	else return Currency.irt;
-}
+// Currency getCurrencyFromStr(String str)
+// {
+// 	if(str == 'irt') return Currency.irt;
+// 	else if(str == 'eur') return Currency.eur;
+// 	else return Currency.irt;
+// }
 
-String getCurrencyAsStr (Currency currency)
-{
-	if(currency == Currency.irt) return 'irt';
-	if(currency == Currency.eur) return 'eur';
-	else return 'irt';
-}
+// String getCurrencyAsStr (Currency currency)
+// {
+// 	if(currency == Currency.irt) return 'irt';
+// 	if(currency == Currency.eur) return 'eur';
+// 	else return 'irt';
+// }
 
 class Getway 
 {
 	String title;
-	Currency currency;
+	String currency;
 
-	Getway(this.title, strCurrency)
+	Getway(this.title, this.currency)
 	{
-		this.currency = getCurrencyFromStr(strCurrency);
+		//this.currency = getCurrencyFromStr(strCurrency);
 	}
 }

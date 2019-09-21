@@ -6,11 +6,11 @@
 	<div class="currency"
 		dir="{{lang.getDir()}}">
 		<label >{{lang.getStr('chooseCurrency')}}</label>
-		<select class="select w3-select" 
-			[ngModel]="'irt'"
+		<select 
+			class="select w3-select" 
+			[ngModel]="currency"
 			(ngModelChange)="onChangeCurrency($event)">
-			<option [value]="'irt'">{{lang.getStr('irt')}}</option>
-			<option [value]="'eur'">{{lang.getStr('eur')}}</option>
+			<option *ngFor="let cur of currencies" [value]="cur">{{lang.getStr(cur)}}</option>
 		</select>
 	</div>
 

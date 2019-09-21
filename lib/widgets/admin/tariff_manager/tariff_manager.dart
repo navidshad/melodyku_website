@@ -5,6 +5,7 @@ import 'package:angular/angular.dart';
 
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/services/services.dart';
 
 
 @Component(
@@ -20,15 +21,16 @@ class TariffManagerComponent
 {
 	CollectionOptions options;
 	CollectionOptions coupenOptions;
+	PaymentService _payment;
 
-	TariffManagerComponent()
+	TariffManagerComponent(this._payment)
 	{
 		options = CollectionOptions(
 	      	title: 'Manage Tariffs',
 	      	database: 'cms',
 	      	collection: 'tariff',
 			allowQuery: false,
-	      	dbFields: SystemSchema.tariff,
+	      	dbFields: SystemSchema.injectSubfields('currencies', SystemSchema.tariff, _payment.getCurrenciesDbFields()),
 		);
 
 		coupenOptions = CollectionOptions(
