@@ -93,12 +93,18 @@ class DbCollectionItemEditorComponent
 		op.id = editable['_id'];
 	}
 
+	void normalize()
+	{
+		editable = validateFields(editable, op.dbFields);
+	}
+
 	void createItem() async 
 	{
 		error = '';
 		isUpdating = true;
 
 		editable.addAll(op.addOnCreate);
+		normalize();
 
 		await _mongodb.insertOne(isLive:true, database: op.database, collection: op.collection, doc: editable)
 		.then((d)
@@ -127,6 +133,7 @@ class DbCollectionItemEditorComponent
 
 		// remove id
 		editable.remove('_id');
+		normalize();
 
 		print('updating $editable');
 		

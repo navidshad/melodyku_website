@@ -171,9 +171,9 @@ class CardTariffComponent implements OnChanges
 	String getPrice()
 	{
 		int price = detail['currencies'][currency]['price'];
-		String lable = '$price ${lang.getStr(currency)}';
+		//String lable = '$price ${currency}'.toUpperCase();
 
-		return lable;
+		return price.toString();
 	}
 
 	List<String> getFeatureList() =>

@@ -42,6 +42,24 @@
 	margin-top: 20px;
 }
 
+.price{
+	line-height: 20px;
+	direction: ltr;
+
+	.number{
+		font-size: 35px;
+		margin: 0px;
+	}
+
+	.currencySKU{
+		font-size: 15px;
+	}
+
+	.currencyTitle{
+		font-size: 10px;
+	}
+}
+
 @media screen and (max-width: 425px) 
 {
     .tariff_card{

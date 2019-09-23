@@ -32,7 +32,7 @@
             <media-cover 
                 [lable]="(i+1).toString()"
                 [id]="song.id"
-                [thumbnail]="(song.album == 'single') ? song.thumbnail : ''"
+                [thumbnail]="song.thumbnail"
                 [number]="i"
                 [selectedIndex]="selectedNumber"
                 [hoverIndex]="hoverNumber"

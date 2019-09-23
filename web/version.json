@@ -1,11 +1,14 @@
 {
 	"web-client": "0.7.8",
 
-	"0.7.8": [
-		"added more currencies."
-	],
-
 	"log": {
+
+		"0.7.8": [
+			"added more currencies."
+			"solved cover problem with showing thumbnails.",
+			"improved tariff card style.",
+			"added isLowerCase fir DbField class."
+		],
 
 		"0.7.7": [
 			"improved search UI"

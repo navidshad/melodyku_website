@@ -25,6 +25,9 @@ class DbField {
 	// the field of this property could be hide
 	bool isHide;
 
+	// convert strings to lower case mode
+	bool isLowerCase;
+
 	//only for map type
 	List<DbField> subFields;
 
@@ -36,6 +39,7 @@ class DbField {
     	this.fieldType,
 		this.isDisable=false, 
 		this.isHide=false, 
+		this.isLowerCase=false,
 		this.subFields
 		})
 	{

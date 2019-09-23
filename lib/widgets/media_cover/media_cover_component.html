@@ -9,12 +9,12 @@
         {{lable}}</div>
 
         <!-- cover image -->
-        <img class="background" *ngIf="getCoverAccess()" src="{{thumbnail}}">
+        <img class="background" src="{{thumbnail}}">
 
         <!-- random colored cover -->
-        <div class="background pattern" *ngIf="!getCoverAccess()">
+        <!-- <div class="background pattern" *ngIf="!getCoverAccess()">
             <img src="{{randomPattern}}">
-        </div>
+        </div> -->
 
         <div *ngIf="!getnoActionBool()" 
             class="overlay

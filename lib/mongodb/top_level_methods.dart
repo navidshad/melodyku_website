@@ -38,7 +38,9 @@ Map validateFields(dynamic object, List<DbField> customFields)
 			if(field.dataType == DataType.string)
 			{
 				if(value == null) value = '';
-				newObject[field.key] = value.toString();
+
+				if(!field.isLowerCase) newObject[field.key] = value.toString();
+				else newObject[field.key] = value.toString().toLowerCase();
 			}
 			
 			// bool field

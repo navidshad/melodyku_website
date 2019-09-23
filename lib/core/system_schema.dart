@@ -17,14 +17,14 @@ class SystemSchema
 	static List<DbField> artist = 
 	[
 		DbField('name'),
-		DbField('imgStamp', isDisable:true),
+		DbField('imgStamp', isDisable:true, isLowerCase: true),
         DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
         DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
 	static List<DbField> album =
 	[
-		DbField('title'),
+		DbField('title', isLowerCase: true),
 		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_artist', isHide:true),
 		DbField('artistId', isHide: true),
@@ -36,7 +36,7 @@ class SystemSchema
 
 	static List<DbField> song_version = 
 	[
-		DbField('title'),
+		DbField('title', isLowerCase: true),
 		DbField('size', dataType: DataType.float),
 		DbField('duration', dataType: DataType.float),
 		DbField('bitrate', dataType: DataType.int),
@@ -47,7 +47,7 @@ class SystemSchema
 	[
 		DbField('artistId', isHide:true),
 		DbField('albumId', isHide:true),
-		DbField('title', dataType: DataType.string, fieldType: FieldType.text),
+		DbField('title', dataType: DataType.string, fieldType: FieldType.text, isLowerCase: true),
 		DbField('album', isDisable: true),
 		DbField('artist', isDisable: true),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),

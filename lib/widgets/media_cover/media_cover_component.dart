@@ -60,10 +60,11 @@ class MediaCoverComponent
   bool getnoActionBool() => noAction ?? false;
   bool getPlayAccess() => playBtn ?? false;
   bool getExploreAccess() => exploreBtn ?? false;
-  bool getCoverAccess() {
-    //print('cover thumbnail ${thumbnail}');
-    return (thumbnail != null && thumbnail.length > 10) ? true : false;
-  }
+
+  // bool getCoverAccess() {
+  //   //print('cover thumbnail ${thumbnail}');
+  //   return (thumbnail != null) ? true : false;
+  // }
 
   void explore()
   {

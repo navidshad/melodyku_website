@@ -16,9 +16,13 @@
 				</ul>
 			</div>
 
-			<div class="full-wide detail w3-center" 
+			<div class="price full-wide detail w3-center" 
 				dir="{{lang.getDir()}}">
-				<h4>{{getPrice()}}</h4>
+				<div>
+					<span class="number">{{getPrice()}}</span>
+					<span class="currencySKU">{{currency.toUpperCase()}}</span>
+				</div>
+				<span class="currencyTitle">{{lang.getStr(currency)}}</span>
 			</div>
 
 			<div class="btn-sl" 
