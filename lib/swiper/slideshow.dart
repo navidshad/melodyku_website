@@ -85,7 +85,7 @@ class SlideShow
 	}
 
 	void sortSlides() =>
-		slides.sort((a, b) => a.order.compareTo(b.order));
+		slides.sort((a, b) => a.order.compareTo(b?.order ?? 0));
 
 	Future<void> addSlide()
 	{

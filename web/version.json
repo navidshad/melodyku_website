@@ -4,7 +4,7 @@
 	"log": {
 
 		"0.7.8": [
-			"added more currencies."
+			"added more currencies.",
 			"solved cover problem with showing thumbnails.",
 			"improved tariff card style.",
 			"added isLowerCase fir DbField class."

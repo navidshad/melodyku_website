@@ -60,7 +60,7 @@ Map validateFields(dynamic object, List<DbField> customFields)
 			else if(field.dataType == DataType.int || field.dataType == DataType.float)
 			{
 				if(value == null) value = 0;
-				num n = value;
+				num n = num.parse(value.toString());
 
 				if(field.dataType == DataType.int)
 					newObject[field.key] = n.toInt();
