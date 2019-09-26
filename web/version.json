@@ -1,7 +1,11 @@
 {
-	"web-client": "0.7.8",
+	"web-client": "0.7.9",
 
 	"log": {
+
+		"0.7.9": [
+			"improved localization, all fields is show in local language",
+		],
 
 		"0.7.8": [
 			"added more currencies.",

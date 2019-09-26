@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/mongodb/media_lookup_piplines.dart' as lookupPiplines;
 
 class MediaSelector
 {
@@ -22,9 +23,19 @@ class MediaSelector
 
     T item;
 
+
+
     await _mongoDBService.findOne(
       database: 'media',
-      collection: collection, query: { '_id': id })
+      collection: collection, 
+      query: { '_id': id },
+      options: {
+        'populates': [
+          {'path': 'artistId'},
+          {'path': 'albumId'}
+        ]
+      }
+      )
       .then((doc) 
       {
         Map convertedToMap = validateFields(doc, dbFields);
@@ -72,8 +83,10 @@ class MediaSelector
   Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
     Map<String, dynamic> query = {'artistId': artistId};
+    List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.artistId') ];
 
-    ResultWithNavigator navigator = ResultWithNavigator<Album>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Album>(
+      customQuery: query, perPage: total, types: types);
 
     await navigator.loadNextPage(goto: page);
 
@@ -92,19 +105,20 @@ class MediaSelector
   Future<List<Album>> album_getRandomList({int total=15, Map<String, dynamic> query}) async
   {
     List<Album> albums = [];
-    List<Map<String, dynamic>> piplines = [];
+    List<Map> piplines = [];
 
     if(query != null) 
       piplines.add({ '\$match': query });
       
     piplines.add({'\$sample': {'size': total}});
+    piplines.addAll(lookupPiplines.getPiplines('album'));
 
     await _mongoDBService.aggregate(isLive:true, database:'media', collection: 'album', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {
-          Map converted = validateFields(doc, SystemSchema.album);
-          Album album = Album.fromjson(converted);
+          Map converted = validateFields(doc, SystemSchema.album_populteVer);
+          Album album = Album.fromPopulatedDoc(converted);
           albums.add(album);
         });
       }).catchError(_handleError);
@@ -125,8 +139,10 @@ class MediaSelector
   Future<ResultWithNavigator<Song>> song_getListByArtist(String artistId, {int page=1, int total=15}) async
   {
     Map<String, dynamic> query = {'artistId': artistId};
+    List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.artistId') ];
 
-    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(
+      customQuery: query, perPage: total, types: types);
 
     await navigator.loadNextPage(goto: page);
 
@@ -136,8 +152,10 @@ class MediaSelector
   Future<ResultWithNavigator<Song>> song_getListByAlbum(String albumId, {int page=1, int total=15}) async
   {
     Map query = {'albumId': albumId};
+    List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.albumId') ];
 
-    ResultWithNavigator navigator = ResultWithNavigator<Song>(customQuery: query, perPage: total);
+    ResultWithNavigator navigator = ResultWithNavigator<Song>(
+      customQuery: query, perPage: total, types: types);
 
     await navigator.loadNextPage(goto: page);
 
@@ -155,19 +173,20 @@ class MediaSelector
 
     playlist = Playlist.fromjson(playlistDetail);
 
-    List<Map<String, dynamic>> piplines = [];
+    List<Map> piplines = [];
 
     if(query != null) 
       piplines.add({ '\$match': query });
       
     piplines.add({'\$sample': {'size': total}});
+    piplines.addAll(lookupPiplines.getPiplines('song'));
 
     await _mongoDBService.aggregate( database: 'media', collection: 'song', piplines: piplines)
       .then((docs) 
       {
         docs.forEach((doc) {
-          Map converted = validateFields(doc, SystemSchema.song);
-          Song song = Song.fromjson(converted);
+          Map converted = validateFields(doc, SystemSchema.song_populateVer);
+          Song song = Song.fromPopulatedDoc(converted);
           playlist.list.add(song);
         });
       }).catchError(_handleError);

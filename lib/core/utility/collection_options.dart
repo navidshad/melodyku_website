@@ -4,7 +4,7 @@ library collectionOptions;
 import 'dart:async';
 import 'package:angular_router/angular_router.dart';
 
-import 'package:melodyku/mongodb/field.dart';
+import 'package:melodyku/mongodb/mongodb.dart';
 import 'package:melodyku/core/core.dart';
 
 class LinkButton 
@@ -68,6 +68,8 @@ class CollectionOptions
 
 	List<DbField> dbFields;
 
+  	List<TypeCaster> types;
+
 	bool createNew;
 	bool showHidenField;
 	bool allowAdd = true;
@@ -102,6 +104,7 @@ class CollectionOptions
 		this.hasNavigator=true, 
 		this.hasCover 	 = false,
 		this.autoGet	 =true,
+		this.types,
 	}){
 		_clearControler = StreamController();
 	}

@@ -7,18 +7,19 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 
 import 'song.dart';
+import 'artist.dart';
 import 'media_item.dart';
 
 class Album implements MediaItem
 {
   String id;
-  String artistId;
+  //String artistId;
   ArchiveTypes type;
 
   ResultWithNavigator<Song> songNavigator;
 
   String title;
-  String artist;
+  Artist artist;
   String description;
   String thumbnail;
   String imgStamp;
@@ -26,9 +27,18 @@ class Album implements MediaItem
 
   Map localTitle;
 
-  Album({this.id, this.artistId, this.type, this.title, this.artist, 
-    this.description, this.imgStamp, this.imgStamp_artist, 
-    this.thumbnail, this.localTitle, bool dontGetSongs=false})
+  Album({
+    this.id, 
+    // this.artistId, 
+    this.type, 
+    this.title, 
+    this.artist, 
+    this.description, 
+    this.imgStamp='', 
+    this.imgStamp_artist='', 
+    this.thumbnail, 
+    this.localTitle, 
+    bool dontGetSongs=false})
   {
     if(!dontGetSongs) getSongs();
 
@@ -36,27 +46,44 @@ class Album implements MediaItem
     getThumbnailLink();
   }
 
-  factory Album.fromjson(Map detail, {bool dontGetSongs=true})
+  factory Album.fromjson(Map detail, {Artist artist, bool dontGetSongs=true})
   {
     Album album;
     try {
       album = Album(
         dontGetSongs: dontGetSongs,
         type        : ArchiveTypes.album,
-        id          : (detail['_id'] != null)         ? detail['_id'].toString() : '',
-        artistId    : (detail['artistId'] != null)    ? detail['artistId'] : '',
-        title       : (detail['title'] != null)       ? detail['title'] : '',
-        artist      : (detail['artist'] != null)      ? detail['artist'] : '',
-        description : (detail['description'] != null) ? detail['description'] : '',
-        imgStamp    : (detail['imgStamp']   != null)  ? detail['imgStamp'] : '',
-        imgStamp_artist    : (detail['imgStamp_artist']   != null)  ? detail['imgStamp_artist'] : '',
-        localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
+        id          : detail['_id'],
+        title       : detail['title'],
+        // artistId    : detail['artistId'],
+        artist      : artist,
+        description : detail['description'],
+        imgStamp    : detail['imgStamp'],
+        localTitle  : detail['local_title'],
+        imgStamp_artist    : detail['imgStamp_artist'],
       );
     } 
     catch (e) {
-      print('convert album from json $detail');
       print(e);
+      print('convert album from json $detail');
     }
+
+    return album;
+  }
+
+  factory Album.fromPopulatedDoc(Map detail, {bool dontGetSongs=true})
+  {
+    Album album;
+
+    try{
+
+      Artist artist = Artist.fromjson(detail['artistId']);
+      album = Album.fromjson(detail, artist: artist, dontGetSongs: dontGetSongs);
+
+      }catch(e){
+        print(e);
+        print('convert album fromPopulatedDoc $detail');
+      }
 
     return album;
   }
@@ -70,10 +97,14 @@ class Album implements MediaItem
      link = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'album', id:id, imgStamp:imgStamp);
     }
-    else if(imgStamp_artist.length > 10)
+    else if(artist != null && imgStamp_artist.length > 10)
     {
      link = Injector.get<ContentProvider>()
-      .getImage(database:'media', type:'artist', id:artistId, imgStamp:imgStamp_artist);
+      .getImage(database:'media', type:'artist', id:artist.id, imgStamp:imgStamp_artist);
+    }
+    else {
+      link = Injector.get<ContentProvider>()
+        .getImage(database:'media', type:'album', id:id, imgStamp:imgStamp);
     }
 
     thumbnail = link;
@@ -107,7 +138,7 @@ class Album implements MediaItem
 
   @override
   String get link => '#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': id})}';
-  String get link_artist => "#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}";
+  String get link_artist => artist.link; //"#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artist.id})}";
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -118,7 +149,7 @@ class Album implements MediaItem
     {
       widget = Card(
         title,
-        subtitle: artist,
+        subtitle: artist.name,
         id: id,
         thumbnail: thumbnail,
         type: ArchiveTypes.album,
@@ -126,14 +157,15 @@ class Album implements MediaItem
         titleLink: link,
         subtitleLink: link_artist,
         localTitle: localTitle,
+        localTitle_sub: artist.localTitle,
       ) as T;
     }
     else if (T == ListItem)
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
-        artist,
-        subtitle: title,
+        title,
+        subtitle: artist.name,
         id: id,
         duration: '',
         number: digititemNumber,
@@ -142,6 +174,7 @@ class Album implements MediaItem
         origin: this,
         titleLink: link,
         localTitle: localTitle,
+        localTitle_sub: artist.localTitle,
       ) as T;
     }
 
@@ -164,7 +197,7 @@ class Album implements MediaItem
       {
         widget = Card<Song>( 
           item.title,
-          subtitle: item.artist,
+          subtitle: item.artist.name,
           id: item.id,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
@@ -176,7 +209,7 @@ class Album implements MediaItem
       {
         widget = ListItem<Song>(
           item.title,
-          subtitle: item.artist,
+          subtitle: item.artist.name,
           id: item.id,
           duration: item.getDuration(),
           number: itemNumber,
@@ -205,15 +238,15 @@ class Album implements MediaItem
     return null;
   }
 
-  @override
-  void play() {
-    // TODO: implement play
-  }
+  String getLocalTitle()
+  {
+    String languageCode = Injector.get<LanguageService>().getCode();
+    String tempTitle = title;
 
-  @override
-  Future<bool> getPlayStatus() {
-    // TODO: implement getPlayStatus
-    return null;
+    if(localTitle.containsKey(languageCode) && localTitle[languageCode].length > 0)
+      tempTitle = localTitle[languageCode];
+
+    return tempTitle;
   }
 
   @override

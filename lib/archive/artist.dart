@@ -60,6 +60,17 @@ class Artist implements MediaItem
   @override
   String get link => '#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': id})}';
 
+  String getLocalTitle()
+  {
+    String languageCode = Injector.get<LanguageService>().getCode();
+    String tempTitle = name;
+
+    if(localTitle.containsKey(languageCode) && localTitle[languageCode].length > 0)
+      tempTitle = localTitle[languageCode];
+
+    return tempTitle;
+  }
+
   @override
   Future<bool> getLikeStatus() {
     // TODO: implement getLikeStatus
@@ -67,20 +78,9 @@ class Artist implements MediaItem
   }
 
   @override
-  Future<bool> getPlayStatus() {
-    // TODO: implement getPlayStatus
-    return null;
-  }
-
-  @override
   Future<bool> like() {
     // TODO: implement like
     return null;
-  }
-
-  @override
-  void play() {
-    // TODO: implement play
   }
 
   @override

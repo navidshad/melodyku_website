@@ -179,8 +179,13 @@ class DbCollectionTableEditorComponent implements OnChanges
 
 		// get total items
 		//print('_mainQuery $_mainQuery');
-    	await _mongodb.count(isLive:true, database: options.database, 
-      	collection: options.collection, query: combinedQueries)
+    	await _mongodb.count(
+	    		isLive:true, 
+	    		database: options.database, 
+	      		collection: options.collection, 
+	      		query: combinedQueries, 
+	      		types: options.types
+      		)
 			.then((count)
 			{
 				total_items = count;
@@ -211,20 +216,25 @@ class DbCollectionTableEditorComponent implements OnChanges
 		//print('pipline for ${_collection.namespace} $pipline');
 
 		// get by aggregate
-    	await _mongodb.aggregate(isLive:true, database: options.database, collection: options.collection,
-      piplines: piplines)
-      .then((documents) 
-      {
-        list = [];	
+    		await _mongodb.aggregate(
+	    		isLive:true, database: 
+	    		options.database, 
+	    		collection: options.collection,
+			piplines: piplines,
+		     types: options.types
+	    	)
+		.then((documents) 
+		{
+			list = [];	
 
-        for(int i=0; i < documents.length; i++)
-        {
-          dynamic document = documents[i];
+			for(int i=0; i < documents.length; i++)
+			{
+			  dynamic document = documents[i];
 
-          Map converted = validateFields(document, options.dbFields);
-          list.add(converted);
-        }
-      }).catchError(_catchError);
+			  Map converted = validateFields(document, options.dbFields);
+			  list.add(converted);
+			}
+		}).catchError(_catchError);
 
 		print('items gotten, ${list.length}');
 	}

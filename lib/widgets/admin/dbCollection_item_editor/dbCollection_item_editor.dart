@@ -46,7 +46,7 @@ class DbCollectionItemEditorComponent
 	@Input()
 	void set options(CollectionOptions options)
 	{
-		print('=== begin to get options');
+		//print('=== begin to get options');
 		op = options;
 
 		if(options.document != null)	setNewEditable(options.document);
@@ -65,7 +65,7 @@ class DbCollectionItemEditorComponent
 	{
 		//await Future.delayed(Duration(seconds:1));
 
-		print('getting item, ${op.id.toString()}');
+		//print('getting item, ${op.id.toString()}');
 
 		// create update query
 		Map query = {'_id': op.id};
@@ -135,7 +135,7 @@ class DbCollectionItemEditorComponent
 		editable.remove('_id');
 		normalize();
 
-		print('updating $editable');
+		//print('updating $editable');
 		
 		// create update option
 		Map update = { '\$set': editable };

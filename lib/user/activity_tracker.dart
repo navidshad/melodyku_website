@@ -37,7 +37,7 @@ class ActivityTracker
 		Map recentDoc = {
 			'date' 		: DateTime.now().toUtc().toIso8601String(), //dateTimeToJSDate(DateTime.now()),
 			'songId'	: song.id,
-			'artistId'	: song.artistId,
+			'artistId'	: song.artist.id,
 			'refId'		: _userId,
 			'categories': song.categories,
 		};
@@ -71,7 +71,7 @@ class ActivityTracker
 			Map recentDoc = {
 				'date' 		: DateTime.now().toUtc().toIso8601String(), //dateTimeToJSDate(DateTime.now()),
 				'songId'	: song.id,
-				'artistId'	: song.artistId,
+				'artistId'	: song.artist.id,
 				'refId'		: _userId,
 				'categories': song.categories,
 			};
@@ -162,7 +162,7 @@ class ActivityTracker
 		return _mongodb.aggregate(
 			database: 'user', collection: collection, 
 			piplines: pipeline, accessQuery: accessQuery,
-			bodyKey: 'piplines', types: typeCasters)
+			types: typeCasters)
 			.then((list) {
 				//print(list);
 				return (list.length > 0) ? list[0]['count'] : 0;

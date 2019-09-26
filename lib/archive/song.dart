@@ -9,13 +9,15 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 
 import 'media_item.dart';
-import 'download_file.dart';
+import 'album.dart';
+import 'artist.dart';
+//import 'download_file.dart';
 
 class Song implements MediaItem
 {
   String id;
-  String artistId;
-  String albumId;
+  // String artistId;
+  // String albumId;
 
   ArchiveTypes type;
   bool isLiked = false;
@@ -24,8 +26,8 @@ class Song implements MediaItem
   int storedDate;
 
   String title;
-  String artist;
-  String album;
+  Artist artist;
+  Album album;
   List<String> categories;
   String lyric;
   String thumbnail;
@@ -44,8 +46,8 @@ class Song implements MediaItem
 
   Song({
     this.id,
-    this.artistId,
-    this.albumId,
+    // this.artistId,
+    // this.albumId,
     this.title, 
     this.artist, 
     this.album, 
@@ -57,12 +59,13 @@ class Song implements MediaItem
     this.size,
     this.thumbnail,
     this.versions,
-    this.imgStamp,
-    this.imgStamp_album,
-    this.imgStamp_artist,
-    this.localTitle,
+    this.imgStamp='',
+    this.imgStamp_album='',
+    this.imgStamp_artist='',
     this.isLocal = false,
     this.storedDate = 0,
+
+    this.localTitle=const{},
   })
   {
     type = ArchiveTypes.media;
@@ -72,51 +75,69 @@ class Song implements MediaItem
     getThumbnailLink();
   }
 
-  factory Song.fromjson(Map detail, {isLocal = false})
+  factory Song.fromjson(Map detail, {Artist artist, Album album, isLocal = false})
   {
     Song mFromJson;
     try {
       //print('Song.fromjson $detail');
       mFromJson = Song(
-      id        : (detail['_id'] != null) ? detail['_id'].toString() : '',
-      artistId  : (detail['artistId'] != null) ? detail['artistId'] : '',
-      albumId   : (detail['albumId'] != null) ? detail['albumId'] : '',
-      title     : (detail['title'] != null) ? detail['title'] : '',
-      artist    : (detail['artist'] != null) ? detail['artist'] : '',
-      album     : (detail['album'] != null) ? detail['album'] : '',
-      categories: (detail['categories'] != null) ? detail['categories'] : '',
-      lyric     : (detail['lyric'] != null) ? detail['lyric'] : '',
-      year      : (detail['year']   != null) ? detail['year'] : null,
-      duration  : (detail['duration']   != null) ? detail['duration'] : 0,
-      bitrate   : (detail['bitrate']   != null) ? detail['bitrate'] : 0,
-      size      : (detail['size']   != null) ? detail['size'] : 0,
-      imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
-      imgStamp_album  : (detail['imgStamp_album']   != null) ? detail['imgStamp_album'] : '',
-      imgStamp_artist  : (detail['imgStamp_artist']   != null) ? detail['imgStamp_artist'] : '',
+      id        : detail['_id'],
+      title     : detail['title'],
+      // artistId  : detail['artistId'],
+      // albumId   : detail['albumId'],
+      artist    : artist,
+      album     : album,
+      categories: detail['categories'],
+      lyric     : detail['lyric'],
+      year      : detail['year'],
+      duration  : detail['duration'],
+      bitrate   : detail['bitrate'],
+      size      : detail['size'],
+      imgStamp  : detail['imgStamp'],
+      imgStamp_album  : detail['imgStamp_album'],
+      imgStamp_artist  : detail['imgStamp_artist'],
       versions  : detail['versions'],
-      localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
+      localTitle: detail['local_title'],
 
       isLocal   : isLocal,
       storedDate : (detail.containsKey('storedDate')) ? detail['storedDate'] : 0,
     );
 
     } catch (e) {
-      print('convert Song from json ${json.encode(detail)}');
       print(e);
+      print('convert Song from json ${json.encode(detail)}');
     }
 
     return mFromJson;
+  }
+
+  factory Song.fromPopulatedDoc(Map detail, {isLocal = false})
+  {
+    Song song;
+
+    try{
+
+      Artist artist = Artist.fromjson(detail['artistId']);
+      Album album = Album.fromjson(detail['albumId'], artist: artist);
+      song = Song.fromjson(detail, artist: artist, album: album, isLocal: isLocal);
+
+      }catch(e){
+        print(e);
+        print('convert Song fromPopulatedDoc ${json.encode(detail)}');
+      }
+
+    return song;
   }
 
   Map getAsMap()
   {
     return {
       '_id'       : id,
-      'artistId'  : artistId,
-      'albumId'   : albumId,
+      // 'artistId'  : artistId,
+      // 'albumId'   : albumId,
       'title'     : title,
-      'artist'    : artist,
-      'album'     : album,
+      'artist'    : artist?.name,
+      'album'     : album?.title,
       'categories': categories,
       'lyric'     : lyric,
       'year'      : year,
@@ -146,15 +167,15 @@ class Song implements MediaItem
      link = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'song', id:id, imgStamp:imgStamp);
     }
-    else if(imgStamp_album.length > 10)
+    else if(album != null && imgStamp_album.length > 10)
     {
      link = Injector.get<ContentProvider>()
-      .getImage(database:'media', type:'album', id:albumId, imgStamp:imgStamp_album);
+      .getImage(database:'media', type:'album', id:album.id, imgStamp:imgStamp_album);
     }
-    else if(imgStamp_artist.length > 10)
+    else if(artist != null && imgStamp_artist.length > 10)
     {
      link = Injector.get<ContentProvider>()
-      .getImage(database:'media', type:'artist', id:artistId, imgStamp:imgStamp_artist);
+      .getImage(database:'media', type:'artist', id:artist.id, imgStamp:imgStamp_artist);
     }
     else {
       link = Injector.get<ContentProvider>()
@@ -196,7 +217,7 @@ class Song implements MediaItem
 
       // create stream link
       link = Uri.https(Vars.mainHost, 'stream', 
-        {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
+        {'ai': artist.id, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
         .toString();
     // }
     
@@ -223,7 +244,7 @@ class Song implements MediaItem
 
     // create stream link
     Uri link = Uri.https(Vars.mainHost, 'stream/downloadsong', 
-      {'ai': artistId, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()});
+      {'ai': artist.id, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()});
 
     return link.toString();
   }
@@ -247,8 +268,8 @@ class Song implements MediaItem
 
   @override
   String get link => '#${Injector.get<PageRoutes>().getRouterUrl('song', {'id': id})}';
-  String get link_album => '#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
-  String get link_artist => '#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
+  String get link_album => album.link; //'#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
+  String get link_artist => artist.link; //'#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -257,15 +278,17 @@ class Song implements MediaItem
 
     if(T == Card)
     {
+      print('getAsWidget ${artist.name}');
       widget = Card( 
         title,
-        subtitle: artist,
+        subtitle: artist.name,
         subtitleLink: link_artist,
         id: id,
         thumbnail: thumbnail,
         type: ArchiveTypes.media,
         origin: this,
         localTitle: localTitle,
+        localTitle_sub: artist.localTitle,
       ) as T;
     }
 
@@ -274,7 +297,7 @@ class Song implements MediaItem
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
         title,
-        subtitle: artist,
+        subtitle: artist.name,
         id: id,
         duration: getDuration(),
         number: digititemNumber,
@@ -282,6 +305,7 @@ class Song implements MediaItem
         type: ArchiveTypes.media,
         origin: this,
         localTitle: localTitle,
+        localTitle_sub: artist.localTitle,
       ) as T;
     }
 
@@ -319,6 +343,17 @@ class Song implements MediaItem
     isLiked = await userService.user.traker.reportLikedSong(this);
 
     return isLiked;
+  }
+
+  String getLocalTitle()
+  {
+    String languageCode = Injector.get<LanguageService>().getCode();
+    String tempTitle = title;
+
+    if(localTitle.containsKey(languageCode) && localTitle[languageCode].length > 0)
+      tempTitle = localTitle[languageCode];
+
+    return tempTitle;
   }
 
   @override

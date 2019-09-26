@@ -1,7 +1,7 @@
 <album-single-wrapper
     *ngIf="album != null"
     [title]="album.title"
-    [subtitle]="album.artist"
+    [subtitle]="album.artist.getLocalTitle()"
     [subtitle_link]="album.link_artist"
     [detail]="album.description"
     [thumbnail]="album.thumbnail"

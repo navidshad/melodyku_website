@@ -20,13 +20,11 @@ abstract class MediaItem
 
   getLikeStatus() {}
 
-  getPlayStatus() {}
+  String getLocalTitle() {}
   
   String get link;
 
   String thumbnail;
-
-  void play() {}
 
   getAsWidget<T>() {}
 

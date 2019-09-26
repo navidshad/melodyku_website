@@ -34,6 +34,17 @@ class SystemSchema
       	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
 
+	static List<DbField> album_populteVer =
+	[
+		DbField('title', isLowerCase: true),
+		DbField('imgStamp', isDisable:true),
+		DbField('imgStamp_artist', isHide:true),
+      	DbField('description'),
+      	DbField('artistId', dataType: DataType.object, fieldType: FieldType.object, subFields: SystemSchema.artist),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+	];
+
 	static List<DbField> song_version = 
 	[
 		DbField('title', isLowerCase: true),
@@ -50,6 +61,25 @@ class SystemSchema
 		DbField('title', dataType: DataType.string, fieldType: FieldType.text, isLowerCase: true),
 		DbField('album', isDisable: true),
 		DbField('artist', isDisable: true),
+		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
+		DbField('duration', dataType: DataType.float, isHide:true),
+		DbField('size', dataType: DataType.float, isHide:true),
+		DbField('bitrate', dataType: DataType.float, isHide:true),
+		DbField('versions', isHide:true, dataType: DataType.array_object, subFields: song_version),
+		DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+		DbField('imgStamp', isDisable:true),
+		DbField('imgStamp_album', isHide:true),
+		DbField('imgStamp_artist', isHide:true),
+		DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+	];
+
+	static List<DbField> song_populateVer = 
+	[
+		DbField('artistId', dataType: DataType.object, fieldType: FieldType.object, subFields: SystemSchema.artist),
+		DbField('albumId', dataType: DataType.object, fieldType: FieldType.object, subFields: SystemSchema.album),
+		DbField('title', dataType: DataType.string, fieldType: FieldType.text, isLowerCase: true),
+		// DbField('album', isDisable: true),
+		// DbField('artist', isDisable: true),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
 		DbField('size', dataType: DataType.float, isHide:true),

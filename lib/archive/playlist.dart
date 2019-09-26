@@ -43,7 +43,7 @@ class Playlist implements MediaItem
         List songMaps = detail['list'];
 
         songMaps.forEach((item) { 
-          Song newSong = Song.fromjson(item);
+          Song newSong = Song.fromPopulatedDoc(item);
           items.add(newSong); 
         });
       }
@@ -61,6 +61,17 @@ class Playlist implements MediaItem
       print('$e | $detail[]');
     }
     return playlist;
+  }
+
+  String getLocalTitle()
+  {
+    String languageCode = Injector.get<LanguageService>().getCode();
+    String tempTitle = title;
+
+    if(localTitle.containsKey(languageCode) && localTitle[languageCode].length > 0)
+      tempTitle = localTitle[languageCode];
+
+    return tempTitle;
   }
 
   dynamic toDynamic()
@@ -144,13 +155,14 @@ class Playlist implements MediaItem
         //print('create Card from playlist items: ${item.title}');
         widget = Card<Song>( 
           item.title,
-          subtitle: item.artist,
+          subtitle: item.artist.name,
           subtitleLink: item.link_artist,
           id: item.id,
           thumbnail: item.thumbnail,
           type: ArchiveTypes.media,
           origin: item,
           localTitle: item.localTitle,
+          localTitle_sub: item.artist.localTitle,
         ) as T;
       }
       else if(T == ListItem)
@@ -158,7 +170,7 @@ class Playlist implements MediaItem
         //print('create ListItem from playlist items: ${item.title}');
         widget = ListItem<Song>(
           item.title,
-          subtitle: item.artist,
+          subtitle: item.artist.getLocalTitle(),
           id: item.id,
           duration: item.getDuration(),
           number: itemNumber,
@@ -166,6 +178,7 @@ class Playlist implements MediaItem
           type: ArchiveTypes.media,
           origin: item,
           localTitle: item.localTitle,
+          localTitle_sub: item.artist.localTitle,
         ) as T;
       }
 

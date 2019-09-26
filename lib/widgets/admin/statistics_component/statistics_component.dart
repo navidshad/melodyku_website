@@ -47,7 +47,6 @@ class AdminStatisticsComponent
 				database	: ap.database, 
 				collection	: ap.collection, 
 				piplines	: ap.piplines,
-				bodyKey		: 'piplines', 
 				types		: ap.types
 			);
 			futures.add(f);

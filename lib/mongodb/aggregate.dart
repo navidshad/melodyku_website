@@ -9,6 +9,8 @@ class Aggregate
 	List<Map> pipline;
 	Map accessQuery;
 
+  	List<TypeCaster> types;
+
 	bool hasMore = false;
 	bool isInitialized = false;
 
@@ -17,12 +19,18 @@ class Aggregate
 	int page = 0;
 	int pages = 0;
 
-	Aggregate({this.database, this.collection, this.pipline=const[], this.accessQuery=const{}, this.perPage=20})
+	Aggregate({
+		this.database, 
+		this.collection, 
+		this.pipline=const[], 
+		this.accessQuery=const{}, 
+		this.types,
+		this.perPage=20})
 	{
 		_mongodb = Injector.get<MongoDBService>();
 	}
 
-	Future<void> initialize() async
+	Future<dynamic> initialize() async
 	{
 		// get count ============================
 		List<Map> countPipeline = [
@@ -32,7 +40,8 @@ class Aggregate
 		countPipeline.insertAll(0, pipline);
 
 		await _mongodb.aggregate( 
-			database: database, collection: collection, piplines: countPipeline, accessQuery: accessQuery)
+			database: database, collection: collection, piplines: countPipeline, accessQuery: accessQuery,
+			types: types)
 			.then((docs) 
 			{
 				if(docs.length > 0) totalItems = docs[0]['count'];
@@ -53,7 +62,7 @@ class Aggregate
 		if(goto != null) page = goto;
 
 		Map navigatorDetail = getNavigatorDetail(total: totalItems, page: page, perPage: perPage);
-		print('=== SC loadNextPage $navigatorDetail | page $page');
+		//print('=== SC loadNextPage $navigatorDetail | page $page');
 
 		List<Map> nextPipeline = [
 			{
@@ -69,7 +78,9 @@ class Aggregate
 
 		List<dynamic> docs = [];
 
-		await _mongodb.aggregate( database: database, collection: collection, piplines: nextPipeline, accessQuery: accessQuery)
+		await _mongodb.aggregate( 
+			database: database, collection: collection, piplines: nextPipeline, accessQuery: accessQuery,
+			types: types)
 			.then((list) => docs = list)
 			.catchError(_handleError);
 

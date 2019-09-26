@@ -81,6 +81,9 @@ class ArchiveArtistPage implements OnActivate
       title: 'Manage Albums',
       database: 'media',
       collection: 'album',
+      types: [
+        TypeCaster('ObjectId', '0.\$match.artistId')
+      ],
       query: {'artistId': artistID},
       addOnCreate: {'artistId': artistID},
       allowUpdate: false,

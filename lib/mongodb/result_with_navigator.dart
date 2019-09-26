@@ -7,6 +7,8 @@ import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/core/core.dart';
 
+import 'media_lookup_piplines.dart' as lookupPiplines;
+
 enum GetType {mediaItems, favorites, history}
 
 class ResultWithNavigator<T>
@@ -29,10 +31,16 @@ class ResultWithNavigator<T>
   Map customQuery;
   Map customSort;
 
+  List<TypeCaster> types;
+
   List<T> list = [];
 
-  ResultWithNavigator({this.getType = GetType.mediaItems, 
-    this.customQuery, this.customSort, int perPage=20})
+  ResultWithNavigator({
+    this.getType = GetType.mediaItems, 
+    this.customQuery, 
+    this.customSort, 
+    this.types,
+    int perPage=20})
   {
     _updateController = StreamController<bool>();
 
@@ -46,8 +54,8 @@ class ResultWithNavigator<T>
     T item;
 
     if(T == Artist)       item = Artist.fromjson(doc) as T;
-    else if(T == Album)   item = Album.fromjson(doc, dontGetSongs: dontGetSongs) as T;
-    else if(T == Song)    item = Song.fromjson(doc) as T;
+    else if(T == Album)   item = Album.fromPopulatedDoc(doc, dontGetSongs: dontGetSongs) as T;
+    else if(T == Song)    item = Song.fromPopulatedDoc(doc) as T;
 
     return item;
   }
@@ -57,8 +65,8 @@ class ResultWithNavigator<T>
     List<DbField> list = [];
 
     if(T == Artist)       list = SystemSchema.artist;
-    else if(T == Album)   list = SystemSchema.album;
-    else if(T == Song)    list = SystemSchema.song;
+    else if(T == Album)   list = SystemSchema.album_populteVer;
+    else if(T == Song)    list = SystemSchema.song_populateVer;
     //else if(T == Playlist) list = SystemSchema.artist;
 
     //print('=== getDbFields ${list.length}');
@@ -91,6 +99,9 @@ class ResultWithNavigator<T>
 
       if(customSort != null)
         piplines.add({ '\$sort': customSort });
+
+      if(T == Album) piplines.addAll(lookupPiplines.getPiplines('album'));
+      else if(T == Song) piplines.addAll(lookupPiplines.getPiplines('song'));
     }
 
     // get favorites or history
@@ -137,6 +148,7 @@ class ResultWithNavigator<T>
       collection: collection, 
       pipline: getPiplines(),
       accessQuery: getAccessQuery(),
+      types: types,
       perPage: _perPage);
   }
 
@@ -154,7 +166,11 @@ class ResultWithNavigator<T>
           if(getType != GetType.mediaItems)
             return await _getItemFromIds(list);
           return list;
-        });
+        })
+      .catchError((e) {
+        print(e);
+        return [];
+      });
 
     _pages = _aggregator.pages;
 

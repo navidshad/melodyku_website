@@ -23,7 +23,7 @@
         <div class="full-wide">
             <span class="title">{{card.getTitle(lang.getCode())}}</span><br>
             <a href="{{card.subtitleLink}}">
-                <span class="subtitle" *ngIf="card.subtitle != null">{{card.subtitle}}</span>
+                <span class="subtitle" *ngIf="card.subtitle != null">{{card.getSubTitle(lang.getCode())}}</span>
             </a>
         </div>
 

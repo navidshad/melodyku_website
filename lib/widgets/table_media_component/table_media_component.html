@@ -41,12 +41,12 @@
         </div>
 
         <div (click)="play(i)" class='cell stitle subtitle'>
-            <span>{{song.title}}</span>
-            <div class="small-artist ssubtitle">{{song.artist}}</div>
+            <span>{{song.getLocalTitle()}}</span>
+            <div class="small-artist ssubtitle">{{song.artist.getLocalTitle()}}</div>
         </div>
 
-        <div (click)="play(i)" class='cell album subtitle'>{{song.album}}</div>
-        <div (click)="play(i)" class='cell artist subtitle'>{{song.artist}}</div>
+        <div (click)="play(i)" class='cell album subtitle'>{{song.album.getLocalTitle()}}</div>
+        <div (click)="play(i)" class='cell artist subtitle'>{{song.artist.getLocalTitle()}}</div>
         <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
 
         <div class="cell download"

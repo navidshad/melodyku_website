@@ -33,7 +33,8 @@ class MongoDBService
 		return headers;
 	}
 
-	Future<dynamic> find({bool isLive=false, String database, String collection, Map query=const{}, Map options=const{}}) async
+	Future<dynamic> find({bool isLive=false, String database, String collection, 
+		Map query=const{}, Map options=const{}, List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/find';
 
@@ -41,8 +42,13 @@ class MongoDBService
 			'database': database,
 			'collection': collection,
 			'query': query,
-      		'options': options
+      		'options': options,
+			'bodyKey': 'query',
+			'types': [],
 		};
+
+		if(types != null)
+			types.forEach((tc) => body['types'].add(tc.getMap()));
 
 		Map<String, String> headers = await _getHeaders(isLive);
 		
@@ -50,7 +56,8 @@ class MongoDBService
 			.then(analizeResult);
 	}
 
-	Future<dynamic> findOne({bool isLive=false, String database, String collection, Map query}) async
+	Future<dynamic> findOne({bool isLive=false, String database, String collection, 
+		Map query=const{}, Map options=const{}, List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/findOne';
 
@@ -58,7 +65,13 @@ class MongoDBService
 			'database': database,
 			'collection': collection,
 			'query': query,
+			'options': options,
+			'bodyKey': 'query',
+			'types': [],
 		};
+
+		if(types != null)
+			types.forEach((tc) => body['types'].add(tc.getMap()));
 
 		Map<String, String> headers = await _getHeaders(isLive);
 
@@ -66,7 +79,8 @@ class MongoDBService
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> count({bool isLive=false, String database, String collection, Map query=const{}}) async
+  	Future<dynamic> count({bool isLive=false, String database, String collection, 
+  		Map query=const{}, String bodyKey='', List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/count';
 
@@ -74,7 +88,12 @@ class MongoDBService
 			'database': database,
 			'collection': collection,
 			'query': query,
+			'bodyKey': bodyKey,
+			'types': [],
 		};
+
+		if(types != null)
+			types.forEach((tc) => body['types'].add(tc.getMap()));
 
 		Map<String, String> headers = await _getHeaders(isLive);
 
@@ -134,7 +153,7 @@ class MongoDBService
 	}
 
   	Future<dynamic> aggregate({bool isLive=false, String database, String collection, List<Map> piplines, 
-  		Map accessQuery=const{}, String bodyKey='', List<TypeCaster> types=const[]}) async
+  		Map accessQuery=const{}, List<TypeCaster> types=const[]}) async
 	{
 		String url = Vars.host + '/contentProvider/aggregate';
 
@@ -143,11 +162,12 @@ class MongoDBService
 			'collection': collection,
 			'piplines': piplines,
 			'accessQuery': accessQuery,
-			'bodyKey': bodyKey,
+			'bodyKey': 'piplines',
 			'types': [],
 		};
 
-		types.forEach((tc) => body['types'].add(tc.getMap()));
+		if(types != null)
+			types.forEach((tc) => body['types'].add(tc.getMap()));
 
 		Map<String, String> headers = await _getHeaders(isLive);
 

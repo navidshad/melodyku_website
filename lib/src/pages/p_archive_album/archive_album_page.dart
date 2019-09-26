@@ -69,6 +69,9 @@ class ArchiveAlbumPage implements OnActivate
       database: 'media',
       allowAdd: false,
       collection:"song",
+      types: [
+        TypeCaster('ObjectId', '0.\$match.albumId')
+      ],
       query: {'albumId': albumID},
       dbFields: SystemSchema.injectSubfields('categories', SystemSchema.song, _categoryService.getGroups()),
       actionButtons: [
