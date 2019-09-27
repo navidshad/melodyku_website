@@ -53,9 +53,10 @@ class AppshellService
 
 	void checkUpdate() async
 	{
-		// bool allowReload = window.confirm(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
-		// if(allowReload) window.location.reload();
-		window.alert(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
+		bool allowReload = window.confirm(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
+		if(allowReload) window.location.reload();
+		
+		//window.alert(lang.getStr('melodykuHasBeenUpdated', {'VN': version}));
 	}
 
 	void registerListeners()

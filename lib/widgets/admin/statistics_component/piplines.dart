@@ -23,6 +23,30 @@ List<AggregatePiplines> getTodayPiplines()
 		),
 
 		AggregatePiplines(
+			title		: '3 Days left subscribers',
+			database	: 'user',
+			collection	: 'subscription',
+			piplines	: [
+				{
+					'\$match': {
+						'expiresIn': { '\$gte'	: getDate(DateTime.now().toUtc()).toIso8601String() },
+					}
+				},
+				{
+
+					'\$match': {
+						'expiresIn': { '\$lte'	: getDate(DateTime.now().add(Duration(days:3)).toUtc()).toIso8601String() },
+					}
+				}
+			],
+			types: [
+				TypeCaster('Date', '0.\$match.expiresIn.\$gte'),
+				TypeCaster('Date', '1.\$match.expiresIn.\$lte')
+			],
+			addCountAsLastPipline : true
+		),
+
+		AggregatePiplines(
 			title		: 'Paid Factors',
 			database	: 'user',
 			collection	: 'factor',
@@ -105,6 +129,23 @@ List<AggregatePiplines> getTotalPiplines()
 			database	: 'cms',
 			collection	: 'auth',
 			piplines	: [],
+			addCountAsLastPipline : true
+		),
+
+		AggregatePiplines(
+			title		: 'Unsubscribed Users',
+			database	: 'user',
+			collection	: 'subscription',
+			piplines	: [
+				{
+					'\$match': {
+						'expiresIn': { '\$lte'	: getDate(DateTime.now().toUtc()).toIso8601String() },
+					}
+				}
+			],
+			types: [
+				TypeCaster('Date', '0.\$match.expiresIn.\$lte')
+			],
 			addCountAsLastPipline : true
 		),
 
