@@ -20,6 +20,10 @@ import 'package:melodyku/archive/archive.dart';
     DirectionDirective,
     ButtonDownloadSong,
     WidgetLoading,
+    PopMenuComponent,
+  ],
+  exports: [
+    getSongMenuItems,
   ]
 )
 class TableSong implements OnChanges
@@ -52,7 +56,10 @@ class TableSong implements OnChanges
   bool hideMore;
 
   @Input()
-  List<ActionButton> actionButtons;
+  List<ActionButton> actionButtons = [];
+
+  @Input()
+  bool showPopupButtons = false;
 
   int hoverNumber = -1;
 

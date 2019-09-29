@@ -40,7 +40,6 @@ class ButtonRounded implements OnChanges
 	void onClick()
 	{
 		if(isWaiting || !isActive) return;
-    print(options.hashCode);
 		options.arg = arg;
 		options.done();
 	}

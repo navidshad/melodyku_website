@@ -19,6 +19,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     coreDirectives,
     AppShellComponent,
     PlayerBareComponent,
+    GlobalPopupPresentor,
   ],
   providers: [
     ClassProvider(IndexedDBService),
@@ -31,6 +32,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     ClassProvider(LanguageService),
     ClassProvider(CategoryService),
     ClassProvider(MessageService),
+    ClassProvider(PopupService),
     ClassProvider(ContentProvider),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
@@ -46,6 +48,7 @@ class AppComponent
   AppComponent(  IndexedDBService idb, MongoDBService mongodb, AuthService auth, 
     PaymentService ps, AppshellService appshell,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
+    PopupService popupS,
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
   {
 
@@ -60,6 +63,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('UserService', us));
     CI.Injector.register(CI.InjectorMember('ContentProvider', cp));
     CI.Injector.register(CI.InjectorMember('MessageService', ms));
+    CI.Injector.register(CI.InjectorMember('PopupService', popupS));
     CI.Injector.register(CI.InjectorMember('PaymentService', ps));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
 

@@ -1,7 +1,7 @@
 /// {@nodoc}
 library mongo_field;
 
-enum FieldType {text, textbox, number, checkbox, select, multiSelect, object, array}
+enum FieldType {text, textbox, number, checkbox, select, multiSelect, object, array, showLength}
 
 
 enum DataType {string, bool, int, float, object, array_string, array_object, dateTime}

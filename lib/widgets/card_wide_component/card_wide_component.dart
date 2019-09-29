@@ -19,6 +19,7 @@ import 'package:melodyku/directives/directives.dart';
     LikeComponent,
     MediaCoverComponent,
     ButtonDownloadSong,
+    PopMenuComponent,
   ]
 )
 class CardWideComponent 

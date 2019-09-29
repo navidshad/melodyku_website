@@ -14,6 +14,19 @@ class SystemSchema
 		//DbField('playlist'),
 	];
 
+	static List<DbField> playlist =
+	[
+		DbField('title', isLowerCase: true),
+      	DbField('description', fieldType: FieldType.textbox),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+      	DbField('list', dataType: DataType.array_string, fieldType: FieldType.showLength, subFields: []),
+      	DbField('imgStamp', isDisable:true),
+      	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+	];
+
 	static List<DbField> artist = 
 	[
 		DbField('name'),
@@ -29,7 +42,7 @@ class SystemSchema
 		DbField('imgStamp_artist', isHide:true),
 		DbField('artistId', isHide: true),
      	DbField('artist', isDisable: true),
-      	DbField('description'),
+      	DbField('description', fieldType: FieldType.textbox),
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
       	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
@@ -39,7 +52,7 @@ class SystemSchema
 		DbField('title', isLowerCase: true),
 		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_artist', isHide:true),
-      	DbField('description'),
+      	DbField('description', fieldType: FieldType.textbox),
       	DbField('artistId', dataType: DataType.object, fieldType: FieldType.object, subFields: SystemSchema.artist),
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
       	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
@@ -251,7 +264,7 @@ class SystemSchema
 		DbField('isPaid', dataType: DataType.bool),
 		DbField('amount', dataType: DataType.int),
 		DbField('currency'),
-		DbField('description'),
+		DbField('description', fieldType: FieldType.textbox),
 		DbField('createdAt', dataType: DataType.dateTime),
 		DbField('updatedAt', dataType: DataType.dateTime),
 		

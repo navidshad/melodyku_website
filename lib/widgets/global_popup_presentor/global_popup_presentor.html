@@ -1,0 +1,16 @@
+<div class="modal-base"
+	extractor (onExtract)="getElement($event)">
+	
+	<div class="modal-content">
+		
+		<div id="globalPlaylistInjector">
+
+				<playlistInjector
+					*ngIf="currentid == 'globalPlaylistInjector'"
+					[songid]="arg.toString()">
+				</playlistInjector>
+
+		</div>
+
+	</div>
+</div>

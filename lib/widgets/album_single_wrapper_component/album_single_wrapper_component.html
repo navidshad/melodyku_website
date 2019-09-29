@@ -16,14 +16,27 @@
 
         <div *ngIf="detail != null"><P>{{detail}}</P></div>
 
-        <div class="btn-md play-all" 
-            [hidden]="songNavigator == null || songNavigator.list.length == 0"
-            (click)="playAll()">{{lang.getStr('playAll')}}</div>
+        <div class="flex-row" [direction]="lang.getDir()">
+
+            <div>
+                <popup-menu
+                    [type]="'sl'"
+                    [icon]="'/assets/imgs/icons/more.png'">
+                </popup-menu>
+            </div>
+
+            <div class="btn-sl play-all" 
+                [hidden]="songNavigator == null || songNavigator.list.length == 0"
+                (click)="playAll()">{{lang.getStr('playAll')}}</div>     
+
+        </div>
+
     </div>
 </div>
 
 <table-media 
     [songNavigator]='songNavigator'
-    [hideMore]="false">
+    [hideMore]="false"
+    [showPopupButtons]="true">
 </table-media>
 

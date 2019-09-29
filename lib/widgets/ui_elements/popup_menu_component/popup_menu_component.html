@@ -1,0 +1,30 @@
+<div class="base"
+	[direction]="getDir()" [align]="true">
+
+	<div class="btn-{{type}} menuButton flex-row flex-center"
+		(click)="isShowMenu = !isShowMenu">
+
+		<img   *ngIf="icon != null" src="{{icon}}">
+		<label *ngIf="lable != null">{{lang.getStr(lable)}}</label>
+
+	</div>
+
+	<div class="menu" [hidden]="!isShowMenu">
+
+		<div class="item flex-row flex-center"
+			*ngFor="let btnOp of popupButtons"
+			(click)="btnOp.onClick(); isShowMenu = false">
+
+				<div class="icon" *ngIf="btnOp.icon.length > 0">
+					<img src="{{btnOp.icon}}">
+				</div>
+				
+				<div class="lable" *ngIf="btnOp.lableSku.length > 0">
+					<span>{{lang.getStr(btnOp.lableSku)}}</span>
+				</div>
+
+			</div>
+	</div>
+
+</div>
+

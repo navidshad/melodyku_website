@@ -7,15 +7,15 @@ import 'package:melodyku/widgets/widgets.dart';
 
 @Component(
   selector: 'page',
-  templateUrl: 'archive_artistList_page.html',
-  styleUrls: [ 'archive_artistList_page.css' ],
+  templateUrl: 'archive_playlists_page.html',
+  styleUrls: [ 'archive_playlists_page.css' ],
   directives: [
     coreDirectives,
     DbCollectionTableEditorComponent,
     DbCollectionItemEditorComponent,
   ]
 )
-class ArchiveArtistListPage 
+class ArchivePlaylistsPage 
 {
   Page _page;
   LanguageService lang;
@@ -26,34 +26,34 @@ class ArchiveArtistListPage
   CollectionOptions options;
 
   // constructor ==================================
-  ArchiveArtistListPage(this._categoryService, this._messageService, this._userservice)
+  ArchivePlaylistsPage(this._categoryService, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice,
       messageService: _messageService,
       permissionType: PermissionType.archive_manager,
       needLogedIn: true,
-      title: 'archive_artistList'
+      title: 'archive_playlists'
     );
 
     options = CollectionOptions(
-        title: 'Artists',
+        title: 'Playlists',
         database: 'media',
-        collection:'artist',
-        allowUpdate: false,
+        collection:'playlist',
+        allowUpdate: true,
         allowAdd: true,
         allowRemove: true,
-        hasCover: false,
+        hasCover: true,
 
-        sort: { 'name': 1 },
+        sort: { '_id': -1 },
         
-        dbFields: SystemSchema.injectSubfields('categories', SystemSchema.artist, _categoryService.getGroups()),
+        dbFields: SystemSchema.injectSubfields('categories', SystemSchema.playlist, _categoryService.getGroups()),
 
         linkButtons: [
-          LinkButton(
-            title: 'detail', 
-            route: pageDefinitions['archive_artist'].route, 
-            parameters: ['_id']),
+          // LinkButton(
+          //   title: 'detail', 
+          //   route: pageDefinitions['archive_playlist'].route, 
+          //   parameters: ['_id']),
         ]
       );
   }

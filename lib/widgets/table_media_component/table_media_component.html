@@ -13,7 +13,7 @@
         </div>
 
         <div class='cell option' 
-            *ngIf="actionButtons != null">...</div>
+            *ngIf="actionButtons.length > 0 || showPopupButtons">...</div>
     </div>
 
     <div class="_line"></div>
@@ -23,7 +23,7 @@
         [type]="'points'"></loading>
 
     <div *ngFor="let song of list; let i=index"
-        class="row hoverScale body {{selectedNumber == i ? 'selected':''}}" 
+        class="row body {{selectedNumber == i ? 'selected':''}}" 
         (mouseenter)="onmouseenter(i)"
         (mouseleave)="onmouseleave()">
 
@@ -56,12 +56,21 @@
             </button-download-song>
         </div>
 
-        <div class="cell" *ngIf="actionButtons != null">
+        <div class="cell flex-row flex-center"
+            *ngIf="actionButtons.length > 0 || showPopupButtons">
+
             <rounded-button 
                 *ngFor="let actionBtn of actionButtons" 
                 [options]="getCloneButton(actionBtn).options"
                 [arg]="song.getAsMap()">
             </rounded-button>
+
+            <popup-menu
+                *ngIf="showPopupButtons"
+                [type]="'sl-x'"
+                [reverse]="true"
+                [icon]="'/assets/imgs/icons/more.png'"
+                [popupButtons]="getSongMenuItems(song.id)"></popup-menu>
         </div>
     </div>
 

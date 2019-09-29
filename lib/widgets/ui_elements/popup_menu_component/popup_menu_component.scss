@@ -1,0 +1,32 @@
+.base{
+	position: relative;
+	display: inline-block;
+}
+
+.menuButton{
+	padding-left: 3px;
+	padding-right: 3px;
+	margin-right: 0px;
+	margin-left: 0px;
+
+	position: sticky;
+}
+
+.menu{
+	position: absolute;
+	background: white;
+	//width: 150px;
+	//height: 100px;
+	z-index: 1;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.item {
+	padding: 10px;
+	color: black;
+	border-bottom: 1px solid gray;
+}
+.item:hover{
+	background-color: darken(white, 5%);
+};

@@ -1,0 +1,30 @@
+.base{
+	border-radius: 5px;
+	background: white;
+	min-width: 250px;
+	color: black;
+	padding: 10px;
+}
+
+.header{
+	border-bottom: 1px solid grey;
+}
+
+.lists{
+	min-height: 100px;
+	overflow-y: auto;
+
+	.list{
+		border-bottom: 1px solid lighten(grey, 20%);
+	}
+	.list:hover{
+		background-color: darken(white, 10%);
+	}
+}
+
+.pending{
+	width: 20px;
+	img{
+		width: 100%;
+	}
+}

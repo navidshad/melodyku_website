@@ -36,7 +36,7 @@ class ButtonOptions
 		waitingController.add(isWaiting);
 	}
 
-	void setColor(String color) =>
+	void setColor(String color) => 
 		colorController.add(color);
 
 	String getType() =>
@@ -48,3 +48,22 @@ class ButtonOptions
 		else if(callbackWithArg != null) callbackWithArg(arg, this);
 	}
 }
+
+class PopupButtonOptions
+{
+	String lableSku;
+	String icon;
+	dynamic arg;
+
+	Function() callback;
+	Function(dynamic arg) callbackWithArg;
+
+	PopupButtonOptions({this.lableSku='', this.icon='', this.arg, this.callback, this.callbackWithArg});
+
+	void onClick()
+	{
+		if(callback != null) callback();
+		else if(callbackWithArg != null) callbackWithArg(arg);
+	}
+}
+

@@ -15,3 +15,4 @@ export 'category_service.dart';
 export 'convert_service.dart';
 export 'google_analytic/google_analytic_service.dart';
 export 'appshell_service.dart';
+export 'popup_service.dart';

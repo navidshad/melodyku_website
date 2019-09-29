@@ -47,6 +47,8 @@ export 'translate_btn_component/translate_btn_component.dart';
 export 'search_component/search_component.dart';
 export 'slideshow_component/slideshow_component.dart';
 export 'catergory_presentor_component/catergory_presentor_component.dart';
+export 'global_popup_presentor/global_popup_presentor.dart';
+export 'playlist_injector_component/playlist_injector_component.dart';
 
 export 'footer_component/footer_component.dart';
 export 'widget_loading/widget_loading.dart';
@@ -60,3 +62,4 @@ export 'ui_elements/button_rounded/button_rounded.dart';
 export 'ui_elements/button_rounded_progress/button_rounded_progress.dart';
 export 'ui_elements/button_download_song/button_download_song.dart';
 export 'ui_elements/phone_number_field/phone_number_field.dart';
+export 'ui_elements/popup_menu_component/popup_menu_component.dart';
