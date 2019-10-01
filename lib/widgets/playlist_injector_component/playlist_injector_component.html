@@ -14,14 +14,14 @@
 
 		<div class="list flex-row flex-space-between unselectable"
 			*ngFor="let pl of playlists"
-			(click)="pl.addOrRemove(songid)">
+			(click)="pl.addOrRemoveById(songid)">
 			<!-- checkbox -->
 			<div class="checkbox">
 				<input class="w3-radio" type="checkbox" [ngModel]="pl.have(songid)" disabled>
 			</div>
 
 			<div>
-				<h5>{{lang.getLocalValue(pl.local_title)}}</h5>
+				<h5>{{lang.getLocalValue(pl.localTitle)}}</h5>
 			</div>
 
 			<div class="pending" [hidden]="!pl.pending">

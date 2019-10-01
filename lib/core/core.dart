@@ -25,3 +25,4 @@ export 'widgets/origin.dart';
 export 'widgets/player.dart';
 export 'widgets/section_switcher.dart';
 export 'widgets/button_options.dart';
+export 'widgets/playlist_editor.dart';

@@ -50,7 +50,6 @@ class VitrinPage
   {
   
   // get 
-  String p_month_id = '5bfd635ccb6db178f4e4b14e';
   Playlist pl_top10_month = await _contentProvider.mediaselector.playlist_getRamdom('برترین های تاریخ');
   card_top10_month = pl_top10_month.getChildsAsWidgets<Card>(total: 10);
 

@@ -1,0 +1,13 @@
+<div class="widget-container">
+	<db-collection-item-editor [options]="playlistEditorOptions">
+	</db-collection-item-editor>
+</div>
+
+<table-media
+	*ngIf="playlistEditor != null"
+	[hideMore]="true"
+	[songs]="playlistEditor.list"
+	[showPopupButtons]="true"
+	[hideDownloadButton]="true"
+	[actionButtons]="actionButtons">
+</table-media>

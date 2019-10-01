@@ -117,15 +117,6 @@ class Album implements MediaItem
     //injectAlbumCover();
   }
 
-  // void injectAlbumCover()
-  // {
-  //   songNavigator.list.forEach((song) 
-  //   {
-  //       if(song.thumbnail == null || song.thumbnail?.length == 0)
-  //         song.thumbnail = thumbnail;
-  //   });
-  // }
-
   dynamic toDynamic()
   {
     return {

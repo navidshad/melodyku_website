@@ -61,6 +61,9 @@ class TableSong implements OnChanges
   @Input()
   bool showPopupButtons = false;
 
+  @Input()
+  bool hideDownloadButton = false;
+
   int hoverNumber = -1;
 
   int get selectedNumber 

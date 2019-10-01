@@ -5,8 +5,6 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 
-import 'playlist_injector.dart';
-
 @Component(
 	selector: 'playlistInjector',
 	templateUrl: 'playlist_injector_component.html',
@@ -23,7 +21,7 @@ class PlaylistInjectorComponent
 	MongoDBService _mongodb;
 	LanguageService lang;
 
-	List<PlaylistInjector> playlists = [];
+	List<PlaylistEditor> playlists = [];
 
 	@Input()
 	String songid = '';
@@ -43,7 +41,7 @@ class PlaylistInjectorComponent
 			docs.forEach((doc)
 			{
 				Map validated = validateFields(doc, SystemSchema.playlist);
-				PlaylistInjector pl = PlaylistInjector.fromMap(validated);
+				PlaylistEditor pl = PlaylistEditor.fromMap(validated);
 				if(pl != null) playlists.add(pl);
 			});
 		});

@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 
+import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/page/page.dart';
@@ -45,20 +46,14 @@ class PlaylistsPage
 
   void getContent() async 
   {
-    // Playlist pl_day = await _contentProvider.archive.playlist_getById('5bfd635ccb6db178f4e4b14e');
-    // dayList = pl_day.getChildsAsWidgets<ListItem>(total: 15);
-
-    // Playlist pl_week = await _contentProvider.archive.playlist_getById('5ba8f3018f5e0509f0b3d1cc');
-    // weekList = pl_week.getChildsAsWidgets<Card>(total: 15);
-
-    // Playlist pl_random = await _contentProvider.archive.playlist_getById('5ba8f3108f5e0509f0b3d1cd');
-    // randomList = pl_random.getChildsAsWidgets<ListItem>(total: 15);
-
-
-    // Result_Playlist rPlaylists_All = await _contentProvider.archive.playlist_getList();
-
-    // rPlaylists_All.list.forEach((pl) {
-    //   allList.add(pl.getAsWidget<Card>());
-    // });
+    _contentProvider.mediaselector.playlist_getList()
+    .then((rv)
+    {
+      rv.list.forEach((pl)
+      {
+        Playlist casted = pl;
+        allList.add(casted.getAsWidget<Card>());
+      });
+    });
   }
 }

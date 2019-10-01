@@ -25,7 +25,7 @@ class ContentProvider
 		mediaselector = MediaSelector(mongoService);
 	}
 
-	String getImage({String database='', String type='', String id, String imgStamp='', randomPattern=true})
+	String getImage({String database='', String type='', String id='', String imgStamp='', randomPattern=true})
 	{
 		String link = '';
 

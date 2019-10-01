@@ -22,6 +22,7 @@ import 'package:melodyku/src/pages/p_archive_artistList/archive_artistList_page.
 import 'package:melodyku/src/pages/p_archive_artist/archive_artist_page.template.dart' as archive_artist_template;
 import 'package:melodyku/src/pages/p_archive_album/archive_album_page.template.dart' as archive_album_template;
 import 'package:melodyku/src/pages/p_archive_playlists/archive_playlists_page.template.dart' as archive_playlists_template;
+import 'package:melodyku/src/pages/p_archive_playlist/archive_playlist_page.template.dart' as archive_playlist_template;
 
 import 'package:melodyku/src/pages/p_advanced_settings/advanced_settings_page.template.dart' as advanced_settings_template;
 import 'package:melodyku/src/pages/p_languages/languages_page.template.dart' as languages_template;
@@ -86,7 +87,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
 
   'playlists' : PageDefinition(
     title         : 'playlists',
-    position      : MenuPosition.none,
+    position      : MenuPosition.mainMenuDrawer,
     permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'playlists'),
@@ -241,13 +242,13 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),
 
-  'archive_album' : PageDefinition(
-    title         : 'archive_album',
+  'archive_playlist' : PageDefinition(
+    title         : 'archive_playlist',
     position      : MenuPosition.none,
     permissionType: PermissionType.archive_manager,
     route         : RouteDefinition(
-                      routePath: RoutePath(path: 'archive-album/:_id'),
-                      component: archive_album_template.ArchiveAlbumPageNgFactory,
+                      routePath: RoutePath(path: 'archive-playlist/:_id'),
+                      component: archive_playlist_template.ArchivePlaylistPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),
@@ -259,6 +260,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'archive-playlists'),
                       component: archive_playlists_template.ArchivePlaylistsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'archive_album' : PageDefinition(
+    title         : 'archive_album',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.archive_manager,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'archive-album/:_id'),
+                      component: archive_album_template.ArchiveAlbumPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

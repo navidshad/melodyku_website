@@ -12,20 +12,32 @@ import 'package:melodyku/core/types.dart';
 
 class Playlist implements MediaItem
 {
-  dynamic id;
   ArchiveTypes type;
   bool isLiked = false;
   bool isLocal = false;
 
+  String id;
   String title;
+  Map localTitle;
+
+  List<String> categories;
   List<Song> list;
+
   String thumbnail;
   String imgStamp;
 
-  Map localTitle;
+  bool limitMode;
+  int limitation;
 
-  Playlist({this.id, this.title, this.list, 
-    this.thumbnail, this.imgStamp, this.localTitle})
+  Playlist({
+    this.id='', 
+    this.title, 
+    this.list=const[],
+    this.thumbnail,
+    this.imgStamp='',
+    this.localTitle,
+    this.limitMode,
+    this.limitation})
   {
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>()
@@ -49,12 +61,14 @@ class Playlist implements MediaItem
       }
 
       playlist = Playlist( 
-        id        : detail['_id'].toString(), 
+        id        : detail['_id'], 
         title     : detail['title'], 
-        imgStamp  : (detail['imgStamp']   != null) ? detail['imgStamp'] : '',
+        imgStamp  : detail['imgStamp'],
+        localTitle: detail['local_title'],
         list      : items,
-        localTitle: (detail['local_title'] != null) ? detail['local_title'] : {},
-        );
+        limitMode : detail['limitMode'],
+        limitation: detail['limitation']
+      );
     } 
     catch (e) {
       print('convert playlist from json');
@@ -110,25 +124,28 @@ class Playlist implements MediaItem
     if(T == Card)
     {
       widget = Card( title,
-          id: id,
-          thumbnail: thumbnail,
-          titleLink: link,
-          type: ArchiveTypes.playlist,
-          origin: this,
-
+        id: id,
+        thumbnail: thumbnail,
+        titleLink: link,
+        type: ArchiveTypes.playlist,
+        origin: this,
+        localTitle: localTitle,
+        localTitle_sub: {},
       ) as T;
     }
     else if(T == ListItem)
     {
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(title,
-          id: id,
-          duration: '',
-          number: digititemNumber,
-          thumbnail: thumbnail,
-          titleLink: link,
-          type: ArchiveTypes.playlist,
-          origin: this
+        id: id,
+        duration: '',
+        number: digititemNumber,
+        thumbnail: thumbnail,
+        titleLink: link,
+        type: ArchiveTypes.playlist,
+        origin: this,
+        localTitle: localTitle,
+        localTitle_sub: {},
       ) as T;
     }
 

@@ -50,10 +50,10 @@ class ArchivePlaylistsPage
         dbFields: SystemSchema.injectSubfields('categories', SystemSchema.playlist, _categoryService.getGroups()),
 
         linkButtons: [
-          // LinkButton(
-          //   title: 'detail', 
-          //   route: pageDefinitions['archive_playlist'].route, 
-          //   parameters: ['_id']),
+          LinkButton(
+            title: 'edite list', 
+            route: pageDefinitions['archive_playlist'].route, 
+            parameters: ['_id']),
         ]
       );
   }

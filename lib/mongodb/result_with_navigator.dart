@@ -45,7 +45,6 @@ class ResultWithNavigator<T>
     _updateController = StreamController<bool>();
 
     _perPage = perPage;
-    collection = getCollection<T>();
     initialize();
   }
 
@@ -55,6 +54,7 @@ class ResultWithNavigator<T>
 
     if(T == Artist)       item = Artist.fromjson(doc) as T;
     else if(T == Album)   item = Album.fromPopulatedDoc(doc, dontGetSongs: dontGetSongs) as T;
+    else if(T == Playlist)item = Playlist.fromjson(doc) as T;
     else if(T == Song)    item = Song.fromPopulatedDoc(doc) as T;
 
     return item;
@@ -67,7 +67,7 @@ class ResultWithNavigator<T>
     if(T == Artist)       list = SystemSchema.artist;
     else if(T == Album)   list = SystemSchema.album_populteVer;
     else if(T == Song)    list = SystemSchema.song_populateVer;
-    //else if(T == Playlist) list = SystemSchema.artist;
+    else if(T == Playlist) list = SystemSchema.playlist;
 
     //print('=== getDbFields ${list.length}');
     return list;
@@ -100,7 +100,8 @@ class ResultWithNavigator<T>
       if(customSort != null)
         piplines.add({ '\$sort': customSort });
 
-      if(T == Album) piplines.addAll(lookupPiplines.getPiplines('album'));
+      if(T == Playlist) piplines.add({ '\$project': {'list':0} });
+      else if(T == Album) piplines.addAll(lookupPiplines.getPiplines('album'));
       else if(T == Song) piplines.addAll(lookupPiplines.getPiplines('song'));
     }
 
@@ -132,6 +133,9 @@ class ResultWithNavigator<T>
 
   void initialize()
   {
+    // set collection
+    collection = getCollection<T>();
+
     // set database
     if(getType == GetType.mediaItems)
       database = 'media';
