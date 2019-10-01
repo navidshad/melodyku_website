@@ -30,7 +30,11 @@ class MediaSelector
       options: {
         'populates': [
           {'path': 'artistId'},
-          {'path': 'albumId'}
+          {'path': 'albumId'},
+          {
+            'path': 'list', 
+            'populate': { 'path': 'artistId albumId' }
+          } 
         ]
       }
       )

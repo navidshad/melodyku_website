@@ -1,6 +1,6 @@
 <album-single-wrapper
     *ngIf="artist != null"
-    [title]="artist.name"
+    [title]="lang.getLocalValue(artist.localTitle)"
     [thumbnail]="artist.thumbnail"
     [songNavigator]='topListNavigator'>
 </album-single-wrapper>

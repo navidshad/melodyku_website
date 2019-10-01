@@ -25,9 +25,10 @@ class PlaylistPage implements OnActivate
   ContentProvider _contentProvider;
 
   Playlist playlist;
+  String playlistId;
 
   // constructor ==================================
-  PlaylistPage(this._contentProvider, this._messageService, this._userservice)
+  PlaylistPage(this._contentProvider, this.lang, this._messageService, this._userservice)
   {
     _page = Page(
       userService: _userservice, 
@@ -41,9 +42,17 @@ class PlaylistPage implements OnActivate
   @override
   void onActivate(_, RouterState current) async 
   {
-    final id = current.parameters['id'];
+    playlistId = current.parameters['id'];
+    getPlaylist();
+  }
 
-    // get album
-    //playlist = await _contentProvider.archive.playlist_getById(id);
+  void getPlaylist()
+  {
+    _contentProvider.mediaselector.getItemByID<Playlist>(playlistId)
+      .then((resultPlaylist) 
+      {
+        playlist = resultPlaylist;
+        print(playlist.title);
+      });
   }
 }

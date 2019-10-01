@@ -45,6 +45,9 @@ class AlbumSingleWrapperComponent
   @Input()
   ResultWithNavigator<Song> songNavigator;
 
+  @Input()
+  List<Song> songs;
+
   void playAll() =>
     _playerService.playByList(songNavigator.list);
 

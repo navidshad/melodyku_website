@@ -26,8 +26,14 @@
             </div>
 
             <div class="btn-sl play-all" 
-                [hidden]="songNavigator == null || songNavigator.list.length == 0"
-                (click)="playAll()">{{lang.getStr('playAll')}}</div>     
+                *ngIf="songNavigator != null"
+                [hidden]="songNavigator.list.length == 0"
+                (click)="playAll()">{{lang.getStr('playAll')}}</div>    
+
+            <div class="btn-sl play-all" 
+                *ngIf="songs != null"
+                [hidden]="songs.length == 0"
+                (click)="playAll()">{{lang.getStr('playAll')}}</div>    
 
         </div>
 
@@ -36,6 +42,7 @@
 
 <table-media 
     [songNavigator]='songNavigator'
+    [songs]="songs"
     [hideMore]="false"
     [showPopupButtons]="true">
 </table-media>

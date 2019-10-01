@@ -1,6 +1,6 @@
 <album-single-wrapper
     *ngIf="playlist != null"
-    [title]="playlist.title"
+    [title]="lang.getLocalValue(playlist.localTitle)"
     [thumbnail]="playlist.thumbnail"
-    [medias]='playlist.list'>
+    [songs]='playlist.list'>
 </album-single-wrapper>

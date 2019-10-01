@@ -43,7 +43,7 @@ class AdminStatisticsComponent
 		statisticPrplines.forEach((ap)
 		{
 			Future f = _mongodb.aggregate(
-				isLive		: false, 
+				isLive		: true, 
 				database	: ap.database, 
 				collection	: ap.collection, 
 				piplines	: ap.piplines,
