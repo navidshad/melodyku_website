@@ -13,7 +13,7 @@
         </div>
 
         <div class='cell option' 
-            *ngIf="actionButtons.length > 0 || showPopupButtons">...</div>
+            *ngIf="showPopupButtons && getSongMenuItemsCount() > 0 || actionButtons.length > 0">...</div>
     </div>
 
     <div class="_line"></div>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="cell flex-row flex-center"
-            *ngIf="actionButtons.length > 0 || showPopupButtons">
+            *ngIf="actionButtons.length > 0 || showPopupButtons && getSongMenuItemsCount() > 0">
 
             <rounded-button 
                 *ngFor="let actionBtn of actionButtons" 
@@ -66,7 +66,7 @@
             </rounded-button>
 
             <popup-menu
-                *ngIf="showPopupButtons"
+                *ngIf="showPopupButtons && getSongMenuItemsCount() > 0"
                 [type]="'sl-x'"
                 [reverse]="true"
                 [icon]="'/assets/imgs/icons/more.png'"

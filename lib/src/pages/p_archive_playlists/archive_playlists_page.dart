@@ -37,24 +37,24 @@ class ArchivePlaylistsPage
     );
 
     options = CollectionOptions(
-        title: 'Playlists',
-        database: 'media',
-        collection:'playlist',
-        allowUpdate: true,
-        allowAdd: true,
-        allowRemove: true,
-        hasCover: true,
+      title: 'Playlists',
+      database: 'media',
+      collection:'playlist',
+      allowUpdate: true,
+      allowAdd: true,
+      allowRemove: true,
+      hasCover: true,
 
-        sort: { '_id': -1 },
-        
-        dbFields: SystemSchema.injectSubfields('categories', SystemSchema.playlist, _categoryService.getGroups()),
+      sort: { '_id': -1 },
+      
+      dbFields: SystemSchema.injectSubfields('categories', SystemSchema.playlist, _categoryService.getGroups()),
 
-        linkButtons: [
-          LinkButton(
-            title: 'edite list', 
-            route: pageDefinitions['archive_playlist'].route, 
-            parameters: ['_id']),
-        ]
-      );
+      linkButtons: [
+        LinkButton(
+          title: 'edite list', 
+          route: pageDefinitions['archive_playlist'].route, 
+          parameters: ['_id']),
+      ]
+    );
   }
 }

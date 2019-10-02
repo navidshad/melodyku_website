@@ -9,6 +9,7 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/mongodb/media_lookup_piplines.dart' as lookup;
 
 @Component(
 	selector: 'search',
@@ -77,7 +78,7 @@ class SearchComponent
 	{
 		isPending = true;
 
-		word = word.toLowerCase();
+		word = word.toLowerCase().trim();
 
 		nothingFound = false;
 
@@ -98,7 +99,8 @@ class SearchComponent
 			}
 		];
 
-		if(type == 'artist') {
+		if(type == 'artist') 
+		{
 			aggregator = Aggregate(
         		database: 'media',
 				collection: 'artist',
@@ -106,7 +108,10 @@ class SearchComponent
 			);
 		}
 
-		else if(type == 'song') {
+		else if(type == 'song') 
+		{
+			pipline.addAll(lookup.getPiplines('song'));
+
 			aggregator = Aggregate(
 				database: 'media',
 				collection: 'song',
@@ -136,8 +141,8 @@ class SearchComponent
 				}
 				else if(type == 'song')
 				{
-					Map converted = validateFields(doc, SystemSchema.song);
-					Song song = Song.fromjson(converted);
+					Map converted = validateFields(doc, SystemSchema.song_populateVer);
+					Song song = Song.fromPopulatedDoc(converted);
 					ListItem lItem = song.getAsWidget<ListItem>(itemNumber: counter);
 					listItems_song.add(lItem);
 				}

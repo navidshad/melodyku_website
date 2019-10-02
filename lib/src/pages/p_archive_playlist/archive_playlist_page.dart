@@ -89,7 +89,7 @@ class ArchivePlaylistPage implements OnActivate
       query:query, options: options)
       .then((doc) 
       {
-        Map validated = validateFields(doc, SystemSchema.playlist);
+        Map validated = validateFields(doc, SystemSchema.playlist_populateVer);
         playlistEditor = PlaylistEditor.fromMap(validated, listContainesSongs: true);
       });
   }

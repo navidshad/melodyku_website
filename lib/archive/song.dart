@@ -278,10 +278,9 @@ class Song implements MediaItem
 
     if(T == Card)
     {
-      print('getAsWidget ${artist.name}');
       widget = Card( 
         title,
-        subtitle: artist.name,
+        subtitle: artist?.name ?? '',
         subtitleLink: link_artist,
         id: id,
         thumbnail: thumbnail,
@@ -297,7 +296,7 @@ class Song implements MediaItem
       String digititemNumber = getDigitStyle(itemNumber+1, 2);
       widget = ListItem(
         title,
-        subtitle: artist.name,
+        subtitle: artist?.name ?? '',
         id: id,
         duration: getDuration(),
         number: digititemNumber,

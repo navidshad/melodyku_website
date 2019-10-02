@@ -25,3 +25,5 @@ List<PopupButtonOptions> getSongMenuItems(String songid)
 
 	return list;
 }
+
+int getSongMenuItemsCount() => getSongMenuItems('').length;

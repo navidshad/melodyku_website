@@ -20,6 +20,10 @@ import 'package:melodyku/directives/directives.dart';
     MediaCoverComponent,
     ButtonDownloadSong,
     PopMenuComponent,
+  ],
+  exports: [
+    getSongMenuItems,
+    getSongMenuItemsCount,
   ]
 )
 class CardWideComponent 
@@ -51,6 +55,9 @@ class CardWideComponent
 
   @Input()
   int number;
+
+  @Input()
+  bool showPopupButtons = false;
 
   int hoverIndex = -1;
 

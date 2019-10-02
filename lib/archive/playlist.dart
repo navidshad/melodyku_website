@@ -65,7 +65,7 @@ class Playlist implements MediaItem
         title     : detail['title'], 
         imgStamp  : detail['imgStamp'],
         localTitle: detail['local_title'],
-        list      : items,
+        list      : items.reversed.toList(),
         limitMode : detail['limitMode'],
         limitation: detail['limitation']
       );

@@ -125,6 +125,10 @@ class DbField {
 					=> value += '${obj[key]}, ');
 			});
 		}
+
+		else if(fieldType == FieldType.showLength)
+			value = row[key].length.toString();
+
 		return value;
 	}
 }

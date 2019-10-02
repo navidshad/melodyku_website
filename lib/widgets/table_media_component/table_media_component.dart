@@ -24,6 +24,7 @@ import 'package:melodyku/archive/archive.dart';
   ],
   exports: [
     getSongMenuItems,
+    getSongMenuItemsCount,
   ]
 )
 class TableSong implements OnChanges

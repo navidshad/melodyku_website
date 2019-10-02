@@ -59,6 +59,10 @@
             	<object-field	*ngIf="field.fieldType == FieldType.object"
                 				[options]="field.subFields"
                 				[(object)]="object[field.key]"></object-field>
+
+                <!-- showLength -->
+                <label *ngIf="field.fieldType == FieldType.showLength">
+                    {{object[field.key].length}}</label>
             </div>
     	</td>
 
@@ -86,10 +90,16 @@
             </lable>
 
             <!-- object field -->
-            <object-field   *ngIf="field.fieldType == FieldType.object"
-                            [options]="field.subFields"
-                            [(object)]="object[field.key]"
-                            [viewMode]="true"></object-field>
+            <object-field   
+                *ngIf="field.fieldType == FieldType.object"
+                [options]="field.subFields"
+                [(object)]="object[field.key]"
+                [viewMode]="true">
+            </object-field>
+
+            <!-- showLength -->
+            <label *ngIf="field.fieldType == FieldType.showLength">
+                {{object[field.key].length}}</label>
 
         </td>
 	</tr>

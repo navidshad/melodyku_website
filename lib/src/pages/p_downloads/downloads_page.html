@@ -1,9 +1,14 @@
+<p style="direction:rtl; color:yellow; text-align: center">
+	ممکن است دانلود های شما اتوماتیک حذف شوند، این مشکل بخاطر فضای کم گوشی شما است. ما داریم تلاش میکنیم به زودی این مورد را رفع کنیم.
+</p>
+
 <quota></quota>
 
 <div class='widget-container'>
 	<div class="btn-sl margin-h-20 play-all" 
 		[hidden]="songs.length == 0"
 		(click)="playAll()">{{lang.getStr('playAll')}}</div>
+
 	<table-media 
 		[songs]="songs"
 		[actionButtons]="actions">

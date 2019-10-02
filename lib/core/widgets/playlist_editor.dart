@@ -45,6 +45,8 @@ class PlaylistEditor extends Playlist
 					Song song = Song.fromPopulatedDoc(doc);
 					pl.list.add(song);
 				});
+
+				pl.list = pl.list.reversed.toList();
 			}
 			else pl.listIds = detail['list'];
 

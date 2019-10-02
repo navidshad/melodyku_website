@@ -1,7 +1,14 @@
 {
-	"web-client": "0.7.9",
+	"web-client": "0.8.0",
 
 	"log": {
+
+		"0.8.0": [
+			"added playlist manager at admin side",
+			"added download page warning",
+			"added popup menu for songs",
+			"debug search system"
+		],
 
 		"0.7.9": [
 			"improved localization, all fields is show in local language"

@@ -50,13 +50,14 @@
                     </button-download-song>
                 </div>
 
-                <!-- <div>
+                <div *ngIf="showPopupButtons && getSongMenuItemsCount() > 0">
                     <popup-menu
                         [type]="'sl'"
                         [reverse]="true"
-                        [icon]="'/assets/imgs/icons/more.png'">
+                        [icon]="'/assets/imgs/icons/more.png'"
+                        [popupButtons]="getSongMenuItems(item.origin.id)">
                     </popup-menu>
-                </div> -->
+                </div>
                 
             </div>
         

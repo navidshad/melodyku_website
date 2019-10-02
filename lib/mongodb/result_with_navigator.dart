@@ -67,7 +67,7 @@ class ResultWithNavigator<T>
     if(T == Artist)       list = SystemSchema.artist;
     else if(T == Album)   list = SystemSchema.album_populteVer;
     else if(T == Song)    list = SystemSchema.song_populateVer;
-    else if(T == Playlist) list = SystemSchema.playlist;
+    else if(T == Playlist) list = SystemSchema.playlist_populateVer;
 
     //print('=== getDbFields ${list.length}');
     return list;
