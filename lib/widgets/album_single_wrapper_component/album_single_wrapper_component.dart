@@ -48,7 +48,10 @@ class AlbumSingleWrapperComponent
   @Input()
   List<Song> songs;
 
-  void playAll() =>
-    _playerService.playByList(songNavigator.list);
+  void playAll() 
+  {
+    if(songNavigator != null) _playerService.playByList(songNavigator.list);
+    else if(songs != null) _playerService.playByList(songs);
+  }
 
 }
