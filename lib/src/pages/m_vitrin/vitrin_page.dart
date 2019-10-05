@@ -27,6 +27,8 @@ class VitrinPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
+  List<Card> card_best_albums = [];
+
   List<Card> card_top10_month = [];
   List<Card> card_for_you = [];
   List<ListItem> listItems_top15_day = [];
@@ -65,5 +67,8 @@ class VitrinPage
   //String p_day_id = '5ba8a5cf31243004332bd45a';
   Playlist pl_top15_day = await _contentProvider.mediaselector.playlist_getRamdom('پیشنهاد های امروز');
   listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
+
+  MediaPack mediaPack_besrAlbums = await _contentProvider.mediaselector.mediaPack_get(title:'best albums');
+  card_best_albums = mediaPack_besrAlbums.getChildsAsCardWidgets();
  }
 }

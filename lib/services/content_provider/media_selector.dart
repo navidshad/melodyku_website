@@ -211,6 +211,57 @@ class MediaSelector
     return navigator;
   }
 
+  // media pack -------------------------------------------
+  Future<MediaPack> mediaPack_get({String id, String title})
+  {
+    Map query = {};
+
+    if(id != null) query['_id'] = id;
+    if(title != null) query['title'] = title;
+
+    Map options = {
+      'populates': [ 
+        {
+          'path': 'list', 
+          'populate': { 'path': 'artistId' }
+        } 
+      ]
+    };
+
+    return _mongoDBService.findOne(database:'media', collection:'media_pack', 
+      query:query, options: options)
+      .then((doc)
+      {
+        List<DbField> dbFields;
+        Map validated;
+        MediaPack mediaPack;
+
+        if(doc['type'] == 'artist')
+        {
+          dbFields = SystemSchema.injectSubfields('list', SystemSchema.mediaPack_populateVer, SystemSchema.artist);
+          validated = validateFields(doc, dbFields);
+          mediaPack = MediaPack<Artist>.fromMap(validated);
+        }
+
+        else if(doc['type'] == 'album')
+        {
+          dbFields = SystemSchema.injectSubfields('list', SystemSchema.mediaPack_populateVer, SystemSchema.album_populteVer);
+          validated = validateFields(doc, dbFields);
+          mediaPack = MediaPack<Album>.fromMap(validated);
+        }
+
+        else if(doc['type'] == 'playlist')
+        {
+          dbFields = SystemSchema.injectSubfields('list', SystemSchema.mediaPack_populateVer, SystemSchema.playlist);
+          validated = validateFields(doc, dbFields);
+          mediaPack = MediaPack<Playlist>.fromMap(validated);
+        }
+
+        return mediaPack;
+        
+      }).catchError(_handleError);
+  }
+
   // other methods ----------------------------------------
   void _handleError(dynamic e) {
     print('Server error; cause: $e'); // for demo purposes only

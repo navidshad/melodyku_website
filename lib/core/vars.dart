@@ -13,7 +13,7 @@ class Vars
   	String host = 
   		(
   			window.location.host.contains('localhost') || 
-  			window.location.host.contains('169')
+  			window.location.host.contains('192')
   		) 
   		? Vars.mainHost 
   		: window.location.host;

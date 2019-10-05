@@ -2,26 +2,37 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
 
-class MediaPackEditor<T>
+class MediaPackEditor<T extends MediaItem> extends MediaPack
 {
-	String id;
-	String title;
-	String type;
-	Map localTitle;
-	List<String> categories;
-	bool limitMode;
-	int limitation;
-	
 	List<String> listIds;
-	List<T> list;
-
 	bool pending = false;
+
 	MongoDBService _mongodb;
 
 	MediaPackEditor({
-		this.id, this.title, this.type, this.localTitle, this.categories, 
-		this.limitMode, this.limitation, this.listIds, this.list
-	})
+
+		String id, 
+		String title, 
+		String type, 
+		Map localTitle, 
+		List<String> categories, 
+		bool limitMode, 
+		int limitation, 
+		List<T> list, 
+		this.listIds
+
+	}):super(
+
+		id			:id,
+		title		:title,
+		type		:type,
+		localTitle	:localTitle,
+		categories	:categories,
+		limitMode	:limitMode,
+		limitation	:limitation,
+		list		:list,
+		
+	)
 	{
 		_mongodb = Injector.get<MongoDBService>();
 	}
