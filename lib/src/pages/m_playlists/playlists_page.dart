@@ -46,7 +46,7 @@ class PlaylistsPage
 
   void getContent() async 
   {
-    _contentProvider.mediaselector.playlist_getList()
+    _contentProvider.mediaselector.playlist_getList(query: {'isActive': true})
     .then((rv)
     {
       rv.list.forEach((pl)

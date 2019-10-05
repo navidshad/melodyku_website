@@ -103,6 +103,7 @@ class SystemSchema
       	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+      	DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
 	static List<DbField> playlist_populateVer =
@@ -116,6 +117,7 @@ class SystemSchema
       	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+      	DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
 	static List<DbField> mediaPack =
@@ -130,6 +132,7 @@ class SystemSchema
       	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+      	DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
 	static List<DbField> mediaPack_populateVer =
@@ -144,6 +147,7 @@ class SystemSchema
       	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
       	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+      	DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
 	static List<DbField> result_artists = 

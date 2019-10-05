@@ -1,7 +1,7 @@
-<div 	class="btn-{{options.getType()}}"
+<div 	class="btn-{{options.getType()}} {{colorClass}}"
 		*ngIf="options != null"
-		extractor (onExtract)="onEaxtractElement($event)"
-		[class.btn-disabled]="!isActive"
+		
+		[class.btn-disabled]="!isActive || isWaiting"
 		(click)="onClick()">
 	
 	<label 	class="unselectable" 

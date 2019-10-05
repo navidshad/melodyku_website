@@ -23,14 +23,14 @@
                 [showPopupButtons]="true">
             </card-rect>
 
-            <!-- <div class="flex-row flex-center"
-                *ngIf="actionButtons.length > 0"> -->
-                <!-- <div>{{item.origin.getAsMap()}}</div> -->
-                <!-- <rounded-button 
-                    [options]="actionButtons[0].options"
-                    >
-                </rounded-button> -->
-            <!-- </div> -->
+            <div class="flex-row flex-center"
+                *ngIf="actionButtons.length > 0">
+                <rounded-button 
+                    *ngFor="let actionBtn of actionButtons" 
+                    [options]="getCloneButton(actionBtn).options"
+                    [arg]="item.origin.getAsMap()">
+                </rounded-button>
+            </div>
         </div>
     
     </div>

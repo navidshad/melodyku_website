@@ -23,17 +23,19 @@ class ButtonRounded implements OnChanges {
   @Input()
   dynamic arg;
 
+  String colorClass = '';
+
   bool isWaiting = false;
   bool isActive = true;
   HtmlElement btnElement;
 
   void ngOnChanges(Map<String, SimpleChange> changes) {
 
-    // if (options != null) {
-    //   options.waitingController.stream.listen(doWaiting);
-    //   options.colorController.stream.listen(setColor);
-    //   options.statusController.stream.listen(setStatus);
-    // }
+    if (options != null) {
+      options.waitingController.stream.listen(doWaiting);
+      options.colorController.stream.listen(setColor);
+      options.statusController.stream.listen(setStatus);
+    }
 
   }
 
@@ -47,21 +49,12 @@ class ButtonRounded implements OnChanges {
   }
 
   void setStatus(bool key) => isActive = key;
-  void onEaxtractElement(HtmlElement el) => btnElement = el;
+  void onEaxtractElement(HtmlElement el) {}//=> btnElement = el;
   
   void doWaiting(bool key) {
-
     isWaiting = key;
-
-    if (isWaiting)
-      btnElement.classes.add('btn-disabled');
-
-    else
-      btnElement.classes.remove('btn-disabled');
-
   }
 
-  void setColor(String color) => btnElement.classes.add('btn-$color');
-
+  void setColor(String color) => colorClass = 'btn-$color';//btnElement.classes.add();
 }
 

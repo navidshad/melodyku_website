@@ -41,15 +41,12 @@ class GridComponent
   @Input()
   bool couldliked = false;
 
-  
-  // List<ActionButton> actionButtons = [
-  //     ActionButton(title:'remove')
-  //   ];
+  @Input()
+  List<ActionButton> actionButtons = [];
 
-  // ActionButton getCloneButton(ActionButton ab)
-  // {
-  //   print('getCloneButton');
-  //   ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
-  //   return newBtn;
-  // }
+  ActionButton getCloneButton(ActionButton ab)
+  {
+    ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
+    return newBtn;
+  }
 }

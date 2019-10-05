@@ -100,7 +100,7 @@ class MediaPackEditor<T>
 			query:query , update: update)
 
 			.then((r) {
-				listIds.add(mediaId);
+				if(listIds != null) listIds.add(mediaId);
 			});
 	}
 
@@ -115,7 +115,7 @@ class MediaPackEditor<T>
 			query:query , update: update)
 
 			.then((r) {
-				listIds.remove(mediaId);
+				if(listIds != null) listIds.remove(mediaId);
 			});
 	}
 }

@@ -43,10 +43,10 @@ class MediaPackInjectorComponent implements OnChanges
 
 		switch(archiveTypes)
 		{
-			case ArchiveTypes.artist: type = 'artists'; break;
-			case ArchiveTypes.album: type = 'albums'; break;
-			case ArchiveTypes.playlist: type = 'playlists'; break;
-			case ArchiveTypes.song: type = 'songs'; break;
+			case ArchiveTypes.artist: type = 'artist'; break;
+			case ArchiveTypes.album: type = 'album'; break;
+			case ArchiveTypes.playlist: type = 'playlist'; break;
+			case ArchiveTypes.song: type = 'song'; break;
 		}
 
 		return type;
