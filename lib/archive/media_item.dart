@@ -26,6 +26,8 @@ abstract class MediaItem
 
   String thumbnail;
 
+  Map getAsMap();
+
   getAsWidget<T>() {}
 
   getChildsAsWidgets<T>() {}

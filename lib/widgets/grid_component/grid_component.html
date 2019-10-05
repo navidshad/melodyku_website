@@ -1,7 +1,7 @@
 <div class="widget-container">
 
     <div class="widget-title" 
-        [direction]="lang.getDir()"
+        
         *ngIf="title != null">
         <h3>{{title}}</h3>
         <div class="_line-title"></div>
@@ -19,8 +19,18 @@
                 [card]="item"
                 [exploreBtn]="exploreBtn"
                 [playBtn]="playBtn"
-                [couldliked]="couldliked">
+                [couldliked]="couldliked"
+                [showPopupButtons]="true">
             </card-rect>
+
+            <!-- <div class="flex-row flex-center"
+                *ngIf="actionButtons.length > 0"> -->
+                <!-- <div>{{item.origin.getAsMap()}}</div> -->
+                <!-- <rounded-button 
+                    [options]="actionButtons[0].options"
+                    >
+                </rounded-button> -->
+            <!-- </div> -->
         </div>
     
     </div>

@@ -4,6 +4,7 @@ import 'package:js/js_util.dart' as js;
 import 'dart:html';
 
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/payment/payment.dart';
 
 class AnalyticService {
 
@@ -26,6 +27,11 @@ class AnalyticService {
   				'page_path': path
 			})
 		);
+	}
+
+	void trackFactor(Factor factor)
+	{
+		
 	}
 
 	void trackException(String description, {fatal=false,}) 

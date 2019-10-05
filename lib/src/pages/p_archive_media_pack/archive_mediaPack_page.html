@@ -1,0 +1,11 @@
+<div class="widget-container">
+	<db-collection-item-editor [options]="mediaPackEditorOptions">
+	</db-collection-item-editor>
+</div>
+
+<grid-rect
+	*ngIf="mediaPackEditor != null"
+	[exploreBtn]="true"
+	[items]="getCards()"
+	>
+</grid-rect>

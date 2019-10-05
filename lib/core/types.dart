@@ -2,7 +2,7 @@
 library types;
 
 enum ClickType {switchable, trigger}
-enum ArchiveTypes {media, album, artist, playlist}
+enum ArchiveTypes {song, album, artist, playlist}
 enum MessageType {player, modal, appshell, toast}
 enum Direction {ltr, rtl}
 

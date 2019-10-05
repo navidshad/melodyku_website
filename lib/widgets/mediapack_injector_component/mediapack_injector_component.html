@@ -1,0 +1,32 @@
+<div class="base">
+
+	<div class="header flex-row flex-space-between">
+
+		<h4>SaveTo ...</h4>
+
+		<div class="btn-sl-x"
+			(click)="popupService.closePopups()">close</div>
+
+	</div>
+
+	<div class="lists"
+		[direction]="lang.getDir()">
+
+		<div class="list flex-row flex-space-between unselectable"
+			*ngFor="let mp of mediaPacks"
+			(click)="mp.addOrRemoveById(item.id)">
+			<!-- checkbox -->
+			<div class="checkbox">
+				<input class="w3-radio" type="checkbox" [ngModel]="mp.have(item.id)" disabled>
+			</div>
+
+			<div>
+				<h5>{{lang.getLocalValue(mp.localTitle)}}</h5>
+			</div>
+
+			<div class="pending" [hidden]="!mp.pending">
+				<img src="/assets/svg/loading_cycle.svg">
+			</div>
+		</div>
+	</div>
+</div>

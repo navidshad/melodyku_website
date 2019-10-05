@@ -85,7 +85,7 @@ class ArchivePlaylistPage implements OnActivate
     };
 
     _mongodb.findOne(
-      isLive: false, database:'media', collection:'playlist', 
+      isLive: true, database:'media', collection:'playlist', 
       query:query, options: options)
       .then((doc) 
       {

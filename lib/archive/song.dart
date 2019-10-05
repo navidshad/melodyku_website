@@ -68,7 +68,7 @@ class Song implements MediaItem
     this.localTitle=const{},
   })
   {
-    type = ArchiveTypes.media;
+    type = ArchiveTypes.song;
     getLikeStatus();
 
     // get thumbnail link
@@ -284,7 +284,7 @@ class Song implements MediaItem
         subtitleLink: link_artist,
         id: id,
         thumbnail: thumbnail,
-        type: ArchiveTypes.media,
+        type: ArchiveTypes.song,
         origin: this,
         localTitle: localTitle,
         localTitle_sub: artist.localTitle,
@@ -301,7 +301,7 @@ class Song implements MediaItem
         duration: getDuration(),
         number: digititemNumber,
         thumbnail: thumbnail,
-        type: ArchiveTypes.media,
+        type: ArchiveTypes.song,
         origin: this,
         localTitle: localTitle,
         localTitle_sub: artist.localTitle,

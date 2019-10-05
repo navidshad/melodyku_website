@@ -15,6 +15,7 @@ import 'dart:html';
 		coreDirectives,
 		ElementExtractorDirective,
 		PlaylistInjectorComponent,
+		MediaPackInjectorComponent,
 	]
 )
 class GlobalPopupPresentor
@@ -40,6 +41,7 @@ class GlobalPopupPresentor
 		switcher = SectionSwitcher(
 		[
 		  el.querySelector('#globalPlaylistInjector'),
+		  el.querySelector('#globalMediaPackInjector'),
 		]);
 	}
 

@@ -26,3 +26,4 @@ export 'widgets/player.dart';
 export 'widgets/section_switcher.dart';
 export 'widgets/button_options.dart';
 export 'widgets/playlist_editor.dart';
+export 'widgets/mediapack_editor.dart';

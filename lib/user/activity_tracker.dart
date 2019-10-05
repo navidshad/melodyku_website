@@ -103,7 +103,7 @@ class ActivityTracker
 		String collName;
 		bool result = false;
 
-		if(type == ArchiveTypes.media) 
+		if(type == ArchiveTypes.song) 
 			collName = 'song_favorite';
 
 		dynamic query = {

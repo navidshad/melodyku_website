@@ -17,6 +17,7 @@ class FactorViewerComponent implements OnChanges
 {
 	LanguageService lang;
 	PaymentService _payment;
+	AnalyticService _analytic;
 
 	@Input()
 	String id;
@@ -24,7 +25,7 @@ class FactorViewerComponent implements OnChanges
 	Factor factor;
 	bool wasNotFound = false;
 
-	FactorViewerComponent(this.lang, this._payment);
+	FactorViewerComponent(this.lang, this._payment, this._analytic);
 
 	void ngOnChanges(dynamic changes)
 	{
@@ -34,8 +35,12 @@ class FactorViewerComponent implements OnChanges
 		factor = null;
 
 		_payment.getFactor(id ?? 'no-id')
-			.then((f) {
-				if(f != null) factor = f;
+			.then((f) 
+			{
+				if(f != null) {
+					factor = f;
+					_analytic.trackFactor(factor);
+				}
 				else wasNotFound = true;
 			});
 	}

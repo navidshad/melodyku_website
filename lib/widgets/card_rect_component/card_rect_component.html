@@ -17,10 +17,10 @@
         </media-cover>
     </div>
     
-    <div class="detail flex-row"
+    <div class="detail flex-row flex-space-between"
         dir="{{lang.getDir()}}">
     
-        <div class="full-wide">
+        <div class="">
             <span class="title">{{card.getTitle(lang.getCode())}}</span><br>
             <a href="{{card.subtitleLink}}">
                 <span class="subtitle" *ngIf="card.subtitle != null">{{card.getSubTitle(lang.getCode())}}</span>
@@ -33,6 +33,15 @@
                 (onlike)="like()" 
                 [isLiked]="card.origin.isLiked">
             </like>
+        </div>
+
+        <div *ngIf="showPopupButtons && getMediaMenuItemsCount() > 0">
+            <popup-menu
+                [type]="'sl'"
+                [reverse]="true"
+                [icon]="'/assets/imgs/icons/more.png'"
+                [popupButtons]="getMediaMenuItems(card.origin)">
+            </popup-menu>
         </div>
 
     </div>

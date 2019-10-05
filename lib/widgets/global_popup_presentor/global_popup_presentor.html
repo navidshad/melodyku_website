@@ -4,12 +4,17 @@
 	<div class="modal-content">
 		
 		<div id="globalPlaylistInjector">
+			<playlistInjector
+				*ngIf="currentid == 'globalPlaylistInjector'"
+				[songid]="arg.toString()">
+			</playlistInjector>
+		</div>
 
-				<playlistInjector
-					*ngIf="currentid == 'globalPlaylistInjector'"
-					[songid]="arg.toString()">
-				</playlistInjector>
-
+		<div id="globalMediaPackInjector">
+			<packmediaInjector
+				*ngIf="currentid == 'globalMediaPackInjector'"
+				[item]="arg">
+			</packmediaInjector>
 		</div>
 
 	</div>

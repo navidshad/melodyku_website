@@ -29,8 +29,6 @@ class Album implements MediaItem
 
   Album({
     this.id, 
-    // this.artistId, 
-    this.type, 
     this.title, 
     this.artist, 
     this.description, 
@@ -40,6 +38,8 @@ class Album implements MediaItem
     this.localTitle, 
     bool dontGetSongs=false})
   {
+    type = ArchiveTypes.album;
+
     if(!dontGetSongs) getSongs();
 
     // get thumbnail link
@@ -52,7 +52,6 @@ class Album implements MediaItem
     try {
       album = Album(
         dontGetSongs: dontGetSongs,
-        type        : ArchiveTypes.album,
         id          : detail['_id'],
         title       : detail['title'],
         // artistId    : detail['artistId'],
@@ -117,13 +116,16 @@ class Album implements MediaItem
     //injectAlbumCover();
   }
 
-  dynamic toDynamic()
+  Map getAsMap()
   {
     return {
-      'title'   : title,
-      'artist' : artist,
-      'description' : description,
-      'thumbnail'   : thumbnail,
+      '_id'           : id,
+      'title'         : title,
+      'artistId'      : artist.id,
+      'description'   : description,
+      'imgStamp'      : imgStamp,
+      'imgStamp_artist': imgStamp_artist,
+      'localTitle'    : localTitle,
     };
   }
 
@@ -143,7 +145,7 @@ class Album implements MediaItem
         subtitle: artist.name,
         id: id,
         thumbnail: thumbnail,
-        type: ArchiveTypes.album,
+        type: type,
         origin: this,
         titleLink: link,
         subtitleLink: link_artist,
@@ -161,7 +163,7 @@ class Album implements MediaItem
         duration: '',
         number: digititemNumber,
         thumbnail: thumbnail,
-        type: ArchiveTypes.album,
+        type: type,
         origin: this,
         titleLink: link,
         localTitle: localTitle,
@@ -191,7 +193,7 @@ class Album implements MediaItem
           subtitle: item.artist.name,
           id: item.id,
           thumbnail: item.thumbnail,
-          type: ArchiveTypes.media,
+          type: ArchiveTypes.song,
           origin: item,
           localTitle: item.localTitle,
         ) as T;
@@ -205,7 +207,7 @@ class Album implements MediaItem
           duration: item.getDuration(),
           number: itemNumber,
           thumbnail: item.thumbnail,
-          type: ArchiveTypes.media,
+          type: ArchiveTypes.song,
           origin: item,
           localTitle: item.localTitle,
         ) as T;

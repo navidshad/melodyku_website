@@ -17,6 +17,7 @@ import 'package:melodyku/directives/directives.dart';
     CardRectComponent,
     DirectionDirective,
     WidgetLoading,
+    ButtonRounded,
   ],
 )
 class GridComponent
@@ -29,17 +30,26 @@ class GridComponent
   String title;
 
   @Input()
-  bool masonry;
+  List<Card> items = [];
 
   @Input()
-  List<Card> items;
+  bool exploreBtn = false;
 
   @Input()
-  bool exploreBtn;
+  bool playBtn = false;
 
   @Input()
-  bool playBtn;
+  bool couldliked = false;
 
-  @Input()
-  bool couldliked;
+  
+  // List<ActionButton> actionButtons = [
+  //     ActionButton(title:'remove')
+  //   ];
+
+  // ActionButton getCloneButton(ActionButton ab)
+  // {
+  //   print('getCloneButton');
+  //   ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
+  //   return newBtn;
+  // }
 }

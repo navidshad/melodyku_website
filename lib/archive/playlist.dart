@@ -39,6 +39,8 @@ class Playlist implements MediaItem
     this.limitMode,
     this.limitation})
   {
+    type = ArchiveTypes.playlist;
+
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'playlist', id:id, imgStamp:imgStamp);
@@ -88,12 +90,17 @@ class Playlist implements MediaItem
     return tempTitle;
   }
 
-  dynamic toDynamic()
+  Map getAsMap()
   {
     return {
-      'name': title, 
-      'thumbnail': thumbnail, 
-      //'list': list.map((media){media.toDynamic();})
+      '_id'       : id,
+      'title'     : title, 
+      'imgStamp'  : imgStamp, 
+      'categories': categories,
+      'localTitle': localTitle,
+      'limitMode' : limitMode,
+      'limitation': limitation,
+      'list'      : list.map((media) => media.id),
       };
   }
 
@@ -127,7 +134,7 @@ class Playlist implements MediaItem
         id: id,
         thumbnail: thumbnail,
         titleLink: link,
-        type: ArchiveTypes.playlist,
+        type: type,
         origin: this,
         localTitle: localTitle,
         localTitle_sub: {},
@@ -142,7 +149,7 @@ class Playlist implements MediaItem
         number: digititemNumber,
         thumbnail: thumbnail,
         titleLink: link,
-        type: ArchiveTypes.playlist,
+        type: type,
         origin: this,
         localTitle: localTitle,
         localTitle_sub: {},
@@ -176,7 +183,7 @@ class Playlist implements MediaItem
           subtitleLink: item.link_artist,
           id: item.id,
           thumbnail: item.thumbnail,
-          type: ArchiveTypes.media,
+          type: ArchiveTypes.song,
           origin: item,
           localTitle: item.localTitle,
           localTitle_sub: item.artist.localTitle,
@@ -192,7 +199,7 @@ class Playlist implements MediaItem
           duration: item.getDuration(),
           number: itemNumber,
           thumbnail: item.thumbnail,
-          type: ArchiveTypes.media,
+          type: ArchiveTypes.song,
           origin: item,
           localTitle: item.localTitle,
           localTitle_sub: item.artist.localTitle,

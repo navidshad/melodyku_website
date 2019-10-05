@@ -15,7 +15,12 @@ import 'package:melodyku/widgets/widgets.dart';
     coreDirectives, 
     LikeComponent,
     MediaCoverComponent,
+    PopMenuComponent,
   ],
+  exports: [
+    getMediaMenuItems,
+    getMediaMenuItemsCount,
+  ]
 )
 class CardRectComponent
 {
@@ -41,6 +46,9 @@ class CardRectComponent
   @Input()
   bool couldliked;
 
+  @Input()
+  bool showPopupButtons = false;
+
   int hoverIndex = -1;
 
   int get selectedIndex {
@@ -52,7 +60,7 @@ class CardRectComponent
 
   void play()
   {
-    if(card.type == ArchiveTypes.media)
+    if(card.type == ArchiveTypes.song)
       _playerService.play(card.origin);
   }
 

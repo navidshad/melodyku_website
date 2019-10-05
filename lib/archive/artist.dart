@@ -24,6 +24,8 @@ class Artist implements MediaItem
   Artist({this.id, this.name, this.description, 
     this.imgStamp, this.thumbnail, this.localTitle})
   {
+    type = ArchiveTypes.artist;
+    
     // get thumbnail link
     thumbnail = Injector.get<ContentProvider>()
       .getImage(database:'media', type:'artist', id:id, imgStamp:imgStamp);
@@ -48,12 +50,14 @@ class Artist implements MediaItem
     return artist;
   }
 
-  dynamic toDynamic()
+  Map getAsMap()
   {
     return {
+      '_id'         : id,
       'name'        : name,
       'description' : description,
-      'thumbnail'   : thumbnail
+      'imgStamp'    : imgStamp,
+      'localTitle'  : localTitle,
     };
   }
 
@@ -94,7 +98,7 @@ class Artist implements MediaItem
         id: id,
         thumbnail: thumbnail,
         titleLink: link,
-        type: ArchiveTypes.artist,
+        type: type,
         origin: this,
         localTitle: localTitle,
       ) as T;
@@ -109,7 +113,7 @@ class Artist implements MediaItem
         number: digititemNumber,
         thumbnail: thumbnail,
         titleLink: link,
-        type: ArchiveTypes.artist,
+        type: type,
         origin: this,
         localTitle: localTitle,
       ) as T;

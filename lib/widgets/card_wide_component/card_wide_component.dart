@@ -71,7 +71,7 @@ class CardWideComponent
   CardWideComponent(this.lang, this._playerService, this._player, this._userService);
 
   void play() {
-    if(item.type == ArchiveTypes.media)
+    if(item.type == ArchiveTypes.song)
       _playerService.play(item.origin);
   }
 

@@ -49,6 +49,7 @@ export 'slideshow_component/slideshow_component.dart';
 export 'catergory_presentor_component/catergory_presentor_component.dart';
 export 'global_popup_presentor/global_popup_presentor.dart';
 export 'playlist_injector_component/playlist_injector_component.dart';
+export 'mediapack_injector_component/mediapack_injector_component.dart';
 
 export 'footer_component/footer_component.dart';
 export 'widget_loading/widget_loading.dart';
