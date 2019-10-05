@@ -184,7 +184,8 @@ class LanguageService
     String code = getCode();
     String tempTitle = '';
 
-    if(localTitle.containsKey(code) && 
+    if( localTitle != null &&
+        localTitle.containsKey(code) && 
         localTitle[code].length > 0)
 
     tempTitle = localTitle[code];

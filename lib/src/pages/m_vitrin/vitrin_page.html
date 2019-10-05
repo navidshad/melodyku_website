@@ -2,20 +2,20 @@
     [title]="'vitrin'">
 </slideshow>
 
-<slider-rect    
-    [title]="lang.getStr('bestAllTime')" 
-    [items]="card_top10_month"
-    [exploreBtn]="false"
-    [playBtn]="true">
-</slider-rect>
-
-<list-wide  
-    [title]="lang.getStr('day')" 
+<list-wide 
+    [title]="lang.getLocalValue(tl_lastSongs)" 
     [numerical]="true"
-    [items]="listItems_top15_day"
+    [items]="listItems_lastSongs"
     [exploreBtn]="false"
     [playBtn]="true">
 </list-wide>
+
+<slider-rect
+    [title]="lang.getLocalValue(tl_mediaPack_women_artist)"
+    [items]="card_women_artist"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</slider-rect>
 
 <category-presentor 
     [id]="'5d08ff5d177343326d1060fc'"
@@ -23,10 +23,10 @@
 </category-presentor>
 
 <slider-rect    
-    [title]="lang.getStr('forYou')" 
-    [items]="card_for_you"
-    [exploreBtn]="false"
-    [playBtn]="true">
+    [title]="lang.getLocalValue(tl_mediaPack_best_albums)"
+    [items]="card_best_albums"
+    [exploreBtn]="true"
+    [playBtn]="false">
 </slider-rect>
 
 <category-presentor 
@@ -35,8 +35,8 @@
 </category-presentor>
 
 <slider-rect    
-    [title]="lang.getStr('bestAlbums')" 
-    [items]="card_best_albums"
+    [title]="lang.getLocalValue(tl_mediaPack_kurdish_kings)"
+    [items]="card_kurdish_kings"
     [exploreBtn]="true"
     [playBtn]="false">
 </slider-rect>

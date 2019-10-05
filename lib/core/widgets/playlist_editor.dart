@@ -89,7 +89,7 @@ class PlaylistEditor extends Playlist
 			query:query , update: update)
 
 			.then((r) {
-				if(listIds != null && listIds.length > 0)
+				if(listIds != null)
 					listIds.add(songId);
 			});
 	}
@@ -105,7 +105,7 @@ class PlaylistEditor extends Playlist
 			query:query , update: update)
 
 			.then((r) {
-				if(listIds != null && listIds.length > 0)
+				if(listIds != null)
 					listIds.remove(songId);
 			});
 	}

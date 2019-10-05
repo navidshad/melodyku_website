@@ -48,6 +48,39 @@ class MediaSelector
     return item;
   }
 
+  Future<dynamic> getItem<T>(Map query) async
+  {
+    // //print('getItemByID');
+    String collection = ResultWithNavigator.getCollection<T>();
+    List<DbField> dbFields = ResultWithNavigator.getDbFields<T>();
+
+    T item;
+    
+    await _mongoDBService.findOne(
+      database: 'media',
+      collection: collection, 
+      query: query,
+      options: {
+        'populates': [
+          {'path': 'artistId'},
+          {'path': 'albumId'},
+          {
+            'path': 'list', 
+            'populate': { 'path': 'artistId albumId' }
+          } 
+        ]
+      }
+      )
+      .then((doc) 
+      {
+        Map convertedToMap = validateFields(doc, dbFields);
+        item = ResultWithNavigator.createItemFromDoc<T>(convertedToMap, dontGetSongs: false);
+      })
+      .catchError(_handleError);
+
+    return item;
+  }
+
 
   // artist -----------------------------------------------
   Future<ResultWithNavigator<Artist>> artist_getList(int page, {int total=15}) async

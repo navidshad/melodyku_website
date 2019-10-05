@@ -1,5 +1,7 @@
 import 'package:angular/angular.dart';
 
+import 'dart:async';
+
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/page/page.dart';
@@ -11,12 +13,13 @@ import 'package:melodyku/archive/archive.dart';
   templateUrl: 'vitrin_page.html',
   styleUrls: [ 'vitrin_page.css' ],
   directives: [
-    SliderRectComponent,
-    ListWideComponent,
-    GridComponent,
-    SlideShowComponent,
-    CategoryPresentorComponent,
-    FooterComponent,
+     coreDirectives,
+     SliderRectComponent,
+     ListWideComponent,
+     GridComponent,
+     SlideShowComponent,
+     CategoryPresentorComponent,
+     FooterComponent,
   ],
 )
 class VitrinPage
@@ -27,12 +30,15 @@ class VitrinPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
-  List<Card> card_best_albums = [];
+  Map tl_lastSongs;
+  Map tl_mediaPack_women_artist;  
+  Map tl_mediaPack_best_albums;
+  Map tl_mediaPack_kurdish_kings;
 
-  List<Card> card_top10_month = [];
-  List<Card> card_for_you = [];
-  List<ListItem> listItems_top15_day = [];
-  
+  List<ListItem> listItems_lastSongs = [];
+  List<Card> card_women_artist = [];
+  List<Card> card_best_albums = [];
+  List<Card> card_kurdish_kings = [];
 
   // constructor ==================================
   VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -50,25 +56,66 @@ class VitrinPage
 
   void getItems() async 
   {
-  
-  // get 
-  Playlist pl_top10_month = await _contentProvider.mediaselector.playlist_getRamdom('برترین های تاریخ');
-  card_top10_month = pl_top10_month.getChildsAsWidgets<Card>(total: 10);
+     await _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'})
+          .then((r) {
+               tl_lastSongs = (r as Playlist).localTitle;
+               listItems_lastSongs = (r as Playlist).getChildsAsWidgets<ListItem>(total:15);
+          });
 
-  //print('pl_top10_month ${pl_top10_month.list.length}');
+     await _contentProvider.mediaselector.mediaPack_get(title:'women artist')
+          .then((r) {
+               tl_mediaPack_women_artist = r.localTitle;
+               card_women_artist = r.getChildsAsCardWidgets();
+          });
 
-  // get forYou list
-  //String p_forYou_id = '5ba8f3018f5e0509f0b3d1cc';
-  Playlist pl_for_you = await _contentProvider.mediaselector.playlist_getRamdom('برای شما');
-  card_for_you = pl_for_you.getChildsAsWidgets<Card>(total: 10);
+     await _contentProvider.mediaselector.mediaPack_get(title:'best albums')
+          .then((r) {
+               tl_mediaPack_best_albums = r.localTitle;
+               card_best_albums = r.getChildsAsCardWidgets();
+          });
 
+     await _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish')
+          .then((r) {
+               tl_mediaPack_kurdish_kings = r.localTitle;
+               card_kurdish_kings = r.getChildsAsCardWidgets();
+          });
 
-  // get 15 top media of day
-  //String p_day_id = '5ba8a5cf31243004332bd45a';
-  Playlist pl_top15_day = await _contentProvider.mediaselector.playlist_getRamdom('پیشنهاد های امروز');
-  listItems_top15_day = pl_top15_day.getChildsAsWidgets<ListItem>(total: 15);
+     // Future.any([
+     //      _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'})
+     //           .then((r) => pl_lastSongs = r),
 
-  MediaPack mediaPack_besrAlbums = await _contentProvider.mediaselector.mediaPack_get(title:'best albums');
-  card_best_albums = mediaPack_besrAlbums.getChildsAsCardWidgets();
- }
+     //      _contentProvider.mediaselector.mediaPack_get(title:'women artist')
+     //           .then((r) => mediaPack_women_artist = r),
+
+     //      _contentProvider.mediaselector.mediaPack_get(title:'best albums')
+     //           .then((r) => mediaPack_best_albums = r),
+
+     //      _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish')
+     //           .then((r) => mediaPack_kurdish_kings = r)
+     // ]);
+     //pl_lastSongs = await _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'});
+     //mediaPack_women_artist = await _contentProvider.mediaselector.mediaPack_get(title:'women artist');
+     //mediaPack_best_albums = await _contentProvider.mediaselector.mediaPack_get(title:'best albums');
+     //mediaPack_kurdish_kings = await _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish');
+  }
+
+  List<ListItem> getListItems(Playlist pl)
+  {
+     List<ListItem> list = [];
+
+     if(pl != null)
+          list = pl.getChildsAsWidgets<ListItem>(total: 15);
+
+     return list;
+  }
+
+  List<Card> getCards(MediaPack mp)
+  {
+     List<Card> list = [];
+
+     if(mp != null)
+          list = mp.getChildsAsCardWidgets();
+
+     return list;
+  }
 }
