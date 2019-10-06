@@ -30,6 +30,9 @@ class PopMenuComponent
 	bool reverse;
 
 	@Input()
+	bool upside = false;
+
+	@Input()
 	List<PopupButtonOptions> popupButtons = [];
 
 	bool isShowMenu = false;

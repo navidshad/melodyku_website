@@ -2,7 +2,7 @@
 	*ngIf="popupButtons.length > 0"
 	[direction]="getDir()" [align]="true">
 
-	<div class="btn-{{type}} menuButton flex-row flex-center"
+	<div class="btn-{{type}} btn-transparent menuButton flex-row flex-center"
 		(click)="isShowMenu = !isShowMenu">
 
 		<img   *ngIf="icon != null" src="{{icon}}">
@@ -10,9 +10,11 @@
 
 	</div>
 
-	<div class="menu" [hidden]="!isShowMenu">
+	<div class="menu" 
+		[hidden]="!isShowMenu"
+		[class.upside]="upside">
 
-		<div class="item flex-row flex-center"
+		<div class="item flex-row flex-center pointer"
 			*ngFor="let btnOp of popupButtons"
 			(click)="btnOp.onClick(); isShowMenu = false">
 
