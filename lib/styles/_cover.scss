@@ -5,6 +5,11 @@
     border-radius: 10px;
 }
 
+.circle {
+    border-radius: 20% !important;
+    transform: scale(0.98);
+}
+
 .big {
     width: 240px;
     height: 240px;

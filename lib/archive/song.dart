@@ -349,7 +349,9 @@ class Song implements MediaItem
     String languageCode = Injector.get<LanguageService>().getCode();
     String tempTitle = title;
 
-    if(localTitle.containsKey(languageCode) && localTitle[languageCode].length > 0)
+    if( localTitle != null &&
+        localTitle.containsKey(languageCode) && 
+        localTitle[languageCode].length > 0)
       tempTitle = localTitle[languageCode];
 
     return tempTitle;

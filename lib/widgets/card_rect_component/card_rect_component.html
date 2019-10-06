@@ -13,11 +13,13 @@
             [hoverIndex]="hoverIndex"
             [exploreBtn]="exploreBtn"
             [playBtn]="playBtn"
-            [isBig]="true">
+            [isBig]="true"
+            [isCircle]="getArtistBeingStatus()">
         </media-cover>
     </div>
     
-    <div class="detail flex-row flex-space-between"
+    <div class="detail flex-row
+        {{getArtistBeingStatus() ? 'flex-center' : 'flex-space-between'}}"
         dir="{{lang.getDir()}}">
     
         <div class="">

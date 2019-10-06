@@ -42,6 +42,10 @@ $boxsize: 240px;
 
 @media all and (max-width: 425px)
 {
+    .titleSection{
+        margin-bottom: 20px;
+    }
+    
     .header-wrappe{
         margin: 10px 0px;
     }

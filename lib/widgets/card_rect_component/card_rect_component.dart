@@ -58,6 +58,16 @@ class CardRectComponent
     //return -1;
   }
 
+  bool getArtistBeingStatus()
+  {
+    bool key = false;
+
+    if(card != null && card.type == ArchiveTypes.artist)
+      key = true;
+
+    return key;
+  }
+
   void play()
   {
     if(card.type == ArchiveTypes.song)

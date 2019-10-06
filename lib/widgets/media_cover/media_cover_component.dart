@@ -57,6 +57,9 @@ class MediaCoverComponent
   @Input()
   bool isBig;
 
+  @Input()
+  bool isCircle = false;
+
   bool getnoActionBool() => noAction ?? false;
   bool getPlayAccess() => playBtn ?? false;
   bool getExploreAccess() => exploreBtn ?? false;

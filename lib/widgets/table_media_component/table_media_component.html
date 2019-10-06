@@ -41,12 +41,27 @@
         </div>
 
         <div (click)="play(i)" class='cell stitle subtitle'>
+            
             <span>{{song.getLocalTitle()}}</span>
-            <div class="small-artist ssubtitle">{{song.artist.getLocalTitle()}}</div>
+            
+            <div class="small-artist ssubtitle"
+                *ngIf="song.artist != null">
+                {{song.artist.getLocalTitle()}}
+            </div>
         </div>
 
-        <div (click)="play(i)" class='cell album subtitle'>{{song.album.getLocalTitle()}}</div>
-        <div (click)="play(i)" class='cell artist subtitle'>{{song.artist.getLocalTitle()}}</div>
+        <div class='cell album subtitle'
+            *ngIf="song.album != null"
+            (click)="play(i)">
+            {{song.album.getLocalTitle()}}
+        </div>
+
+        <div class='cell artist subtitle'
+            *ngIf="song.artist != null"
+            (click)="play(i)">
+            {{song.artist.getLocalTitle()}}
+        </div>
+
         <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
 
         <div class="cell download"

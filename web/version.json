@@ -1,7 +1,13 @@
 {
-	"web-client": "0.8.0",
+	"web-client": "0.9.0",
 
 	"log": {
+		"0.9.0": [
+			"added MediaPack ability",
+			"improved UI styles",
+			"disabled download page",
+			"changed Vitrin page composition"
+		],
 
 		"0.8.0": [
 			"added playlist manager at admin side",
