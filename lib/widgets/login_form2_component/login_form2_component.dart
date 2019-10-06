@@ -139,7 +139,7 @@ class LoginForm2Component implements OnChanges
       });
   }
 
-  submiteSmsCodeForChangePassword()
+  void submiteSmsCodeForChangePassword()
   {
     swicher.hideAll();
 
@@ -201,7 +201,7 @@ class LoginForm2Component implements OnChanges
         errorMessage = 'yourPhoneNumberHasBeenSubmitted';
 
         await Future.delayed(Duration(milliseconds: 500));
-        showForm('submite-password-for-change');
+        showForm('submite-smsCode-for-change-password');
       })
       .catchError((e) {
         print('registerPhoneForChangePassword error $e');
