@@ -47,6 +47,9 @@ class AlbumSingleWrapperComponent
   String thumbnail;
 
   @Input()
+  bool isArtist = false;
+
+  @Input()
   ResultWithNavigator<Song> songNavigator;
 
   @Input()

@@ -38,13 +38,14 @@ $boxsize: 240px;
         flex-direction: column;
         align-items: center;
     }
+
+    .titleSection{
+        margin-bottom: 20px;
+    }
 }
 
 @media all and (max-width: 425px)
 {
-    .titleSection{
-        margin-bottom: 20px;
-    }
     
     .header-wrappe{
         margin: 10px 0px;

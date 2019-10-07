@@ -2,7 +2,8 @@
     *ngIf="artist != null"
     [title]="lang.getLocalValue(artist.localTitle)"
     [thumbnail]="artist.thumbnail"
-    [songNavigator]='topListNavigator'>
+    [songNavigator]='topListNavigator'
+    [isArtist]="true">
 </album-single-wrapper>
 
 <grid-rect 

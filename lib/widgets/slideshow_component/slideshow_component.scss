@@ -7,6 +7,7 @@
 	border-radius: 20px;
 
 	background-position: fill;
+	filter: grayscale(40%);
 
 	.background {
 		width: 100%;
@@ -51,6 +52,7 @@
 
 .swiper-slide-active{
 	box-shadow: 0 0 20px 5px #1b1f38;
+	filter: grayscale(0%);
 
 	.active-content{
 		opacity: 1;
