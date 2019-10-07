@@ -6,7 +6,7 @@
 }
 
 .circle {
-    border-radius: 20% !important;
+    border-radius: 100% !important;
     transform: scale(0.98);
 }
 
@@ -43,15 +43,19 @@
 @media screen and (max-width: 479px) 
 {
     .cover_big {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
     }
 }
 
 @media screen and (max-width: 375px) 
 {
     .cover_big {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .circle {
+        transform: scale(1);
     }
 }

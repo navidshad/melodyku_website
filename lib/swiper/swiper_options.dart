@@ -8,8 +8,6 @@ String _getEffect(SwiperEffect effect)
 	return temp.toString().replaceAll('SwiperEffect.', '');
 }
 
-
-
 class SwiperNavigation
 {
 	String nextEl;

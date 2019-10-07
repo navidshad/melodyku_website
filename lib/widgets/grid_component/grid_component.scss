@@ -20,11 +20,15 @@ $boxsize: 200px;
 	.grid {
 		justify-content: center;
 	}
+
+	.grid-item{
+		margin: 15px 5px;
+	}
 }
 
 @media screen and (max-width: 375px) 
 {
     .grid-item{
-		margin: 25px 5px;
+		margin: 10px 5px;
 	}
 }

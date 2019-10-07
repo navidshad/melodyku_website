@@ -41,4 +41,14 @@
 	.menuButton{
 		width: 15px;
 	}
+
+	.item{
+		font-size: 12px;
+		padding: 10px 5px;
+		width: 150px;
+	}
+
+	.upside{
+		transform: translateY(calc(-100% - 35px));
+	}
 }

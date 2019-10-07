@@ -8,7 +8,7 @@ $itemMargin: 0px 0px 0px 15px;
 
 .swiper-slide{
 	height: 100%;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
 }
 
 
@@ -26,6 +26,8 @@ $itemMargin: 0px 0px 0px 15px;
 
 @media screen and (max-width: 375px) 
 {
-    
+    .swiper-container{
+    	//height: 180px;
+    }
 }
 
