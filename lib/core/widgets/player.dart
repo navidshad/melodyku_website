@@ -41,10 +41,10 @@ class Player
   double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 1;
 
   // constructor
-  Player()
+  Player(this._userServide, this._analytic)
   {
-    _userServide = Injector.get<UserService>();
-    _analytic = Injector.get<AnalyticService>();
+    // _userServide = Injector.get<UserService>();
+    // _analytic = Injector.get<AnalyticService>();
 
     // create an audio element
     audio = AudioElement();

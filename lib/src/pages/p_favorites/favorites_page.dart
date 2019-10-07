@@ -10,7 +10,13 @@ import 'package:melodyku/archive/archive.dart';
   selector: 'page',
   templateUrl: 'favorites_page.html',
   styleUrls: [ 'favorites_page.css' ],
-  directives: [ TableSong ],
+  directives: [ 
+    TableSong,
+    PopMenuComponent,
+  ],
+  exports: [
+    getSingleAlbumMenuItems,
+  ]
   )
 class FavoritesPage
 {

@@ -175,13 +175,14 @@ class MongoDBService
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> findByIds({bool isLive=false, String database, String collection, List<String> ids}) async
+  	Future<dynamic> findByIds({bool isLive=false, String database, String collection, Map options=const{}, List<String> ids}) async
 	{
 		String url = Vars.host + '/contentProvider/getByIds';
 
 		dynamic body = {
       		'database': database,
 			'collection': collection,
+			'options': options,
 			'IDs': ids,
 		};
 
@@ -191,7 +192,7 @@ class MongoDBService
 			.then(analizeResult);
 	}
 
-  	Future<dynamic> findById({bool isLive=false, String database, String collection, String id}) async
+  	Future<dynamic> findById({bool isLive=false, String database, String collection, String id, Map options=const{}}) async
 	{
 		dynamic body = {
 			'database': database,
@@ -199,7 +200,7 @@ class MongoDBService
 			'query': { '_id': id },
 		};
 
-    	return findOne(database: database, collection: collection, query: body);
+    	return findOne(database: database, collection: collection, query: body, options:options);
 	}
 
 	dynamic _convert(String jsonString) => jsonDecode(jsonString);

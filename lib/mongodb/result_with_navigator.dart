@@ -202,6 +202,13 @@ class ResultWithNavigator<T>
   {
     List<String> ids = [];
 
+    Map options = {
+      'populates': [
+        {'path': 'artistId'},
+        {'path': 'albumId'},
+      ]
+    };
+
     trackedSongs.forEach((doc) 
       {
         ids.add(doc['songId']);
@@ -212,7 +219,7 @@ class ResultWithNavigator<T>
     if(ids.length > 0)
     {
       docs = await Injector.get<MongoDBService>()
-        .findByIds(database: 'media', collection: 'song', ids: ids);
+        .findByIds(database: 'media', collection: 'song', options:options, ids: ids);
     }
 
     docs.sort((a, b)

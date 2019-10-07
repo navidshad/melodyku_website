@@ -1,9 +1,24 @@
 <div class='widget-container'>
-	<div class="btn-sl margin-h-20 play-all" 
-		[hidden]="songNavigator == null || songNavigator.list.length == 0"
-		(click)="playAll()">{{lang.getStr('playAll')}}</div>
+
+	<div class="flex-row flex-center"
+		[hidden]="songNavigator == null || songNavigator.list.length == 0">
+		<div>
+	        <popup-menu
+	            [type]="'sl'"
+	            [reverse]="true"
+	            [icon]="'/assets/imgs/icons/more.png'"
+	            [popupButtons]="getSingleAlbumMenuItems(songNavigator.list)">
+	        </popup-menu>
+	    </div>
+
+		<div class="btn-sl play-all" 
+			(click)="playAll()">{{lang.getStr('playAll')}}
+		</div>
+	</div>
+
 	<table-media 
 		[songNavigator]="songNavigator"
-		[hideMore]="false">
-		</table-media>
+		[hideMore]="false"
+		[showPopupButtons]="true">
+	</table-media>
 </div>
