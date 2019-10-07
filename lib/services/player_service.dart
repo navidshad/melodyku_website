@@ -21,4 +21,12 @@ class PlayerService
   	Song song = Song.fromjson(doc);
   	play(song);
   }
+
+  void addToPlayingList(Song song)
+    => _player.add(song);
+
+  void addToPlayingList_ByList(List<Song> list)
+  {
+    list.forEach((s) => addToPlayingList(s));
+  }
 }

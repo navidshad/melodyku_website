@@ -3,6 +3,7 @@ library albumSingleWrapperComponent;
 
 import 'package:angular/angular.dart';
 
+import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
@@ -18,6 +19,9 @@ import 'package:melodyku/directives/directives.dart';
     MediaCoverComponent,
     PopMenuComponent,
     DirectionDirective,
+  ],
+  exports: [
+    getSingleAlbumMenuItems,
   ]
 )
 class AlbumSingleWrapperComponent
@@ -53,5 +57,4 @@ class AlbumSingleWrapperComponent
     if(songNavigator != null) _playerService.playByList(songNavigator.list);
     else if(songs != null) _playerService.playByList(songs);
   }
-
 }

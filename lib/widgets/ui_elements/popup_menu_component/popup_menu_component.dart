@@ -33,6 +33,9 @@ class PopMenuComponent
 	bool upside = false;
 
 	@Input()
+	bool transparent = false;
+
+	@Input()
 	List<PopupButtonOptions> popupButtons = [];
 
 	bool isShowMenu = false;

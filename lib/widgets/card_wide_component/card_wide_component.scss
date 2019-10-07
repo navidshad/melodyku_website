@@ -149,6 +149,7 @@ $columnGap: 10px;
 
     .number {
         font-size: 30px;
+        margin-left: 0px;
     }
 
     .like{
@@ -167,9 +168,35 @@ $columnGap: 10px;
     .length{
         padding: 10px 0px;
         font-size: 12px;
+        margin: 0 15px;
     }
 
     .more{
-
+        flex-grow: 1;
     }
+}
+
+@media screen and (max-width: 320px) {
+    /* start of phone styles */
+    :host {
+        padding: 0px 5px;
+    }
+
+    .number {
+        font-size: 20px;
+        margin-left: 0px;
+    }
+
+    .cover{
+        margin: 0 10px;
+    }
+
+    .detail{
+        width: 70%;
+    }
+
+    .more{
+        width: 30%;
+    }
+
 }

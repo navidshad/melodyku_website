@@ -35,3 +35,10 @@
 .item:hover{
 	background-color: darken(white, 5%);
 };
+
+@media screen and (max-width: 479px) 
+{
+	.menuButton{
+		width: 15px;
+	}
+}

@@ -16,14 +16,25 @@
 
         <div *ngIf="detail != null"><P>{{detail}}</P></div>
 
-        <div class="flex-row" [direction]="lang.getDir()">
+        <div class="flex-row">
 
-            <!-- <div>
+            <div>
                 <popup-menu
+                    *ngIf="songNavigator != null"
                     [type]="'sl'"
-                    [icon]="'/assets/imgs/icons/more.png'">
+                    [reverse]="true"
+                    [icon]="'/assets/imgs/icons/more.png'"
+                    [popupButtons]="getSingleAlbumMenuItems(songNavigator.list)">
                 </popup-menu>
-            </div> -->
+
+                <popup-menu
+                    *ngIf="songs != null"
+                    [type]="'sl'"
+                    [reverse]="true"
+                    [icon]="'/assets/imgs/icons/more.png'"
+                    [popupButtons]="getSingleAlbumMenuItems(songs)">
+                </popup-menu>
+            </div>
 
             <div class="btn-sl play-all" 
                 *ngIf="songNavigator != null"

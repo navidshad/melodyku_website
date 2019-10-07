@@ -1,20 +1,38 @@
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
+import 'package:melodyku/archive/archive.dart';
 
-int getSongMenuItemsCount() => getSongMenuItems('').length;
-List<PopupButtonOptions> getSongMenuItems(String songid)
+// Map items = {
+// 	'addToPlayingList': PopupButtonOptions(
+// 		lableSku: 'addToPlayingList', 
+// 		icon: '', 
+// 		dynamic arg, () → dynamic callback, (dynamic) → dynamic callbackWithArg})
+// };
+
+int getSongMenuItemsCount() => getSongMenuItems(null).length;
+List<PopupButtonOptions> getSongMenuItems(Song item)
 {
-	List<PopupButtonOptions> list = [];
+	List<PopupButtonOptions> list = [
 
-	UserService userService = Injector.get<UserService>();
+		PopupButtonOptions(
+			lableSku: 'addToPlayingList', 
+			icon: '', 
+			arg: item, 
+			callbackWithArg: (dynamic song)
+			{
+				PlayerService playerS = Injector.get<PlayerService>();
+				playerS.addToPlayingList(song as Song);
+			}),
+	];
 
 	// add button - "add to playlist"
+	UserService userService = Injector.get<UserService>();
 	if(userService.user.hasAccess(PermissionType.archive_manager))
 	{
 		PopupButtonOptions btn = PopupButtonOptions();
 		btn..lableSku = 'addTOGlobalPlaylists'
 		..icon = ''
-		..arg = songid
+		..arg = item?.id
 		..callbackWithArg = (dynamic id)
 		{
 			PopupService popupService = Injector.get<PopupService>();
@@ -23,6 +41,24 @@ List<PopupButtonOptions> getSongMenuItems(String songid)
 
 		list.add(btn);
 	}
+
+	return list;
+}
+
+List<PopupButtonOptions> getSingleAlbumMenuItems(List<Song> songs)
+{
+	List<PopupButtonOptions> list = [
+
+		PopupButtonOptions(
+			lableSku: 'addToPlayingList', 
+			icon: '', 
+			arg: songs, 
+			callbackWithArg: (dynamic songs)
+			{
+				PlayerService playerS = Injector.get<PlayerService>();
+				playerS.addToPlayingList_ByList(songs);
+			}),
+	];
 
 	return list;
 }

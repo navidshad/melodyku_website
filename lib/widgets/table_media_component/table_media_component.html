@@ -84,8 +84,10 @@
                 *ngIf="showPopupButtons && getSongMenuItemsCount() > 0"
                 [type]="'sl-x'"
                 [reverse]="true"
+                [transparent]="true"
                 [icon]="'/assets/imgs/icons/more.png'"
-                [popupButtons]="getSongMenuItems(song.id)"></popup-menu>
+                [popupButtons]="getSongMenuItems(song)">
+            </popup-menu>
         </div>
     </div>
 

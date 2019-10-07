@@ -7,3 +7,11 @@ img {
     height: 20px;
     cursor: pointer;
 }
+
+
+@media screen and (max-width: 479px) {
+	img{
+		width: 15px;
+		height: auto;
+	}
+}

@@ -46,7 +46,7 @@ class AppComponent
 {
   
   AppComponent(  IndexedDBService idb, MongoDBService mongodb, AuthService auth, 
-    PaymentService ps, AppshellService appshell,
+    PaymentService ps, AppshellService appshell, PlayerService pl,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
     PopupService popupS,
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
@@ -66,6 +66,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('PopupService', popupS));
     CI.Injector.register(CI.InjectorMember('PaymentService', ps));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
+    CI.Injector.register(CI.InjectorMember('PlayerService', pl));
 
     // login with last session
     us.loginWithLastSession();
