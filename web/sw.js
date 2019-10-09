@@ -499,7 +499,7 @@ workbox.precaching.precacheAndRoute([
 workbox.routing.registerRoute(
   ({url, event}) => {
     return isMatch(url, 
-    ['.json', '.js'])
+    ['.json', '.js', '.css'])
   },
   new workbox.strategies.StaleWhileRevalidate()
 );

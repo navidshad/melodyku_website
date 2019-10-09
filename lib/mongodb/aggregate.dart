@@ -13,6 +13,7 @@ class Aggregate
 
 	bool hasMore = false;
 	bool isInitialized = false;
+	bool isLive;
 
 	int totalItems = 0;
 	int perPage = 20;
@@ -25,7 +26,8 @@ class Aggregate
 		this.pipline=const[], 
 		this.accessQuery=const{}, 
 		this.types,
-		this.perPage=20})
+		this.perPage=20,
+		this.isLive=true})
 	{
 		_mongodb = Injector.get<MongoDBService>();
 	}
@@ -79,6 +81,7 @@ class Aggregate
 		List<dynamic> docs = [];
 
 		await _mongodb.aggregate( 
+			isLive:isLive,
 			database: database, collection: collection, piplines: nextPipeline, accessQuery: accessQuery,
 			types: types)
 			.then((list) => docs = list)

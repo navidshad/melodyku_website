@@ -26,6 +26,7 @@ class ResultWithNavigator<T>
   String collection;
 
   bool hasMore = false;
+  bool isLive = false;
 
   GetType getType;
   Map customQuery;
@@ -40,7 +41,8 @@ class ResultWithNavigator<T>
     this.customQuery, 
     this.customSort, 
     this.types,
-    int perPage=20})
+    int perPage=20,
+    this.isLive=false})
   {
     _updateController = StreamController<bool>();
 
@@ -148,6 +150,7 @@ class ResultWithNavigator<T>
       collection = 'song_history';
 
     _aggregator = Aggregate(
+      isLive: isLive,
       database: database,
       collection: collection, 
       pipline: getPiplines(),

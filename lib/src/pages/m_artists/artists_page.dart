@@ -25,8 +25,11 @@ class ArtistsPage
   MessageService _messageService;
   ContentProvider _contentProvider;
 
-  List<Card> featuredArtists = [];
-  List<Card> topArtists = [];
+  Map tl_artists01;
+  Map tl_artists02;
+
+  List<Card> card_artists01 = [];
+  List<Card> card_artists02 = [];
 
   // constructor ==================================
   ArtistsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -45,18 +48,16 @@ class ArtistsPage
   void getContent() async 
   {
 
-    ResultWithNavigator rArtists_featured = await _contentProvider.mediaselector
-      .artist_getList(randomRange(0, 50), total: 10);
+    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_01')
+          .then((r) {
+               tl_artists01 = r.localTitle;
+               card_artists01 = r.getChildsAsCardWidgets();
+          });
 
-    rArtists_featured.list.forEach((artist) {
-      featuredArtists.add(artist.getAsWidget<Card>());
-    });
-
-    ResultWithNavigator rArtists_tops = await _contentProvider.mediaselector
-      .artist_getList(randomRange(0, 50), total: 20);
-
-    rArtists_tops.list.forEach((artist) {
-      topArtists.add(artist.getAsWidget<Card>());
-    });
+    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_02')
+          .then((r) {
+               tl_artists02 = r.localTitle;
+               card_artists02 = r.getChildsAsCardWidgets();
+          });
   }
 }

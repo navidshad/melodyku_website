@@ -1,20 +1,20 @@
 <slider-rect 
-    [title]="lang.getStr('featuredAlbums')"
-    [items]="featuredAlbums"
+    [title]="lang.getLocalValue(tl_albums01)"
+    [items]="card_albums01"
     [exploreBtn]="true"
     [playBtn]="false">
 </slider-rect>
 
-<slider-rect 
-    [title]="lang.getStr('bestAllTime')" 
-    [items]="top15albums"
+<grid-rect
+    [title]="lang.getLocalValue(tl_albums02)"
+    [items]="card_albums02"
     [exploreBtn]="true"
     [playBtn]="false">
-</slider-rect >
+</grid-rect>
 
 <grid-rect
-    [title]="lang.getStr('lasts')"
-    [items]="lastAlbums"
+    [title]="lang.getStr('random')"
+    [items]="card_random"
     [exploreBtn]="true"
     [playBtn]="false">
 </grid-rect>

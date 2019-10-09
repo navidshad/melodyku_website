@@ -22,6 +22,10 @@ List<PopupButtonOptions> getSongMenuItems(Song item)
 			{
 				PlayerService playerS = Injector.get<PlayerService>();
 				playerS.addToPlayingList(song as Song);
+
+				//tracking
+				Injector.get<AnalyticService>()
+					.trackEvent('addToPlayingList', category: 'popup menu', label: 'song');
 			}),
 	];
 
@@ -57,6 +61,10 @@ List<PopupButtonOptions> getSingleAlbumMenuItems(List<Song> songs)
 			{
 				PlayerService playerS = Injector.get<PlayerService>();
 				playerS.addToPlayingList_ByList(songs);
+
+				//tracking
+				Injector.get<AnalyticService>()
+					.trackEvent('addToPlayingList', category: 'popup menu', label: 'media item');
 			}),
 	];
 

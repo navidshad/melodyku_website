@@ -38,7 +38,7 @@ class FavoritesPage
       needLogedIn: true,
       title: 'favorites');
 
-    songNavigator = ResultWithNavigator(getType: GetType.favorites);
+    songNavigator = ResultWithNavigator(getType: GetType.favorites, isLive:true);
     songNavigator.loadNextPage();
   }
 

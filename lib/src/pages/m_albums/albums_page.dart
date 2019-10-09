@@ -16,7 +16,7 @@ import 'package:melodyku/archive/archive.dart';
     GridComponent,
   ]
 )
-class AlbumsPage implements OnInit
+class AlbumsPage
 {
   Page _page;
   LanguageService lang;
@@ -24,9 +24,12 @@ class AlbumsPage implements OnInit
   MessageService _messageService;
   ContentProvider _contentProvider;
 
-  List<Card> featuredAlbums = [];
-  List<Card> lastAlbums = [];
-  List<Card> top15albums = [];
+  Map tl_albums01;
+  Map tl_albums02;
+
+  List<Card> card_albums01 = [];
+  List<Card> card_albums02 = [];
+  List<Card> card_random = [];
 
   // constructor ==================================
   AlbumsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -39,37 +42,27 @@ class AlbumsPage implements OnInit
       title: 'albums',
     );
 
-    //getContent();
-  }
-
-  ngOnInit()
-  {
     getContent();
   }
 
   void getContent() async 
   {
 
-    List<Album> rAlbums_featured = await _contentProvider.mediaselector
-      .album_getRandomList(total:10);
+    await _contentProvider.mediaselector.mediaPack_get(title:'albums_page_01')
+          .then((r) {
+               tl_albums01 = r.localTitle;
+               card_albums01 = r.getChildsAsCardWidgets();
+          });
 
-    rAlbums_featured.forEach((album) 
-      => featuredAlbums.add(album.getAsWidget<Card>()));
+    await _contentProvider.mediaselector.mediaPack_get(title:'albums_page_02')
+          .then((r) {
+               tl_albums02 = r.localTitle;
+               card_albums02 = r.getChildsAsCardWidgets();
+          });
 
-    List<Album> ralbums_tops = await _contentProvider.mediaselector
-      .album_getRandomList(total:15);
-
-    ralbums_tops.forEach((album) {
-      top15albums.add(album.getAsWidget<Card>());
-    });
-
-    List<Album> ralbums_Lasts = await _contentProvider.mediaselector
-      .album_getRandomList(total:20);
-
-    ralbums_Lasts.forEach((album) {
-      lastAlbums.add(album.getAsWidget<Card>());
-    });
-
-    
+    await _contentProvider.mediaselector.album_getRandomList(total:9)
+          .then((List<Album> r){
+             r.forEach((album) => card_random.add( album.getAsWidget<Card>() ));
+          });
   }
 }

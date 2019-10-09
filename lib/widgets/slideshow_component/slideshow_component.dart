@@ -62,6 +62,10 @@ class SlideShowComponent implements OnChanges
 
 				more: {
 					'slideToClickedSlide': true,
+					'autoplay': {
+						'delay': 3000,
+						'reverseDirection': true,
+						},
 				}
 			)
 		);

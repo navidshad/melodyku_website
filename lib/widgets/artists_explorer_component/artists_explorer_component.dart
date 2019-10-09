@@ -21,7 +21,7 @@ import 'characters.dart';
 )
 class ArtistsExplorerComponent
 {
-	String selected = 'a';
+	String selected = '';
 	bool couldLoadMore = false;
 	int _perPage = 20;
 
@@ -31,10 +31,7 @@ class ArtistsExplorerComponent
 
 	LanguageService lang;
 
-	ArtistsExplorerComponent(this.lang)
-	{
-		getArtists();
-	}
+	ArtistsExplorerComponent(this.lang);
 
 	List<String> getCharacters()
 	{

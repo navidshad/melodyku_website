@@ -56,47 +56,29 @@ class VitrinPage
 
   void getItems() async 
   {
-     await _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'})
+     await _contentProvider.mediaselector.getItem<Playlist>({'title':'vitrin_page_01'})
           .then((r) {
                tl_lastSongs = (r as Playlist).localTitle;
                listItems_lastSongs = (r as Playlist).getChildsAsWidgets<ListItem>(total:15);
           });
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'women artist')
+     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_01')
           .then((r) {
                tl_mediaPack_women_artist = r.localTitle;
                card_women_artist = r.getChildsAsCardWidgets();
           });
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'best albums')
+     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_02')
           .then((r) {
                tl_mediaPack_best_albums = r.localTitle;
                card_best_albums = r.getChildsAsCardWidgets();
           });
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish')
+     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_03')
           .then((r) {
                tl_mediaPack_kurdish_kings = r.localTitle;
                card_kurdish_kings = r.getChildsAsCardWidgets();
           });
-
-     // Future.any([
-     //      _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'})
-     //           .then((r) => pl_lastSongs = r),
-
-     //      _contentProvider.mediaselector.mediaPack_get(title:'women artist')
-     //           .then((r) => mediaPack_women_artist = r),
-
-     //      _contentProvider.mediaselector.mediaPack_get(title:'best albums')
-     //           .then((r) => mediaPack_best_albums = r),
-
-     //      _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish')
-     //           .then((r) => mediaPack_kurdish_kings = r)
-     // ]);
-     //pl_lastSongs = await _contentProvider.mediaselector.getItem<Playlist>({'title':'last songs'});
-     //mediaPack_women_artist = await _contentProvider.mediaselector.mediaPack_get(title:'women artist');
-     //mediaPack_best_albums = await _contentProvider.mediaselector.mediaPack_get(title:'best albums');
-     //mediaPack_kurdish_kings = await _contentProvider.mediaselector.mediaPack_get(title:'kings of kurdish');
   }
 
   List<ListItem> getListItems(Playlist pl)

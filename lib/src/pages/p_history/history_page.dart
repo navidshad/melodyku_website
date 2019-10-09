@@ -31,7 +31,7 @@ class HistoryPage
       needLogedIn: true,
       title: 'history');
 
-    songNavigator = ResultWithNavigator(getType: GetType.history);
+    songNavigator = ResultWithNavigator(getType: GetType.history, isLive:true);
     songNavigator.loadNextPage();
   }
 }
