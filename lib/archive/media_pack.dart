@@ -47,7 +47,7 @@ class MediaPack<T extends MediaItem>
 					
 					if(T == Artist) item = Artist.fromjson(doc) as T;
 					else if(T == Album) item = Album.fromPopulatedDoc(doc) as T;
-					else if(T == Playlist) item = Playlist.fromjson(doc) as T;
+					else if(T == Playlist) item = Playlist.fromjson(doc, listContainsObject:false) as T;
 
 					pl.list.add(item);
 				});

@@ -46,13 +46,13 @@ class Playlist implements MediaItem
       .getImage(database:'media', type:'playlist', id:id, imgStamp:imgStamp);
   }
 
-  factory Playlist.fromjson(Map detail)
+  factory Playlist.fromjson(Map detail, {bool listContainsObject=true})
   {
     Playlist playlist;
     try {
       List<Song> items = [];
 
-      if(detail.containsKey('list'))
+      if(detail.containsKey('list') && listContainsObject)
       {
         List songMaps = detail['list'];
 

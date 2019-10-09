@@ -11,8 +11,8 @@
 </list-wide>
 
 <slider-rect
-    [title]="lang.getLocalValue(tl_mediaPack_women_artist)"
-    [items]="card_women_artist"
+    [title]="lang.getLocalValue(tl_mediaPack_playlists)"
+    [items]="card_playlists"
     [exploreBtn]="true"
     [playBtn]="false">
 </slider-rect>
@@ -34,11 +34,11 @@
     [type]="'masonry'">
 </category-presentor>
 
-<slider-rect    
-    [title]="lang.getLocalValue(tl_mediaPack_kurdish_kings)"
-    [items]="card_kurdish_kings"
+<grid-rect
+    [title]="lang.getLocalValue(tl_mediaPack_artist)"
+    [items]="card_artist"
     [exploreBtn]="true"
     [playBtn]="false">
-</slider-rect>
+</grid-rect>
 
 <footer-section></footer-section>

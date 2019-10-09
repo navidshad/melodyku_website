@@ -26,10 +26,13 @@ class ArtistsPage
   ContentProvider _contentProvider;
 
   Map tl_artists01;
-  Map tl_artists02;
-
   List<Card> card_artists01 = [];
+
+  Map tl_artists02;
   List<Card> card_artists02 = [];
+
+  Map tl_artists03;
+  List<Card> card_artists03 = [];
 
   // constructor ==================================
   ArtistsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -48,16 +51,22 @@ class ArtistsPage
   void getContent() async 
   {
 
-    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_01')
+    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_trends')
           .then((r) {
                tl_artists01 = r.localTitle;
                card_artists01 = r.getChildsAsCardWidgets();
           });
 
-    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_02')
+    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_women')
           .then((r) {
                tl_artists02 = r.localTitle;
                card_artists02 = r.getChildsAsCardWidgets();
+          });
+
+    await _contentProvider.mediaselector.mediaPack_get(title:'artists_page_kings')
+          .then((r) {
+               tl_artists03 = r.localTitle;
+               card_artists03 = r.getChildsAsCardWidgets();
           });
   }
 }

@@ -31,14 +31,16 @@ class VitrinPage
   ContentProvider _contentProvider;
 
   Map tl_lastSongs;
-  Map tl_mediaPack_women_artist;  
-  Map tl_mediaPack_best_albums;
-  Map tl_mediaPack_kurdish_kings;
-
   List<ListItem> listItems_lastSongs = [];
-  List<Card> card_women_artist = [];
+
+  Map tl_mediaPack_playlists;
+  List<Card> card_playlists = [];
+
+  Map tl_mediaPack_best_albums;
   List<Card> card_best_albums = [];
-  List<Card> card_kurdish_kings = [];
+
+  Map tl_mediaPack_artist;  
+  List<Card> card_artist = [];
 
   // constructor ==================================
   VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
@@ -56,29 +58,31 @@ class VitrinPage
 
   void getItems() async 
   {
-     await _contentProvider.mediaselector.getItem<Playlist>({'title':'vitrin_page_01'})
-          .then((r) {
-               tl_lastSongs = (r as Playlist).localTitle;
-               listItems_lastSongs = (r as Playlist).getChildsAsWidgets<ListItem>(total:15);
-          });
+    Future.any([
+      _contentProvider.mediaselector.getItem<Playlist>({'title':'vitrin_page_01'})
+        .then((r) {
+             tl_lastSongs = (r as Playlist).localTitle;
+             listItems_lastSongs = (r as Playlist).getChildsAsWidgets<ListItem>(total:15);
+        }),
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_01')
-          .then((r) {
-               tl_mediaPack_women_artist = r.localTitle;
-               card_women_artist = r.getChildsAsCardWidgets();
-          });
+      _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_playlists')
+        .then((r) {
+             tl_mediaPack_playlists = r.localTitle;
+             card_playlists = r.getChildsAsCardWidgets();
+        }),
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_02')
-          .then((r) {
-               tl_mediaPack_best_albums = r.localTitle;
-               card_best_albums = r.getChildsAsCardWidgets();
-          });
+      _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_albums')
+        .then((r) {
+             tl_mediaPack_best_albums = r.localTitle;
+             card_best_albums = r.getChildsAsCardWidgets();
+        }),
 
-     await _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_03')
-          .then((r) {
-               tl_mediaPack_kurdish_kings = r.localTitle;
-               card_kurdish_kings = r.getChildsAsCardWidgets();
-          });
+      _contentProvider.mediaselector.mediaPack_get(title:'vitrin_page_artists')
+        .then((r) {
+             tl_mediaPack_artist = r.localTitle;
+             card_artist = r.getChildsAsCardWidgets();
+        }),
+    ]);     
   }
 
   List<ListItem> getListItems(Playlist pl)
