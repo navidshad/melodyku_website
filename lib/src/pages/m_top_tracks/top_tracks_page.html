@@ -1,22 +1,24 @@
-<list-wide  
-    [title]="lang.getStr('featuredSongs')" 
+<list-wide 
+    [title]="lang.getLocalValue(tl_list01)" 
     [numerical]="true"
-    [items]="top15Songs"
+    [items]="listItem_list01"
     [exploreBtn]="false"
     [playBtn]="true">
 </list-wide>
 
-<slider-rect 
-    [title]="lang.getStr('bestAllTime')"
-    [items]="topOfAllTime"
+<list-wide 
+    [title]="lang.getLocalValue(tl_list02)" 
+    [numerical]="true"
+    [items]="listItem_list02"
     [exploreBtn]="false"
     [playBtn]="true">
-</slider-rect>
+</list-wide>
 
-<grid-rect
-    [title]="lang.getStr('lasts')"
-    [items]="lastSongs"
+<list-wide 
+    [title]="lang.getLocalValue(tl_list03)" 
+    [numerical]="true"
+    [items]="listItem_list03"
     [exploreBtn]="false"
     [playBtn]="true">
-</grid-rect>
+</list-wide>
 

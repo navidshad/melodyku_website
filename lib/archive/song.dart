@@ -170,12 +170,12 @@ class Song implements MediaItem
     else if(album != null && imgStamp_album.length > 10)
     {
      link = Injector.get<ContentProvider>()
-      .getImage(database:'media', type:'album', id:album.id, imgStamp:imgStamp_album);
+      .getImage(database:'media', type:'album', id:album?.id, imgStamp:imgStamp_album);
     }
     else if(artist != null && imgStamp_artist.length > 10)
     {
      link = Injector.get<ContentProvider>()
-      .getImage(database:'media', type:'artist', id:artist.id, imgStamp:imgStamp_artist);
+      .getImage(database:'media', type:'artist', id:artist?.id, imgStamp:imgStamp_artist);
     }
     else {
       link = Injector.get<ContentProvider>()
@@ -217,7 +217,7 @@ class Song implements MediaItem
 
       // create stream link
       link = Uri.https(Vars.mainHost, 'stream', 
-        {'ai': artist.id, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
+        {'ai': artist?.id, 'si': id, 'br': cBitrate, 'org': isOrginal.toString()})
         .toString();
     // }
     
@@ -268,8 +268,8 @@ class Song implements MediaItem
 
   @override
   String get link => '#${Injector.get<PageRoutes>().getRouterUrl('song', {'id': id})}';
-  String get link_album => album.link; //'#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
-  String get link_artist => artist.link; //'#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
+  String get link_album => album?.link; //'#${Injector.get<PageRoutes>().getRouterUrl('album', {'id': albumId})}';
+  String get link_artist => artist?.link; //'#${Injector.get<PageRoutes>().getRouterUrl('artist', {'id': artistId})}';
 
   @override
   T getAsWidget<T>({int itemNumber=1})
@@ -287,7 +287,7 @@ class Song implements MediaItem
         type: ArchiveTypes.song,
         origin: this,
         localTitle: localTitle,
-        localTitle_sub: artist.localTitle,
+        localTitle_sub: artist?.localTitle,
       ) as T;
     }
 
@@ -304,7 +304,7 @@ class Song implements MediaItem
         type: ArchiveTypes.song,
         origin: this,
         localTitle: localTitle,
-        localTitle_sub: artist.localTitle,
+        localTitle_sub: artist?.localTitle,
       ) as T;
     }
 

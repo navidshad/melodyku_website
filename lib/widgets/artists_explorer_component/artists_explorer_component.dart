@@ -42,8 +42,8 @@ class ArtistsExplorerComponent
 	void selectChar(String char)
 	{
 		selected = char;
-		getArtists();
 		artistCards = [];
+		getArtists();
 	}
 
 	Map getMatchStage()
@@ -61,7 +61,7 @@ class ArtistsExplorerComponent
 	void getArtists() async
 	{
 		agregator = Aggregate(
-      database: 'media',
+      		database: 'media',
 			collection: 'artist', 
 			pipline: [getMatchStage()], 
 			perPage: _perPage);

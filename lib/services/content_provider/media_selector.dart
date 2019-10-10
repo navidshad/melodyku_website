@@ -117,7 +117,7 @@ class MediaSelector
 
 
   // album ------------------------------------------------
-  Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=15}) async
+  Future<ResultWithNavigator<Album>> album_getListByArtist(String artistId, {int page=1, int total=100}) async
   {
     Map<String, dynamic> query = {'artistId': artistId};
     List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.artistId') ];

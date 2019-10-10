@@ -82,7 +82,7 @@ class ArchiveAlbumPage implements OnActivate
 
   void play(Map doc, ButtonOptions options)
   {
-    _playerService.playByMap(doc);
+    _playerService.playByID(doc['_id']);
   }
 
   void _catchError(Error) => print(Error);

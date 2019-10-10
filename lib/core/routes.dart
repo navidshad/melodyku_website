@@ -123,7 +123,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
 
   'top_tracks' : PageDefinition(
     title         : 'topTracks',
-    position      : MenuPosition.none,
+    position      : MenuPosition.mainMenuDrawer,
     permissionType: PermissionType.anonymous_access,
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'top-tracks'),

@@ -149,7 +149,6 @@ class MultiCategorizingComponent
 
 	void playSong(Map doc, ButtonOptions options)
 	{
-		Song song = Song.fromjson(doc);
-		_playerService.play(song);
+		_playerService.playByID(doc['_id']);
 	}
 }

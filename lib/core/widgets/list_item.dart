@@ -41,7 +41,7 @@ class ListItem<T extends MediaItem>
     String tempTitle = title;
 
 
-    if(localTitle.containsKey(languageCode) && 
+    if(localTitle != null && localTitle.containsKey(languageCode) && 
         localTitle[languageCode].length > 0)
       tempTitle = localTitle[languageCode];
 
@@ -52,7 +52,7 @@ class ListItem<T extends MediaItem>
   {
     String tempTitle = '';
 
-    if(localTitle_sub.containsKey(languageCode) && 
+    if(localTitle_sub != null && localTitle_sub.containsKey(languageCode) && 
         localTitle_sub[languageCode].length > 0)
       tempTitle = localTitle_sub[languageCode];
 

@@ -99,7 +99,7 @@ class Player
       playBtn.clicked(true);
 
       // track playling
-      String lable = '${current.artist.name}-${current.title}';
+      String lable = '${current.artist?.name}-${current.title}';
       _analytic.trackEvent('play', category: 'player', label: lable, value: current.id);
     }
     else {

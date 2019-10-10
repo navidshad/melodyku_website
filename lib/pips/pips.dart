@@ -13,3 +13,12 @@ class BytesToMb extends PipeTransform
     return mb.toStringAsFixed(1);
   }
 }
+
+@Pipe('Title')
+class TitlePipe extends PipeTransform
+{
+	String transform(String str)
+	{
+		return str;
+	}
+}
