@@ -10,6 +10,7 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/pips/pips.dart';
 
 //import 'package:melodyku/core/app_intaller.dart' as installer;
 import 'package:melodyku/core/injector.dart' as CI;
@@ -32,7 +33,11 @@ import 'package:melodyku/core/injector.dart' as CI;
     TranslateBtnComponent,
     DirectionDirective,
   ],
-
+  pipes: [
+    TitlePip,
+    UpFirstCharsPip,
+    UpperCasePip,
+   ],
   providers: [
     ClassProvider(PageRoutes),
   ],

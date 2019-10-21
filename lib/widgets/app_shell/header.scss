@@ -48,7 +48,9 @@ $barHeight_small: 40px;
 .header-title{
     h3{
         margin: 0px;
-        font-size: 24px;
+        font-size: 25px;
+        color: orange;
+        text-shadow: 0px 0px 13px $lightblue-color;
     }
 }
 
@@ -85,6 +87,12 @@ $barHeight_small: 40px;
     .auth{
         font-size: 10px;
         padding: 5px;
+    }
+
+    .header-title{
+        h3{
+            font-size: 20px;
+        }
     }
 }
 

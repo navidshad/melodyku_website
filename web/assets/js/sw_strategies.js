@@ -64,6 +64,8 @@ async function catchFirstPostRequest_bodyAsKey({url, event})
 
 	storeResponse = async function (resid, res)
 	{
+		if(!res.clone().ok) return;
+
 		let doc = await serializeResponse(res);
 		doc['_id'] = resid;
     
@@ -133,6 +135,8 @@ async function networkFirstPostRequest_bodyAsKey({url, event})
 
 	storeResponse = async function (resid, res)
 	{
+		if(!res.clone().ok) return;
+
 		let doc = await serializeResponse(res);
 		doc['_id'] = resid;
     
@@ -192,6 +196,8 @@ async function catchFirstPostRequest_pathAsKey({url, event})
 
 	storeResponse = async function (resid, res)
 	{
+		if(!res.clone().ok) return;
+
 		let doc = await serializeResponse(res);
 		doc['_id'] = resid;
     
@@ -263,6 +269,8 @@ async function networkFirstPostRequest_pathAsKey({url, event})
 
 	storeResponse = async function (resid, res)
 	{
+		if(!res.clone().ok) return;
+		
 		let doc = await serializeResponse(res);
 		doc['_id'] = resid;
     

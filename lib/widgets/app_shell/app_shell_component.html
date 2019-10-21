@@ -37,7 +37,7 @@
             </div>
 
             <div class="header-title">
-                <h3>{{titleBar}}</h3>
+                <h3>{{titleBar | UpperCase}}</h3>
             </div>
 
             <!-- muenu button -->
@@ -92,7 +92,7 @@
                     <a [routerLink]="item.url">
                         <div class="flex-column flex-center rect-item">
                             <img src="{{item.img_ref}}" alt="" class="drawer-icon">
-                            <span class="subtitle">{{lang.getStr(item.title)}}</span>    
+                            <span class="subtitle">{{lang.getStr(item.title) | UpFirstChars}}</span>    
                         </div>
                     </a>
                     
@@ -106,7 +106,7 @@
                 (click)="appshellService.purechatAPI.openChat()">
                 <div class="flex-column flex-center rect-item pointer">
                     <img src="/assets/svg/icon_support.svg" class="drawer-icon">
-                    <span class="subtitle">{{lang.getStr('onlineSupport')}}</span>
+                    <span class="subtitle">{{lang.getStr('onlineSupport') | UpFirstChars}}</span>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
                 </a>
             </div>
             <a href="/#/profile">
-                {{user.fullname}}
+                {{user.fullname | UpFirstChars}}
             </a>
         </div>
 
@@ -141,14 +141,14 @@
                     <a [routerLink]="item.url" >
                         <div class="wide-item">
                             <img src="{{item.img_ref}}" alt="" class="drawer-icon">
-                            <span class="drawer-title">{{lang.getStr(item.title)}}</span>
+                            <span class="drawer-title">{{lang.getStr(item.title) | UpFirstChars}}</span>
                         </div>
                     </a>
                     <div class="item-divider"></div>
             </li>
         </ul>
 
-        <div class="btn-sl" (click)="logout()">{{lang.getStr('logout')}}</div>
+        <div class="btn-sl" (click)="logout()">{{lang.getStr('logout') | Title}}</div>
 
     </div>
 </div>

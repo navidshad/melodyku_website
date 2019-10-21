@@ -5,6 +5,7 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
+import 'package:melodyku/pips/pips.dart';
 
 @Component(
 	selector: 'category-presentor',
@@ -17,6 +18,9 @@ import 'package:melodyku/directives/directives.dart';
 		SliderAdaptiveSizeComponent,
 		WidgetLoading,
 	],
+	pipes: [
+    TitlePip,
+   ]
 )
 class CategoryPresentorComponent implements OnInit
 {

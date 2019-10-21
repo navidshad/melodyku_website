@@ -10,6 +10,7 @@ import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/swiper/swiper.dart';
+import 'package:melodyku/pips/pips.dart';
 
 @Component(
   selector: 'slider-rect',
@@ -22,6 +23,9 @@ import 'package:melodyku/swiper/swiper.dart';
     CardRectComponent,
     ElementExtractorDirective,
    ],
+   pipes: [
+    TitlePip,
+   ]
 )
 class SliderRectComponent implements OnChanges
 {

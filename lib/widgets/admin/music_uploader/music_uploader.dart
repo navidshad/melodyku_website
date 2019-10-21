@@ -52,7 +52,7 @@ class musicUploaderComponent
 			},
 
 			'allowMultiple': true,
-			'maxFiles': 20,
+			'maxFiles': 200,
 			'maxParallelUploads': 2,
 
 			'fileMetadataObject': {

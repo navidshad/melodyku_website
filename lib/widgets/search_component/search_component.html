@@ -31,7 +31,7 @@
 
 	<div class="notfound flex-column flex-center" 
 		*ngIf="nothingFound && aggregator != null">
-		<div>{{lang.getStr('notFound')}}</div>
+		<div>{{lang.getStr('notFound') | Title}}</div>
 	</div>
 
 	<list-wide 

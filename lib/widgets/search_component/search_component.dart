@@ -6,6 +6,7 @@ import 'package:angular_forms/angular_forms.dart';
 
 
 import 'package:melodyku/core/core.dart';
+import 'package:melodyku/pips/pips.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/services/services.dart';
@@ -23,6 +24,9 @@ import 'package:melodyku/mongodb/media_lookup_piplines.dart' as lookup;
 		WidgetLoading,
 		ButtonCircle,
 	],
+	pipes: [
+    TitlePip,
+   ]
 )
 class SearchComponent
 {

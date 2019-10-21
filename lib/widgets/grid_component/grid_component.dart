@@ -7,6 +7,7 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
+import 'package:melodyku/pips/pips.dart';
 
 @Component(
   selector: 'grid-rect',
@@ -19,6 +20,9 @@ import 'package:melodyku/directives/directives.dart';
     WidgetLoading,
     ButtonRounded,
   ],
+  pipes: [
+    TitlePip,
+   ]
 )
 class GridComponent
 {
