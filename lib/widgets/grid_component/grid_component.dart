@@ -21,7 +21,7 @@ import 'package:melodyku/pips/pips.dart';
     ButtonRounded,
   ],
   pipes: [
-    TitlePip,
+    TitlePipe,
    ]
 )
 class GridComponent

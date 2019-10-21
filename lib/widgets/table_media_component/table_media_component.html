@@ -2,14 +2,14 @@
     [direction]="lang.getDir()" [align]="true">
     <div class='row header'>
         <div class='cell index'>#</div>
-        <div class='cell stitle'>{{lang.getStr("songTitle")}}</div>
-        <div class='cell album'>{{lang.getStr("album")}}</div>
-        <div class='cell artist'>{{lang.getStr("artist")}}</div>
-        <div class='cell duration'>{{lang.getStr("duration")}}</div>
+        <div class='cell stitle'>{{lang.getStr("songTitle") | UpFirstChars}}</div>
+        <div class='cell album'>{{lang.getStr("album") | UpFirstChars}}</div>
+        <div class='cell artist'>{{lang.getStr("artist") | UpFirstChars}}</div>
+        <div class='cell duration'>{{lang.getStr("duration") | UpFirstChars}}</div>
         
         <div class="cell download"
             *ngIf="isLogedIn && !hideDownloadButton">
-            {{lang.getStr("download")}}
+            {{lang.getStr("download") | UpFirstChars}}
         </div>
 
         <div class='cell option' 
@@ -42,24 +42,24 @@
 
         <div (click)="play(i)" class='cell stitle subtitle'>
             
-            <span>{{song.getLocalTitle()}}</span>
+            <span>{{song.getLocalTitle() | UpFirstChars}}</span>
             
             <div class="small-artist ssubtitle"
                 *ngIf="song.artist != null">
-                {{song.artist.getLocalTitle()}}
+                {{song.artist.getLocalTitle() | UpFirstChars}}
             </div>
         </div>
 
         <div class='cell album subtitle'
             *ngIf="song.album != null"
             (click)="play(i)">
-            {{song.album.getLocalTitle()}}
+            {{song.album.getLocalTitle() | UpFirstChars}}
         </div>
 
         <div class='cell artist subtitle'
             *ngIf="song.artist != null"
             (click)="play(i)">
-            {{song.artist.getLocalTitle()}}
+            {{song.artist.getLocalTitle() | UpFirstChars}}
         </div>
 
         <div (click)="play(i)" class='cell duration subtitle' dir="rtl">{{song.getDuration()}}</div>
@@ -94,6 +94,6 @@
     <div class="load-more" *ngIf="navigator != null && navigator.hasMore">
         <div class="btn-sl margin-h-20"
             (click)="getMore()">
-            {{lang.getStr('more')}}</div>
+            {{lang.getStr('more') | UpFirstChars}}</div>
     </div>
 </div>

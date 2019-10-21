@@ -33,8 +33,8 @@
 		        	
 		        		<div class="active-content animatable"
 		        			*ngIf="slide.showDetail">
-	    					<h2>{{slide.getTitle(lang.getCode())}}</h2>
-	    					<h4>{{slide.getSubTitle(lang.getCode())}}</h4>
+	    					<h3>{{slide.getTitle(lang.getCode()) | Title }}</h3>
+	    					<h4>{{slide.getSubTitle(lang.getCode()) | Title}}</h4>
 		        		</div>
 		        		
 		        	</div>

@@ -34,9 +34,9 @@ import 'package:melodyku/core/injector.dart' as CI;
     DirectionDirective,
   ],
   pipes: [
-    TitlePip,
-    UpFirstCharsPip,
-    UpperCasePip,
+    TitlePipe,
+    UpFirstCharsPipe,
+    UpperCasePipe,
    ],
   providers: [
     ClassProvider(PageRoutes),

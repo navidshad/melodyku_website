@@ -8,6 +8,7 @@ import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 import 'package:melodyku/directives/directives.dart';
 import 'package:melodyku/archive/archive.dart';
+import 'package:melodyku/pips/pips.dart';
 
 @Component(
   selector: 'table-media',
@@ -21,6 +22,9 @@ import 'package:melodyku/archive/archive.dart';
     ButtonDownloadSong,
     WidgetLoading,
     PopMenuComponent,
+  ],
+  pipes: [
+    UpFirstCharsPipe
   ],
   exports: [
     getSongMenuItems,

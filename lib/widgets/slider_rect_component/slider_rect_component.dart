@@ -24,7 +24,7 @@ import 'package:melodyku/pips/pips.dart';
     ElementExtractorDirective,
    ],
    pipes: [
-    TitlePip,
+    TitlePipe,
    ]
 )
 class SliderRectComponent implements OnChanges
@@ -71,10 +71,34 @@ class SliderRectComponent implements OnChanges
       createSwipeOptions(
         slidesPerView: 'auto',
         spaceBetween: 10,
-        loop: false,
+        centeredSlides: true,
+        loop: true,
         navigation: SwiperNavigation(
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',),
+        more: {
+          // 'breakpoints': {
+          //   // when window width is >= 320px
+          //   320: {
+          //     'slidesPerView': 3,
+          //     //'spaceBetween': 20
+          //   },
+          //   420: {
+          //     'slidesPerView': 3,
+          //     'spaceBetween': 5
+          //   },
+          //   // when window width is >= 480px
+          //   480: {
+          //     'slidesPerView': 4,
+          //     //'spaceBetween': 10
+          //   },
+          //   // when window width is >= 640px
+          //   640: {
+          //     'slidesPerView': 4,
+          //     //'spaceBetween': 40
+          //   }
+          // }
+        }
       )
     );
 

@@ -14,7 +14,7 @@ import 'package:melodyku/archive/archive.dart';
     coreDirectives,
     SliderRectComponent,
     GridComponent,
-  ]
+  ],
 )
 class AlbumsPage
 {
@@ -48,16 +48,16 @@ class AlbumsPage
   void getContent() async 
   {
 
-    await _contentProvider.mediaselector.mediaPack_get(title:'albums_page_01')
-          .then((r) {
-               tl_albums01 = r.localTitle;
-               card_albums01 = r.getChildsAsCardWidgets();
-          });
-
     await _contentProvider.mediaselector.mediaPack_get(title:'albums_page_02')
           .then((r) {
                tl_albums02 = r.localTitle;
                card_albums02 = r.getChildsAsCardWidgets();
+          });
+          
+    await _contentProvider.mediaselector.mediaPack_get(title:'albums_page_01')
+          .then((r) {
+               tl_albums01 = r.localTitle;
+               card_albums01 = r.getChildsAsCardWidgets();
           });
 
     await _contentProvider.mediaselector.album_getRandomList(total:9)

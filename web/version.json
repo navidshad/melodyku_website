@@ -1,7 +1,12 @@
 {
-	"web-client": "0.9.3",
+	"web-client": "0.9.4",
 
 	"log": {
+
+		"0.9.4": [
+			"use UpFirstCharsPipe in all where nedded",
+			"use better swiper options on card slider"
+		],
 
 		"0.9.3": [
 			"added autoPlay mode for slideShow",

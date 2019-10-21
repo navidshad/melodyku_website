@@ -23,9 +23,9 @@
         dir="{{lang.getDir()}}">
     
         <div class="">
-            <span class="title">{{card.getTitle(lang.getCode())}}</span><br>
+            <span class="title">{{card.getTitle(lang.getCode()) | UpFirstChars}}</span><br>
             <a href="{{card.subtitleLink}}">
-                <span class="subtitle" *ngIf="card.subtitle != null">{{card.getSubTitle(lang.getCode())}}</span>
+                <span class="subtitle" *ngIf="card.subtitle != null">{{card.getSubTitle(lang.getCode()) | UpFirstChars}}</span>
             </a>
         </div>
 

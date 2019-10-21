@@ -25,8 +25,8 @@
             
                 <div class="titles">
                     <p>
-                        <span class="title">{{item.getTitle(lang.getCode())}}</span><br>
-                        <span class="sub" *ngIf="item.subtitle != null">{{item.getSubTitle(lang.getCode())}}</span>
+                        <span class="title">{{item.getTitle(lang.getCode()) | UpFirstChars}}</span><br>
+                        <span class="sub" *ngIf="item.subtitle != null">{{item.getSubTitle(lang.getCode()) | UpFirstChars}}</span>
                     </p>
                 </div>
             

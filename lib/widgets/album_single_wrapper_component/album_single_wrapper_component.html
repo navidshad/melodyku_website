@@ -9,9 +9,9 @@
 
     <div class="detail">
         <div class="titleSection">
-            <h1>{{title}}</h1>
+            <h1>{{title | UpFirstChars}}</h1>
             <h3 *ngIf="subtitle != null">
-                <a href="{{subtitle_link}}">{{subtitle}}</a>
+                <a href="{{subtitle_link}}">{{subtitle | UpFirstChars}}</a>
             </h3>
         </div>
 

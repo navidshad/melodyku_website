@@ -19,7 +19,7 @@ import 'package:melodyku/pips/pips.dart';
 		WidgetLoading,
 	],
 	pipes: [
-    TitlePip,
+    TitlePipe,
    ]
 )
 class CategoryPresentorComponent implements OnInit

@@ -21,7 +21,10 @@ import 'package:melodyku/pips/pips.dart';
     ElementExtractorDirective,
     CardWideComponent,
   ],
-  pipes: [DurationToString],
+  pipes: [
+    DurationToString,
+    UpFirstCharsPipe,
+  ],
   templateUrl: 'player_bar_component.html',
   styleUrls: ['player_bar_component.css'],
 )

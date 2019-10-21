@@ -25,7 +25,7 @@ import 'package:melodyku/mongodb/media_lookup_piplines.dart' as lookup;
 		ButtonCircle,
 	],
 	pipes: [
-    TitlePip,
+    TitlePipe,
    ]
 )
 class SearchComponent

@@ -21,7 +21,7 @@ import 'package:melodyku/archive/archive.dart';
     WidgetLoading,
   ],
   pipes: [
-    TitlePip,
+    TitlePipe,
    ]
 )
 class ListWideComponent

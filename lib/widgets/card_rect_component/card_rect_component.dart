@@ -6,6 +6,7 @@ import 'package:angular/angular.dart';
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
+import 'package:melodyku/pips/pips.dart';
 
 @Component(
   selector: 'card-rect',
@@ -16,6 +17,10 @@ import 'package:melodyku/widgets/widgets.dart';
     LikeComponent,
     MediaCoverComponent,
     PopMenuComponent,
+  ],
+  pipes: [
+    TitlePipe,
+    UpFirstCharsPipe,
   ],
   exports: [
     getMediaMenuItems,

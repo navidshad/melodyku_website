@@ -53,8 +53,8 @@
                     <img src="{{current.thumbnail}}" alt="">
                 </div>
                 <div class="title">
-                    <h4>{{current.getLocalTitle()}}</h4>
-                    <h5><a href="{{current.link_artist}}">{{current.artist?.getLocalTitle()}}</a></h5>
+                    <h4>{{current.getLocalTitle() | UpFirstChars}}</h4>
+                    <h5><a href="{{current.link_artist}}">{{current.artist?.getLocalTitle() | UpFirstChars}}</a></h5>
                 </div>
             </div>
         </div>
