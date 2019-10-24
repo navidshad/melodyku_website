@@ -22,7 +22,10 @@ class SelectField
 
 	final _onChange = StreamController<String>();
 
-	void changeValue(String value) => _onChange.add(value);
+	void changeValue(String value) {
+    field = value;
+    _onChange.add(field);
+  }
 
 	@Input()
 	String field;

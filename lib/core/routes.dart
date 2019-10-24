@@ -37,7 +37,9 @@ import 'package:melodyku/src/pages/p_favorites/favorites_page.template.dart' as 
 import 'package:melodyku/src/pages/p_history/history_page.template.dart' as history_template;
 import 'package:melodyku/src/pages/p_profile/profile_page.template.dart' as profile_template;
 import 'package:melodyku/src/pages/p_users/users_page.template.dart' as users_template;
+
 import 'package:melodyku/src/pages/p_statistics/statistics_page.template.dart' as statistics_template;
+import 'package:melodyku/src/pages/p_statistics_users/statistics_users_page.template.dart' as statistics_users_template;
 
 import 'package:melodyku/src/pages/p_subscription/subscription_page.template.dart' as subscription_template;
 import 'package:melodyku/src/pages/s_factor/factor_page.template.dart' as factor_template;
@@ -353,6 +355,17 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'statistics'),
                       component: statistics_template.StatisticsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'statistics_users' : PageDefinition(
+    title         : 'usersStatistics',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.quality_management,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'statistics_users'),
+                      component: statistics_users_template.StatisticsUsersPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

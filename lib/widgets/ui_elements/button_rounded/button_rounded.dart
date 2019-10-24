@@ -4,15 +4,10 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/directives/directives.dart';
 
 @Component(
-
   selector: 'rounded-button',
-
   templateUrl: 'button_rounded.html',
-
   styleUrls: ['button_rounded.css'],
-
   directives: [coreDirectives, ElementExtractorDirective],
-
 )
 
 class ButtonRounded implements OnChanges {

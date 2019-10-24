@@ -29,7 +29,7 @@ import 'package:melodyku/widgets/widgets.dart';
 class DbCollectionTableEditorComponent implements OnChanges
 {
 	ModalService _modalService;
-  	Modal modal;
+  Modal modal;
 
 	MongoDBService _mongodb;
 

@@ -1,4 +1,6 @@
-const workboxBuild = require('C:/Users/navid/AppData/Roaming/npm/node_modules/workbox-build');
+let path = require('path');
+let wbModulePath = path.normalize('C:\\Users\\navid shad\\AppData\\Roaming\\npm\\node_modules\\workbox-build\\');
+const workboxBuild = require(wbModulePath);
 
 // NOTE: This should be run *AFTER* all your assets are built
 const buildSW = () => {

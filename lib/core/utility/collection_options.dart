@@ -53,8 +53,11 @@ class ActionButton
 
 class CollectionOptions 
 {
-	StreamController _clearControler;
-	Stream get clearStream => _clearControler.stream;
+	StreamController _clearControler = StreamController();
+	StreamController _getControler = StreamController();
+	
+  Stream get clearStream => _clearControler.stream;
+  Stream get getStream => _getControler.stream;
 
 	String title;
 	String database;
@@ -105,9 +108,7 @@ class CollectionOptions
 		this.hasCover 	 = false,
 		this.autoGet	 =true,
 		this.types,
-	}){
-		_clearControler = StreamController();
-	}
+	});
 
 	List<DbField> getValidFields()
 	{
@@ -124,8 +125,6 @@ class CollectionOptions
 		return newBtn;
 	}
 
-	void clear()
-	{
-		_clearControler.add(true);
-	}
+	void clear() => _clearControler.add(true);
+	void getData() => _getControler.add(true);
 }

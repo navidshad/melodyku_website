@@ -1,7 +1,9 @@
 /// {@nodoc}
 library mongo_field;
 
-enum FieldType {text, textbox, number, checkbox, select, multiSelect, object, array, showLength}
+import 'package:melodyku/services/mongodb_service.dart';
+
+enum FieldType {text, textbox, number, checkbox, select, multiSelect, object, array, showLength, dateTime, date}
 
 
 enum DataType {string, bool, int, float, object, array_string, array_object, dateTime}
@@ -128,6 +130,18 @@ class DbField {
 
 		else if(fieldType == FieldType.showLength)
 			value = row[key].length.toString();
+
+    else if(fieldType == FieldType.dateTime)
+    {
+      value = row[key].toString();
+      value = value.split('T').join().split('.')[0];
+    }
+
+    else if(fieldType == FieldType.date)
+    {
+      value = row[key].toString();
+      value = value.split('T')[0];
+    }
 
 		return value;
 	}

@@ -1,0 +1,55 @@
+<div class="widget-container">
+
+    <!-- options -->
+    <!-- 
+        sort types 
+        - last login
+        - full play
+        - like
+
+        types options
+        - last login    | from, to date
+        - full play     | from, to date , more than int
+        - like          | from, to date , more than int
+    -->
+    <div class="w3-row options">
+
+        <div class="w3-half">
+
+            <div class="field-group">
+                <label>Select a get type</label>
+                <select-field
+                    [options]="selectTypes"
+                    [field]="type"
+                    (onChange)="type = $event"></select-field>
+            </div>
+
+            <div class="field-group">
+                <label>From date</label><br>
+                <input type="date" [(ngModel)]="from">
+            </div>
+            
+            <div class="field-group">
+                <label>To date</label><br>
+                <input type="date" [(ngModel)]="to">
+            </div>
+
+            <div class="field-group"
+                *ngIf="type == 'fullPlay' || type == 'like'">
+                <label>More than</label><br>
+                <input type="number" [(ngModel)]="moreThan">
+            </div>
+        </div>
+
+        <div class="w3-half">
+            
+        </div>
+    </div>
+    <div class="w3-row">
+        <rounded-button [options]="updateButton"></rounded-button>
+    </div>
+
+    <db-collection-table-editor
+        [options]="tableOption">
+    </db-collection-table-editor>
+</div>
