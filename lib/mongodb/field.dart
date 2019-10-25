@@ -134,13 +134,23 @@ class DbField {
     else if(fieldType == FieldType.dateTime)
     {
       value = row[key].toString();
-      value = value.split('T').join().split('.')[0];
+
+      try {
+        DateTime temp = DateTime.parse(value);
+        value = temp.toLocal().toIso8601String().split('T').join(' ').split('.')[0];
+      } catch (e) {
+      }
     }
 
     else if(fieldType == FieldType.date)
     {
       value = row[key].toString();
-      value = value.split('T')[0];
+      
+      try {
+        DateTime temp = DateTime.parse(value);
+        value = temp.toLocal().toIso8601String().split('T')[0];
+      } catch (e) {
+      }
     }
 
 		return value;

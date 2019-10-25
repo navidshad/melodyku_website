@@ -65,7 +65,8 @@ class CollectionOptions
 
 	List<LinkButton> linkButtons;
 	List<ActionButton> actionButtons;
-	Map<String, dynamic> query;
+	List<Map> piplines = [];
+  Map<String, dynamic> query;
 	Map<String, dynamic> sort;
 	Map<String, dynamic> addOnCreate;
 
@@ -94,7 +95,8 @@ class CollectionOptions
 		this.document,
 		this.linkButtons=const [],		
 		this.actionButtons= const [],
-		this.query=const{},			
+		this.piplines=const [],
+    this.query=const{},			
 		this.addOnCreate=const{},
 		this.sort,			
 		this.dbFields=const[],

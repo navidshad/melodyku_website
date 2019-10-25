@@ -72,6 +72,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 			if(options.autoGet) getPage();
 
 			options.clearStream.listen(clearList);
+      options.getStream.listen((key) => getPage());
 		}
 	}
 
@@ -177,18 +178,33 @@ class DbCollectionTableEditorComponent implements OnChanges
 		else if(getSearchQuery() != null)
 			combinedQueries.addAll(getSearchQuery());
 
-		// get total items
-		//print('_mainQuery $_mainQuery');
-    	await _mongodb.count(
-	    		isLive:true, 
-	    		database: options.database, 
-	      		collection: options.collection, 
-	      		query: combinedQueries, 
-	      		types: options.types
-      		)
-			.then((count)
+    // create base piplines
+    List<Map> piplines = [	
+			// query
+			{"\$match": combinedQueries},
+			// sort
 			{
-				total_items = count;
+				"\$sort": options.sort ?? { '_id': -1 } 
+			},
+		];
+
+    piplines.addAll(options.piplines);
+
+		// get total items
+		List<Map> countPiplines = [];
+    countPiplines.addAll(piplines);
+    countPiplines.add({'\$count':'count'});
+
+    await _mongodb.aggregate(
+      isLive:true, database: 
+      options.database, 
+      collection: options.collection,
+      piplines: countPiplines,
+      types: options.types
+      )
+			.then((docs)
+			{
+				total_items = (docs.length > 0) ? docs[0]['count'] : 0;
 				total_pages = (total_items / perPage).ceil();
 			}).catchError(_catchError);
 
@@ -198,31 +214,22 @@ class DbCollectionTableEditorComponent implements OnChanges
 								page: current_page, 
 								perPage: perPage);
 
-		// aggregate pipline
-		List<Map> piplines = 
-		[	
-			// query
-			{"\$match": combinedQueries},
-			// sort
-			{
-				"\$sort": options.sort ?? { '_id': -1 } 
-			},
-			
-			// navigator
+		// adde navigator piplines
+    piplines.addAll([	
 			{"\$skip": avigatorDetail['from']},
 			{"\$limit": avigatorDetail['to']},
-		];
+		]);
 		
 		//print('pipline for ${_collection.namespace} $pipline');
 
 		// get by aggregate
-    		await _mongodb.aggregate(
-	    		isLive:true, database: 
-	    		options.database, 
-	    		collection: options.collection,
-			piplines: piplines,
-		     types: options.types
-	    	)
+    await _mongodb.aggregate(
+      isLive:true, database: 
+      options.database, 
+      collection: options.collection,
+      piplines: piplines,
+      types: options.types
+    )
 		.then((documents) 
 		{
 			list = [];	

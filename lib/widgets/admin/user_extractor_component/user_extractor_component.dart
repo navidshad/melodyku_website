@@ -5,6 +5,8 @@ import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/widgets/widgets.dart';
 
+import 'extract_methods.dart';
+
 @Component(
   selector: 'user-extractor',
   templateUrl: 'user_extractor_component.html',
@@ -19,13 +21,14 @@ import 'package:melodyku/widgets/widgets.dart';
 )
 class UserExtractorComponent
 {
-  String type = 'lastLogin';
+  String type = 'wasOnline';
   String from;
   String to;
   int moreThan = 0;
 
   List<DbField> selectTypes = [
-    DbField('lastLogin', customTitle: 'Last Login', strvalue: 'lastLogin'),
+    DbField('wasOnline', customTitle: 'was online', strvalue: 'wasOnline'),
+    DbField('wasOffline', customTitle: 'was Offline', strvalue: 'wasOffline'),
     DbField('registered', customTitle: 'Registered', strvalue: 'registered'),
     DbField('usubscribed', customTitle: 'Usubscribed', strvalue: 'usubscribed'),
     DbField('subscribed', customTitle: 'Subscribed', strvalue: 'subscribed'),
@@ -35,7 +38,6 @@ class UserExtractorComponent
 
   List<DbField> authSchema = [
     DbField('phone'),
-    //DbField('type'),
     DbField('createdAt', customTitle: 'registered', fieldType: FieldType.date),
     DbField('updatedAt', customTitle: 'last login', fieldType: FieldType.dateTime),
     DbField('sms'),
@@ -56,7 +58,7 @@ class UserExtractorComponent
       allowRemove: false,
       allowUpdate: false,
       hasNavigator: true,
-      autoGet: true,
+      autoGet: false,
       database: 'cms',
       collection: 'auth',
       dbFields: authSchema);
@@ -65,7 +67,25 @@ class UserExtractorComponent
   Function updateTableOptions(ButtonOptions op)
   {
     op.doWaiting(true);
-    Future.delayed(Duration(seconds: 1)).then((r) => op.doWaiting(false));
-    return null;
+
+    DateTime fromDate = DateTime.now().add(Duration(days: -1));
+    DateTime toDate = DateTime.now();
+
+    try {
+      fromDate = DateTime.parse(from);
+      toDate = DateTime.parse(to);
+    } catch (e) {
+    }
+    
+    getAuthPiplinesMethod[type](from:fromDate, to:toDate)
+      .then((PiplineMethod pm)
+      {
+        tableOption.piplines = pm.piplines;
+        tableOption.types = pm.caster;
+        tableOption.query = {'type':'user'};
+        tableOption.sort = {'updatedAt':-1};
+        tableOption.getData();
+
+      }).whenComplete(() => op.doWaiting(false));
   }
 }
