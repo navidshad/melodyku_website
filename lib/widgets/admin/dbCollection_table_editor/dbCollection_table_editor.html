@@ -43,6 +43,11 @@
 				<th *ngFor="let field of options.getValidFields(); let i=index">
 					{{field.title.toUpperCase()}}
 				</th>
+
+				<th *ngFor="let adColumn of options.aditionalColumns; let i=index">
+					{{adColumn.title.toUpperCase()}}
+				</th>
+
 				<th>OPTION</th>
 			</tr>
 
@@ -52,6 +57,10 @@
 				<td *ngFor="let field of options.getValidFields(); let i=index">
 					{{field.generateTtitle(item)}}
 				</td>
+
+				<th *ngFor="let adColumn of options.aditionalColumns; let i=index">
+					{{adColumn.getById(item['_id'])}}
+				</th>
 
 				<td class="option">
 					<div class="btn-sl-x" *ngIf="options.allowUpdate" (click)="showForm(item)">edit</div>

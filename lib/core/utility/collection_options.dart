@@ -51,6 +51,22 @@ class ActionButton
 	}
 }
 
+class Column{
+  String title;
+  List dataArray;
+
+  Column({this.title, this.dataArray=const[]});
+
+  dynamic getById(String id)
+  {
+    dynamic value;
+    int index = dataArray.indexWhere((el) => el['_id'] == id);
+
+    if(index >= 0) value = dataArray[index][title];
+    return value;
+  }
+}
+
 class CollectionOptions 
 {
 	StreamController _clearControler = StreamController();
@@ -65,14 +81,15 @@ class CollectionOptions
 
 	List<LinkButton> linkButtons;
 	List<ActionButton> actionButtons;
+  List<Column> aditionalColumns;
+
 	List<Map> piplines = [];
   Map<String, dynamic> query;
 	Map<String, dynamic> sort;
 	Map<String, dynamic> addOnCreate;
 
 	List<DbField> dbFields;
-
-  	List<TypeCaster> types;
+  List<TypeCaster> types;
 
 	bool createNew;
 	bool showHidenField;
@@ -95,6 +112,7 @@ class CollectionOptions
 		this.document,
 		this.linkButtons=const [],		
 		this.actionButtons= const [],
+    this.aditionalColumns= const [],
 		this.piplines=const [],
     this.query=const{},			
 		this.addOnCreate=const{},

@@ -28,7 +28,7 @@ class UserExtractorComponent
 
   List<DbField> selectTypes = [
     DbField('wasOnline', customTitle: 'was online', strvalue: 'wasOnline'),
-    DbField('wasOffline', customTitle: 'was Offline', strvalue: 'wasOffline'),
+    //DbField('wasOffline', customTitle: 'was Offline', strvalue: 'wasOffline'),
     DbField('registered', customTitle: 'Registered', strvalue: 'registered'),
     DbField('usubscribed', customTitle: 'Usubscribed', strvalue: 'usubscribed'),
     DbField('subscribed', customTitle: 'Subscribed', strvalue: 'subscribed'),
@@ -77,13 +77,14 @@ class UserExtractorComponent
     } catch (e) {
     }
     
-    getAuthPiplinesMethod[type](from:fromDate, to:toDate)
+    getAuthPiplinesMethod[type](from:fromDate, to:toDate, moreThan:moreThan)
       .then((PiplineMethod pm)
       {
         tableOption.piplines = pm.piplines;
         tableOption.types = pm.caster;
         tableOption.query = {'type':'user'};
         tableOption.sort = {'updatedAt':-1};
+        tableOption.aditionalColumns = [pm.additionalColumn];
         tableOption.getData();
 
       }).whenComplete(() => op.doWaiting(false));

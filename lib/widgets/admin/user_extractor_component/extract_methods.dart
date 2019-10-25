@@ -5,13 +5,14 @@ import 'package:melodyku/services/services.dart';
 class PiplineMethod {
   List<Map> piplines = [];
   List<TypeCaster> caster;
+  Column additionalColumn;
 
-  PiplineMethod({this.piplines, this.caster});
+  PiplineMethod({this.piplines, this.caster, this.additionalColumn});
 }
 
 Map<String, Function> getAuthPiplinesMethod = 
 {
-  'wasOnline': ({DateTime from, DateTime to}) async 
+  'wasOnline': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [
       {
@@ -33,29 +34,29 @@ Map<String, Function> getAuthPiplinesMethod =
     return PiplineMethod(piplines: piplines, caster: casters);
   },
 
-  'wasOffline': ({DateTime from, DateTime to}) async 
-  {
-    List<Map> piplines = [
-      {
-        '\$match': { 'updatedAt': { '\$ne': from.toIso8601String() } }
-      },
-      {
-        '\$match': { 'updatedAt': { '\$ne': to.toIso8601String() } }
-      }
-    ];
+  // 'wasOffline': ({DateTime from, DateTime to, int moreThan}) async 
+  // {
+  //   List<Map> piplines = [
+  //     {
+  //       '\$match': { 'updatedAt': { '\$ne': from.toIso8601String() } }
+  //     },
+  //     {
+  //       '\$match': { 'updatedAt': { '\$ne': to.toIso8601String() } }
+  //     }
+  //   ];
 
-    List<TypeCaster> casters = [
-      /**
-       * table collection editor will add piplines from 2th index
-       */
-      TypeCaster('Date', '2.\$match.updatedAt.\$ne'),
-      TypeCaster('Date', '3.\$match.updatedAt.\$ne'),
-    ];
+  //   List<TypeCaster> casters = [
+  //     /**
+  //      * table collection editor will add piplines from 2th index
+  //      */
+  //     TypeCaster('Date', '2.\$match.updatedAt.\$ne'),
+  //     TypeCaster('Date', '3.\$match.updatedAt.\$ne'),
+  //   ];
 
-    return PiplineMethod(piplines: piplines, caster: casters);
-  },
+  //   return PiplineMethod(piplines: piplines, caster: casters);
+  // },
 
-  'registered': ({DateTime from, DateTime to}) async 
+  'registered': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [
       {
@@ -77,7 +78,7 @@ Map<String, Function> getAuthPiplinesMethod =
     return PiplineMethod(piplines: piplines, caster: casters);
   },
 
-  'usubscribed': ({DateTime from, DateTime to}) async 
+  'usubscribed': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [];
     List or = [];
@@ -122,7 +123,7 @@ Map<String, Function> getAuthPiplinesMethod =
     return PiplineMethod(piplines: piplines, caster: casters);
   },
 
-  'subscribed': ({DateTime from, DateTime to}) async 
+  'subscribed': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [];
     List or = [];
@@ -162,26 +163,120 @@ Map<String, Function> getAuthPiplinesMethod =
       {
         '\$match': { '\$or': or }
       }
-    ];    
+    ];
 
     return PiplineMethod(piplines: piplines, caster: casters);
   },
 
-  'fullPlay': ({DateTime from, DateTime to}) async 
+  'fullPlay': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [];
-
+    List or = [];
     List<TypeCaster> casters = [];
+    PiplineMethod piplineMethod = PiplineMethod();
 
-    return PiplineMethod(piplines: piplines, caster: casters);
+    MongoDBService mongodb = Injector.get<MongoDBService>();
+
+    // find songs
+    await mongodb.aggregate(
+      isLive:true, database: 'user', collection: 'song_history',
+      piplines: [
+        {
+          '\$match': { 'date': { '\$gte': from.toIso8601String() } }
+        },
+        {
+          '\$match': { 'date': { '\$lte': to.toIso8601String() } }
+        },
+        {
+          '\$group': {
+            '_id': "\$refId",
+            'count': { '\$sum':1 },
+          }
+        },
+        {
+          '\$match': { 'count': { '\$gte': moreThan } }
+        },
+      ],
+      types: [
+        TypeCaster('Date', '0.\$match.date.\$gte'),
+        TypeCaster('Date', '1.\$match.date.\$lte'),
+      ])
+      .then((groupedByRefId)
+      {
+        piplineMethod.additionalColumn = Column(title: 'count', dataArray: groupedByRefId);
+        for (var i = 0; i < groupedByRefId.length; i++) 
+        {
+          or.add({'_id': groupedByRefId[i]['_id']});
+          casters.add(TypeCaster('ObjectId', '2.\$match.\$or.$i._id'));
+        }
+      });
+
+    // create auth piplines
+    piplines = [
+      {
+        '\$match': { '\$or': or }
+      }
+    ];
+
+    piplineMethod.caster = casters;
+    piplineMethod.piplines = piplines;
+
+    return piplineMethod;
   },
 
-  'like': ({DateTime from, DateTime to}) async 
+  'like': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [];
-
+    List or = [];
     List<TypeCaster> casters = [];
+    PiplineMethod piplineMethod = PiplineMethod();
 
-    return PiplineMethod(piplines: piplines, caster: casters);
+    MongoDBService mongodb = Injector.get<MongoDBService>();
+
+    // find songs
+    await mongodb.aggregate(
+      isLive:true, database: 'user', collection: 'song_favorite',
+      piplines: [
+        {
+          '\$match': { 'date': { '\$gte': from.toIso8601String() } }
+        },
+        {
+          '\$match': { 'date': { '\$lte': to.toIso8601String() } }
+        },
+        {
+          '\$group': {
+            '_id': "\$refId",
+            'count': { '\$sum':1 },
+          }
+        },
+        {
+          '\$match': { 'count': { '\$gte': moreThan } }
+        },
+      ],
+      types: [
+        TypeCaster('Date', '0.\$match.date.\$gte'),
+        TypeCaster('Date', '1.\$match.date.\$lte'),
+      ])
+      .then((groupedByRefId)
+      {
+        piplineMethod.additionalColumn = Column(title: 'count', dataArray: groupedByRefId);
+        for (var i = 0; i < groupedByRefId.length; i++) 
+        {
+          or.add({'_id': groupedByRefId[i]['_id']});
+          casters.add(TypeCaster('ObjectId', '2.\$match.\$or.$i._id'));
+        }
+      });
+
+    // create auth piplines
+    piplines = [
+      {
+        '\$match': { '\$or': or }
+      }
+    ];
+
+    piplineMethod.caster = casters;
+    piplineMethod.piplines = piplines;
+
+    return piplineMethod;
   },
 };
