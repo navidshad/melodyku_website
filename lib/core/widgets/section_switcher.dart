@@ -5,12 +5,14 @@ class SectionSwitcher
 	List<HtmlElement> selectors;
 	String lastSection = '';
 
-	SectionSwitcher(this.selectors)
+	SectionSwitcher(this.selectors, {String showFirst})
 	{
 		selectors.forEach((element) =>
 			element.style.setProperty('transition', 'all ease 0.5s'));
 		
 		hideAll();
+
+    if(showFirst != null) show(showFirst);
 	}
 
 	Future<void> hideAll() async

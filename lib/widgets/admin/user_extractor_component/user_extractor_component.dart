@@ -17,6 +17,7 @@ import 'extract_methods.dart';
     SelectField,
     ButtonRounded,
     DbCollectionTableEditorComponent,
+    SMSSenderComponent,
     ],
 )
 class UserExtractorComponent
@@ -28,7 +29,6 @@ class UserExtractorComponent
 
   List<DbField> selectTypes = [
     DbField('wasOnline', customTitle: 'was online', strvalue: 'wasOnline'),
-    //DbField('wasOffline', customTitle: 'was Offline', strvalue: 'wasOffline'),
     DbField('registered', customTitle: 'Registered', strvalue: 'registered'),
     DbField('usubscribed', customTitle: 'Usubscribed', strvalue: 'usubscribed'),
     DbField('subscribed', customTitle: 'Subscribed', strvalue: 'subscribed'),

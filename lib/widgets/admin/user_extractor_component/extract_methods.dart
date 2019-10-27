@@ -34,28 +34,6 @@ Map<String, Function> getAuthPiplinesMethod =
     return PiplineMethod(piplines: piplines, caster: casters);
   },
 
-  // 'wasOffline': ({DateTime from, DateTime to, int moreThan}) async 
-  // {
-  //   List<Map> piplines = [
-  //     {
-  //       '\$match': { 'updatedAt': { '\$ne': from.toIso8601String() } }
-  //     },
-  //     {
-  //       '\$match': { 'updatedAt': { '\$ne': to.toIso8601String() } }
-  //     }
-  //   ];
-
-  //   List<TypeCaster> casters = [
-  //     /**
-  //      * table collection editor will add piplines from 2th index
-  //      */
-  //     TypeCaster('Date', '2.\$match.updatedAt.\$ne'),
-  //     TypeCaster('Date', '3.\$match.updatedAt.\$ne'),
-  //   ];
-
-  //   return PiplineMethod(piplines: piplines, caster: casters);
-  // },
-
   'registered': ({DateTime from, DateTime to, int moreThan}) async 
   {
     List<Map> piplines = [

@@ -36,6 +36,7 @@ import 'package:melodyku/core/injector.dart' as CI;
     ClassProvider(ContentProvider),
     ClassProvider(ModalService),
     ClassProvider(SubscriptionService),
+    ClassProvider(SMSService),
     // player needs material-provider for seeker bar
     materialProviders,
     ClassProvider(Player),
@@ -48,7 +49,7 @@ class AppComponent
   AppComponent(  IndexedDBService idb, MongoDBService mongodb, AuthService auth, 
     PaymentService ps, AppshellService appshell, PlayerService pl,
     AnalyticService ga, UserService us, ContentProvider cp, MessageService ms, 
-    PopupService popupS,
+    PopupService popupS, SMSService sms,
     LanguageService lang, CategoryService cats, SubscriptionService subScription)
   {
 
@@ -66,6 +67,7 @@ class AppComponent
     CI.Injector.register(CI.InjectorMember('PopupService', popupS));
     CI.Injector.register(CI.InjectorMember('PaymentService', ps));
     CI.Injector.register(CI.InjectorMember('SubscriptionService', subScription));
+    CI.Injector.register(CI.InjectorMember('SMSService', sms));
     CI.Injector.register(CI.InjectorMember('PlayerService', pl));
 
     // login with last session

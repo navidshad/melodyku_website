@@ -17,6 +17,7 @@ export 'admin/music_uploader/music_uploader.dart';
 export 'admin/multi_categorizing/multi_categorizing_component.dart';
 export 'admin/statistics_component/statistics_component.dart';
 export 'admin/user_extractor_component/user_extractor_component.dart';
+export 'admin/sms_sender_component/sms_sender.dart';
 
 // app shell
 export 'app_shell/app_shell_component.dart';

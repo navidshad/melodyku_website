@@ -1,0 +1,67 @@
+<div extractor (onExtract)="onExtractElement($event)">
+    <div id="settings">
+        <div class="field-group">
+            <label>Select a Send Type</label>
+            <select-field
+                [options]="sendMethods"
+                [field]="sendMethod"
+                (onChange)="sendMethod = $event"></select-field>
+        </div>
+    
+        <div class='varification'
+            *ngIf="sendMethod.contains('varification')">
+    
+            <div class="field-group">
+                <Label>Template</Label><br>
+                <input type="text" [(ngModel)]="template">
+            </div>
+    
+            <div class="field-group">
+                <Label>token</Label><br>
+                <input type="text" [(ngModel)]="token">
+            </div>
+            <div class="field-group">
+                <Label>token2</Label><br>
+                <input type="text" [(ngModel)]="token2">
+            </div>
+            <div class="field-group">
+                <Label>token3</Label><br>
+                <input type="text" [(ngModel)]="token3">
+            </div>
+        </div>
+    
+        <div class='simple_message field-group'
+            *ngIf="sendMethod.contains('simple')">
+    
+            <Label>Message</Label>
+            <textarea class="input-text input-wide"
+                style="height: 200px;"
+                [(ngModel)]="message">
+            </textarea>
+        </div>
+    
+        <div class="field-group">
+            <input class="w3-radio" type="checkbox"
+                [(ngModel)]="isCustomReceptors">
+            <label>custom receptors</label>
+            
+            <textarea class="input-text input-wide"
+                style="height: 200px;"
+                *ngIf="isCustomReceptors"
+                [(ngModel)]="customReceptors">
+            </textarea>
+        </div>
+    
+        <div class="field-group">
+            <span>total receptors {{getReceptorsCount()}}</span>
+        </div>
+    </div>
+    
+    <div id="statistic">
+    
+    </div>
+    
+    <div class="field-group">
+        <rounded-button [options]="sendButton"></rounded-button>
+    </div>
+</div>

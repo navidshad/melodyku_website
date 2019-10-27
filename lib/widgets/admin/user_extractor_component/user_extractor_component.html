@@ -12,9 +12,9 @@
         - full play     | from, to date , more than int
         - like          | from, to date , more than int
     -->
-    <div class="w3-row options">
+    <div class="w3-row">
 
-        <div class="w3-half">
+        <div class="w3-half options">
 
             <div class="field-group">
                 <label>Select a get type</label>
@@ -39,14 +39,15 @@
                 <label>More than</label><br>
                 <input type="number" [(ngModel)]="moreThan">
             </div>
+
+            <div class="field-group">
+                <rounded-button [options]="updateButton"></rounded-button>
+            </div>
         </div>
 
-        <div class="w3-half">
-            
+        <div class="w3-half options">
+            <sms-sender></sms-sender>
         </div>
-    </div>
-    <div class="w3-row">
-        <rounded-button [options]="updateButton"></rounded-button>
     </div>
 
     <db-collection-table-editor

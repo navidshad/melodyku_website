@@ -1,8 +1,6 @@
 /// {@nodoc}
 library mongo_field;
 
-import 'package:melodyku/services/mongodb_service.dart';
-
 enum FieldType {text, textbox, number, checkbox, select, multiSelect, object, array, showLength, dateTime, date}
 
 
@@ -11,7 +9,7 @@ enum DataType {string, bool, int, float, object, array_string, array_object, dat
 
 class DbField {
   	
-  	// the main key of object property.
+  // the main key of object property.
 	String key;
 	// the custom title of this property
 	String title;
@@ -38,7 +36,7 @@ class DbField {
 		String customTitle,
 		this.strvalue,
 		this.dataType=DataType.string,
-    	this.fieldType,
+    this.fieldType,
 		this.isDisable=false, 
 		this.isHide=false, 
 		this.isLowerCase=false,
@@ -46,7 +44,8 @@ class DbField {
 		})
 	{
 		title = customTitle ?? key;
-    	if(fieldType == null) setDefaultFields();
+    if(strvalue == null) strvalue = key;
+    if(fieldType == null) setDefaultFields();
 	}
 
 	void setDefaultFields()
