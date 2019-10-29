@@ -364,7 +364,7 @@ Map<String, PageDefinition> pageDefinitions = pageDefinitions =
     position      : MenuPosition.profileDrawer,
     permissionType: PermissionType.quality_management,
     route         : RouteDefinition(
-                      routePath: RoutePath(path: 'statistics_users'),
+                      routePath: RoutePath(path: 'users_statistics'),
                       component: statistics_users_template.StatisticsUsersPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',

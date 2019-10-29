@@ -1,7 +1,12 @@
 {
-	"web-client": "0.9.4",
+	"web-client": "0.9.5",
 
 	"log": {
+		
+		"0.9.5": [
+			"added users statistics",
+			"solved page tracking problem"
+		],
 
 		"0.9.4": [
 			"use UpFirstCharsPipe in all where nedded",
