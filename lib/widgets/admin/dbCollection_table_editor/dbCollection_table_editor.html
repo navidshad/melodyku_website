@@ -58,8 +58,9 @@
 					{{field.generateTtitle(item)}}
 				</td>
 
-				<th *ngFor="let adColumn of options.aditionalColumns; let i=index">
-					{{adColumn.getById(item['_id'])}}
+				<th *ngFor="let adColumn of options.aditionalColumns; let i=index"
+				innerHTML="{{adColumn.getValue(item)}}">
+					
 				</th>
 
 				<td class="option">

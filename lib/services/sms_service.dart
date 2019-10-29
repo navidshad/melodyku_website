@@ -37,7 +37,9 @@ class SMSService
   {
     String url = Vars.host + '/kavenegarSender/lookup';
 
-    Map options = {};
+    Map options = {
+      'save': true
+    };
 
     if(token != null) options['token'] = token;
     if(token2 != null) options['token2'] = token2;
@@ -77,7 +79,9 @@ class SMSService
   {
     String url = Vars.host + '/kavenegarSender/sendSMS';
 
-    Map options = {};
+    Map options = {
+      'save': true
+    };
 
     if(sender != null) options['sender'] = sender;
     if(date != null) options['date'] = date;

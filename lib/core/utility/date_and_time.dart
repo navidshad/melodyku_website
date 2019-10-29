@@ -9,3 +9,9 @@ DateTime getDate(DateTime dt)
 	// parse string date as From 
 	return DateTime.parse(strDate);
 }
+
+DateTime getDateFromString(String str)
+{
+  DateTime dt = DateTime.parse(str);
+  return getDate(dt);
+}

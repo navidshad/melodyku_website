@@ -22,6 +22,9 @@ import 'extract_methods.dart';
 )
 class UserExtractorComponent
 {
+  MongoDBService _mongodb;
+  SMSService _smsService;
+
   String type = 'wasOnline';
   String from;
   String to;
@@ -42,13 +45,12 @@ class UserExtractorComponent
     DbField('phone'),
     DbField('createdAt', customTitle: 'registered', fieldType: FieldType.date),
     DbField('updatedAt', customTitle: 'last login', fieldType: FieldType.dateTime),
-    DbField('sms'),
   ];
 
   ButtonOptions updateButton;
   CollectionOptions tableOption;
 
-  UserExtractorComponent()
+  UserExtractorComponent(this._mongodb, this._smsService)
   {
     updateButton = ButtonOptions(
       lable: 'update', 
@@ -96,6 +98,7 @@ class UserExtractorComponent
         
         if(pm.additionalColumn != null)
           tableOption.aditionalColumns = [pm.additionalColumn];
+        else tableOption.aditionalColumns = [];
 
         tableOption.getData();
 
@@ -106,5 +109,69 @@ class UserExtractorComponent
   {
     phoneNumbers = [];
     users.forEach((user) => phoneNumbers.add(user['phone']));
+
+    getSMSs();
+  }
+
+  void getSMSs() async
+  {
+    List<Map> or = [];
+    phoneNumbers.forEach((phone) => or.add({'receptor': phone}));
+
+    List userSmsHistory = [];
+
+    List<Map> pipline = [
+      {
+        '\$match': { '\$or': or }
+      },
+      {
+        '\$group':{
+            '_id': '\$receptor',
+            'list': { 
+              '\$push': { 
+                'messageid': '\$messageid', 
+                'status':'\$status', 
+                'createdAt':'\$createdAt'
+                } 
+              }
+            }
+      }
+    ];
+
+    await _mongodb.aggregate(database: 'user', collection: 'sms',
+      isLive: true,
+      piplines: pipline)
+      .then((docs)
+      {
+        userSmsHistory = docs;
+      });
+
+    Column smsColumn = Column(title: 'sms', getBy: 'phone', dataArray: []);
+    tableOption.aditionalColumns.add(smsColumn);
+
+    for (var i = 0; i < userSmsHistory.length; i++) 
+    {
+      List smslist = userSmsHistory[i]['list'];
+
+      String smsStatus = '';
+
+      for (var i = 0; i < smslist.length; i++) 
+      {
+        Map sms = smslist[i];
+
+        String date = getDateFromString(sms['createdAt']).toString().split(' ')[0];
+        smsStatus += date + ' | ';
+
+        await _smsService.status(sms['messageid'])
+          .then((result){
+            smsStatus += result['statustext'] + '<br>';
+          });
+      }
+
+      smsColumn.dataArray.add({
+        'phone': userSmsHistory[i]['_id'],
+        'sms': smsStatus,
+        });
+    }
   }
 }

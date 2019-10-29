@@ -53,16 +53,18 @@ class ActionButton
 
 class Column{
   String title;
-  List dataArray;
+  List<Map> dataArray;
+  String getBy;
 
-  Column({this.title, this.dataArray=const[]});
+  Column({this.title, this.dataArray=const[], this.getBy='_id'});
 
-  dynamic getById(String id)
+  dynamic getValue(doc)
   {
     dynamic value;
-    int index = dataArray.indexWhere((el) => el['_id'] == id);
+    int index = dataArray.indexWhere((el) => el[getBy] == doc[getBy]);
 
     if(index >= 0) value = dataArray[index][title];
+    
     return value;
   }
 }
