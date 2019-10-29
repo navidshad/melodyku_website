@@ -2,7 +2,6 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
-import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
@@ -28,7 +27,10 @@ class AlbumPage implements OnActivate
   Album album;
 
   // constructor ==================================
-  AlbumPage(this._contentProvider, this._messageService, this._userservice)
+  AlbumPage(this._contentProvider, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 
@@ -37,11 +39,7 @@ class AlbumPage implements OnActivate
       needLogedIn: false,
       title: 'album',
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current) async 
-  {
+    
     final id = current.parameters['id'];
 
     // get album

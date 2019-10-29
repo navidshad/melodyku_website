@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -15,7 +16,7 @@ import 'package:melodyku/widgets/widgets.dart';
     DbCollectionItemEditorComponent,
   ]
 )
-class ArchiveArtistListPage 
+class ArchiveArtistListPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -28,14 +29,6 @@ class ArchiveArtistListPage
   // constructor ==================================
   ArchiveArtistListPage(this._categoryService, this._messageService, this._userservice)
   {
-    _page = Page(
-      userService: _userservice,
-      messageService: _messageService,
-      permissionType: PermissionType.archive_manager,
-      needLogedIn: true,
-      title: 'archive_artistList'
-    );
-
     options = CollectionOptions(
         title: 'Artists',
         database: 'media',
@@ -56,5 +49,17 @@ class ArchiveArtistListPage
             parameters: ['_id']),
         ]
       );
+  }
+
+  @override
+  void onActivate(_, RouterState current)
+  {
+    _page = Page(
+      userService: _userservice,
+      messageService: _messageService,
+      permissionType: PermissionType.archive_manager,
+      needLogedIn: true,
+      title: 'archive_artistList'
+    );
   }
 }

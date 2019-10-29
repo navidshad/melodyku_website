@@ -24,7 +24,6 @@ class ArchiveMediaPackPage implements OnActivate
   UserService _userservice;
   MessageService _messageService;
   CategoryService _categoryService;
-  PlayerService _playerService;
   MongoDBService _mongodb;
 
   String mediaPackId;
@@ -37,16 +36,8 @@ class ArchiveMediaPackPage implements OnActivate
   List<ActionButton> actionButtons = [];
   
   // constructor ==================================
-  ArchiveMediaPackPage(this._playerService, this._mongodb, this._categoryService, this._messageService, this.lang, this._userservice)
+  ArchiveMediaPackPage(this._mongodb, this._categoryService, this._messageService, this.lang, this._userservice)
   {
-    _page = Page(
-      userService: _userservice,
-      messageService: _messageService,
-      permissionType: PermissionType.archive_manager,
-      needLogedIn: true,
-      title: 'archive_playlist'
-    );
-
     actionButtons = [
       ActionButton(title:'remove', onEvent: removeItem)
     ];
@@ -55,6 +46,14 @@ class ArchiveMediaPackPage implements OnActivate
   @override
   void onActivate(_, RouterState current)
   {
+    _page = Page(
+      userService: _userservice,
+      messageService: _messageService,
+      permissionType: PermissionType.archive_manager,
+      needLogedIn: true,
+      title: 'archive_playlist'
+    );
+    
     mediaPackId = current.parameters['_id'];
     type = current.parameters['type'];
 

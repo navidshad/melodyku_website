@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -15,7 +16,7 @@ import 'package:melodyku/widgets/widgets.dart';
     DbCollectionItemEditorComponent,
   ]
 )
-class ArchiveMediaPacksPage 
+class ArchiveMediaPacksPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -28,14 +29,6 @@ class ArchiveMediaPacksPage
   // constructor ==================================
   ArchiveMediaPacksPage(this._categoryService, this._messageService, this._userservice)
   {
-    _page = Page(
-      userService: _userservice,
-      messageService: _messageService,
-      permissionType: PermissionType.archive_manager,
-      needLogedIn: true,
-      title: 'archive_media_packs'
-    );
-
     List<DbField> fields = SystemSchema.injectSubfields('categories', SystemSchema.mediaPack, _categoryService.getGroups());
     
     fields = SystemSchema.injectSubfields('type', fields, [
@@ -63,6 +56,18 @@ class ArchiveMediaPacksPage
           route: pageDefinitions['archive_media_pack'].route, 
           parameters: ['_id', 'type']),
       ]
+    );
+  }
+
+  @override
+  void onActivate(_, RouterState current)
+  {
+    _page = Page(
+      userService: _userservice,
+      messageService: _messageService,
+      permissionType: PermissionType.archive_manager,
+      needLogedIn: true,
+      title: 'archive_media_packs'
     );
   }
 }

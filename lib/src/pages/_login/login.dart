@@ -24,7 +24,10 @@ class LoginPage implements OnActivate
   String form;
 
   // constructor ==================================
-  LoginPage(this.lang, this._messageService, this._userservice)
+  LoginPage(this.lang, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 
@@ -33,11 +36,7 @@ class LoginPage implements OnActivate
       needLogedIn: false,
       title: 'login',
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current) async 
-  {
+    
     form = current.parameters['form'];
   }
 }

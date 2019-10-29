@@ -24,19 +24,18 @@ class SlideShowPage implements OnActivate
 
 	CollectionOptions options;
 
-	SlideShowPage(this.lang, this._messageService, this._userservice)
+	SlideShowPage(this.lang, this._messageService, this._userservice);
+
+	@override
+	void onActivate(_, RouterState current)
 	{
-		_page = Page(
+    _page = Page(
 		  userService: _userservice, 
 		  messageService: _messageService, 
 		  permissionType: PermissionType.customer_access,
 		  needLogedIn: true,
 		  title: 'slide show editor');
-	}
-
-	@override
-	void onActivate(_, RouterState current)
-	{
+      
 		id = current.parameters['_id'];
 	}
 }

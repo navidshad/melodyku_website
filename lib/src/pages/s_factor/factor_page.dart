@@ -28,20 +28,19 @@ class FactorPage implements OnActivate
 	String id;
 
 	// constructor ==================================
-	FactorPage(this._messageService, this._userservice)
+	FactorPage(this._messageService, this._userservice);
+
+	@override
+	void onActivate(_, RouterState current) async 
 	{
-		_page = Page(
+    _page = Page(
 		  userService: _userservice, 
 		  messageService: _messageService, 
 		  permissionType: PermissionType.customer_access,
 		  needLogedIn: false,
 		  title: 'factor',
 		);
-	}
-
-	@override
-	void onActivate(_, RouterState current) async 
-	{
+    
 		id = current.parameters['id'];
 	}
 }

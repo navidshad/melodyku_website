@@ -28,7 +28,10 @@ class PlaylistPage implements OnActivate
   String playlistId;
 
   // constructor ==================================
-  PlaylistPage(this._contentProvider, this.lang, this._messageService, this._userservice)
+  PlaylistPage(this._contentProvider, this.lang, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 
@@ -37,11 +40,7 @@ class PlaylistPage implements OnActivate
       needLogedIn: false,
       title: 'playlist',
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current) async 
-  {
+    
     playlistId = current.parameters['id'];
     getPlaylist();
   }

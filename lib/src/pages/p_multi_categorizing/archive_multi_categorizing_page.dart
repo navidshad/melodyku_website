@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import 'dart:html';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -15,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     MultiCategorizingComponent,
   ]
 )
-class ArchiveMultiCategorizingPage 
+class ArchiveMultiCategorizingPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -23,7 +23,10 @@ class ArchiveMultiCategorizingPage
   MessageService _messageService;
 
   // constructor ==================================
-  ArchiveMultiCategorizingPage(this._messageService, this._userservice)
+  ArchiveMultiCategorizingPage(this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice, 

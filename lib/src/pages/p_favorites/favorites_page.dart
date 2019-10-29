@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -18,7 +19,7 @@ import 'package:melodyku/archive/archive.dart';
     getSingleAlbumMenuItems,
   ]
   )
-class FavoritesPage
+class FavoritesPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -31,15 +32,19 @@ class FavoritesPage
   // constructor ==================================
   FavoritesPage(this.lang, this._messageService, this._userservice, this._playerService)
   {
+    songNavigator = ResultWithNavigator(getType: GetType.favorites, isLive:true);
+    songNavigator.loadNextPage();
+  }
+
+  @override
+  void onActivate(_, RouterState current)
+  {
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'favorites');
-
-    songNavigator = ResultWithNavigator(getType: GetType.favorites, isLive:true);
-    songNavigator.loadNextPage();
   }
 
   void playAll() =>

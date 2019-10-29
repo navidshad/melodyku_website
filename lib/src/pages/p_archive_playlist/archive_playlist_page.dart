@@ -36,14 +36,6 @@ class ArchivePlaylistPage implements OnActivate
   // constructor ==================================
   ArchivePlaylistPage(this._playerService, this._mongodb, this._categoryService, this._messageService, this.lang, this._userservice)
   {
-    _page = Page(
-      userService: _userservice,
-      messageService: _messageService,
-      permissionType: PermissionType.archive_manager,
-      needLogedIn: true,
-      title: 'archive_playlist'
-    );
-
     actionButtons = [
       ActionButton(title:'remove', onEvent: removeSong)
     ];
@@ -52,6 +44,14 @@ class ArchivePlaylistPage implements OnActivate
   @override
   void onActivate(_, RouterState current)
   {
+    _page = Page(
+      userService: _userservice,
+      messageService: _messageService,
+      permissionType: PermissionType.archive_manager,
+      needLogedIn: true,
+      title: 'archive_playlist'
+    );
+    
     playlistID = current.parameters['_id'];
 
     prepareOptions();
@@ -60,8 +60,6 @@ class ArchivePlaylistPage implements OnActivate
 
   void prepareOptions() async
   {
-    print('playlist prepareOptions');
-
     playlistEditorOptions = CollectionOptions(
       hasCover: true,
       title:"detail",

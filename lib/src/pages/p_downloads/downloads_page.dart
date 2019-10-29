@@ -1,4 +1,6 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
+
 import 'dart:html';
 
 import 'package:melodyku/core/core.dart';
@@ -16,7 +18,7 @@ import 'package:melodyku/page/page.dart';
     TableSong,
   ]
   )
-class DownloadsPage 
+class DownloadsPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -32,18 +34,22 @@ class DownloadsPage
   // constructor ==================================
   DownloadsPage(this.lang, this._provider, this._idb, this._messageService, this._userservice, this._playerService)
   {
+    actions = [
+      ActionButton(title: 'delete', onEvent: removeSong),
+    ];
+
+    prepare();
+  }
+
+  @override
+  void onActivate(_, RouterState current)
+  {
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'downloads');
-
-    actions = [
-      ActionButton(title: 'delete', onEvent: removeSong),
-    ];
-
-    prepare();
   }
 
   void playAll() =>

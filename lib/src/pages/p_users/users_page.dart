@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -14,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     UserManagerComponent,
   ]
 )
-class UsersPage 
+class UsersPage implements OnActivate
 {
   Page _page;
   LanguageService lang;
@@ -23,7 +24,10 @@ class UsersPage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  UsersPage(this._contentProvider, this._messageService, this._userservice)
+  UsersPage(this._contentProvider, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(      
       userService: _userservice, 
@@ -32,6 +36,4 @@ class UsersPage
       needLogedIn: true,
       title: 'users');
   }
-
-
 }

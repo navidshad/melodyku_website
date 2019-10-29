@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -16,7 +17,7 @@ import 'package:melodyku/archive/archive.dart';
     GridComponent,
   ],
 )
-class AlbumsPage
+class AlbumsPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -34,6 +35,12 @@ class AlbumsPage
   // constructor ==================================
   AlbumsPage(this.lang, this._contentProvider, this._messageService, this._userservice)
   {
+    getContent();
+  }
+
+  @override
+  void onActivate(_, RouterState current) async 
+  {
     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
@@ -41,8 +48,6 @@ class AlbumsPage
       needLogedIn: false,
       title: 'albums',
     );
-
-    getContent();
   }
 
   void getContent() async 

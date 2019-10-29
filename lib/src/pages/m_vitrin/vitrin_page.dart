@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
-
-import 'dart:async';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -22,7 +21,7 @@ import 'package:melodyku/archive/archive.dart';
      FooterComponent,
   ],
 )
-class VitrinPage
+class VitrinPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -45,15 +44,19 @@ class VitrinPage
   // constructor ==================================
   VitrinPage(this.lang, this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(
+    getItems();
+  }
+
+  @override
+  void onActivate(_, RouterState current) async 
+  {
+     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.customer_access,
       needLogedIn: false,
       title: 'vitrin'
     );
-
-    getItems();
   }
 
   void getItems() async 

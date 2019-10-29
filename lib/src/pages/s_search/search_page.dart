@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -14,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     SearchComponent,
   ]
 )
-class SearchPage
+class SearchPage implements OnActivate
 {
   Page _page;
   LanguageService lang;
@@ -23,7 +24,10 @@ class SearchPage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  SearchPage(this._contentProvider, this._messageService, this._userservice)
+  SearchPage(this._contentProvider, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 

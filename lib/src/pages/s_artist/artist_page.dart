@@ -30,7 +30,10 @@ class ArtistPage implements OnActivate
   List<Card> albums = [];
 
   // constructor ==================================
-  ArtistPage(this._contentProvider, this.lang, this._messageService, this._userservice)
+  ArtistPage(this._contentProvider, this.lang, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(      
       userService: _userservice, 
@@ -39,11 +42,7 @@ class ArtistPage implements OnActivate
       needLogedIn: false,
       title: 'artist',
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current) async 
-  {
+    
     final id = current.parameters['id'];
 
     // get detail

@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -14,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     SubscriptionPlansComponent,
   ]
 )
-class SubscriptionPage 
+class SubscriptionPage implements OnActivate
 {
   Page _page;
   LanguageService lang;
@@ -22,7 +23,10 @@ class SubscriptionPage
   MessageService _messageService;
 
   // constructor ==================================
-  SubscriptionPage(this._messageService, this._userservice)
+  SubscriptionPage(this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice, 

@@ -1,4 +1,6 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
+
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/page/page.dart';
 import 'package:melodyku/widgets/widgets.dart';
@@ -14,24 +16,17 @@ import 'package:melodyku/services/services.dart';
 		DbCollectionTableEditorComponent,
 	]
 )
-class SlideShowsPage
+class SlideShowsPage implements OnActivate
 {
 	Page _page;
-  	LanguageService lang;
-  	UserService _userservice;
-  	MessageService _messageService;
+  LanguageService lang;
+  UserService _userservice;
+  MessageService _messageService;
 
-  	CollectionOptions options;
+  CollectionOptions options;
 
 	SlideShowsPage(this.lang, this._messageService, this._userservice)
 	{
-		_page = Page(
-		  userService: _userservice, 
-		  messageService: _messageService, 
-		  permissionType: PermissionType.customer_access,
-		  needLogedIn: true,
-		  title: 'slide show list');
-
 		options = new CollectionOptions(
 			title: 'slide show list',
 			database: 'cms',
@@ -49,4 +44,15 @@ class SlideShowsPage
 	        ]
 		);
 	}
+
+  @override
+  void onActivate(_, RouterState current)
+  {
+    _page = Page(
+		  userService: _userservice, 
+		  messageService: _messageService, 
+		  permissionType: PermissionType.customer_access,
+		  needLogedIn: true,
+		  title: 'slide show list');
+  }
 }

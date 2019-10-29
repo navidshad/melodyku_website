@@ -32,7 +32,10 @@ class ArchiveAlbumPage implements OnActivate
   
 
   // constructor ==================================
-  ArchiveAlbumPage(this._playerService, this._categoryService, this._messageService, this.lang, this._userservice)
+  ArchiveAlbumPage(this._playerService, this._categoryService, this._messageService, this.lang, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice,
@@ -41,11 +44,7 @@ class ArchiveAlbumPage implements OnActivate
       needLogedIn: true,
       title: 'archive_album'
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current)
-  {
+    
     albumID = current.parameters['_id'];
     prepareOptions(albumID);
   }

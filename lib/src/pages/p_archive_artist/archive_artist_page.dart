@@ -38,7 +38,10 @@ class ArchiveArtistPage implements OnActivate
 
   // constructor ==================================
   ArchiveArtistPage(
-    this._categoryService, this._messageService, this._userservice)
+    this._categoryService, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice,
@@ -47,11 +50,7 @@ class ArchiveArtistPage implements OnActivate
       needLogedIn: true,
       title: 'archive_artist'
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current)
-  {
+    
     String artistID = current.parameters['_id'];
     //print('artistID $artistID');
     prepareOptions(artistID);

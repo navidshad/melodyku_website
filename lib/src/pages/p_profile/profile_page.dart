@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -14,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     UserActivityDetail,
   ]
 )
-class ProfilePage 
+class ProfilePage implements OnActivate
 {
   Page _page;
   LanguageService lang;
@@ -23,7 +24,10 @@ class ProfilePage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  ProfilePage(this._contentProvider, this._messageService, this._userservice)
+  ProfilePage(this._contentProvider, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice, 
@@ -31,7 +35,5 @@ class ProfilePage
       permissionType: PermissionType.customer_access,
       needLogedIn: true,
       title: 'profile');
-
-    
   }
 }

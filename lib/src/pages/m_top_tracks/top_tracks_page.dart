@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -16,7 +17,7 @@ import 'package:melodyku/archive/archive.dart';
     GridComponent,
   ]
   )
-class TopTracksPage 
+class TopTracksPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -39,15 +40,19 @@ class TopTracksPage
   // constructor ==================================
   TopTracksPage(this.lang, this._contentProvider, this._messageService, this._userservice)
   {
-    _page = Page(
+    getContent();
+  }
+
+  @override
+  void onActivate(_, RouterState current) async 
+  {
+     _page = Page(
       userService: _userservice, 
       messageService: _messageService, 
       permissionType: PermissionType.customer_access,
       needLogedIn: false,
       title: 'top_tracks'
     );
-
-    getContent();
   }
 
   void getContent() async 

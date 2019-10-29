@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -13,7 +14,7 @@ import 'package:melodyku/widgets/widgets.dart';
     CategoryPresentorComponent,
   ]
 )
-class CategoriesPage 
+class CategoriesPage implements OnActivate 
 {
   Page _page;
   LanguageService lang;
@@ -22,7 +23,10 @@ class CategoriesPage
   ContentProvider _contentProvider;
 
   // constructor ==================================
-  CategoriesPage(this._contentProvider, this._messageService, this._userservice)
+  CategoriesPage(this._contentProvider, this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 

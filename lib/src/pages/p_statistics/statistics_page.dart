@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import 'package:melodyku/core/core.dart';
 import 'package:melodyku/services/services.dart';
@@ -14,7 +15,7 @@ import 'package:melodyku/widgets/widgets.dart';
     AdminStatisticsComponent,
   ]
 )
-class StatisticsPage 
+class StatisticsPage implements OnActivate
 {
   Page _page;
   LanguageService lang;
@@ -22,7 +23,10 @@ class StatisticsPage
   MessageService _messageService;
 
   // constructor ==================================
-  StatisticsPage(this._messageService, this._userservice)
+  StatisticsPage(this._messageService, this._userservice);
+
+  @override
+  void onActivate(_, RouterState current)
   {
     _page = Page(
       userService: _userservice, 

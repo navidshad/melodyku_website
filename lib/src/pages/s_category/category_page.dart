@@ -36,7 +36,10 @@ class CategoryPage implements OnActivate
 
   // constructor ==================================
   CategoryPage(this.lang, this._messageService, this._provider,
-    this._userservice, this._categoryService)
+    this._userservice, this._categoryService);
+
+  @override
+  void onActivate(_, RouterState current) async 
   {
     _page = Page(
       userService: _userservice, 
@@ -45,11 +48,7 @@ class CategoryPage implements OnActivate
       needLogedIn: false,
       title: 'category',
     );
-  }
-
-  @override
-  void onActivate(_, RouterState current) async 
-  {
+    
     id = current.parameters['id'];
     prepare();
     setupPageTitle();
