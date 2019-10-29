@@ -71,6 +71,8 @@ class CollectionOptions
 {
 	StreamController _clearControler = StreamController();
 	StreamController _getControler = StreamController();
+	StreamController<List<Map>> onLoadPageControler = StreamController<List<Map>>();
+
 	
   Stream get clearStream => _clearControler.stream;
   Stream get getStream => _getControler.stream;

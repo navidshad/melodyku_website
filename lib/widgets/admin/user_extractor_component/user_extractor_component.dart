@@ -27,6 +27,8 @@ class UserExtractorComponent
   String to;
   int moreThan = 0;
 
+  List<String> phoneNumbers = [];
+
   List<DbField> selectTypes = [
     DbField('wasOnline', customTitle: 'was online', strvalue: 'wasOnline'),
     DbField('registered', customTitle: 'Registered', strvalue: 'registered'),
@@ -62,10 +64,13 @@ class UserExtractorComponent
       database: 'cms',
       collection: 'auth',
       dbFields: authSchema);
+
+    tableOption.onLoadPageControler.stream.listen(onLoadUsers);
   }
 
   Function updateTableOptions(ButtonOptions op)
   {
+    phoneNumbers = [];
     op.doWaiting(true);
 
     DateTime fromDate = DateTime.now().add(Duration(days: -1));
@@ -81,12 +86,25 @@ class UserExtractorComponent
       .then((PiplineMethod pm)
       {
         tableOption.piplines = pm.piplines;
+        tableOption.piplines.add({
+          '\$project':{ 'phone':1, 'createdAt':1, 'updatedAt':1 }
+        });
+
         tableOption.types = pm.caster;
         tableOption.query = {'type':'user'};
         tableOption.sort = {'updatedAt':-1};
-        tableOption.aditionalColumns = [pm.additionalColumn];
+        
+        if(pm.additionalColumn != null)
+          tableOption.aditionalColumns = [pm.additionalColumn];
+
         tableOption.getData();
 
       }).whenComplete(() => op.doWaiting(false));
+  }
+
+  void onLoadUsers(List<Map> users)
+  {
+    phoneNumbers = [];
+    users.forEach((user) => phoneNumbers.add(user['phone']));
   }
 }

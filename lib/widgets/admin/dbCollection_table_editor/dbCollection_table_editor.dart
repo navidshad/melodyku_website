@@ -35,7 +35,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 
 	CollectionOptions editableItemOptions;
 
-	List<dynamic> list = [];
+	List<Map> list = [];
 	dynamic editable;
 
 	dynamic searchQuery;
@@ -243,6 +243,7 @@ class DbCollectionTableEditorComponent implements OnChanges
 			}
 		}).catchError(_catchError);
 
+    options.onLoadPageControler.add(list);
 		print('items gotten, ${list.length}');
 	}
 
