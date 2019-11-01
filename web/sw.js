@@ -26,10 +26,16 @@ workbox.googleAnalytics.initialize({
 //   // send message to show Page Refresh Confirmation popup
 //   send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
 // });
-//gsdfgsdffghdfg
-console.log();
-console.log();
 
+/* remove caches */
+let removingList = [
+]
+
+for (var i = 0; i < removingList.length; i++) {
+  let name = removingList[i];
+  caches.delet(name);
+}
+/* end remove caches */
 
 // routing precaches
 workbox.precaching.precacheAndRoute([
@@ -154,6 +160,10 @@ workbox.precaching.precacheAndRoute([
     "revision": "fa591ca5c840849da797de78e084c179"
   },
   {
+    "url": "assets/imgs/icons/more-v.png",
+    "revision": "f19a9a062be2230f3ce2148852acc6e5"
+  },
+  {
     "url": "assets/imgs/icons/more.png",
     "revision": "05a12a115e616ee848bd7c2ed4ded55b"
   },
@@ -231,7 +241,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "assets/js/install.js",
-    "revision": "06b728bd9720d19191ad2249561f4ec2"
+    "revision": "2969b29e7bc657f91a015a683cae4375"
   },
   {
     "url": "assets/js/purechat_adapter.js",
@@ -239,19 +249,19 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "assets/js/sw_idb.js",
-    "revision": "ec1be29f8df13c96df401ad762ba6cfd"
+    "revision": "dd4efd14d9b7e5fa5c612a7f2fb8df47"
   },
   {
     "url": "assets/js/sw_installation.js",
-    "revision": "a14a5000fb2430cfd83d43357f55331d"
+    "revision": "2e2a2d84f921818723f7b203c3a11173"
   },
   {
     "url": "assets/js/sw_message.js",
-    "revision": "60aab701044afcbcebc806d8ea0321a9"
+    "revision": "8adb50537b24176e23f7246cbbbaf686"
   },
   {
     "url": "assets/js/sw_strategies.js",
-    "revision": "a519e08becb02d2f9ca3082a8fda10e0"
+    "revision": "46bc2b70ecac3a65f6a03ccb9f62253f"
   },
   {
     "url": "assets/svg/equalizer01.svg",
@@ -426,14 +436,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "f1fb3e82a6d410144462f9b831cd99a1"
   },
   {
-    "url": "assets/thirdparty/swiper/swiper.min.css",
-    "revision": "9097e7972b059ecae0f5bb78a0186f71"
-  },
-  {
-    "url": "assets/thirdparty/swiper/swiper.min.js",
-    "revision": "53fc0155c6c3cb55f34b749325ebb370"
-  },
-  {
     "url": "favicon.png",
     "revision": "6e6157506f1989504f7c0bf9f7fe498d"
   },
@@ -471,7 +473,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "index.html",
-    "revision": "6891c40b8d15be045f672d9b600ea8aa"
+    "revision": "2f1c2b2ac9811723324182ac08d4ba21"
   },
   {
     "url": "manifest.json",
@@ -483,15 +485,15 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "styles.css",
-    "revision": "6812b302d0b627ba1ef5a05ed4421b42"
+    "revision": "aa6ca57ec820ce4bd4e28a64a960b5ad"
   },
   {
     "url": "sw_build.js",
-    "revision": "1fce9e18e153b20dffafb8057f011867"
+    "revision": "1a9b93d5ceb4bd19713ee2d51f0052a9"
   },
   {
     "url": "version.json",
-    "revision": "5e728c40ccd47423fdbfa8b7a86f36c4"
+    "revision": "8cf82ecf51f45729972b75612048a5cc"
   }
 ]);
 
@@ -574,12 +576,4 @@ workbox.routing.registerRoute(
     return isMatch(url, ['/versions.js', '/sw.js']) 
   },
   new workbox.strategies.NetworkFirst()
-);
-
-// catch songs
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, ['/stream?ai']) 
-  },
-  catchFirstSongRequest
 );

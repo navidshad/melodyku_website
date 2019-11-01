@@ -61,7 +61,7 @@ class DownloadsPage implements OnActivate
     ObjectStore songColl = await _idb.getCollection('media', 'song');
 
     songColl.openCursor()
-      .listen((CursorWithValue cursor) 
+      .listen((CursorWithValue cursor) async
       {
         if(cursor != null) cursor.next();
         else {
@@ -72,7 +72,15 @@ class DownloadsPage implements OnActivate
         Map songDetail =  validateFields(cursor.value, SystemSchema.song);
         songDetail['storedDate'] = cursor.value['storedDate'];
 
-        Song song = Song.fromjson(songDetail, isLocal: true);
+        // get artist
+        Map artistDetail = await _idb.getOne('media', 'artist', songDetail['artistId']);
+        Artist artist = Artist.fromjson(artistDetail);
+
+        // get album
+        Map albumDetail = await _idb.getOne('media', 'album', songDetail['albumId']);
+        Album album = Album.fromjson(albumDetail, artist: artist);
+
+        Song song = Song.fromjson(songDetail, isLocal: true, artist: artist, album:album);
         songs.add(song);
       },
       onDone: sortlist);

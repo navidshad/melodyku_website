@@ -4,10 +4,8 @@ library contentProvider;
 import 'media_selector.dart';
 import 'assets.dart';
 import 'dart:html';
-import 'dart:indexed_db';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:http/http.dart';
 
 import 'package:melodyku/services/services.dart';
@@ -17,8 +15,8 @@ import 'package:melodyku/archive/archive.dart';
 class ContentProvider 
 {
 	IndexedDBService _idb;
-  	MediaSelector mediaselector;
-  	UserService _userService;
+ 	MediaSelector mediaselector;
+ 	UserService _userService;
 
 	ContentProvider(this._idb, this._userService, MongoDBService mongoService)
 	{
@@ -29,6 +27,10 @@ class ContentProvider
 	{
 		String link = '';
 
+    // check local database
+    // String id = 'img-$id';
+    // Blob blob = await _idb.getOne('media', 'file', id);
+
 		if(imgStamp.length > 0)
 		{
 			Uri imageLink = Uri.https(Vars.dataHost, 'images/$database-$type/$id-$imgStamp.jpg');
@@ -38,6 +40,20 @@ class ContentProvider
 		//print('$type, $imgStamp, $imgStamp_album, $imgStamp_artist \n$link');
 
 		return link;
+	}
+
+	Future<String> getSongStreamLink(Song song, [String version]) async
+	{
+	// check local database
+	String id = 'song-${song.id}';
+
+	return _idb.getOne('media', 'file', id)
+		.then((blob){
+			if(blob != null) return Url.createObjectUrlFromBlob(blob);
+			else throw('song dosent found on local db');
+		})
+		.catchError((e) => song.getStreamLink(version))
+		.whenComplete(() => song.getStreamLink(version));
 	}
 
 	String getRandomPatterns()
@@ -98,11 +114,12 @@ class ContentProvider
 		return http.post(link, body: body, headers: header);
 	}
 
-	Future<Map> downloadAsBuffer(String url, {Function(int percent) onDownloading}) async
+	Future<Map> downloadAsBuffer(String url, 
+    {Function(int percent) onDownloading, String responseType= 'blob',}) async
 	{
 		return HttpRequest.request(
 			Uri.parse(url).toString(),
-			responseType: 'arraybuffer',
+			responseType: responseType,
 			requestHeaders: {
 				'orgin': window.location.origin,
 				'Access-Control-allow-orgin': window.location.origin,
@@ -114,7 +131,7 @@ class ContentProvider
 			{
 				return { 
 					'contentType': resopnse.getResponseHeader('content-type'),
-					'buffer': resopnse.response as ByteBuffer,
+					'data': resopnse.response
 				};
 			});
 
@@ -123,20 +140,56 @@ class ContentProvider
 
 	Future<void> downloadSong(Song song, Function(int percent) onDownloading) async
 	{
-		// store song
+	    // store song
 		Map songDetail = song.getAsMap();
-		songDetail['storedDate'] = DateTime.now().microsecondsSinceEpoch;
+	    songDetail['storedDate'] = DateTime.now().microsecondsSinceEpoch;
 
-		// save song detail
-		return _idb.insertOne('media', 'song', songDetail)
+	    // store artist and album
+	    _idb.putOne('media', 'artist', song.artist.getAsMap());
+	    _idb.putOne('media', 'album', song.album.getAsMap());
 
 		// download song file
-		.then((r) async
+		String link = await song.getStreamLink('original');
+		await downloadAsBuffer(link, onDownloading: onDownloading)
+		// store song file
+		.then((Map file)
 		{
-			String link = await song.getStreamLink('original');
-			print('begin to download song $link');
-			return downloadAsBuffer(link, onDownloading: onDownloading);
+      		Blob blob = file['data'];
+      		String id = 'song-' + songDetail['_id'];
+
+			// add size
+			songDetail['size_local'] = blob.size; //(doc['base64'].length / 1000);
+
+			return _idb.insertOne('media', 'file', blob, id)
+				.then((r) => print('song downloaded'));
 		})
+
+		// // download song thumbnail
+		// .then((r)
+		// {
+		// 	String imglink = song.thumbnail;
+		// 	String link = Uri.https(Vars.mainHost, 'stream/downloadfile', {'link': imglink}).toString();
+
+		// 	print('begin to download img $link');
+
+		// 	return downloadAsBuffer(link, onDownloading: (int percent) => print('thumbnail downloading $percent'));
+		// })
+		// // store thumbnail file
+		// .then((Map file)
+		// {
+		// 	Map doc = {
+		// 		'_id': 'img-' + songDetail['_id'],
+		// 		'base64': DownloadFile.getBase64Link(file['contentType'], file['buffer'])
+		// 	};
+
+		// 	// add size
+		// 	songDetail['size_local'] += (doc['base64'].length / 1000);
+
+		// 	return _idb.insertOne('media', 'file', doc)
+		// 		.then((r) => print('thumbnail downloaded'));
+		// })
+		// update song size
+		.then((r) => _idb.insertOne('media', 'song', songDetail))
 		// update quota info
 		.then((r) => _idb.storageQuota.updateInfo())
 
@@ -158,18 +211,21 @@ class ContentProvider
 		String link = await song.getStreamLink('original');
 		String CACHE_NAME = "user_downloads";
 
-		window.navigator.serviceWorker.getRegistration('/sw.js')
-			.then((sw)
-			{
-				Map<String,String> data = {
-					'action': 'REMOVE_CACHE',
-					'cacheName':CACHE_NAME, 
-					'url':link
-				};
-				sw.active.postMessage(data);
-			});
+		// window.navigator.serviceWorker.getRegistration('/sw.js')
+		// 	.then((sw)
+		// 	{
+		// 		Map<String,String> data = {
+		// 			'action': 'REMOVE_CACHE',
+		// 			'cacheName':CACHE_NAME, 
+		// 			'url':link
+		// 		};
+		// 		sw.active.postMessage(data);
+		// 	});
 
+    // remove song detail
 		return _idb.removeOne('media', 'song', id)
+    // remove blob
+    .then((r) => _idb.removeOne('media', 'file', 'song-$id'))
 		// update quota info
 		.then((r) => _idb.storageQuota.updateInfo());
 	}

@@ -125,7 +125,7 @@ class Album implements MediaItem
       'description'   : description,
       'imgStamp'      : imgStamp,
       'imgStamp_artist': imgStamp_artist,
-      'localTitle'    : localTitle,
+      'local_title'    : localTitle,
     };
   }
 

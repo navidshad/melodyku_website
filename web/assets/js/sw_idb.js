@@ -1,3 +1,4 @@
+let dbVersion = 2;
 /*
 	an IndexedDB wrapper for using in Melodyku service worker
 */
@@ -32,14 +33,6 @@ let upgradeFunction =
 		if (!db.objectStoreNames.contains('post'))
 			objectStore = db.createObjectStore('post', { keyPath: '_id' });
 	},
-
-	'media': (event) => 
-	{
-		db = event.target.result;
-
-		if (!db.objectStoreNames.contains('song'))
-			objectStore = db.createObjectStore('song', { keyPath: '_id' });
-	}
 }
 
 function sleep(after)
@@ -60,7 +53,7 @@ class IDBAdapter
 	{
 		console.log('sw == connecting to', this.name);
 		
-		await openDB(self.indexedDB, this.name, 1, upgradeFunction[this.name])
+		await openDB(self.indexedDB, this.name, dbVersion, upgradeFunction[this.name])
 			.then(req => 
 			{
 				this.db = req.target.result;
@@ -131,4 +124,3 @@ class IDBAdapter
 };
 
 let IDB_request = new IDBAdapter('request-catch');
-let IDB_media = new IDBAdapter('media');

@@ -27,6 +27,16 @@ workbox.googleAnalytics.initialize({
 //   send_message_to_all_clients({ action: 'PROMPT_UPDATE_MESSAGE' });
 // });
 
+/* remove caches */
+let removingList = [
+]
+
+for (var i = 0; i < removingList.length; i++) {
+  let name = removingList[i];
+  caches.delet(name);
+}
+/* end remove caches */
+
 // routing precaches
 workbox.precaching.precacheAndRoute([]);
 
@@ -109,12 +119,4 @@ workbox.routing.registerRoute(
     return isMatch(url, ['/versions.js', '/sw.js']) 
   },
   new workbox.strategies.NetworkFirst()
-);
-
-// catch songs
-workbox.routing.registerRoute(
-  ({url, event}) => {
-    return isMatch(url, ['/stream?ai']) 
-  },
-  catchFirstSongRequest
 );

@@ -57,7 +57,7 @@ class Artist implements MediaItem
       'name'        : name,
       'description' : description,
       'imgStamp'    : imgStamp,
-      'localTitle'  : localTitle,
+      'local_title'  : localTitle,
     };
   }
 

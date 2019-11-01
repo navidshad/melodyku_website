@@ -1,7 +1,11 @@
 {
-	"web-client": "0.9.5",
+	"web-client": "0.9.6",
 
 	"log": {
+
+		"0.9.6": [
+			"download system changed from cache to indexeddb blob record"
+		],
 		
 		"0.9.5": [
 			"added users statistics",

@@ -12,6 +12,7 @@ class Player
 {
   // variables
   UserService _userServide;
+  ContentProvider _contentProvider;
   AnalyticService _analytic;
   
   List<Song> _list = [];
@@ -41,7 +42,7 @@ class Player
   double get getDuration => (!audio.duration.isNaN) ? audio.duration.toInt().toDouble() : 1;
 
   // constructor
-  Player(this._userServide, this._analytic)
+  Player(this._userServide, this._analytic, this._contentProvider)
   {
     // _userServide = Injector.get<UserService>();
     // _analytic = Injector.get<AnalyticService>();
@@ -131,7 +132,7 @@ class Player
       version = 'original';
 
     // get stream link
-    source = await current.getStreamLink(version);
+    source = await _contentProvider.getSongStreamLink(current, version);
 
     //print('streamLink $streamLink , duration ${current.duration}');
     audio.src = source;

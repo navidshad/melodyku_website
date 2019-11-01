@@ -133,8 +133,8 @@ class Song implements MediaItem
   {
     return {
       '_id'       : id,
-      // 'artistId'  : artistId,
-      // 'albumId'   : albumId,
+      'artistId'  : artist?.id,
+      'albumId'   : album?.id,
       'title'     : title,
       'artist'    : artist?.name,
       'album'     : album?.title,

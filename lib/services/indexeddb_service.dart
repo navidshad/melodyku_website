@@ -23,7 +23,7 @@ class IndexedDBService
 
 	Future<Database> getDatabase(String name)
 	{
-		return window.indexedDB.open(name, version:1, onUpgradeNeeded: onUpgreade[name]);
+		return window.indexedDB.open(name, version:2, onUpgradeNeeded: onUpgreade[name]);
 	}	
 
 	Future<ObjectStore> getCollection(String dbName, String collName)
@@ -38,16 +38,22 @@ class IndexedDBService
 			.then((coll) => coll.getObject(key));
 	}
 
-	Future<dynamic> insertOne(String dbName, String collName, dynamic doc)
+	Future<dynamic> insertOne(String dbName, String collName, dynamic doc, [dynamic key])
 	{
 		return getCollection(dbName, collName)
-			.then((coll) => coll.add(doc));
+			.then((coll) => coll.add(doc, key));
 	}
 
-	Future<dynamic> updateOne(String dbName, String collName, dynamic doc)
+  Future<dynamic> putOne(String dbName, String collName, dynamic doc, [dynamic key])
 	{
 		return getCollection(dbName, collName)
-			.then((coll) => coll.put(doc));
+			.then((coll) => coll.put(doc, key));
+	}
+
+	Future<dynamic> updateOne(String dbName, String collName, dynamic doc, [dynamic key])
+	{
+		return getCollection(dbName, collName)
+			.then((coll) => coll.put(doc, key));
 	}
 
 	Future<dynamic> removeOne(String dbName, String collName, String id)
