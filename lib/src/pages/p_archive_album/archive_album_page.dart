@@ -72,6 +72,7 @@ class ArchiveAlbumPage implements OnActivate
         TypeCaster('ObjectId', '0.\$match.albumId')
       ],
       query: {'albumId': albumID},
+      sort: {'track':1},
       dbFields: SystemSchema.injectSubfields('categories', SystemSchema.song, _categoryService.getGroups()),
       actionButtons: [
         ActionButton(title:'play', onEvent: play),

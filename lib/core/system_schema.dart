@@ -30,6 +30,7 @@ class SystemSchema
 		DbField('artistId', isHide: true),
      	DbField('artist', isDisable: true),
       	DbField('description', fieldType: FieldType.textbox),
+      	DbField('year', dataType: DataType.int, fieldType: FieldType.text),
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
       	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
 	];
@@ -40,6 +41,7 @@ class SystemSchema
 		DbField('imgStamp', isDisable:true),
 		DbField('imgStamp_artist', isHide:true),
       	DbField('description', fieldType: FieldType.textbox),
+      	DbField('year', dataType: DataType.int, fieldType: FieldType.text),
       	DbField('artistId', dataType: DataType.object, fieldType: FieldType.object, subFields: SystemSchema.artist),
       	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
       	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
@@ -62,6 +64,7 @@ class SystemSchema
 		DbField('album', isDisable: true),
 		DbField('artist', isDisable: true),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
+		DbField('track', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
 		DbField('size', dataType: DataType.float, isHide:true),
 		DbField('bitrate', dataType: DataType.float, isHide:true),
@@ -81,6 +84,7 @@ class SystemSchema
 		// DbField('album', isDisable: true),
 		// DbField('artist', isDisable: true),
 		DbField('year', dataType: DataType.int, fieldType: FieldType.text),
+		DbField('track', dataType: DataType.int, fieldType: FieldType.text),
 		DbField('duration', dataType: DataType.float, isHide:true),
 		DbField('size', dataType: DataType.float, isHide:true),
 		DbField('bitrate', dataType: DataType.float, isHide:true),
@@ -274,9 +278,14 @@ class SystemSchema
 	// user ====================================
 	static List<DbField> userAuth = 
 	[
-		DbField('type', isDisable: true),
+		DbField('type', fieldType: FieldType.select, subFields: [
+				DbField('user', strvalue: 'user'),
+			]),
+
 		DbField('email'),
 		DbField('phone'),
+		DbField('createdAt', dataType: DataType.dateTime, fieldType: FieldType.date),
+		DbField('updatedAt', dataType: DataType.dateTime, fieldType: FieldType.date),
 		DbField('permission', fieldType: FieldType.select, subFields: []),
 	];
 

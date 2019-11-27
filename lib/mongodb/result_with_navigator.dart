@@ -99,8 +99,8 @@ class ResultWithNavigator<T>
       if(customQuery != null)
         piplines.add({ '\$match': customQuery });
 
-      if(customSort != null)
-        piplines.add({ '\$sort': customSort });
+      // if(customSort != null)
+      //   piplines.add({ '\$sort': customSort });
 
       if(T == Playlist) piplines.add({ '\$project': {'list':0} });
       else if(T == Album) piplines.addAll(lookupPiplines.getPiplines('album'));
@@ -118,7 +118,11 @@ class ResultWithNavigator<T>
       ];
     }
 
-    piplines.add({ '\$sort': {'_id': -1} });
+    // sort
+    if(customSort != null) 
+      piplines.add({ '\$sort': customSort });
+      
+    else piplines.add({ '\$sort': {'_id': -1} });
 
     return piplines;
   }

@@ -123,7 +123,10 @@ class MediaSelector
     List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.artistId') ];
 
     ResultWithNavigator navigator = ResultWithNavigator<Album>(
-      customQuery: query, perPage: total, types: types);
+      customQuery: query, 
+      customSort: {'year':-1},
+      perPage: total, 
+      types: types);
 
     await navigator.loadNextPage(goto: page);
 
@@ -193,7 +196,10 @@ class MediaSelector
     List<TypeCaster> types = [ TypeCaster('ObjectId', '0.\$match.albumId') ];
 
     ResultWithNavigator navigator = ResultWithNavigator<Song>(
-      customQuery: query, perPage: total, types: types);
+      customQuery: query, 
+      customSort: {'track':1},
+      perPage: total, 
+      types: types);
 
     await navigator.loadNextPage(goto: page);
 
