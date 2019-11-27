@@ -44,3 +44,8 @@ String getRandomColor()
   while(length-- > 0) hex += chars[(random.nextInt(16)) | 0];
   return hex;
 }
+
+int getPercent(total, number)
+{
+  return ((number/total) * 100).toInt();
+}

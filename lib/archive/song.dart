@@ -373,4 +373,10 @@ class Song implements MediaItem
     return Injector.get<IndexedDBService>().getOne('media', 'song', id)
       .then((doc) => doc != null ? true : false);
   }
+
+  bool isPassedThePercent(int percent, double currentTime)
+  {
+    int currentPercent = getPercent(duration, currentTime);
+    return (percent <= currentPercent) ? true : false;
+  }
 }

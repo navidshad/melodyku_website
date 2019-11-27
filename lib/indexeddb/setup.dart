@@ -27,24 +27,24 @@ Map<String, dynamic> onUpgreade =
 		{
       createObjectStore(db, 'song', keyPath:'_id');
 		} else {
-      db.deleteObjectStore('song');
-      createObjectStore(db, 'song', keyPath:'_id');
+      // db.deleteObjectStore('song');
+      // createObjectStore(db, 'song', keyPath:'_id');
     }
 
     if(!db.objectStoreNames.contains('album'))
 		{
       createObjectStore(db, 'album', keyPath:'_id');
 		} else {
-      db.deleteObjectStore('album');
-      createObjectStore(db, 'album', keyPath:'_id');
+      // db.deleteObjectStore('album');
+      // createObjectStore(db, 'album', keyPath:'_id');
     }
 
     if(!db.objectStoreNames.contains('artist'))
 		{
       createObjectStore(db, 'artist', keyPath:'_id');
 		} else {
-      db.deleteObjectStore('artist');
-      createObjectStore(db, 'artist', keyPath:'_id');
+      // db.deleteObjectStore('artist');
+      // createObjectStore(db, 'artist', keyPath:'_id');
     }
 
 		// create song collections
@@ -52,8 +52,8 @@ Map<String, dynamic> onUpgreade =
 		{
       createObjectStore(db, 'file');
 		} else {
-      db.deleteObjectStore('file');
-      createObjectStore(db, 'file');
+      // db.deleteObjectStore('file');
+      // createObjectStore(db, 'file');
     }
 	}
 };

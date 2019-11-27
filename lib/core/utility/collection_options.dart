@@ -53,7 +53,7 @@ class ActionButton
 
 class Column{
   String title;
-  List<Map> dataArray;
+  List dataArray;
   String getBy;
 
   Column({this.title, this.dataArray=const[], this.getBy='_id'});

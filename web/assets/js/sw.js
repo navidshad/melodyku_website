@@ -29,11 +29,12 @@ workbox.googleAnalytics.initialize({
 
 /* remove caches */
 let removingList = [
+  'user_downloads'
 ]
 
 for (var i = 0; i < removingList.length; i++) {
   let name = removingList[i];
-  caches.delet(name);
+  caches.delete(name);
 }
 /* end remove caches */
 

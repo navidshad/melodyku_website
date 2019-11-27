@@ -1,7 +1,11 @@
 {
-	"web-client": "0.9.6",
+	"web-client": "0.9.7",
 
 	"log": {
+
+		"0.9.7": [
+			"track song on 50% playing"
+		],
 
 		"0.9.6": [
 			"download system changed from cache to indexeddb blob record"

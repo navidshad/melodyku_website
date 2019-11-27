@@ -114,18 +114,18 @@ Map<String, Function> getAuthPiplinesMethod =
       isLive:true, database: 'user', collection: 'subscription',
       piplines: [
         {
-        '\$match': { 'startsIn': { '\$gte': from.toIso8601String() } }
+        '\$match': { 'startsIn': { '\$lte': from.toIso8601String() } }
         },
         {
-          '\$match': { 'expiresIn': { '\$lte': to.toIso8601String() } }
+          '\$match': { 'expiresIn': { '\$gte': to.toIso8601String() } }
         },
         {
           '\$project': {'refId':1, 'startsIn':1, 'expiresIn':1}
         },
       ],
       types: [
-        TypeCaster('Date', '0.\$match.startsIn.\$gte'),
-        TypeCaster('Date', '1.\$match.expiresIn.\$lte'),
+        TypeCaster('Date', '0.\$match.startsIn.\$lte'),
+        TypeCaster('Date', '1.\$match.expiresIn.\$gte'),
       ])
       .then((subscriptions)
       {

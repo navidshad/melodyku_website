@@ -5,6 +5,7 @@ import 'dart:html';
 
 class Vars 
 {
+  // host
   static String mainHost = 'melodyku.ir';
   static String dataHost = 'data.${Vars.mainHost}';
 
@@ -20,4 +21,7 @@ class Vars
 
   	return Uri.https(host, '').toString();
   }
+
+  // player
+  static int trakcSongWhenThisPercentPassed = 50;
 }

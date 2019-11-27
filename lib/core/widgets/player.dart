@@ -36,6 +36,7 @@ class Player
   bool seeking = false;
   bool isShuffle = false;
   bool isLoop = false;
+  bool reportedCurrent = false;
 
   double currentTime = 0.0;
   set(double timeValue) => currentTime = num.parse(timeValue.toString());
@@ -59,15 +60,20 @@ class Player
       isPlaying = true;
       //print('seeking: $seeking');
       if(!seeking) currentTime = audio.currentTime.toInt().toDouble();
+
+      // tracke played Song
+      if(_userServide.isLogedIn && 
+        !reportedCurrent &&
+        current.isPassedThePercent(Vars.trakcSongWhenThisPercentPassed, currentTime)){
+        _userServide.user.traker.reportPlayedSong(current);
+        reportedCurrent = true;
+      }
     });
 
     // stop when current was ended
     _audio.onEnded.listen((e) 
     {
       isPlaying = false;
-      // tracke played Song
-      if(_userServide.isLogedIn)
-        _userServide.user.traker.reportPlayedSong(current);
 
       if(isLoop) audio.play();
       else {
@@ -120,6 +126,7 @@ class Player
 
     current = track;
     audio.currentTime = 0;
+    reportedCurrent = false;
 
     hasSong = false;
     await Future.delayed(Duration(milliseconds: 200));
