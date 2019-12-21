@@ -3,6 +3,11 @@
 
 	"log": {
 
+		"0.9.8": [
+			"added CTA for register",
+			"added counter for sms sender when sending"
+		],
+
 		"0.9.7": [
 			"track song on 50% playing"
 		],

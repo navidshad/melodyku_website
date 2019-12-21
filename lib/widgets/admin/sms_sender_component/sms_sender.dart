@@ -36,6 +36,8 @@ class SMSSenderComponent
   String token3;
   String message;
 
+  int sentCount = 0;
+
   List<DbField> sendMethods = [
     DbField('varification_sms', customTitle: 'varification sms'),
     DbField('varification_call', customTitle: 'varification call'),
@@ -113,7 +115,7 @@ class SMSSenderComponent
   Function prepare(ButtonOptions op)
   { 
     op.doWaiting(true);
-    swicher.show('swicher');
+    swicher.show('statistic');
 
     Future.wait([
       Future(() async
@@ -126,6 +128,7 @@ class SMSSenderComponent
 
         for (var i = 0; i < receptorList.length; i++) {
           String receptor = receptorList[i];
+          sentCount = i+1;
           await send(receptor);
         }
 
@@ -133,6 +136,7 @@ class SMSSenderComponent
     ]).whenComplete((){
       op.doWaiting(false);
       swicher.show('settings');
+      sentCount = 0;
     });
   }
 }
