@@ -1,0 +1,22 @@
+.cta-container{
+    height: 300px;
+    width: 100%;
+    padding: 30px;
+    background-image: url('/assets/imgs/cta_back01.jpg');
+}
+
+h1,h2,h3 {
+    text-shadow: 1px -1px 20px #2ec8e6;
+}
+
+.w3-half {
+    height: 100%;
+    text-align: center;
+}
+
+.btn-bg {
+    box-shadow: 1px 1px 20px 8px #2ec8e6;
+}
+.btn-bg:hover {
+    box-shadow: 1px 1px 20px 0px #2ec8e6;
+}

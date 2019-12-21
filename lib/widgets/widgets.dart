@@ -66,3 +66,5 @@ export 'ui_elements/button_rounded_progress/button_rounded_progress.dart';
 export 'ui_elements/button_download_song/button_download_song.dart';
 export 'ui_elements/phone_number_field/phone_number_field.dart';
 export 'ui_elements/popup_menu_component/popup_menu_component.dart';
+
+export 'cta_register/cta_register_component.dart';
