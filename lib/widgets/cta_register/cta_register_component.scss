@@ -20,3 +20,53 @@ h1,h2,h3 {
 .btn-bg:hover {
     box-shadow: 1px 1px 20px 0px #2ec8e6;
 }
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 375px) 
+{
+
+}
+
+@media only screen and (max-width: 425px) 
+{
+    .cta-container {
+        height: 400px;
+    }
+
+    .w3-row {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        flex-flow: column-reverse;
+        justify-content: center;
+        height: 100%;
+
+        .w3-half {
+            text-align: center;
+            height: auto;
+            margin-bottom: 30px;
+        }
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 15px;
+    }
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px)
+{
+
+}
+
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) 
+{
+
+
+}  
