@@ -3,7 +3,8 @@
     <div class="w3-row full-wide" [direction]="lang.getDir()" [align]="true" >
 
         <div class="w3-half flex-column flex-center">
-            <div class="btn-bg">{{lang.getStr('register')}}</div>
+            <div class="btn-bg"
+            	(click)="onClick">{{lang.getStr('register')}}</div>
         </div>
 
         <div class="w3-half flex-column flex-center">

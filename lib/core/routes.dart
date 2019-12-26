@@ -53,7 +53,7 @@ import 'package:melodyku/src/pages/s_playlist/playlist_page.template.dart' as pl
 import 'package:melodyku/src/pages/s_search/search_page.template.dart' as search_template;
 import 'package:melodyku/src/pages/s_category/category_page.template.dart' as category_template;
 
-Map<String, PageDefinition> pageDefinitions = pageDefinitions = 
+Map<String, PageDefinition> pageDefinitions =
 {
   // user validation ========================
   'login' : PageDefinition(

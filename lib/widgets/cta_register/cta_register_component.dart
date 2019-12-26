@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 
 import 'package:melodyku/services/services.dart';
 import 'package:melodyku/directives/directives.dart';
+import 'package:melodyku/core/core.dart';
 
 @Component(
     selector: 'register-cta',
@@ -16,6 +17,13 @@ import 'package:melodyku/directives/directives.dart';
 class CTARegisterComponent {
   UserService userService;
   LanguageService lang;
+  AnalyticService _analytic;
 
-  CTARegisterComponent(this.userService, this.lang);
+  CTARegisterComponent(
+      this.userService, this.lang, this._analytic);
+
+  void onClick() {
+    Navigator.gotTo('login', parameters:{'form': 'register-phone'});
+    _analytic.trackEvent('clicked', category: 'CTA', label: 'Register');
+  }
 }
