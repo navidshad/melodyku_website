@@ -61,7 +61,7 @@ class Player
       //print('seeking: $seeking');
       if(!seeking) currentTime = audio.currentTime.toInt().toDouble();
 
-      // tracke played Song
+      // track played Song
       if(_userServide.isLogedIn && 
         !reportedCurrent &&
         current.isPassedThePercent(Vars.trakcSongWhenThisPercentPassed, currentTime)){
@@ -117,6 +117,8 @@ class Player
 
   void playByTrack(Song track) async
   {
+    //print('playByTrack');
+
     //add to Queue
     add(track);
 
@@ -210,7 +212,17 @@ class Player
       Song newTrack = _list[currentIndex+1];
       playByTrack(newTrack);
     }
-    else current = null;
+    // play random
+    else {
+      _contentProvider.mediaselector.getRandomSong(categories: current.categories)
+      .then((newSong) {
+        // print('newSong ${newSong}');
+        if(newSong != null) playByTrack(newSong);
+      }).catchError((error) {
+        current = null;
+        print(error.toString());
+      });
+    }
   }
 
   void previous() 

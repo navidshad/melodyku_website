@@ -3,4 +3,4 @@ targets:
     builders:
       sass_builder:
         options:
-          outputStyle: expanded
+          outputStyle: compressed
