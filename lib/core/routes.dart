@@ -46,6 +46,7 @@ import 'package:melodyku/src/pages/s_factor/factor_page.template.dart' as factor
 
 import 'package:melodyku/src/pages/p_slideshows/slideshows_page.template.dart' as slideshows_template;
 import 'package:melodyku/src/pages/p_slideshow/slideshow_page.template.dart' as slideshow_template;
+import 'package:melodyku/src/pages/p_advertisement/advertisement_page.template.dart' as advertisement_template;
 
 import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit_template;
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
@@ -221,6 +222,17 @@ Map<String, PageDefinition> pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'slideshow/:_id'),
                       component: slideshow_template.SlideShowPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'advertisement' : PageDefinition(
+    title         : 'advertisement',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.quality_management,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'advertisement'),
+                      component: advertisement_template.AdvertisementPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

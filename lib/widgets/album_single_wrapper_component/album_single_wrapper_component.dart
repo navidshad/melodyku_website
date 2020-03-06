@@ -20,6 +20,7 @@ import 'package:melodyku/pips/pips.dart';
     MediaCoverComponent,
     PopMenuComponent,
     DirectionDirective,
+    AdvertisementPresentor,
   ],
   pipes: [
     UpFirstCharsPipe

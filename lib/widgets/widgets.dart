@@ -68,3 +68,4 @@ export 'ui_elements/phone_number_field/phone_number_field.dart';
 export 'ui_elements/popup_menu_component/popup_menu_component.dart';
 
 export 'cta_register/cta_register_component.dart';
+export 'advertisement_presentor/advertisement_presentor.dart';

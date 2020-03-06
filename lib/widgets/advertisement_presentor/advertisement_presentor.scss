@@ -1,0 +1,38 @@
+.wide {
+    //height: 300px;
+    width: 100%;
+    padding: 30px;
+    
+    img {
+    	width: 100%;
+    }
+}
+
+.square {
+    //height: 100%;
+    width: 100%;
+    padding: 30px;
+
+    img {
+    	width: 100%;
+    }
+}
+
+.effect{
+	border-radius: 10px;
+}
+.effect:hover{
+	box-shadow: 1px 1px 17px 5px #fbfbfb42;
+}
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 375px) {}
+
+@media only screen and (max-width: 425px) {}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px) {}
+
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) {}

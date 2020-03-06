@@ -20,6 +20,7 @@ import 'package:melodyku/archive/archive.dart';
     CategoryPresentorComponent,
     FooterComponent,
     CTARegisterComponent,
+    AdvertisementPresentor,
   ],
 )
 class VitrinPage implements OnActivate {
@@ -28,6 +29,8 @@ class VitrinPage implements OnActivate {
   UserService _userservice;
   MessageService _messageService;
   ContentProvider _contentProvider;
+
+  bool get isLogedIn => _userservice.isLogedIn;
 
   Map tl_lastSongs;
   List<ListItem> listItems_lastSongs = [];

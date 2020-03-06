@@ -1,0 +1,29 @@
+/* SMARTPHONES PORTRAIT */
+@media only screen and (max-width: 375px) {}
+
+@media only screen and (max-width: 425px) {
+	.adv {
+		.on-mobile {
+			display: block;
+		}
+		.on-desktop {
+			display: none;
+		}
+	}
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px) {
+	.adv {
+		.on-mobile {
+			display: none;
+		}
+		.on-desktop {
+			display: block;
+		}
+	}
+}
+
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) {}

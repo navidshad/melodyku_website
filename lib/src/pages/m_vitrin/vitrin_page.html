@@ -11,6 +11,7 @@
 </list-wide>
 
 <register-cta></register-cta>
+<adv-presentor *ngIf="isLogedIn" [type]="'wide'"></adv-presentor>
 
 <slider-rect
     [title]="lang.getLocalValue(tl_mediaPack_playlists)"
@@ -43,6 +44,7 @@
 </category-presentor>
 
 <register-cta></register-cta>
+<adv-presentor *ngIf="isLogedIn" [type]="'wide'"></adv-presentor>
 
 <grid-rect
     [title]="lang.getLocalValue(tl_mediaPack_artist)"
@@ -50,5 +52,7 @@
     [exploreBtn]="true"
     [playBtn]="false">
 </grid-rect>
+
+<adv-presentor *ngIf="!isLogedIn" [type]="'wide'"></adv-presentor>
 
 <footer-section></footer-section>

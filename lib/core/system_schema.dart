@@ -257,6 +257,20 @@ class SystemSchema
 		DbField('user_manager', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
+  static List<DbField> advertisement = 
+	[
+		DbField('title'),
+    DbField('type', dataType: DataType.string, fieldType: FieldType.select, subFields: [
+      DbField('wide', customTitle: 'wide 940*300', strvalue: 'wide'),
+      DbField('square', customTitle: 'square 400*400', strvalue: 'square'),
+    ]),
+    DbField('views', dataType: DataType.int, isDisable: true),
+    DbField('clicks', dataType: DataType.int, isDisable: true),
+    DbField('link'),
+		DbField('imgStamp', isHide: true),
+		DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
+	];
+
 	static List<DbField> slide = 
 	[
 		DbField('showDetail', dataType: DataType.bool, fieldType: FieldType.checkbox),
