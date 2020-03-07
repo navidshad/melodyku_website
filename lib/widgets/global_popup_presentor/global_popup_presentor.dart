@@ -41,6 +41,7 @@ class GlobalPopupPresentor
 		switcher = SectionSwitcher(
 		[
 		  el.querySelector('#globalPlaylistInjector'),
+		  el.querySelector('#globalUserPlaylistInjector'),
 		  el.querySelector('#globalMediaPackInjector'),
 		]);
 	}

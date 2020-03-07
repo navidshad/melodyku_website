@@ -1,32 +1,55 @@
-<div class="base">
+<div class="base" 
+	extractor (onExtract)="getElement($event)"
+	[direction]="lang.getDir()">
 
-	<div class="header flex-row flex-space-between">
+	<div id="playlistsView">
+		<div class="header flex-row flex-space-between">
 
-		<h4>SaveTo ...</h4>
+			<h4>{{lang.getStr('saveTo')}}</h4>
 
-		<div class="btn-sl-x"
-			(click)="popupService.closePopups()">close</div>
+			<div class="btn-sl-x" (click)="switcher.show('addNewView')">{{lang.getStr('addNew')}}</div>
 
-	</div>
+		</div>
 
-	<div class="lists"
-		[direction]="lang.getDir()">
+		<div class="lists">
 
-		<div class="list flex-row flex-space-between unselectable"
-			*ngFor="let pl of playlists"
-			(click)="pl.addOrRemoveById(songid)">
-			<!-- checkbox -->
-			<div class="checkbox">
-				<input class="w3-radio" type="checkbox" [ngModel]="pl.have(songid)" disabled>
-			</div>
+			<div class="list flex-row flex-space-between unselectable" *ngFor="let pl of playlists"
+				(click)="pl.addOrRemoveById(songid)">
+				<!-- checkbox -->
+				<div class="checkbox">
+					<input class="w3-radio" type="checkbox" 
+						[ngModel]="pl.have(songid)" disabled>
+				</div>
 
-			<div>
-				<h5>{{lang.getLocalValue(pl.localTitle)}}</h5>
-			</div>
+				<div>
+					<h5>{{(lang.getLocalValue(pl.localTitle) == '') ? pl.title : lang.getLocalValue(pl.localTitle)}}</h5>
+				</div>
 
-			<div class="pending" [hidden]="!pl.pending">
-				<img src="/assets/svg/loading_cycle.svg">
+				<div class="pending" [hidden]="!pl.pending">
+					<img src="/assets/svg/loading_cycle.svg">
+				</div>
 			</div>
 		</div>
+
+		<div class="footer flex-row flex-center">
+			<div class="btn-sl-x" (click)="popupService.closePopups()">{{lang.getStr('close')}}</div>
+		</div>
 	</div>
+
+	<div id="addNewView">
+		<div class="header flex-row flex-space-between">
+
+			<h4>{{lang.getStr('addNew')}}</h4>
+
+			<div class="btn-sl-x" (click)="switcher.show('playlistsView')">{{lang.getStr('back')}}</div>
+
+		</div>
+
+		<div class="input-section flex-column flex-center" [direction]="lang.getDir()">
+			<input #newInput class="input-text" type="text" placeholder="{{lang.getStr('typePlaylistTitle')}}">
+
+			<div class="btn-sl-x" (click)="createNewList(newInput.value); newInput.value = ''">{{lang.getStr('submit')}}</div>
+		</div>
+	</div>
+
 </div>

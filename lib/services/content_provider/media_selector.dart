@@ -272,6 +272,21 @@ class MediaSelector {
     return navigator;
   }
 
+  Future<ResultWithNavigator> userplaylist_getList(
+      {int page = 1,
+      int total = 15,
+      Map<String, dynamic> query = const {}}) async {
+    Map queryTemp = {'refId': _mongoDBService.user.id };
+    queryTemp.addAll(query);
+
+    ResultWithNavigator navigator =
+        ResultWithNavigator<UserPlaylist>(customQuery: queryTemp, perPage: total);
+
+    await navigator.loadNextPage(goto: page);
+
+    return navigator;
+  }
+
   // media pack -------------------------------------------
   Future<MediaPack> mediaPack_get({String id, String title}) {
     Map query = {};

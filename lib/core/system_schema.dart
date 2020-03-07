@@ -124,6 +124,34 @@ class SystemSchema
       	DbField('isActive', dataType: DataType.bool, fieldType: FieldType.checkbox),
 	];
 
+  static List<DbField> user_playlist =
+	[
+		DbField('title', isLowerCase: true),
+      	DbField('description', fieldType: FieldType.textbox),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+      	DbField('list', dataType: DataType.array_string, fieldType: FieldType.showLength, subFields: []),
+      	DbField('imgStamp', isDisable:true),
+      	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+      	DbField('refId'),
+	];
+
+  static List<DbField> user_playlist_populateVer =
+	[
+		DbField('title', isLowerCase: true),
+      	DbField('description', fieldType: FieldType.textbox),
+      	DbField('local_title', dataType: DataType.object, fieldType: FieldType.object, subFields: []),
+      	DbField('categories', dataType: DataType.array_string, fieldType: FieldType.multiSelect, subFields: []),
+      	DbField('list', dataType: DataType.array_object, fieldType: FieldType.showLength, subFields: SystemSchema.song_populateVer),
+      	DbField('imgStamp', isDisable:true),
+      	DbField('forGenerator', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitMode', dataType: DataType.bool, fieldType: FieldType.checkbox),
+      	DbField('limitation', dataType: DataType.int, fieldType: FieldType.number),
+        DbField('refId'),
+	];
+
 	static List<DbField> mediaPack =
 	[
 		DbField('title', isLowerCase: true),

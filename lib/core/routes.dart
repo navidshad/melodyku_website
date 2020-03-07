@@ -34,6 +34,7 @@ import 'package:melodyku/src/pages/p_multi_categorizing/archive_multi_categorizi
 import 'package:melodyku/src/pages/p_archive_convert/archive_convert_page.template.dart' as archive_convert_template;
 import 'package:melodyku/src/pages/p_downloads/downloads_page.template.dart' as downloads_template;
 import 'package:melodyku/src/pages/p_favorites/favorites_page.template.dart' as favorites_template;
+import 'package:melodyku/src/pages/p_my_playlists/my_playlists_page.template.dart' as my_playlists_template;
 import 'package:melodyku/src/pages/p_history/history_page.template.dart' as history_template;
 import 'package:melodyku/src/pages/p_profile/profile_page.template.dart' as profile_template;
 import 'package:melodyku/src/pages/p_users/users_page.template.dart' as users_template;
@@ -51,6 +52,7 @@ import 'package:melodyku/src/pages/p_advertisement/advertisement_page.template.d
 import 'package:melodyku/src/pages/s_artist/artist_page.template.dart' as artsit_template;
 import 'package:melodyku/src/pages/s_album/album_page.template.dart' as album_template;
 import 'package:melodyku/src/pages/s_playlist/playlist_page.template.dart' as playlist_template;
+import 'package:melodyku/src/pages/s_user_playlist/user_playlist_page.template.dart' as user_playlist_template;
 import 'package:melodyku/src/pages/s_search/search_page.template.dart' as search_template;
 import 'package:melodyku/src/pages/s_category/category_page.template.dart' as category_template;
 
@@ -157,6 +159,17 @@ Map<String, PageDefinition> pageDefinitions =
                       component: favorites_template.FavoritesPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/favorites.png',
+  ),
+
+  'myPlaylists' : PageDefinition(
+    title         : 'myPlaylists',
+    position      : MenuPosition.profileDrawer,
+    permissionType: PermissionType.customer_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'myPlaylists'),
+                      component: my_playlists_template.MyPlaylistsPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/playlists.png',
   ),
 
   'history' : PageDefinition(
@@ -434,6 +447,17 @@ Map<String, PageDefinition> pageDefinitions =
     route         : RouteDefinition(
                       routePath: RoutePath(path: 'playlist/:id'),
                       component: playlist_template.PlaylistPageNgFactory,
+                    ),
+    iconImgRef    : 'assets/imgs/icons/more.png',
+  ),
+
+  'user-playlist' : PageDefinition(
+    title         : 'playlist',
+    position      : MenuPosition.none,
+    permissionType: PermissionType.anonymous_access,
+    route         : RouteDefinition(
+                      routePath: RoutePath(path: 'user-playlist/:id'),
+                      component: user_playlist_template.UserPlaylistPageNgFactory,
                     ),
     iconImgRef    : 'assets/imgs/icons/more.png',
   ),

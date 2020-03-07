@@ -2,6 +2,7 @@
 library messageService;
 
 import 'dart:async';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:melodyku/core/utility/stream_detail.dart';
 export 'package:melodyku/core/utility/stream_detail.dart';
@@ -15,8 +16,8 @@ class MessageService
 
   MessageService()
   {
-    _messageController = StreamController<MessageDetail>();
-    _broadCast = _messageController.stream.asBroadcastStream();
+    _messageController = BehaviorSubject<MessageDetail>();
+    _broadCast = _messageController.stream;
   }
 
   void send(MessageDetail message) 
@@ -38,9 +39,11 @@ class MessageService
       }
 
     // add new listener
-    if(!isAdded) _addNewListener(name, fn);
+    // if(!isAdded) _addNewListener(name, fn);
     // if added then cancell all listeners and add again
-    else _reCreateListeners();
+    // else _reCreateListeners();
+
+    _addNewListener(name, fn);
   }
 
   void _reCreateListeners()

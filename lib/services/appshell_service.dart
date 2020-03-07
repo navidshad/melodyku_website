@@ -14,7 +14,7 @@ class AppshellService
 	UserService _userService;
 	AnalyticService _analytic;
 	LanguageService lang;
-  	PureChatAPI purechatAPI;
+  PureChatAPI purechatAPI;
 
 	String version = '';
 	String serverVersion;
@@ -25,9 +25,9 @@ class AppshellService
 		getVersion();
 
 		_userService.loginEvent.listen(onLoginEvent);
-    	getPureChatApi().then((api) => purechatAPI = api);
+    getPureChatApi().then((api) => purechatAPI = api);
 
-    	registerListeners();
+    registerListeners();
 	}
 
 	void onLoginEvent(bool isLoggedIn)

@@ -1,7 +1,13 @@
 {
-	"web-client": "0.9.7",
+	"web-client": "1.0.0",
 
 	"log": {
+
+		"1.0.0": [
+			"added random choose ability for player when no song left to play.",
+			"added advertisement system.",
+			"added user playlists, they can make thei own playlists"
+		],
 
 		"0.9.8": [
 			"added CTA for register",

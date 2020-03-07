@@ -10,6 +10,14 @@
 			</playlistInjector>
 		</div>
 
+		<div id="globalUserPlaylistInjector">
+			<playlistInjector
+				*ngIf="currentid == 'globalUserPlaylistInjector'"
+				[songid]="arg.toString()"
+				[isUserPlaylist]="true">
+			</playlistInjector>
+		</div>
+
 		<div id="globalMediaPackInjector">
 			<packmediaInjector
 				*ngIf="currentid == 'globalMediaPackInjector'"

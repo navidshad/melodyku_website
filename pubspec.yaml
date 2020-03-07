@@ -1,11 +1,11 @@
 name: melodyku
 description: melodyku music service website
-version: 0.9.8
+version: 1.0.0
 homepage: https://www.steryo.melodyku.com
 author: Navid shad <email@example.com>
 
 environment:
-  sdk: '>=2.5.0 <3.0.0'
+  sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
   angular: ^5.3.0
@@ -16,6 +16,7 @@ dependencies:
   js: ^0.6.1+1
   socket_io_client: ^0.9.2
   modern_charts: ^0.1.17
+  rxdart: ^0.23.1
 
 dev_dependencies:
   sass_builder: ^2.1.3

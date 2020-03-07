@@ -10,6 +10,10 @@
 	border-bottom: 1px solid grey;
 }
 
+.footer {
+	border-top: 1px solid grey;	
+}
+
 .lists{
 	min-height: 100px;
 	overflow-y: auto;
@@ -19,6 +23,15 @@
 	}
 	.list:hover{
 		background-color: darken(white, 10%);
+	}
+}
+
+.input-section{
+	padding: 40px 5px;
+
+	.input-text{
+		box-shadow: none;
+		margin-bottom: 30px;
 	}
 }
 

@@ -11,6 +11,8 @@ class MongoDBService {
   Client _http;
   UserService _userService;
 
+  User get user => _userService.user;
+
   MongoDBService(this._http, this._userService);
 
   Future<Map<String, String>> _getHeaders([isLive = true]) async {

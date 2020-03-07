@@ -1,0 +1,11 @@
+<grid-rect
+    [title]="lang.getStr('playlists')"
+    [items]="allList"
+    [exploreBtn]="true"
+    [playBtn]="false">
+</grid-rect>
+
+<div class="load-more" *ngIf="navigator != null && navigator.hasMore">
+    <div class="btn-sl margin-h-20" 
+    (click)="navigator.loadNextPage()">{{lang.getStr('more')}}</div>
+</div>

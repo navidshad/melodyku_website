@@ -8,11 +8,14 @@ class PlaylistEditor extends Playlist
 	List<String> listIds;
 
 	bool pending = false;
+  	String refId;
 	MongoDBService _mongodb;
 
 	PlaylistEditor({
 		String id, String title, Map localTitle, List<String> categories, 
-		List<Song> list, bool limitMode, int limitation, this.listIds=const[]
+		List<Song> list, bool limitMode, int limitation, 
+    this.listIds=const[],
+    this.refId,
 	}):super(
 		id:id, title:title, localTitle:localTitle, 
 		list:list, limitMode:limitMode, limitation:limitation
@@ -21,7 +24,7 @@ class PlaylistEditor extends Playlist
 		_mongodb = Injector.get<MongoDBService>();
 	}
 
-	factory PlaylistEditor.fromMap(Map detail, { bool listContainesSongs=false })
+	factory PlaylistEditor.fromMap(Map detail, { bool listContainesSongs=false, isUserPlaylist=false })
 	{
 		PlaylistEditor pl;
 
@@ -35,6 +38,9 @@ class PlaylistEditor extends Playlist
 				limitMode	: detail['limitMode'],
 				limitation	: detail['limitation'],
 			);
+
+			if(isUserPlaylist)
+				pl.refId = detail['refId'];
 
 			if(listContainesSongs) 
 			{
@@ -61,6 +67,16 @@ class PlaylistEditor extends Playlist
 
 	bool have(String songId) => listIds.contains(songId);
 
+  Map get query {
+    Map q = {'_id': id};
+    if(refId != null) q['refId'] = refId;
+    return q;
+  }
+
+  String get collection {
+    return (refId != null) ? 'user_playlist' : 'playlist';
+  }
+
 	void addOrRemoveById(String songId) async
 	{
 		if(pending) return;
@@ -80,12 +96,11 @@ class PlaylistEditor extends Playlist
 		}
 
 		// add song to list
-		Map query = { '_id': id };
 		Map update = { '\$addToSet': { 'list': songId } };
 
 		return _mongodb.updateOne(
 			isLive: true, 
-			database:'media', collection: 'playlist', 
+			database:'media', collection: collection, 
 			query:query , update: update)
 
 			.then((r) {
@@ -96,12 +111,11 @@ class PlaylistEditor extends Playlist
 
 	Future<dynamic> removeById(String songId)
 	{
-		Map query = { '_id': id };
 		Map update = { '\$pull': { 'list': songId } };
 
 		return _mongodb.updateOne(
 			isLive: true, 
-			database:'media', collection: 'playlist', 
+			database:'media', collection: collection, 
 			query:query , update: update)
 
 			.then((r) {
