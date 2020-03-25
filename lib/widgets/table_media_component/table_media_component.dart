@@ -11,49 +11,57 @@ import 'package:melodyku/archive/archive.dart';
 import 'package:melodyku/pips/pips.dart';
 
 @Component(
-  selector: 'table-media',
-  templateUrl: 'table_media_component.html',
-  styleUrls: ['table_media_component.css'],
-  directives: [
-    coreDirectives,
-    MediaCoverComponent,
-    ButtonRounded,
-    DirectionDirective,
-    ButtonDownloadSong,
-    WidgetLoading,
-    PopMenuComponent,
-  ],
-  pipes: [
-    UpFirstCharsPipe
-  ],
-  exports: [
-    getSongMenuItems,
-    getSongMenuItemsCount,
-  ]
-)
-class TableSong implements OnChanges
-{
+    selector: 'table-media',
+    templateUrl: 'table_media_component.html',
+    styleUrls: [
+      'table_media_component.css'
+    ],
+    directives: [
+      coreDirectives,
+      MediaCoverComponent,
+      ButtonRounded,
+      DirectionDirective,
+      ButtonDownloadSong,
+      WidgetLoading,
+      PopMenuComponent,
+    ],
+    pipes: [
+      UpFirstCharsPipe
+    ],
+    exports: [
+      getSongMenuItems,
+      getSongMenuItemsCount,
+    ])
+class TableSong implements OnChanges {
   PlayerService _playerService;
   Player _player;
   LanguageService lang;
   UserService _userService;
-  
+
   String title = '';
   List<Song> list;
 
+  List<List<PopupButtonOptions>> popupButtonOptionsList = [];
+
   TableSong(this.lang, this._playerService, this._player, this._userService);
 
-  void ngOnChanges(Map<String, SimpleChange> changes)
-  {
-    if(navigator != null) navigator.onUpdated.listen((key) => list = navigator.list);
+  void ngOnChanges(Map<String, SimpleChange> changes) {
+    if (navigator != null)
+      navigator.onUpdated.listen((key) {
+        list = navigator.list;
+
+        popupButtonOptionsList = [];
+        list.forEach((song) {
+          popupButtonOptionsList.add(getSongMenuItems(song));
+        });
+      });
   }
 
   @Input('songNavigator')
   ResultWithNavigator<Song> navigator;
 
   @Input('songs')
-  set setSongs(List<Song> value)
-  {
+  set setSongs(List<Song> value) {
     list = value;
   }
 
@@ -71,19 +79,17 @@ class TableSong implements OnChanges
 
   int hoverNumber = -1;
 
-  int get selectedNumber 
-  {
+  int get selectedNumber {
     int selected = -1;
-    for(int i =0; i < list.length; i++) {
-      if(_player.current?.id == list[i].id) 
-        selected = i;
-    };
+    for (int i = 0; i < list.length; i++) {
+      if (_player.current?.id == list[i].id) selected = i;
+    }
+    ;
 
     return selected;
   }
 
-  void getMore()
-  {
+  void getMore() {
     navigator.loadNextPage();
   }
 
@@ -98,18 +104,15 @@ class TableSong implements OnChanges
 
   bool get isLogedIn => _userService.isLogedIn;
 
-  bool getAccessToShowMore()
-  {
+  bool getAccessToShowMore() {
     bool key = true;
 
-    if(hideMore != null) 
-      key = !hideMore;
+    if (hideMore != null) key = !hideMore;
 
     return key;
   }
 
-  ActionButton getCloneButton(ActionButton ab)
-  {
+  ActionButton getCloneButton(ActionButton ab) {
     ActionButton newBtn = ActionButton(title: ab.title, onEvent: ab.onEvent);
     return newBtn;
   }

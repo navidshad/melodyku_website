@@ -1,4 +1,4 @@
-import {Workbox} from 'https://melodyku.ir/workbox-window/build/workbox-window.prod.mjs';
+import {Workbox} from 'https://melodyko.ir/workbox-window/build/workbox-window.prod.mjs';
 
 if ('serviceWorker' in navigator) 
 {

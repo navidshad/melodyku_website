@@ -12,6 +12,10 @@ import 'package:melodyku/archive/archive.dart';
 
 int getSongMenuItemsCount() => getSongMenuItems(null).length;
 List<PopupButtonOptions> getSongMenuItems(Song item) {
+  
+  //print('getSongMenuItems');
+  //window.console.error('getSongMenuItems');
+
   List<PopupButtonOptions> list = [
     PopupButtonOptions(
         lableSku: 'addToPlayingList',

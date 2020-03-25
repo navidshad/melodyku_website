@@ -30,7 +30,7 @@ import 'package:melodyku/directives/directives.dart';
     getSongMenuItemsCount,
   ]
 )
-class CardWideComponent 
+class CardWideComponent implements OnInit
 {
   LanguageService lang;
   Player _player;
@@ -63,6 +63,8 @@ class CardWideComponent
   @Input()
   bool showPopupButtons = false;
 
+  List<PopupButtonOptions> popupButtonOptions = [];
+
   int hoverIndex = -1;
 
   int get selectedIndex {
@@ -73,6 +75,11 @@ class CardWideComponent
   }
 
   CardWideComponent(this.lang, this._playerService, this._player, this._userService);
+
+  void ngOnInit() {
+    print('on init card wide ------------------------');
+    popupButtonOptions = getSongMenuItems(item.origin);
+  }
 
   void play() {
     if(item.type == ArchiveTypes.song)

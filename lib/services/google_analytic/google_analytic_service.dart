@@ -8,7 +8,7 @@ import 'package:melodyku/payment/payment.dart';
 
 class AnalyticService {
 
-	String trackID = 'UA-133720746-2';
+	String trackID =  'G-W3GJKPRMNW';// 'UA-133720746-2';
 	UserService _userService;
 
 	AnalyticService(this._userService)
